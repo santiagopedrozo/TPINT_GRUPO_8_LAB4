@@ -5,6 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Iniciar sesión</title>
+<%@ include file="MasterPage.html" %>
 </head>
 <body>
 <H1> <b>  <p style="text-align:center;">Bienvenido al banco Brusafa, su banco de confianza! </b></H1>
