@@ -8,7 +8,7 @@
 <%@ include file="MasterPage.html" %>
 </head>
 <body>
-<H1> <b>  <p style="text-align:center;">Bienvenido al banco Brusafa, su banco de confianza! </b></H1>
+<H1> <b>  <p style="text-align:center;">Bienvenido al banco Brusafa, tu banco de confianza! </b></H1>
 <p style="text-align:center;"> Ingrese sus credenciales para poder ingresar
 <br> <br>
 Usuario:  <input type="text" placeholder="Ingrese usuario" name="txtUsuario" />

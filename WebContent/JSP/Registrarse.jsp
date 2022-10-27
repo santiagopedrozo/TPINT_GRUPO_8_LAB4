@@ -8,7 +8,7 @@
 <body>
 <H1> <b> <p style="text-align:center;"> Registrarse </b></H1>
 <p style="text-align:center;">
-DNI  <input type="text" placeholder="Ingrese DNI" name="txtDNI" />  <br> <br> 
+DNI  <input type="number" placeholder="Ingrese DNI" name="txtDNI" />  <br> <br> 
 CUIL:  <input type="text" placeholder="Ingrese CUIL" name="txtCUIL" /> <br> <br>
 Nombre:  <input type="text" placeholder="Ingrese nombre" name="txtNombre" /> <br> <br>
 Apellido:  <input type="text" placeholder="Ingrese apellido" name="txtApellido" /> <br> <br>
