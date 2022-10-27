@@ -8,6 +8,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<H1> <b> Bienvenido: Usuario  </b></H1>
+<H2> Bienvenido: Usuario </H2>
 </body>
 </html>

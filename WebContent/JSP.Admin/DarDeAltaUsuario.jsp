@@ -6,7 +6,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 </head>
 <body>
-<H1> <b> <p style="text-align:center;"> Registrarse </b></H1>
+<H1> <b> <p style="text-align:center;"> Dar de alta usuario </b></H1>
+<form method="get" action="Inicio.jsp">
 <p style="text-align:center;">
 DNI  <input type="number" placeholder="Ingrese DNI" name="txtDNI" />  <br> <br> 
 CUIL:  <input type="text" placeholder="Ingrese CUIL" name="txtCUIL" /> <br> <br>
@@ -26,7 +27,9 @@ Correo electrónico:  <input type="email" placeholder="Ingrese correo electrónico
 Teléfono:  <input type="number" placeholder="Ingrese teléfono" name="txtTelefono" /> <br> <br>
 Usuario:  <input type="text" placeholder="Ingrese usuario" name="txtUsuario" /> <br> <br>
 Contraseña:  <input type="password" placeholder="Ingrese contraseña" name= "txtContraseña" /> <br> <br>
-<input type="submit" name="btnRegistrarse" value="Registrarse"/>
+<input type="submit" name="btnRegistrarse" value="Crear usuario"/>
+</p>
+</form>
 
 </body>
 </html>
