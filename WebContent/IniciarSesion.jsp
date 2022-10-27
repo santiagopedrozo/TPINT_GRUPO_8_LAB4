@@ -5,15 +5,15 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Iniciar sesión</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-    <script src="https://kit.fontawesome.com/3c33daaf69.js" crossorigin="anonymous"></script>   
 </head>
 <body>
-<h1>soy un html con boots y </h1>
-<p><i class="fa-solid fa-coffee fa-2xl"></i> </p>
-
-
+<H1> <b>  <p style="text-align:center;">Bienvenido al banco Brusafa, su banco de confianza! </b></H1>
+<p style="text-align:center;"> Ingrese sus credenciales para poder ingresar
+<br> <br>
+Usuario:  <input type="text" placeholder="Ingrese usuario" name="txtUsuario" />
+<br> <br>
+Contraseña:  <input type="password" placeholder="Ingrese contraseña" name= "txtContraseña" />
+<br> <br>
+<input type="submit" name= "btnIniciar" value="Iniciar sesión"/> <br> <br> <a href="Registrarse.jsp">¿No tiene una cuenta? ¡Regístrese!</a> 
 </body>
 </html>
