@@ -13,7 +13,7 @@
 DNI:  <label for="lblDNI" > 44222222</label>  <br> <br> 
 CUIL:  <label for="lblCUIL" >20442222228</label> <br> <br>
 Nombre:  <label for="lblNombre" >Juan</label><br> <br>
-Apellido:  <<label for="lblApellido" >Pérez</label><br> <br>
+Apellido:  <label for="lblApellido"> Pérez</label><br> <br>
 Sexo:  <label for="lblSexo">Masculino</label><br> <br>
 Nacionalidad: <label for="lblNacionalidad">Argentina</label> <br> <br> 
 Fecha de nacimiento:  <label for="Fecha">11/11/2002 </label> <br> <br>
