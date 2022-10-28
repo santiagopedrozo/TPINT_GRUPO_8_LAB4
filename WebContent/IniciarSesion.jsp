@@ -7,13 +7,16 @@
 <title>Iniciar sesión</title>
 </head>
 <body>
-<H1> <b>  <p style="text-align:center;">Bienvenido al banco Brusafa, su banco de confianza! </b></H1>
+<H1> <b>  <p style="text-align:center;">Bienvenido al banco Brusafa, tu banco de confianza! </b></H1>
+<form method="get" action="Inicio.jsp">
 <p style="text-align:center;"> Ingrese sus credenciales para poder ingresar
 <br> <br>
 Usuario:  <input type="text" placeholder="Ingrese usuario" name="txtUsuario" />
 <br> <br>
 Contraseña:  <input type="password" placeholder="Ingrese contraseña" name= "txtContraseña" />
 <br> <br>
-<input type="submit" name= "btnIniciar" value="Iniciar sesión"/> <br> <br> <a href="Registrarse.jsp">¿No tiene una cuenta? ¡Regístrese!</a> 
+<input type="submit" name= "btnIniciar" value="Iniciar sesión"/>  
+</p>
+</form>
 </body>
 </html>
