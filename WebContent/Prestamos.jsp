@@ -20,7 +20,7 @@ Movimiento a realizar: <br>
 </form>
 
 <%
-String valorRadio="0";
+String valorRadio="1";
 if (request.getParameter("btnPrestamo")!=null){
 	valorRadio=request.getParameter("rbPrestamo");
 }
@@ -43,7 +43,7 @@ Cuenta destino: <select  name="ddlCuentaOrigenPrestamo"> </select> <br>  <br>
 Cuotas restantes por pagar: <select name="ddlCuotas"> </select> <br> <br>
 Importe de la cuota: <label for="lblCuota"> $1200.56</label> <br> <br>
 Cuenta origen para debitar: <select  name="ddlCuentaOrigenDebito"> </select> <br>  <br>
-<input type="submit" name= "btnPedirPrestamo" value="Solicitar préstamo">
+<input type="submit" name= "btnPagarCuota" value="Pagar">
 
 
 
