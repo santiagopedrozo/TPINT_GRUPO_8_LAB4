@@ -11,7 +11,7 @@ CREATE TABLE Provincias
 	Descripcion_Prov VARCHAR(50) NOT NULL,
 
 	CONSTRAINT PK_PROVINCIAS PRIMARY KEY (IdProvincia_Prov)
-)  ;
+);
 
 CREATE TABLE Localidades(
 	IdProvincia_Loc int NOT NULL,
@@ -57,13 +57,14 @@ CREATE TABLE TipoCuentas(
 );
 
 
+
 CREATE TABLE Cuentas(
 	Nro_Cuentas VARCHAR(5) NOT NULL,
     DNI_Cuentas CHAR(10) NOT NULL,
     FechaCreacion_Cuentas TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     IdTipoCuenta_Cuentas INT NOT NULL,
-    CBU VARCHAR(16) NOT NULL UNIQUE,
-    Saldo_Cuentas DECIMAL NOT NULL DEFAULT 10000.0,
+    CBU VARCHAR(22) NOT NULL UNIQUE,
+    Saldo_Cuentas DECIMAL(15,2) NOT NULL DEFAULT 10000.0,
     Estado_Cuentas BIT DEFAULT 1,
     
     CONSTRAINT PK_CUENTAS PRIMARY KEY(Nro_Cuentas),
@@ -73,16 +74,20 @@ CREATE TABLE Cuentas(
 		REFERENCES TipoCuentas(Id_TipoCuenta)
 );
 
+
+
+
+
 CREATE TABLE Prestamos(
 	Id_Pr INT auto_increment NOT NULL,
     DNI_Pr CHAR(10) NOT NULL,
     NroCuentaDestino_Pr VARCHAR(5) NOT NULL,
     Autorizado_Pr BIT NOT NULL DEFAULT 0 , -- 1 AUTORIZADO, 0 NO AUTORIZADO
     FechaSolicitado_Pr TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    ImpSolicitado_Pr DECIMAL NOT NULL,
-    ImpResultante_Pr DECIMAL NOT NULL,
+    ImpSolicitado_Pr DECIMAL(15,2)  NOT NULL,
+    ImpResultante_Pr DECIMAL(15,2)  NOT NULL,
     PlazoMeses_Pr INT NOT NULL,
-    ImpPagoAlMes_Pr DECIMAL NOT NULL,
+    ImpPagoAlMes_Pr DECIMAL(15,2)  NOT NULL,
     CantCuotas_Pr INT NOT NULL,
     
     CONSTRAINT PK_PRESTAMOS PRIMARY KEY(Id_Pr),
@@ -99,6 +104,7 @@ CREATE TABLE TiposMovimientos(
 	
     CONSTRAINT PK_TiposMovimientos PRIMARY KEY(Id_TiposMov)
 );
+
 
 CREATE TABLE Movimientos(
 	Id_Mov INT auto_increment NOT NULL,
@@ -2546,3 +2552,30 @@ Telefono_Usr ,Tipo_Usr, Usuario_Usr,Contrasenia_Usr, Estado_Usr) VALUES
  (40900800,20409008008,'Fransisco', 'Leston', 'MASCULINO', 'Argentino', "1999-08-08", 'Monseñor Larumbe', 11, 1319,'pancho@hotmail.com',1144554411, 0,'pancho','francisco123',1),
  (35000222,20350002228,'Brusafa', 'Admin', 'MASCULINO', 'Argentino', "1980-01-01", 'Adrogué 223', 13, 1422,'brusafa@hotmail.com',1166666666, 1,'adminbrusafa','adminbrusafa',1);
 
+
+INSERT INTO TipoCuentas (Descripcion_TipoCuenta) VALUES
+('Caja de ahorro'),
+('Cuenta corriente');
+
+INSERT INTO Cuentas (Nro_Cuentas ,DNI_Cuentas, IdTipoCuenta_Cuentas,CBU, Saldo_Cuentas, Estado_Cuentas) VALUES
+ (1000, 44298830, 1, 11223344556677889900, 50000, 1),
+ (1001, 44298829, 2, 54768439201928374651, 40100, 1),
+ (1002, 44298830, 2, 40645090235940530950, 3000.54, 1),
+ (1003, 44666777, 1, 32657481920304958676, 100000, 1),
+ (1004, 44666777, 2, 17283940596877584930, 30231.550, 1),
+ (1005, 40334556, 1, 52345678594837261523, 55000, 1),
+ (1006, 44567566, 2, 63459459234596905030, 33000.99, 1),
+ (1007, 41000999, 1, 12341234123412412356, 231222, 1),
+ (1008, 41000999, 2, 33223344115566778855, 100400.43, 1),
+ (1009, 40400500, 1, 53455647765887691234, 550000.3, 1),
+ (1010, 44298830, 1, 55664455556644555566, 134000.65, 1),
+ (1011, 40900800, 2, 12334523456743512356, 60500, 1),
+ (1012, 44768845, 1, 21429387239801243867, 135000.5, 1),
+ (1013, 44768845, 2, 12328396475328948923, 30402.3, 1),
+ (1014, 42456879, 1, 12458234975394859399, 55670.45, 1);
+ 
+INSERT INTO TiposMovimientos(Descripcion_TiposMov) VALUES
+('Alta de cuenta'),
+('Alta de préstamo'),
+('Pago de préstamo'),
+('Transferencia');
