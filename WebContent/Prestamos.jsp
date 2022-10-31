@@ -39,8 +39,14 @@ Cuenta destino: <select  name="ddlCuentaOrigenPrestamo"> </select> <br>  <br>
 
 
 <%} else if (valorRadio.equals("2")){  %> 
-
-Cuotas restantes por pagar: <select name="ddlCuotas"> </select> <br> <br>
+Préstamo: <select name="ddlPrestamo">
+	<option> Prestamo 1 </option>
+	<option> Prestamo 2 </option>
+	<option> Prestamo 3 </option>
+ </select>
+<input type="submit" name= "btnSeleccionar préstamo" value="Seleccionar préstamo">
+<br> <br>
+Cuotas siguiente por pagar: 3 <br> <br> 
 Importe de la cuota: <label for="lblCuota"> $1200.56</label> <br> <br>
 Cuenta origen para debitar: <select  name="ddlCuentaOrigenDebito"> </select> <br>  <br>
 <input type="submit" name= "btnPagarCuota" value="Pagar">
