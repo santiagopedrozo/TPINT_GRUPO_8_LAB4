@@ -13,7 +13,6 @@
 </head>
 <body>
 
-	<%@ include file="MasterPage.html" %>
 		<H1> <b>  <p style="text-align:center;">Bienvenido al banco Brusafa, tu banco de confianza! </b></H1>
 <form method="get" action="Inicio.jsp">
 <p style="text-align:center;"> Ingrese sus credenciales para poder ingresar

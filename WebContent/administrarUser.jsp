@@ -10,7 +10,7 @@
 
 </head>
 <body>
-<%@ include file="MasterPage.html" %>
+<%@ include file="MasterPageAdmin.html" %>
 <br>
     <div class="container-fluid" style="width:90%;">
         <div class="card text-center">
@@ -21,13 +21,13 @@
                       <th> </th> 
                       <th>DNI</th>   
                       <th>CUIL</th> 
-                      <th>tipo cuenta</th> 
+                      <th>Tipo de cuenta</th> 
                       <th>Contraseña</th>
                       <th>Nombre</th> 
                       <th>Apellido</th>
                       <th>Sexo</th> 
                       <th>Nacionalidad</th> 
-                      <th>Telefono</th> 
+                      <th>Teléfono</th> 
                       <th>Nacimiento</th> 
                       <th>Dirección</th>
                       <th>Provincia</th>
@@ -46,17 +46,17 @@
                         </th>  
                         <td>44724905</td>  
                         <td>20447249058</td>
-                        <td>estandar</td>
+                        <td>Estándar</td>
                         <td>Messi2022</td>  
-                        <td>santiago</td>  
-                        <td>pedrozo</td> 
+                        <td>Santiago</td>  
+                        <td>Pedrozo</td> 
                         <td>femenino</td>
                         <td>Mexicano</td>
                         <td>1122112211</td>
                         <td>23/01/2003</td>
-                        <td>juncal 2468</td>
-                        <td>Buenos aires</td>
-                        <td>san fernando</td>
+                        <td>Juncal 2468</td>
+                        <td>Buenos Aires</td>
+                        <td>San Fernando</td>
                     </tr>
                 </tbody>
                 <tbody>
@@ -71,17 +71,17 @@
                         </th>  
                         <td>44724905</td>  
                         <td>20447249058</td>
-                        <td>estandar</td>
+                        <td>Estándar</td>
                         <td>Messi2022</td>  
-                        <td>santiago</td>  
-                        <td>pedrozo</td> 
+                        <td>Santiago</td>  
+                        <td>Pedrozo</td> 
                         <td>femenino</td>
                         <td>Mexicano</td>
                         <td>1122112211</td>
                         <td>23/01/2003</td>
-                        <td>juncal 2468</td>
-                        <td>Buenos aires</td>
-                        <td>san fernando</td>
+                        <td>Juncal 2468</td>
+                        <td>Buenos Aires</td>
+                        <td>San Fernando</td>
                     </tr>
                 </tbody>
                 <tbody>
@@ -94,19 +94,19 @@
                                 <i class="fa-solid fa-trash"></i>
                             </button>
                         </th>  
-                        <td>44724905</td>  
+                          <td>44724905</td>  
                         <td>20447249058</td>
-                        <td>estandar</td>
+                        <td>Estándar</td>
                         <td>Messi2022</td>  
-                        <td>santiago</td>  
-                        <td>pedrozo</td> 
+                        <td>Santiago</td>  
+                        <td>Pedrozo</td> 
                         <td>femenino</td>
                         <td>Mexicano</td>
                         <td>1122112211</td>
                         <td>23/01/2003</td>
-                        <td>juncal 2468</td>
-                        <td>Buenos aires</td>
-                        <td>san fernando</td>
+                        <td>Juncal 2468</td>
+                        <td>Buenos Aires</td>
+                        <td>San Fernando</td>
                     </tr>
                 </tbody>
                 <tbody>
@@ -119,19 +119,19 @@
                                 <i class="fa-solid fa-trash"></i>
                             </button>
                         </th>  
-                        <td>44724905</td>  
+                          <td>44724905</td>  
                         <td>20447249058</td>
-                        <td>estandar</td>
+                        <td>Estándar</td>
                         <td>Messi2022</td>  
-                        <td>santiago</td>  
-                        <td>pedrozo</td> 
+                        <td>Santiago</td>  
+                        <td>Pedrozo</td> 
                         <td>femenino</td>
                         <td>Mexicano</td>
                         <td>1122112211</td>
                         <td>23/01/2003</td>
-                        <td>juncal 2468</td>
-                        <td>Buenos aires</td>
-                        <td>san fernando</td>
+                        <td>Juncal 2468</td>
+                        <td>Buenos Aires</td>
+                        <td>San Fernando</td>
                     </tr>
                 </tbody>
 
@@ -264,7 +264,7 @@
                         <div class="form-floating">
                             <select name="" id="" class="form-select" id="floatingInput" placeholder="-">
                                 <option value="">Buenos aires</option>
-                                <option value="">Cordoba</option>
+                                <option value="">Córdoba</option>
                             </select>
                             <label for="floatingSelect">Provincia</label>
                         </div>

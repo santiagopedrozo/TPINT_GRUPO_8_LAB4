@@ -7,7 +7,7 @@
 <title>Administración cuentas</title>
 </head>
 <body>
-	<%@ include file="MasterPage.html" %>
+	<%@ include file="MasterPageAdmin.html" %>
    <br>
   <div class="container-fluid" style="width:70%;">
     <div class="card text-center">
@@ -18,13 +18,13 @@
             <thead>
               <tr>
                 <th> </th>  
-                <th>tipo cuenta</th>  
+                <th>Tipo de cuenta</th>  
                 <th>CBU</th> 
-                <th>idcuenta</th>  
-                <th>dni</th>
-                <th>fecha creación</th> 
-                <th>saldo</th>
-                <th>estado</th> 
+                <th>IdCuenta</th>  
+                <th>DNI</th>
+                <th>Fecha creación</th> 
+                <th>Saldo</th>
+                <th>Estado</th> 
               </tr>
             </thead>
             <tbody>
@@ -200,9 +200,9 @@
               <div class="form-floating">
                 <select class="form-select" id="floatingSelect" aria-label="-">
                   <option selected>Elegir usuario</option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
+                  <option value="1">Uno</option>
+                  <option value="2">Dos</option>
+                  <option value="3">Tres</option>
                 </select>
                 <label for="floatingSelect">Usuario asignado</label>
               </div>
