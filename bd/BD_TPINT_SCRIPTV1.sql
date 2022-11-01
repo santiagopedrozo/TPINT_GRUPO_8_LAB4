@@ -28,7 +28,7 @@ CREATE TABLE Usuarios(
 	DNI_Usr CHAR(10) NOT NULL,
     CUIL_Usr CHAR(12) UNIQUE NOT NULL,
 	Nombre_Usr VARCHAR(20) NOT NULL,
-	Apellido_Usr VARCHAR(20),
+	Apellido_Usr VARCHAR(20) NOT NULL,
     Genero_Usr VARCHAR(10) check(Genero_Usr like 'MASCULINO' OR Genero_Usr like 'FEMENINO' OR Genero_Usr like 'INDEFINIDO'),
 	Nacionalidad_Usr VARCHAR(30) NOT NULL,
     FechaNacimiento_Usr DATE NOT NULL,
@@ -83,13 +83,13 @@ CREATE TABLE Prestamos(
 	Id_Pr INT auto_increment NOT NULL,
     DNI_Pr CHAR(10) NOT NULL,
     NroCuentaDestino_Pr VARCHAR(5) NOT NULL,
-    Autorizado_Pr BIT NOT NULL DEFAULT 0 , -- 1 AUTORIZADO, 0 NO AUTORIZADO
     FechaSolicitado_Pr TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     ImpSolicitado_Pr DECIMAL(15,2)  NOT NULL,
     ImpResultante_Pr DECIMAL(15,2)  NOT NULL,
     PlazoMeses_Pr INT NOT NULL,
     ImpPagoAlMes_Pr DECIMAL(15,2)  NOT NULL,
     CantCuotas_Pr INT NOT NULL,
+    Autorizado_Pr BIT NOT NULL DEFAULT 0, -- 1 AUTORIZADO, 0 NO AUTORIZADO
     
     CONSTRAINT PK_PRESTAMOS PRIMARY KEY(Id_Pr),
     CONSTRAINT FK_USUARIOS_PRESTAMOS FOREIGN KEY (DNI_Pr)
@@ -2559,7 +2559,7 @@ INSERT INTO TipoCuentas (Descripcion_TipoCuenta) VALUES
 ('Caja de ahorro'),
 ('Cuenta corriente');
 
-INSERT INTO Cuentas (Nro_Cuentas ,DNI_Cuentas, IdTipoCuenta_Cuentas,CBU, Saldo_Cuentas, Estado_Cuentas) VALUES
+INSERT INTO Cuentas (Nro_Cuentas ,DNI_Cuentas, IdTipoCuenta_Cuentas,CBU_Cuentas, Saldo_Cuentas, Estado_Cuentas) VALUES
  (1000, 44298830, 1, 11223344556677889900, 50000, 1),
  (1001, 44298829, 2, 54768439201928374651, 40100, 1),
  (1002, 44298830, 2, 40645090235940530950, 3000.54, 1),
@@ -2676,12 +2676,99 @@ END //
 DELIMITER ;
 
 
+
 DELIMITER //
 CREATE PROCEDURE SPEliminarCuentas (
-	IN DNI CHAR(10)
+	IN Nro CHAR(10)
 ) 
 BEGIN
-	DELETE FROM Usuario WHERE DNI_Usr = DNI;
+	DELETE FROM Usuario WHERE Nro_Cuentas = Nro;
 END //
 DELIMITER ;
 
+
+
+DELIMITER //
+CREATE PROCEDURE SPActualizarCuentas (	
+	IN Nro VARCHAR(5),
+    IN DNI CHAR(10) ,
+    IN IdTipoCuenta INT,
+    IN CBU VARCHAR(22),
+	IN Saldo DECIMAL(15,2),
+    IN Estado BIT
+)
+    
+BEGIN
+	UPDATE Cuentas 
+    SET DNI_Cuentas = DNI,
+	IdTipoCuenta_Cuentas = IdTipoCuenta,
+	CBU_Cuentas = CBU,
+    Saldo_Cuentas = Saldo,
+    Estado_Cuentas = Estado
+    WHERE Nro_Cuentas = Nro;
+END //
+DELIMITER ;
+
+
+
+-- Prestamos
+DELIMITER //
+CREATE PROCEDURE SPAgregarPrestamo(
+
+    IN DNI CHAR(10),
+    IN NroCuentaDestino VARCHAR(5),
+    IN ImpSolicitado DECIMAL(15,2),
+    IN ImpResultante DECIMAL(15,2),
+    IN PlazoMeses INT,
+    IN ImpPagoAlMes DECIMAL(15,2),
+    IN CantCuotas INT
+)
+BEGIN
+	INSERT INTO Prestamos (DNI_Pr, NroCuentaDestino_Pr, ImpSolicitado_Pr,ImpResultante_Pr, PlazoMeses_Pr, ImpPagoAlMes_Pr, CantCuotas_Pr) VALUES
+    (DNI, NroCuentaDestino, ImpSolicitado, ImpResultante, PlazoMeses, ImpPagoAlMes, CantCuotas);
+   
+END //
+DELIMITER ;
+
+
+
+DELIMITER //
+CREATE PROCEDURE SPEliminarPrestamos (
+	IN Id INT
+) 
+BEGIN
+	DELETE FROM Prestamos WHERE Id_Prestamos = Id;
+END //
+DELIMITER ;
+
+
+
+DELIMITER //
+CREATE PROCEDURE SPActualizarPrestamos (
+	IN Id INT,
+    IN DNI CHAR(10),
+    IN NroCuentaDestino VARCHAR(5),
+    IN ImpSolicitado DECIMAL(15,2),
+    IN ImpResultante DECIMAL(15,2),
+    IN PlazoMeses INT,
+    IN ImpPagoAlMes DECIMAL(15,2),
+    IN CantCuotas INT,
+	IN Estado BIT
+) 
+BEGIN
+	UPDATE Prestamos
+    SET DNI_Prestamos = DNI,
+    NroCuentaDestino_Prestamos = NroCuentaDestino,
+	ImpSolicitado_Prestamos = ImpSolicitado,
+	ImpResultante_Prestamos = ImpResultante,
+	PlazoMeses_Prestamos = PlazoMeses,
+	ImpPagoAlMes_Prestamos = ImpPagoAlMes,
+	CantCuotas_Prestamos = CantCuotas,
+	Estado_Prestamos = Estado
+    
+    WHERE Id_Prestamos = Id;
+END //
+DELIMITER ;
+
+
+	
