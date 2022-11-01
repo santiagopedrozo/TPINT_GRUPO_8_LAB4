@@ -14,7 +14,7 @@ pageEncoding="ISO-8859-1"%>
     <div class="container-fluid" style="width: 50%">
       <div class="card text-center">
         <div class="card-header">
-          <H2 style="text-align: center">Transferencias</H2>
+          <H2 style="text-align: center">Solicitar préstamo</H2>
         </div>
         <div class="card-body" style="font-size: 16px">
         	<div class="col-md-12">
@@ -73,7 +73,7 @@ pageEncoding="ISO-8859-1"%>
     <div class="container-fluid" style="width: 50%">
       <div class="card text-center">
         <div class="card-header">
-          <H2 style="text-align: center">Solicitar prestamo</H2>
+          <H2 style="text-align: center">Pagar préstamo</H2>
         </div>
         <div class="card-body" style="font-size: 13px">
           <div class="col-md-12">
