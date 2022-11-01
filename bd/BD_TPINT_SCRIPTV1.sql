@@ -1,9 +1,10 @@
 create schema bd_tpint_labiv;
 
--- drop database bd_tpint_labiv
+-- drop database bd_tpint_labiv;
 
 use bd_tpint_labiv;
 
+-- CREACION DE TABLAS
 
 CREATE TABLE Provincias
 (
@@ -29,8 +30,8 @@ CREATE TABLE Usuarios(
 	Nombre_Usr VARCHAR(20) NOT NULL,
 	Apellido_Usr VARCHAR(20),
     Genero_Usr VARCHAR(10) check(Genero_Usr like 'MASCULINO' OR Genero_Usr like 'FEMENINO' OR Genero_Usr like 'INDEFINIDO'),
-	Nacionalidad VARCHAR(30) NOT NULL,
-    FechaNacimiento_Usr DATE NULL,
+	Nacionalidad_Usr VARCHAR(30) NOT NULL,
+    FechaNacimiento_Usr DATE NOT NULL,
     Direccion_Usr VARCHAR(30) NOT NULL,
     IdProvincia_Usr INT NOT NULL,
     IdLocalidad_Usr INT NOT NULL,
@@ -63,7 +64,7 @@ CREATE TABLE Cuentas(
     DNI_Cuentas CHAR(10) NOT NULL,
     FechaCreacion_Cuentas TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     IdTipoCuenta_Cuentas INT NOT NULL,
-    CBU VARCHAR(22) NOT NULL UNIQUE,
+    CBU_Cuentas VARCHAR(22) NOT NULL UNIQUE,
     Saldo_Cuentas DECIMAL(15,2) NOT NULL DEFAULT 10000.0,
     Estado_Cuentas BIT DEFAULT 1,
     
@@ -121,6 +122,7 @@ CREATE TABLE Movimientos(
 		REFERENCES TiposMovimientos(Id_TiposMov)
 );
 
+-- AGREGADO DE REGISTROS
 
 INSERT INTO Provincias (IdProvincia_Prov, Descripcion_Prov) VALUES
 (1, 'Buenos Aires'),
@@ -2533,7 +2535,7 @@ INSERT INTO Localidades (IdLocalidad_Loc, IdProvincia_Loc, Descripcion_Loc) VALU
 (2381, 25, 'Yerba Buena'),
 (2382, 25, 'Yerba Buena (S)');
 
-INSERT INTO Usuarios (DNI_Usr,CUIL_Usr,Nombre_Usr ,Apellido_Usr ,Genero_Usr ,Nacionalidad,FechaNacimiento_Usr ,Direccion_Usr ,IdProvincia_Usr ,IdLocalidad_Usr , Email_Usr,
+INSERT INTO Usuarios (DNI_Usr,CUIL_Usr,Nombre_Usr ,Apellido_Usr ,Genero_Usr ,Nacionalidad_Usr,FechaNacimiento_Usr ,Direccion_Usr ,IdProvincia_Usr ,IdLocalidad_Usr , Email_Usr,
 Telefono_Usr ,Tipo_Usr, Usuario_Usr,Contrasenia_Usr, Estado_Usr) VALUES
  (44298830,20442988308,'Facundo', 'Piana Sampietro', 'MASCULINO', 'Argentino', "2002-08-31", 'Saavedra 2136', 2, 213,'facusampi@hotmail.com',1135017756, 0,'facusampi','facundo123',1),
  (44298829,20442988298,'Nicolás', 'Piana Sampietro', 'MASCULINO', 'Argentino', "2002-08-31", 'Saavedra 2136', 2, 213,'nicosampi@hotmail.com',1135017756, 0,'nicosampi','nicolas123',1),
@@ -2579,3 +2581,107 @@ INSERT INTO TiposMovimientos(Descripcion_TiposMov) VALUES
 ('Alta de préstamo'),
 ('Pago de préstamo'),
 ('Transferencia');
+
+-- CREACION DE PROCEDIMIENTOS ALMACENADOS
+-- Usuario
+DELIMITER //
+CREATE PROCEDURE SPAgregarUsuario (
+	IN DNI CHAR(10),
+    IN CUIL CHAR(12) ,
+	IN Nombre VARCHAR(20),
+	IN Apellido VARCHAR(20),
+    IN Genero VARCHAR(10),
+	IN Nacionalidad VARCHAR(30),
+    IN FechaNacimiento DATE,
+    IN Direccion VARCHAR(30),
+    IN IdProvincia INT,
+    IN IdLocalidad INT,
+    IN Email VARCHAR(50),
+    IN Telefono VARCHAR(10),
+	IN Tipo BIT, 
+    IN Usuario VARCHAR (30),
+	IN Contrasenia VARCHAR(16)
+) 
+BEGIN
+	INSERT INTO Usuarios (DNI_Usr,CUIL_Usr,Nombre_Usr ,Apellido_Usr ,Genero_Usr ,Nacionalidad_Usr,FechaNacimiento_Usr ,Direccion_Usr ,IdProvincia_Usr ,IdLocalidad_Usr , Email_Usr,
+	Telefono_Usr ,Tipo_Usr, Usuario_Usr,Contrasenia_Usr) VALUES
+	(DNI,CUIL,Nombre, Apellido, Genero, Nacionalidad , FechaNacimiento,Direccion, IdProvincia, IdLocalidad,Email,Telefono, Tipo,Usuario,Contraseña);
+END //
+DELIMITER ;
+
+
+DELIMITER //
+CREATE PROCEDURE SPEliminarUsuario (
+	IN DNI CHAR(10)
+) 
+BEGIN
+	DELETE FROM Usuario WHERE DNI_Usr = DNI;
+END //
+DELIMITER ;
+
+
+DELIMITER //
+CREATE PROCEDURE SPActualizarUsuario (
+	IN DNI CHAR(10), -- No le pasamos cuil ya que, en teoría, no se debería poder modificar
+	IN Nombre VARCHAR(20),
+	IN Apellido VARCHAR(20),
+    IN Genero VARCHAR(10),
+	IN Nacionalidad VARCHAR(30),
+    IN FechaNacimiento DATE,
+    IN Direccion VARCHAR(30),
+    IN IdProvincia INT,
+    IN IdLocalidad INT,
+    IN Email VARCHAR(50),
+    IN Telefono VARCHAR(10),
+	IN Tipo BIT, 
+	IN Contrasenia VARCHAR(16),
+    IN Estado BIT
+) 
+
+BEGIN
+	UPDATE Usuarios 
+    SET Nombre_Usr = Nombre,
+    Apellido_Usr = Apellido,
+	Genero_Usr = Genero,
+	Nacionalidad_Usr = Nacionalidad,
+    FechaNacimiento_Usr = FechaNacimiento,
+	Direccion_Usr = Direccion,
+	IdProvincia_Usr = IdProvincia,
+	IdLocalidad_Usr = IdLocalidad,
+	Email_Usr = Email,
+	Telefono_Usr = Telefono,
+	Tipo_Usr = Tipo,
+	Contrasenia_Usr = Contrasenia,
+    Estado_Usr = Estado
+    WHERE DNI_Usr = DNI;
+
+END //
+DELIMITER ;
+
+-- Cuentas
+
+DELIMITER //
+CREATE PROCEDURE SPAgregarCuentas (	
+	IN Nro VARCHAR(5),
+    IN DNI CHAR(10) ,
+    IN IdTipoCuenta INT,
+    IN CBU VARCHAR(22)
+)
+    
+BEGIN
+
+	INSERT INTO Cuentas (Nro_Cuentas, DNI_Cuentas, IdTipoCuenta_Cuentas,CBU_Cuentas) VALUES
+    (Nro,DNI,IdTipoCuenta,CBU);
+END //
+DELIMITER ;
+
+
+DELIMITER //
+CREATE PROCEDURE SPEliminarCuentas (
+	IN DNI CHAR(10)
+) 
+BEGIN
+	DELETE FROM Usuario WHERE DNI_Usr = DNI;
+END //
+DELIMITER ;
+
