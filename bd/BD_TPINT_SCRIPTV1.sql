@@ -29,7 +29,7 @@ CREATE TABLE Usuarios(
     CUIL_Usr CHAR(12) UNIQUE NOT NULL,
 	Nombre_Usr VARCHAR(20) NOT NULL,
 	Apellido_Usr VARCHAR(20) NOT NULL,
-    Genero_Usr VARCHAR(10) check(Genero_Usr like 'MASCULINO' OR Genero_Usr like 'FEMENINO' OR Genero_Usr like 'INDEFINIDO'),
+    Sexo_Usr VARCHAR(10) check(Genero_Usr like 'MASCULINO' OR Genero_Usr like 'FEMENINO' OR Genero_Usr like 'INDEFINIDO'),
 	Nacionalidad_Usr VARCHAR(30) NOT NULL,
     FechaNacimiento_Usr DATE NOT NULL,
     Direccion_Usr VARCHAR(30) NOT NULL,
@@ -2535,7 +2535,7 @@ INSERT INTO Localidades (IdLocalidad_Loc, IdProvincia_Loc, Descripcion_Loc) VALU
 (2381, 25, 'Yerba Buena'),
 (2382, 25, 'Yerba Buena (S)');
 
-INSERT INTO Usuarios (DNI_Usr,CUIL_Usr,Nombre_Usr ,Apellido_Usr ,Genero_Usr ,Nacionalidad_Usr,FechaNacimiento_Usr ,Direccion_Usr ,IdProvincia_Usr ,IdLocalidad_Usr , Email_Usr,
+INSERT INTO Usuarios (DNI_Usr,CUIL_Usr,Nombre_Usr ,Apellido_Usr ,Sexo_Usr ,Nacionalidad_Usr,FechaNacimiento_Usr ,Direccion_Usr ,IdProvincia_Usr ,IdLocalidad_Usr , Email_Usr,
 Telefono_Usr ,Tipo_Usr, Usuario_Usr,Contrasenia_Usr, Estado_Usr) VALUES
  (44298830,20442988308,'Facundo', 'Piana Sampietro', 'MASCULINO', 'Argentino', "2002-08-31", 'Saavedra 2136', 2, 213,'facusampi@hotmail.com',1135017756, 0,'facusampi','facundo123',1),
  (44298829,20442988298,'Nicolás', 'Piana Sampietro', 'MASCULINO', 'Argentino', "2002-08-31", 'Saavedra 2136', 2, 213,'nicosampi@hotmail.com',1135017756, 0,'nicosampi','nicolas123',1),
@@ -2590,7 +2590,7 @@ CREATE PROCEDURE SPAgregarUsuario (
     IN CUIL CHAR(12) ,
 	IN Nombre VARCHAR(20),
 	IN Apellido VARCHAR(20),
-    IN Genero VARCHAR(10),
+    IN Sexo VARCHAR(10),
 	IN Nacionalidad VARCHAR(30),
     IN FechaNacimiento DATE,
     IN Direccion VARCHAR(30),
@@ -2603,9 +2603,9 @@ CREATE PROCEDURE SPAgregarUsuario (
 	IN Contrasenia VARCHAR(16)
 ) 
 BEGIN
-	INSERT INTO Usuarios (DNI_Usr,CUIL_Usr,Nombre_Usr ,Apellido_Usr ,Genero_Usr ,Nacionalidad_Usr,FechaNacimiento_Usr ,Direccion_Usr ,IdProvincia_Usr ,IdLocalidad_Usr , Email_Usr,
+	INSERT INTO Usuarios (DNI_Usr,CUIL_Usr,Nombre_Usr ,Apellido_Usr ,Sexo_Usr ,Nacionalidad_Usr,FechaNacimiento_Usr ,Direccion_Usr ,IdProvincia_Usr ,IdLocalidad_Usr , Email_Usr,
 	Telefono_Usr ,Tipo_Usr, Usuario_Usr,Contrasenia_Usr) VALUES
-	(DNI,CUIL,Nombre, Apellido, Genero, Nacionalidad , FechaNacimiento,Direccion, IdProvincia, IdLocalidad,Email,Telefono, Tipo,Usuario,Contraseña);
+	(DNI,CUIL,Nombre, Apellido, Sexo, Nacionalidad , FechaNacimiento,Direccion, IdProvincia, IdLocalidad,Email,Telefono, Tipo,Usuario,Contraseña);
 END //
 DELIMITER ;
 
@@ -2625,7 +2625,7 @@ CREATE PROCEDURE SPActualizarUsuario (
 	IN DNI CHAR(10), -- No le pasamos cuil ya que, en teoría, no se debería poder modificar
 	IN Nombre VARCHAR(20),
 	IN Apellido VARCHAR(20),
-    IN Genero VARCHAR(10),
+    IN Sexo VARCHAR(10),
 	IN Nacionalidad VARCHAR(30),
     IN FechaNacimiento DATE,
     IN Direccion VARCHAR(30),
@@ -2642,7 +2642,7 @@ BEGIN
 	UPDATE Usuarios 
     SET Nombre_Usr = Nombre,
     Apellido_Usr = Apellido,
-	Genero_Usr = Genero,
+	Sexo_Usr = Sexo,
 	Nacionalidad_Usr = Nacionalidad,
     FechaNacimiento_Usr = FechaNacimiento,
 	Direccion_Usr = Direccion,

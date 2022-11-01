@@ -21,17 +21,20 @@
                       <th> </th> 
                       <th>DNI</th>   
                       <th>CUIL</th> 
-                      <th>Tipo de cuenta</th> 
-                      <th>Contraseña</th>
                       <th>Nombre</th> 
                       <th>Apellido</th>
                       <th>Sexo</th> 
                       <th>Nacionalidad</th> 
-                      <th>Teléfono</th> 
-                      <th>Nacimiento</th> 
+                      <th>Fecha de nacimiento</th> 
                       <th>Dirección</th>
                       <th>Provincia</th>
                       <th>Localidad</th>
+                      <th>Email</th>
+                      <th>Teléfono</th> 
+                      <th>Tipo de usuario</th> 
+                      <th>Usuario</th>
+                      <th>Contraseña</th>
+                      <th>Estado</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -46,17 +49,20 @@
                         </th>  
                         <td>44724905</td>  
                         <td>20447249058</td>
-                        <td>Estándar</td>
-                        <td>Messi2022</td>  
                         <td>Santiago</td>  
                         <td>Pedrozo</td> 
-                        <td>femenino</td>
+                        <td>Masculino</td>
                         <td>Mexicano</td>
-                        <td>1122112211</td>
                         <td>23/01/2003</td>
                         <td>Juncal 2468</td>
                         <td>Buenos Aires</td>
                         <td>San Fernando</td>
+                        <td>santiagopedrozo@hotmail.com</td>
+                        <td>1122112211</td>
+                        <td>Estándar</td>
+                        <td>santito123</td>
+                        <td>Messi2022</td> 
+                        <td>1</td> 
                     </tr>
                 </tbody>
                 <tbody>
@@ -71,17 +77,48 @@
                         </th>  
                         <td>44724905</td>  
                         <td>20447249058</td>
-                        <td>Estándar</td>
-                        <td>Messi2022</td>  
                         <td>Santiago</td>  
                         <td>Pedrozo</td> 
-                        <td>femenino</td>
+                        <td>Masculino</td>
                         <td>Mexicano</td>
-                        <td>1122112211</td>
                         <td>23/01/2003</td>
                         <td>Juncal 2468</td>
                         <td>Buenos Aires</td>
                         <td>San Fernando</td>
+                        <td>santiagopedrozo@hotmail.com</td>
+                        <td>1122112211</td>
+                        <td>Estándar</td>
+                        <td>santito123</td>
+                        <td>Messi2022</td> 
+                        <td>1</td> 
+                    </tr>
+                </tbody>
+                <tbody>
+                    <tr>
+                        <th scope="row">
+                            <button type="button" class="btn btn-outline-success btn-sm">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </button>
+                            <button type="button" class="btn btn-outline-danger btn-sm">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </th>  
+                         <td>44724905</td>  
+                        <td>20447249058</td>
+                        <td>Santiago</td>  
+                        <td>Pedrozo</td> 
+                        <td>Masculino</td>
+                        <td>Mexicano</td>
+                        <td>23/01/2003</td>
+                        <td>Juncal 2468</td>
+                        <td>Buenos Aires</td>
+                        <td>San Fernando</td>
+                        <td>santiagopedrozo@hotmail.com</td>
+                        <td>1122112211</td>
+                        <td>Estándar</td>
+                        <td>santito123</td>
+                        <td>Messi2022</td> 
+                        <td>1</td> 
                     </tr>
                 </tbody>
                 <tbody>
@@ -96,42 +133,20 @@
                         </th>  
                           <td>44724905</td>  
                         <td>20447249058</td>
-                        <td>Estándar</td>
-                        <td>Messi2022</td>  
                         <td>Santiago</td>  
                         <td>Pedrozo</td> 
-                        <td>femenino</td>
+                        <td>Masculino</td>
                         <td>Mexicano</td>
-                        <td>1122112211</td>
                         <td>23/01/2003</td>
                         <td>Juncal 2468</td>
                         <td>Buenos Aires</td>
                         <td>San Fernando</td>
-                    </tr>
-                </tbody>
-                <tbody>
-                    <tr>
-                        <th scope="row">
-                            <button type="button" class="btn btn-outline-success btn-sm">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </button>
-                            <button type="button" class="btn btn-outline-danger btn-sm">
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
-                        </th>  
-                          <td>44724905</td>  
-                        <td>20447249058</td>
-                        <td>Estándar</td>
-                        <td>Messi2022</td>  
-                        <td>Santiago</td>  
-                        <td>Pedrozo</td> 
-                        <td>femenino</td>
-                        <td>Mexicano</td>
+                        <td>santiagopedrozo@hotmail.com</td>
                         <td>1122112211</td>
-                        <td>23/01/2003</td>
-                        <td>Juncal 2468</td>
-                        <td>Buenos Aires</td>
-                        <td>San Fernando</td>
+                        <td>Estándar</td>
+                        <td>santito123</td>
+                        <td>Messi2022</td> 
+                        <td>1</td> 
                     </tr>
                 </tbody>
 
@@ -222,7 +237,14 @@
                             <label for="floatingSelect">Tipo de usuario</label>
                         </div>
                     </div>
-               
+               		
+               		  <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="floatingInput" placeholder="-">
+                            <label for="floatingSelect">Usuario</label>
+                        </div>
+                    </div>
+               		
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control" id="floatingInput" placeholder="-">
@@ -245,7 +267,7 @@
                     </div>
                
                     <div class="col-md-4" >
-                        <label class="form-label">Genero</label>
+                        <label class="form-label">Sexo</label>
                         <br>
                         <div class="form-check form-check-inline">
                             <input type="radio" class="form-check-input" name="rdo" checked>

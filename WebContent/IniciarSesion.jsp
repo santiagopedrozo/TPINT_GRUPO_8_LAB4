@@ -13,7 +13,6 @@
 </head>
 <body>
 
-<%@ include file="MasterPage.html" %>
 <br>
 <H1 style="text-align:center;">Bienvenido al banco Brusafa</H1>
 <br>
