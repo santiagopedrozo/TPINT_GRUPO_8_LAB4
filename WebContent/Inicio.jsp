@@ -3,11 +3,34 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<%@ include file="MasterPage.html" %>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Inicio</title>
 </head>
 <body>
-<H2> Bienvenido: juanPerez123 </H2>
+	<%@ include file="MasterPage.html" %>
+	<br>
+	<H1 style="text-align: center"> Bienvenido: (Usuario) </H1>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<%@ include file="FooterPage.html" %>
 </body>
 </html>

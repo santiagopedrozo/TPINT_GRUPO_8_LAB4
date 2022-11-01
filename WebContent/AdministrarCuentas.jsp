@@ -155,14 +155,9 @@
         <div class="card-header"><h5>Crear y asignar cuenta</h5></div>
         <div class="card-body">
           <form method="get" action="Inicio.jsp" class="row">
-            <div class="col-md-6">
-              <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="floatingInput" placeholder="-">
-                <label for="floatingInput">Numero cuenta</label>
-              </div>
-            </div>
+            
         
-            <div class="col-md-6">
+            <div class="col-md-12">
               <div class="form-floating">
                 <select class="form-select" id="floatingSelect" aria-label="-">
                   <option selected>Elegir tipo de cuenta</option>
@@ -173,6 +168,8 @@
                 <label for="floatingSelect">Tipo de cuentas</label>
               </div>
             </div>
+            
+            <br>
         
             <div class="col-md-12">
               <div class="col-md-12">
@@ -189,14 +186,9 @@
               </div> 
             </div>
 
-            <div class="col-md-6">
-              <div class="form-floating mb-3">
-                <input type="number" class="form-control" min=10000 value=10000 id="floatingInput" placeholder="-">
-                <label for="floatingInput">Saldo</label>
-              </div>
-            </div>
+     		 <br>
         
-            <div class="col-md-6">
+            <div class="col-md-12">
               <div class="form-floating">
                 <select class="form-select" id="floatingSelect" aria-label="-">
                   <option selected>Elegir usuario</option>

@@ -4,25 +4,123 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
-<%@ include file="MasterPage.html" %>
+<title>Mi perfil</title>
 </head>
 <body>
-<H1> <b> <p style="text-align:center;"> Mi cuenta </b></H1>
-<p style="text-align:center;">
-DNI:  <label for="lblDNI" > 44222222</label>  <br> <br> 
-CUIL:  <label for="lblCUIL" >20442222228</label> <br> <br>
-Nombre:  <label for="lblNombre" >Juan</label><br> <br>
-Apellido:  <label for="lblApellido"> Pérez</label><br> <br>
-Sexo:  <label for="lblSexo">Masculino</label><br> <br>
-Nacionalidad: <label for="lblNacionalidad">Argentina</label> <br> <br> 
-Fecha de nacimiento:  <label for="Fecha">11/11/2002 </label> <br> <br>
-Dirección:  <label for="txtDireccion">Castelli 1122</label> <br> <br>
-Localidad: <label for="lblLocalidad">Martínez </label> <br> <br>
-Provincia: <label for="lblProvincia">Buenos Aires </label> <br> <br>
-Correo electrónico:  <label for="lblEmail">juanPerez123@gmail.com </label> <br> <br>
-Teléfono:  <label for="lblTelefono">1122334455 </label>  <br> <br>
-Usuario:  <label for="lblUsuario">juanPerez123 </label> <br> <br>
+	<%@ include file="MasterPage.html" %>
+
+ 
+  <br>
+  <div class="container-fluid" style="width:40%;">
+    <div class="card text-center">
+        <div class="card-header"><h4>Mi perfil</h4></div>
+            <table class="table table-hover" style="text-align: start; margin: 1px; font-size: 19px;">
+              <tbody>
+                <td><b>DNI</b></td>  
+                <td>2033322</td>
+                <td></td>
+                <td></td>  
+                <td></td>      
+              </tr>
+            </tbody>
+            <tbody>
+                <td><b>CUIL</b></td>  
+                <td>203322299220</td>
+                <td></td>
+                <td></td>  
+                <td></td>      
+              </tr>
+            </tbody>
+            <tbody>
+                <td><b>Usuario</b></td>  
+                <td>Santi2003</td>
+                <td></td>
+                <td></td>  
+                <td></td>      
+              </tr>
+            </tbody>
+            <tbody>
+                <td><b>Nombre y apellido</b></td>  
+                <td>Santiago pedrozo</td>
+                <td></td>
+                <td></td>  
+                <td></td>      
+              </tr>
+            </tbody>
+            <tbody>
+                <td><b>Sexo</b></td>  
+                <td>Masculino</td>
+                <td></td>
+                <td></td>  
+                <td></td>      
+              </tr>
+            </tbody>
+            <tbody>
+              <td><b>Nacionalidad</b></td>  
+              <td>Italiano</td>
+              <td></td>
+              <td></td>  
+              <td></td>      
+            </tr>
+            </tbody>
+            <tbody>
+                <td><b>Fecha nacimiento</b></td>  
+                <td>23/02/2004</td>
+                <td></td>
+                <td></td>  
+                <td></td>      
+              </tr>
+            </tbody>
+            <tbody>
+                <td><b>Dirección</b></td>  
+                <td>Av. Siempre viva 123</td>
+                <td></td>
+                <td></td>  
+                <td></td>      
+              </tr>
+            </tbody>
+            <tbody>
+                <td><b>Provincia</b></td>  
+                <td>Buenos aires</td>
+                <td></td>
+                <td></td>  
+                <td></td>      
+              </tr>
+            </tbody>
+            <tbody>
+              <td><b>Localidad</b></td>  
+              <td>Morón</td>
+              <td></td>
+              <td></td>  
+              <td></td>      
+            </tr>
+            </tbody>
+            <tbody>
+                <td><b>Correo</b></td>  
+                <td>santi@gmail.com</td>
+                <td></td>
+                <td></td>  
+                <td></td>      
+              </tr>
+            </tbody>
+            <tbody>
+                <td><b>Telefono</b></td>  
+                <td>123212211</td>
+                <td></td>
+                <td></td>  
+                <td></td>      
+              </tr>
+            </tbody>
+      	</table>
+      </div>
+    </div>
+  </div>
+  
+  <br>
+  
+  
+  <%@ include file="FooterPage.html" %>
+
 
 </body>
 </html>
