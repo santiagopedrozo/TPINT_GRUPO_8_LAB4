@@ -49,7 +49,7 @@ if (request.getParameter("btnVerMovimientos1")!=null || request.getParameter("bt
 
 <div class="container-fluid" style="width:60%;">
         <div class="card text-center">
-            <div class="card-header "><H3> <b> <p style="text-align:center;"> Cuenta </b></H3></div>
+            <div class="card-header "><H3> <b> <p style="text-align:center;"> Movimientos </b></H3></div>
             <table class="table table-hover" style="font-size: 12px;">
                 <tr> 
 					<th>Fecha</th>  

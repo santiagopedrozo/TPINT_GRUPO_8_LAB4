@@ -1,6 +1,6 @@
 create schema bd_tpint_labiv;
 
--- drop database bd_tpint_labiv;
+-- drop database bd_tpint_labiv
 
 use bd_tpint_labiv;
 
@@ -60,7 +60,7 @@ CREATE TABLE TipoCuentas(
 
 
 CREATE TABLE Cuentas(
-	Nro_Cuentas VARCHAR(5) NOT NULL,
+	Nro_Cuentas INT auto_increment NOT NULL,
     DNI_Cuentas CHAR(10) NOT NULL,
     FechaCreacion_Cuentas TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     IdTipoCuenta_Cuentas INT NOT NULL,
@@ -81,8 +81,8 @@ CREATE TABLE Cuentas(
 
 CREATE TABLE Prestamos(
 	Id_Pr INT auto_increment NOT NULL,
-    DNI_Pr CHAR(10) NOT NULL,
-    NroCuentaDestino_Pr VARCHAR(5) NOT NULL,
+	DNI_Pr CHAR(10) NOT NULL,
+    NroCuentaDestino_Pr INT NOT NULL,
     FechaSolicitado_Pr TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     ImpSolicitado_Pr DECIMAL(15,2)  NOT NULL,
     ImpResultante_Pr DECIMAL(15,2)  NOT NULL,
@@ -90,6 +90,7 @@ CREATE TABLE Prestamos(
     ImpPagoAlMes_Pr DECIMAL(15,2)  NOT NULL,
     CantCuotas_Pr INT NOT NULL,
     Autorizado_Pr BIT NOT NULL DEFAULT 0, -- 1 AUTORIZADO, 0 NO AUTORIZADO
+    Estado_Pr BIT DEFAULT 1,
     
     CONSTRAINT PK_PRESTAMOS PRIMARY KEY(Id_Pr),
     CONSTRAINT FK_USUARIOS_PRESTAMOS FOREIGN KEY (DNI_Pr)
@@ -109,11 +110,12 @@ CREATE TABLE TiposMovimientos(
 
 CREATE TABLE Movimientos(
 	Id_Mov INT auto_increment NOT NULL,
-    NroCuenta_Mov VARCHAR(5) NOT NULL,
+    NroCuenta_Mov INT NOT NULL,
     IdTiposMov_Mov INT NOT NULL,
     Fecha_Mov TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     Detalle_Mov VARCHAR(30) NOT NULL,
     Importe_Mov DECIMAL NOT NULL,
+    Estado_Mov BIT DEFAULT 1,
     
     CONSTRAINT PK_Movimientos PRIMARY KEY(Id_Mov),
     CONSTRAINT FK_MOVIMIENTOS_CUENTAS FOREIGN KEY (NroCuenta_Mov)
@@ -2536,45 +2538,45 @@ INSERT INTO Localidades (IdLocalidad_Loc, IdProvincia_Loc, Descripcion_Loc) VALU
 (2382, 25, 'Yerba Buena (S)');
 
 INSERT INTO Usuarios (DNI_Usr,CUIL_Usr,Nombre_Usr ,Apellido_Usr ,Sexo_Usr ,Nacionalidad_Usr,FechaNacimiento_Usr ,Direccion_Usr ,IdProvincia_Usr ,IdLocalidad_Usr , Email_Usr,
-Telefono_Usr ,Tipo_Usr, Usuario_Usr,Contrasenia_Usr, Estado_Usr) VALUES
- (44298830,20442988308,'Facundo', 'Piana Sampietro', 'MASCULINO', 'Argentino', "2002-08-31", 'Saavedra 2136', 2, 213,'facusampi@hotmail.com',1135017756, 0,'facusampi','facundo123',1),
- (44298829,20442988298,'Nicolás', 'Piana Sampietro', 'MASCULINO', 'Argentino', "2002-08-31", 'Saavedra 2136', 2, 213,'nicosampi@hotmail.com',1135017756, 0,'nicosampi','nicolas123',1),
- (42222999,20442229998,'Pedro', 'Pérez', 'MASCULINO', 'Argentino', "2004-04-21", 'Castelli 2244', 11, 1288,'pedroperez@hotmail.com',1144224455, 0,'pedrope','pedro123',1),
- (30298534,20302985348,'Román', 'Priano', 'MASCULINO', 'Venezolano', "1990-09-30", 'Saavedra 2136', 5, 395,'romanpriano@gmail.com',1166445577, 0,'romano','roman123',1),
- (40334556,20403345568,'Florencia', 'Gómez', 'FEMENINO', 'Argentina', "2000-08-08", 'Santos Doumont 157', 3, 315,'florchu@gmail.com',1112312377, 0,'florchu','florencia123',1),
- (41098897,20410988978,'Carina', 'Martínez', 'FEMENINO', 'Chilena', "2001-07-09", 'Azcuénaga', 8, 953,'carimar@gmail.com',1122775563, 0,'carimar','cari123',1),
- (44768845,20447688458,'Martín', 'Alderete', 'MASCULINO', 'Argentino', "2002-03-20", 'Paraná 21', 7, 561,'marinalde@gmail.com',1145965247, 0,'martincho','martin123',1),
- (39888677,20398886778,'Diego', 'López', 'MASCULINO', 'Argentino', "2000-12-30", 'Yrigoyen 2002', 1, 68,'diegote@gmail.com',1162632516, 0,'diegote','diego123',1),
- (40400500,20404005008,'Silvina', 'Romero', 'FEMENINO', 'Boliviana', "1999-04-15", 'Monteagudo 365', 4, 333,'romerosil@gmail.com',1112342658, 0,'romerosil','silvina123',1),
- (43123567,20431235678,'Paz', 'Obrador', 'FEMENINO', 'Argentina', "2001-05-06", 'Sargento Cabral 123', 6, 460,'pachuobra@gmail.com',1154765476, 0,'pachuobra','paz123',1),
- (44567566,20445675668,'Alejo', 'Falero', 'MASCULINO', 'Argentino', "2003-07-05", 'San Lorenzo 334', 13, 1433,'faleron@hotmail.com',1133980745, 0,'faleron','alejo123',1),
- (42456879,20424568798,'Milagros', 'Gonzáles', 'FEMENINO', 'Uruguaya', "2003-10-29", 'Santiago del Estero 223', 22, 2086,'milinda@gmail.com',1185421454, 0,'milinda','milagros123',1),
- (44666777,20446667778,'Santiago', 'Pedrozo', 'MASCULINO', 'Argentino', "2001-02-15", 'Tres Sargentos 1331', 20, 1795,'santito@gmail.com',1112367782, 0,'santito','santiago123',1),
- (41000999,20410009998,'Bruno', 'Lisanti', 'MASCULINO', 'Mexicano', "2002-11-16", 'Dorrego 2155', 15, 1484,'brunolis@gmail.com',1112312312, 0,'brunolis','bruno123',1),
- (40900800,20409008008,'Fransisco', 'Leston', 'MASCULINO', 'Argentino', "1999-08-08", 'Monseñor Larumbe', 11, 1319,'pancho@hotmail.com',1144554411, 0,'pancho','francisco123',1),
- (35000222,20350002228,'Brusafa', 'Admin', 'MASCULINO', 'Argentino', "1980-01-01", 'Adrogué 223', 13, 1422,'brusafa@hotmail.com',1166666666, 1,'adminbrusafa','adminbrusafa',1);
+Telefono_Usr ,Tipo_Usr, Usuario_Usr,Contrasenia_Usr) VALUES
+ (44298830,20442988308,'Facundo', 'Piana Sampietro', 'MASCULINO', 'Argentino', "2002-08-31", 'Saavedra 2136', 2, 213,'facusampi@hotmail.com',1135017756, 0,'facusampi','facundo123'),
+ (44298829,20442988298,'Nicolás', 'Piana Sampietro', 'MASCULINO', 'Argentino', "2002-08-31", 'Saavedra 2136', 2, 213,'nicosampi@hotmail.com',1135017756, 0,'nicosampi','nicolas123'),
+ (42222999,20442229998,'Pedro', 'Pérez', 'MASCULINO', 'Argentino', "2004-04-21", 'Castelli 2244', 11, 1288,'pedroperez@hotmail.com',1144224455, 0,'pedrope','pedro123'),
+ (30298534,20302985348,'Román', 'Priano', 'MASCULINO', 'Venezolano', "1990-09-30", 'Saavedra 2136', 5, 395,'romanpriano@gmail.com',1166445577, 0,'romano','roman123'),
+ (40334556,20403345568,'Florencia', 'Gómez', 'FEMENINO', 'Argentina', "2000-08-08", 'Santos Doumont 157', 3, 315,'florchu@gmail.com',1112312377, 0,'florchu','florencia123'),
+ (41098897,20410988978,'Carina', 'Martínez', 'FEMENINO', 'Chilena', "2001-07-09", 'Azcuénaga', 8, 953,'carimar@gmail.com',1122775563, 0,'carimar','cari123'),
+ (44768845,20447688458,'Martín', 'Alderete', 'MASCULINO', 'Argentino', "2002-03-20", 'Paraná 21', 7, 561,'marinalde@gmail.com',1145965247, 0,'martincho','martin123'),
+ (39888677,20398886778,'Diego', 'López', 'MASCULINO', 'Argentino', "2000-12-30", 'Yrigoyen 2002', 1, 68,'diegote@gmail.com',1162632516, 0,'diegote','diego123'),
+ (40400500,20404005008,'Silvina', 'Romero', 'FEMENINO', 'Boliviana', "1999-04-15", 'Monteagudo 365', 4, 333,'romerosil@gmail.com',1112342658, 0,'romerosil','silvina123'),
+ (43123567,20431235678,'Paz', 'Obrador', 'FEMENINO', 'Argentina', "2001-05-06", 'Sargento Cabral 123', 6, 460,'pachuobra@gmail.com',1154765476, 0,'pachuobra','paz123'),
+ (44567566,20445675668,'Alejo', 'Falero', 'MASCULINO', 'Argentino', "2003-07-05", 'San Lorenzo 334', 13, 1433,'faleron@hotmail.com',1133980745, 0,'faleron','alejo123'),
+ (42456879,20424568798,'Milagros', 'Gonzáles', 'FEMENINO', 'Uruguaya', "2003-10-29", 'Santiago del Estero 223', 22, 2086,'milinda@gmail.com',1185421454, 0,'milinda','milagros123'),
+ (44666777,20446667778,'Santiago', 'Pedrozo', 'MASCULINO', 'Argentino', "2001-02-15", 'Tres Sargentos 1331', 20, 1795,'santito@gmail.com',1112367782, 0,'santito','santiago123'),
+ (41000999,20410009998,'Bruno', 'Lisanti', 'MASCULINO', 'Mexicano', "2002-11-16", 'Dorrego 2155', 15, 1484,'brunolis@gmail.com',1112312312, 0,'brunolis','bruno123'),
+ (40900800,20409008008,'Fransisco', 'Leston', 'MASCULINO', 'Argentino', "1999-08-08", 'Monseñor Larumbe', 11, 1319,'pancho@hotmail.com',1144554411, 0,'pancho','francisco123'),
+ (35000222,20350002228,'Brusafa', 'Admin', 'MASCULINO', 'Argentino', "1980-01-01", 'Adrogué 223', 13, 1422,'brusafa@hotmail.com',1166666666, 1,'adminbrusafa','adminbrusafa');
 
 
 INSERT INTO TipoCuentas (Descripcion_TipoCuenta) VALUES
 ('Caja de ahorro'),
 ('Cuenta corriente');
 
-INSERT INTO Cuentas (Nro_Cuentas ,DNI_Cuentas, IdTipoCuenta_Cuentas,CBU_Cuentas, Saldo_Cuentas, Estado_Cuentas) VALUES
- (1000, 44298830, 1, 11223344556677889900, 50000, 1),
- (1001, 44298829, 2, 54768439201928374651, 40100, 1),
- (1002, 44298830, 2, 40645090235940530950, 3000.54, 1),
- (1003, 44666777, 1, 32657481920304958676, 100000, 1),
- (1004, 44666777, 2, 17283940596877584930, 30231.550, 1),
- (1005, 40334556, 1, 52345678594837261523, 55000, 1),
- (1006, 44567566, 2, 63459459234596905030, 33000.99, 1),
- (1007, 41000999, 1, 12341234123412412356, 231222, 1),
- (1008, 41000999, 2, 33223344115566778855, 100400.43, 1),
- (1009, 40400500, 1, 53455647765887691234, 550000.3, 1),
- (1010, 44298830, 1, 55664455556644555566, 134000.65, 1),
- (1011, 40900800, 2, 12334523456743512356, 60500, 1),
- (1012, 44768845, 1, 21429387239801243867, 135000.5, 1),
- (1013, 44768845, 2, 12328396475328948923, 30402.3, 1),
- (1014, 42456879, 1, 12458234975394859399, 55670.45, 1);
+INSERT INTO Cuentas (DNI_Cuentas, IdTipoCuenta_Cuentas,CBU_Cuentas, Saldo_Cuentas) VALUES
+ (44298830, 1, 11223344556677889900, 50000),
+ (44298829, 2, 54768439201928374651, 40100),
+ (44298830, 2, 40645090235940530950, 3000.54),
+ (44666777, 1, 32657481920304958676, 100000),
+ (44666777, 2, 17283940596877584930, 30231.550),
+ (40334556, 1, 52345678594837261523, 55000),
+ (44567566, 2, 63459459234596905030, 33000.99),
+ (41000999, 1, 12341234123412412356, 231222),
+ (41000999, 2, 33223344115566778855, 100400.43),
+ (40400500, 1, 53455647765887691234, 550000.3),
+ (44298830, 1, 55664455556644555566, 134000.65),
+ (40900800, 2, 12334523456743512356, 60500),
+ (44768845, 1, 21429387239801243867, 135000.5),
+ (44768845, 2, 12328396475328948923, 30402.3),
+ (42456879, 1, 12458234975394859399, 55670.45);
  
 INSERT INTO TiposMovimientos(Descripcion_TiposMov) VALUES
 ('Alta de cuenta'),
@@ -2615,14 +2617,18 @@ CREATE PROCEDURE SPEliminarUsuario (
 	IN DNI CHAR(10)
 ) 
 BEGIN
-	DELETE FROM Usuario WHERE DNI_Usr = DNI;
+	UPDATE Usuario 
+    SET Estado_Usr = 0
+    WHERE DNI_Usr = DNI;
 END //
 DELIMITER ;
 
 
+
+
 DELIMITER //
 CREATE PROCEDURE SPActualizarUsuario (
-	IN DNI CHAR(10), -- No le pasamos cuil ya que, en teoría, no se debería poder modificar
+	IN DNI CHAR(10), -- No le pasamos cuil ya que, en teoría, no se debería poder modificar 
 	IN Nombre VARCHAR(20),
 	IN Apellido VARCHAR(20),
     IN Sexo VARCHAR(10),
@@ -2634,8 +2640,8 @@ CREATE PROCEDURE SPActualizarUsuario (
     IN Email VARCHAR(50),
     IN Telefono VARCHAR(10),
 	IN Tipo BIT, 
-	IN Contrasenia VARCHAR(16),
-    IN Estado BIT
+	IN Contrasenia VARCHAR(16)
+
 ) 
 
 BEGIN
@@ -2651,8 +2657,8 @@ BEGIN
 	Email_Usr = Email,
 	Telefono_Usr = Telefono,
 	Tipo_Usr = Tipo,
-	Contrasenia_Usr = Contrasenia,
-    Estado_Usr = Estado
+	Contrasenia_Usr = Contrasenia
+
     WHERE DNI_Usr = DNI;
 
 END //
@@ -2662,7 +2668,6 @@ DELIMITER ;
 
 DELIMITER //
 CREATE PROCEDURE SPAgregarCuentas (	
-	IN Nro VARCHAR(5),
     IN DNI CHAR(10) ,
     IN IdTipoCuenta INT,
     IN CBU VARCHAR(22)
@@ -2670,7 +2675,7 @@ CREATE PROCEDURE SPAgregarCuentas (
     
 BEGIN
 
-	INSERT INTO Cuentas (Nro_Cuentas, DNI_Cuentas, IdTipoCuenta_Cuentas,CBU_Cuentas) VALUES
+	INSERT INTO Cuentas (DNI_Cuentas, IdTipoCuenta_Cuentas,CBU_Cuentas) VALUES
     (Nro,DNI,IdTipoCuenta,CBU);
 END //
 DELIMITER ;
@@ -2682,7 +2687,9 @@ CREATE PROCEDURE SPEliminarCuentas (
 	IN Nro CHAR(10)
 ) 
 BEGIN
-	DELETE FROM Usuario WHERE Nro_Cuentas = Nro;
+	UPDATE Usuario 
+    SET Estado_Cuentas = 0
+    WHERE Nro_Cuentas = Nro;
 END //
 DELIMITER ;
 
@@ -2690,7 +2697,7 @@ DELIMITER ;
 
 DELIMITER //
 CREATE PROCEDURE SPActualizarCuentas (	
-	IN Nro VARCHAR(5),
+	IN Nro INT,
     IN DNI CHAR(10) ,
     IN IdTipoCuenta INT,
     IN CBU VARCHAR(22),
@@ -2737,7 +2744,9 @@ CREATE PROCEDURE SPEliminarPrestamos (
 	IN Id INT
 ) 
 BEGIN
-	DELETE FROM Prestamos WHERE Id_Prestamos = Id;
+	UPDATE Prestamos
+    SET Estado_Pr = 0
+    WHERE Id_Prestamos = Id;
 END //
 DELIMITER ;
 
@@ -2753,18 +2762,18 @@ CREATE PROCEDURE SPActualizarPrestamos (
     IN PlazoMeses INT,
     IN ImpPagoAlMes DECIMAL(15,2),
     IN CantCuotas INT,
-	IN Estado BIT
+	IN Autorizado BIT
 ) 
 BEGIN
 	UPDATE Prestamos
     SET DNI_Prestamos = DNI,
-    NroCuentaDestino_Prestamos = NroCuentaDestino,
-	ImpSolicitado_Prestamos = ImpSolicitado,
-	ImpResultante_Prestamos = ImpResultante,
-	PlazoMeses_Prestamos = PlazoMeses,
-	ImpPagoAlMes_Prestamos = ImpPagoAlMes,
-	CantCuotas_Prestamos = CantCuotas,
-	Estado_Prestamos = Estado
+    NroCuentaDestino_Pr = NroCuentaDestino,
+	ImpSolicitado_Pr = ImpSolicitado,
+	ImpResultante_Pr = ImpResultante,
+	PlazoMeses_Pr = PlazoMeses,
+	ImpPagoAlMes_Pr = ImpPagoAlMes,
+	CantCuotas_Pr = CantCuotas,
+	Autorizado_Pr = Estado
     
     WHERE Id_Prestamos = Id;
 END //

@@ -12,10 +12,10 @@
 <body>
 <%@ include file="MasterPageAdmin.html" %>
 <br>
-    <div class="container-fluid" style="width:90%;">
+    <div class="container-fluid" style="width:95%;">
         <div class="card text-center">
             <div class="card-header "><h5>Usuarios</h5></div>
-            <table class="table table-hover" style="font-size: 12px;">
+            <table class="table table-hover" style="font-size: 11px;">
                 <thead>
                     <tr>
                       <th> </th> 
@@ -34,7 +34,6 @@
                       <th>Tipo de usuario</th> 
                       <th>Usuario</th>
                       <th>Contraseña</th>
-                      <th>Estado</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -62,7 +61,6 @@
                         <td>Estándar</td>
                         <td>santito123</td>
                         <td>Messi2022</td> 
-                        <td>1</td> 
                     </tr>
                 </tbody>
                 <tbody>
@@ -90,7 +88,6 @@
                         <td>Estándar</td>
                         <td>santito123</td>
                         <td>Messi2022</td> 
-                        <td>1</td> 
                     </tr>
                 </tbody>
                 <tbody>
@@ -118,7 +115,6 @@
                         <td>Estándar</td>
                         <td>santito123</td>
                         <td>Messi2022</td> 
-                        <td>1</td> 
                     </tr>
                 </tbody>
                 <tbody>
@@ -146,7 +142,7 @@
                         <td>Estándar</td>
                         <td>santito123</td>
                         <td>Messi2022</td> 
-                        <td>1</td> 
+
                     </tr>
                 </tbody>
 
@@ -252,7 +248,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control" id="floatingInput" placeholder="-">
                             <label for="floatingSelect">Dirección</label>
@@ -289,7 +285,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-floating">
                             <select name="" id="" class="form-select" id="floatingInput" placeholder="-">
                                 <option value="">Buenos aires</option>
@@ -299,7 +295,7 @@
                         </div>
                     </div>
                
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-floating">
                             <select name="" id="" class="form-select" id="floatingInput" placeholder="-">
                                 <option value="">Almagro</option>

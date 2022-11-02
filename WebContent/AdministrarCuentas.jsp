@@ -18,13 +18,13 @@
             <thead>
               <tr>
                 <th> </th>  
-                <th>Tipo de cuenta</th>  
+                <th>Nro de cuenta</th>  
                 <th>CBU</th> 
-                <th>IdCuenta</th>  
+                <th>Tipo de cuenta</th>  
                 <th>DNI</th>
                 <th>Fecha creación</th> 
                 <th>Saldo</th>
-                <th>Estado</th> 
+          
               </tr>
             </thead>
             <tbody>
@@ -40,11 +40,11 @@
                 </th>    
                 <td>0001</td>  
                 <td>29991111222233330000</td>
-                <td>1</td>  
+                <td>Caja de ahorro</td>  
                 <td>2589021</td>
                 <td>23/01/2022</td>   
                 <td>69.000$</td>
-                <td>true</td>
+             
               </tr>
             </tbody>
             <tbody>
@@ -60,11 +60,11 @@
                 </th>    
                 <td>0001</td>  
                 <td>29991111222233330000</td>
-                <td>1</td>  
+                <td>Caja de ahorro</td>  
                 <td>2589021</td>
                 <td>23/01/2022</td>   
                 <td>69.000$</td>
-                <td>true</td>
+             
               </tr>
             </tbody>
             <tbody>
@@ -80,11 +80,11 @@
                 </th>    
                 <td>0001</td>  
                 <td>29991111222233330000</td>
-                <td>1</td>  
+                <td>Caja de ahorro</td>  
                 <td>2589021</td>
                 <td>23/01/2022</td>   
                 <td>69.000$</td>
-                <td>true</td>
+               
               </tr>
             </tbody>
             <tbody>
@@ -100,11 +100,11 @@
                 </th>    
                 <td>0001</td>  
                 <td>29991111222233330000</td>
-                <td>1</td>  
+                <td>Caja de ahorro</td>  
                 <td>2589021</td>
                 <td>23/01/2022</td>   
                 <td>69.000$</td>
-                <td>true</td>
+               
               </tr>
             </tbody>
 
@@ -121,11 +121,11 @@
                 </th>    
                 <td>0001</td>  
                 <td>29991111222233330000</td>
-                <td>1</td>  
+                <td>Caja de ahorro</td>  
                 <td>2589021</td>
                 <td>23/01/2022</td>   
                 <td>69.000$</td>
-                <td>true</td>
+                
               </tr>
             </tbody>
 
