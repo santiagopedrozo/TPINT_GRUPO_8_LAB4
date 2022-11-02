@@ -7,25 +7,117 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1> Prestamos </h1>
-	Listado de prestamos: 
-	<select name = "prestamos" id = "prestamos">  
-		<option value = "1"> Prestamo 1 </option>
-		<option value = "2"> Prestamo 2 </option>
-		<option value = "3"> Prestamo 3 </option>
-	</select>
-	<br>
-	<br>
-	<input type = "submit" name = "btnAprobar" value = "SI"> 
-	<input type = "submit" name = "btnRechazar" value = "NO">
-	<p align = "center">
-		Propietario de la cuenta:<label for="lblPropietario"> Juan Carlos Ramirez </label><br>
-		Fecha: <label for="lblFecha"> 31/10/2022 </label><br>
-		Cantidad de cuotas: <label for="lblCuotas"> 12 </label><br>
-		Monto pedido: $<label for="lblMontoPedido"> 200.000 </label><br>
-		Monto a pagar por cuota: $<label for="lblMontoXCuota"> 20.000 </label><br>
-	</p>
-	
+<%@ include file="MasterPage.html" %>
+	<div class="container-fluid" style="width:90%;">
+        <div class="card text-center">
+            <div class="card-header "><h5>Prestamos</h5></div>
+            <table class="table table-hover" style="font-size: 12px;">
+                <thead>
+                    <tr>
+                      <th> </th> 
+                      <th>ID Prestamo</th>   
+                      <th>Propietario de la cuenta</th> 
+                      <th>Fecha</th> 
+                      <th>Cantidad de cuotas</th>
+                      <th>Monto pedido</th> 
+                      <th>Monto a pagar por cuota</th> 
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">
+                            <button type="button" class="btn btn-outline-success btn-sm">
+                                <i class="fa-solid fa-check"></i>
+                            </button>
+                            <button type="button" class="btn btn-outline-danger btn-sm">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        </th>  
+                        <td>1</td>  
+                        <td>Juan Carlos Ramirez</td>
+                        <td>31/10/2022</td>  
+                        <td>12</td> 
+                        <td>200.000</td>
+                        <td>20.000</td>
+                    </tr>
+                </tbody>
+                <tbody>
+                    <tr>
+                        <th scope="row">
+                            <button type="button" class="btn btn-outline-success btn-sm">
+                                <i class="fa-solid fa-check"></i>
+                            </button>
+                            <button type="button" class="btn btn-outline-danger btn-sm">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        </th>  
+                        <td>1</td>  
+                        <td>Juan Carlos Ramirez</td>
+                        <td>31/10/2022</td>  
+                        <td>12</td> 
+                        <td>200.000</td>
+                        <td>20.000</td>
+                    </tr>
+                </tbody>
+                <tbody>
+                    <tr>
+                        <th scope="row">
+                            <button type="button" class="btn btn-outline-success btn-sm">
+                                <i class="fa-solid fa-check"></i>
+                            </button>
+                            <button type="button" class="btn btn-outline-danger btn-sm">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        </th>  
+                        <td>1</td>  
+                        <td>Juan Carlos Ramirez</td>
+                        <td>31/10/2022</td>  
+                        <td>12</td> 
+                        <td>200.000</td>
+                        <td>20.000</td>
+                    </tr>
+                </tbody>
+                <tbody>
+                    <tr>
+                        <th scope="row">
+                            <button type="button" class="btn btn-outline-success btn-sm">
+                                <i class="fa-solid fa-check"></i>
+                            </button>
+                            <button type="button" class="btn btn-outline-danger btn-sm">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        </th>  
+                        <td>1</td>  
+                        <td>Juan Carlos Ramirez</td>
+                        <td>31/10/2022</td>  
+                        <td>12</td> 
+                        <td>200.000</td>
+                        <td>20.000</td>
+                    </tr>
+                </tbody>
+
+
+            </table>
+        
+            <div class="card-footer">
+              <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                    <a class="page-link" href="#">Next</a>
+                    </li>
+                </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+      
+    <%@ include file="FooterPage.html" %>
 	
 </body>
 </html>
