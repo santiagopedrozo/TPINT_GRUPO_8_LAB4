@@ -4,16 +4,22 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+
+
 <title>Administración cuentas</title>
 </head>
 <body>
 	<%@ include file="MasterPageAdmin.html" %>
+	
    <br>
   <div class="container-fluid" style="width:70%;">
     <div class="card text-center">
         <div class="card-header ">
           <h5>Cuentas</h5>
         </div>
+        
+        
         <table class="table table-hover">
             <thead>
               <tr>
