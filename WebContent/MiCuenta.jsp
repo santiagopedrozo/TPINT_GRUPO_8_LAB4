@@ -7,6 +7,7 @@
 <title>Mi perfil</title>
 </head>
 <body>
+	
 	<%@ include file="MasterPage.html" %>
 
  

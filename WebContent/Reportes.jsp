@@ -7,7 +7,7 @@ pageEncoding="ISO-8859-1"%>
     <title>Insert title here</title>
   </head>
   <body>
-    <%@ include file="MasterPage.html" %>
+    <%@ include file="MasterPageAdmin.html" %>
     <br>
     <div style="display: flex; justify-content: center">
       <div class="container-fluid" style="width: 40%">

@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<%@ include file="MasterPage.html" %>
+<%@ include file="MasterPageAdmin.html" %>
 <br>
 <br>
 	<div class="container-fluid" style="width:90%;">
