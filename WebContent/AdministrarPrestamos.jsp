@@ -8,6 +8,8 @@
 </head>
 <body>
 <%@ include file="MasterPage.html" %>
+<br>
+<br>
 	<div class="container-fluid" style="width:90%;">
         <div class="card text-center">
             <div class="card-header "><h5>Prestamos</h5></div>
@@ -16,7 +18,8 @@
                     <tr>
                       <th> </th> 
                       <th>ID Prestamo</th>   
-                      <th>Propietario de la cuenta</th> 
+                      <th>DNI Solicitante</th> 
+                      <th>Nro cuenta destino</th>
                       <th>Fecha</th> 
                       <th>Cantidad de cuotas</th>
                       <th>Monto pedido</th> 
@@ -34,7 +37,27 @@
                             </button>
                         </th>  
                         <td>1</td>  
-                        <td>Juan Carlos Ramirez</td>
+                        <td>22233212</td>
+                        <td>5</td>
+                        <td>31/10/2022</td>  
+                        <td>12</td> 
+                        <td>200.000</td>
+                        <td>20.000</td>
+                    </tr>
+                </tbody>
+               <tbody>
+                    <tr>
+                        <th scope="row">
+                            <button type="button" class="btn btn-outline-success btn-sm">
+                                <i class="fa-solid fa-check"></i>
+                            </button>
+                            <button type="button" class="btn btn-outline-danger btn-sm">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        </th>  
+                        <td>1</td>  
+                        <td>22233212</td>
+                        <td>5</td>
                         <td>31/10/2022</td>  
                         <td>12</td> 
                         <td>200.000</td>
@@ -52,7 +75,8 @@
                             </button>
                         </th>  
                         <td>1</td>  
-                        <td>Juan Carlos Ramirez</td>
+                        <td>22233212</td>
+                        <td>5</td>
                         <td>31/10/2022</td>  
                         <td>12</td> 
                         <td>200.000</td>
@@ -70,25 +94,8 @@
                             </button>
                         </th>  
                         <td>1</td>  
-                        <td>Juan Carlos Ramirez</td>
-                        <td>31/10/2022</td>  
-                        <td>12</td> 
-                        <td>200.000</td>
-                        <td>20.000</td>
-                    </tr>
-                </tbody>
-                <tbody>
-                    <tr>
-                        <th scope="row">
-                            <button type="button" class="btn btn-outline-success btn-sm">
-                                <i class="fa-solid fa-check"></i>
-                            </button>
-                            <button type="button" class="btn btn-outline-danger btn-sm">
-                                <i class="fa-solid fa-xmark"></i>
-                            </button>
-                        </th>  
-                        <td>1</td>  
-                        <td>Juan Carlos Ramirez</td>
+                        <td>22233212</td>
+                        <td>5</td>
                         <td>31/10/2022</td>  
                         <td>12</td> 
                         <td>200.000</td>
@@ -116,6 +123,9 @@
           </div>
         </div>
       </div>
+      <br>
+      <br>
+      <br>
       
     <%@ include file="FooterPage.html" %>
 	
