@@ -15,12 +15,7 @@
 <body>
 <%@ include file="MasterPageAdmin.html" %>
 
-<%
-//Agarramos los parámetros
-ArrayList<Provincias> provincias = null;
-ArrayList<Localidades> localidades= null;
-if (request.getAttribute("provincias")!=null) provincias = (ArrayList<Provincias>) request.getAttribute("provincias");
-%>
+
 
 
 
@@ -39,14 +34,14 @@ if (request.getAttribute("provincias")!=null) provincias = (ArrayList<Provincias
                       <th>Sexo</th> 
                       <th>Nacionalidad</th> 
                       <th>Fecha de nacimiento</th> 
-                      <th>Dirección</th>
+                      <th>Direcciï¿½n</th>
                       <th>Provincia</th>
                       <th>Localidad</th>
                       <th>Email</th>
-                      <th>Teléfono</th> 
+                      <th>Telï¿½fono</th> 
                       <th>Tipo de usuario</th> 
                       <th>Usuario</th>
-                      <th>Contraseña</th>
+                      <th>Contraseï¿½a</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -71,7 +66,7 @@ if (request.getAttribute("provincias")!=null) provincias = (ArrayList<Provincias
                         <td>San Fernando</td>
                         <td>santiagopedrozo@hotmail.com</td>
                         <td>1122112211</td>
-                        <td>Estándar</td>
+                        <td>Estï¿½ndar</td>
                         <td>santito123</td>
                         <td>Messi2022</td> 
                     </tr>
@@ -98,7 +93,7 @@ if (request.getAttribute("provincias")!=null) provincias = (ArrayList<Provincias
                         <td>San Fernando</td>
                         <td>santiagopedrozo@hotmail.com</td>
                         <td>1122112211</td>
-                        <td>Estándar</td>
+                        <td>Estï¿½ndar</td>
                         <td>santito123</td>
                         <td>Messi2022</td> 
                     </tr>
@@ -125,7 +120,7 @@ if (request.getAttribute("provincias")!=null) provincias = (ArrayList<Provincias
                         <td>San Fernando</td>
                         <td>santiagopedrozo@hotmail.com</td>
                         <td>1122112211</td>
-                        <td>Estándar</td>
+                        <td>Estï¿½ndar</td>
                         <td>santito123</td>
                         <td>Messi2022</td> 
                     </tr>
@@ -152,7 +147,7 @@ if (request.getAttribute("provincias")!=null) provincias = (ArrayList<Provincias
                         <td>San Fernando</td>
                         <td>santiagopedrozo@hotmail.com</td>
                         <td>1122112211</td>
-                        <td>Estándar</td>
+                        <td>Estï¿½ndar</td>
                         <td>santito123</td>
                         <td>Messi2022</td> 
 
@@ -184,10 +179,13 @@ if (request.getAttribute("provincias")!=null) provincias = (ArrayList<Provincias
         <div class="card text-center">
             <div class="card-header"><h5>Crear y asignar usuario</h5></div>
             <div class="card-body" style="font-size: 13px;">
-                <form method="get" action="Inicio.jsp" class="row">
+                <form name="formAgregarUsr" method="POST" action="servletUsuario" class="row">
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="text" name="txtDNI" class="form-control" id="floatingInput" placeholder="-"
+                            <input type="text" 
+                            name="txtDNI" 
+                            class="form-control" 
+                            id="floatingInput" placeholder="-"
                             oninput="this.value =this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" 
                             minlength="7" 
                             maxlength="8"
@@ -226,7 +224,7 @@ if (request.getAttribute("provincias")!=null) provincias = (ArrayList<Provincias
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
                             <input type="tel"  name="txtTelefono"class="form-control"  id="floatingInput" placeholder="-">
-                            <label for="floatingInput">Teléfono</label>
+                            <label for="floatingInput">Telï¿½fono</label>
                         </div>
                     </div>
                     
@@ -256,15 +254,15 @@ if (request.getAttribute("provincias")!=null) provincias = (ArrayList<Provincias
                		
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="text" name="txtContraseña" class="form-control" id="floatingInput" placeholder="-">
-                            <label for="floatingSelect">Contraseña</label>
+                            <input type="text" name="txtContraseï¿½a" class="form-control" id="floatingInput" placeholder="-">
+                            <label for="floatingSelect">Contraseï¿½a</label>
                         </div>
                     </div>
 
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
                             <input type="text" name="txtDireccion" class="form-control" id="floatingInput" placeholder="-">
-                            <label for="floatingSelect">Dirección</label>
+                            <label for="floatingSelect">Direcciï¿½n</label>
                         </div>
                     </div>
                
@@ -288,8 +286,6 @@ if (request.getAttribute("provincias")!=null) provincias = (ArrayList<Provincias
                         </div>
                     </div>
 
-
-                    
                     
                     <div class="col-md-4">
                         <div class="form-floating mb-3">
@@ -298,23 +294,52 @@ if (request.getAttribute("provincias")!=null) provincias = (ArrayList<Provincias
                         </div>
                     </div>
 
-                    <div class="col-md-6">
-                        <div class="form-floating">
-                            <select name="ddlProvincias" id="" class="form-select" id="floatingInput" placeholder="-">
-                                <%
-                                int cProv=0;
-								if (provincias!=null)
-								for(Provincias prov : provincias){
-									cProv++;
+                    <!--                     
+                  	<%
+                        ArrayList<TipoSeguro> lSeguros = null;
+                        if(request.getAttribute("TiposSeguro") != null){
+                            lSeguros = 
+                                (ArrayList<TipoSeguro>) request.getAttribute("TiposSeguro");
+                        }
+                    %>
+
+     
+                        <select name="tipoSeguro">
+                        <%
+                            if(lSeguros != null)
+                            for(TipoSeguro tipSeg : lSeguros){ 
+                                System.out.println(tipSeg.getID());
+                        %>
+                            <option value="<%=tipSeg.getID() %>"> <%= tipSeg.getDESCRIPCION_TIPO_SEGURO() %> </option>
+                        <%		
+                            }
+                        %>	 -->
+
+                    <%
+                    //Agarramos los parï¿½metros
+                    ArrayList<Provincias> provincias = null;
+                    ArrayList<Localidades> localidades= null;
+                    if (request.getAttribute("provincias")!=null) provincias = (ArrayList<Provincias>) request.getAttribute("provincias");
+                    %>
+					<form action="servletUsuario?paramProv=1" method="post" name="formProv">
+	                    <div class="col-md-6">
+	                        <div class="form-floating">
+	                            <select name="ddlProvincias"  class="form-select" id="floatingInput" placeholder="-" onchange="document.formAgregarUsr.submit(); <%= %>">
+	                                <%
+	                                int cProv=0;
+									if (provincias!=null)
+									for(Provincias prov : provincias){
+										cProv++;
+										%>
+										<option value=<%=cProv%>><%=prov.getDescripcion_Prov()%></option>
+										<%
+									}
 									%>
-									<option value=<%=cProv%>><%=prov.getDescripcion_Prov()%></option>
-									<%
-								}
-								%>
-                            </select>
-                            <label for="floatingSelect">Provincia</label>
-                        </div>
-                    </div>
+	                            </select>
+	                            <label for="floatingSelect">Provincia</label>
+	                        </div>
+	                    </div>
+                    </form>
                
                     <div class="col-md-6">
                         <div class="form-floating">
@@ -327,7 +352,7 @@ if (request.getAttribute("provincias")!=null) provincias = (ArrayList<Provincias
             
                     <div class="col-md-12">
                         <br>
-                        <button type="submit" class="btn btn-outline-primary form-control btn-lg">Dar de alta usuario</button>
+                        <button type="submit" name="btnAgregarUsr" class="btn btn-outline-primary form-control btn-lg">Dar de alta usuario</button>
                     </div>
                 </form>
               </form>

@@ -10,7 +10,7 @@ import negocio.LocalidadesNegocio;
 public class LocalidadesNegocioImpl implements LocalidadesNegocio {
 	LocalidadesDao locDao = new LocalidadesDaoImpl();
 	@Override
-	public ArrayList<Localidades> readALL() {
-		return locDao.readALL();
+	public ArrayList<Localidades> readALL(int idProv) {
+		return locDao.readALL(idProv);
 	}
 }

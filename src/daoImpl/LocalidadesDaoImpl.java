@@ -12,16 +12,18 @@ import entidades.Provincias;
 
 public class LocalidadesDaoImpl implements LocalidadesDao {
 	@Override
-	public ArrayList<Localidades> readALL() {
+	public ArrayList<Localidades> readALL(int idProv) {
 		PreparedStatement statement;
 		ResultSet resultSet; //Guarda el resultado de la query
 		ArrayList<Localidades> localidades= new ArrayList<Localidades>();
 		Conexion conexion = Conexion.getConexion();
+		String consulta = 
+		"SELECT Localidades.* ,Provincias.Descripcion_Prov from Localidades INNER JOIN Provincias ON IdProvincia_Loc = IdProvincia_Prov WHERE idprovincia_loc = " + idProv;
 		try 
 		{
 			Class.forName("com.mysql.jdbc.Driver");
-			statement = conexion.getSQLConexion().prepareStatement("SELECT Localidades.* ,Provincias.Descripcion_Prov from Localidades INNER JOIN Provincias ON IdProvincia_Loc = IdProvincia_Prov");
-			resultSet = statement.executeQuery();
+			statement = conexion.getSQLConexion().prepareStatement();
+			resultSet = statement.executeQuery(consulta);
 			while(resultSet.next())
 			{
 				localidades.add(getLocalidades(resultSet));

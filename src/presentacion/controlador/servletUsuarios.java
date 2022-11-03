@@ -38,7 +38,9 @@ public class servletUsuarios extends HttpServlet {
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
+		if(request.getParameter("paramProv")!=null) {
+			int idprov = Integer. request.getParameter("ddlProvincias").toString();
+		}
 	}
 	
 	public void cargarAgregarUser(HttpServletRequest request) {

@@ -1,5 +1,6 @@
+/conexion/
 /dao/
-/daoImpl/
 /negocio/
 /negocioImpl/
 /presentacion/
+/daoImpl/
