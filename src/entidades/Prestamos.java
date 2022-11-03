@@ -2,11 +2,13 @@ package entidades;
 
 import java.time.LocalDateTime;
 
+import com.sun.jmx.snmp.Timestamp;
+
 public class Prestamos {
 	private int Id_Pr;
 	private Usuarios Usuario_Pr;
 	private Cuentas CuentaDestino_Pr;
-	private LocalDateTime FechaSolicitado_Pr;
+	private Timestamp FechaSolicitado_Pr;
 	private float ImpSolicitado_Pr;
 	private float ImpResultante_Pr;
 	private int PlazoMeses_Pr;
@@ -21,7 +23,7 @@ public class Prestamos {
 		CuentaDestino_Pr = new Cuentas();
 	}
 	
-	public Prestamos(int id_Pr, Usuarios usuario_Pr, Cuentas cuentaDestino_Pr, LocalDateTime fechaSolicitado_Pr,
+	public Prestamos(int id_Pr, Usuarios usuario_Pr, Cuentas cuentaDestino_Pr, Timestamp fechaSolicitado_Pr,
 	float impSolicitado_Pr, float impResultante_Pr, int plazoMeses_Pr, float impPagoAlMes_Pr, int cantCuotas_Pr,
 	boolean autorizado_Pr, boolean estado_Pr) {
 		Id_Pr = id_Pr;
@@ -67,16 +69,13 @@ public class Prestamos {
 		CuentaDestino_Pr = cuentaDestino_Pr;
 	}
 
-
-	public LocalDateTime getFechaSolicitado_Pr() {
+	public Timestamp getFechaSolicitado_Pr() {
 		return FechaSolicitado_Pr;
 	}
 
-
-	public void setFechaSolicitado_Pr(LocalDateTime fechaSolicitado_Pr) {
+	public void setFechaSolicitado_Pr(Timestamp fechaSolicitado_Pr) {
 		FechaSolicitado_Pr = fechaSolicitado_Pr;
 	}
-
 
 	public float getImpSolicitado_Pr() {
 		return ImpSolicitado_Pr;

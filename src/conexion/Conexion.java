@@ -1,4 +1,4 @@
-package daoImpl;
+package conexion;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -15,7 +15,7 @@ public class Conexion {
 		{
 			Class.forName("com.mysql.jdbc.Driver");
 			this.connection = DriverManager.getConnection(
-			"jdbc:mysql://localhost:3306/bdpersonas","root","root");
+			"jdbc:mysql://localhost:3306/bd_tpint_labiv","root","root");
 			this.connection.setAutoCommit(false);
 		}
 		catch(Exception e)
@@ -38,6 +38,7 @@ public class Conexion {
 	{
 		return this.connection;
 	}
+	
 	
 	public void cerrarConexion()
 	{
