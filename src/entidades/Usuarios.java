@@ -10,7 +10,7 @@ public class Usuarios {
 	private String Apellido_Usr; 
 	private String Sexo_Usr; 
 	private String Nacionalidad_Usr; 
-	private Date FechaNacimiento_Usr; 
+	private LocalDate FechaNacimiento_Usr; 
 	private String Direccion_Usr; 
 	private Provincias Provincia_Usr;
 	private Localidades Localidad_Usr; 
@@ -29,7 +29,7 @@ public class Usuarios {
 	}
 	
 	public Usuarios(String dNI_Usr, String cUIL_Usr, String nombre_Usr, String apellido_Usr, String sexo_Usr,
-	String nacionalidad_Usr, Date fechaNacimiento_Usr, String direccion_Usr, Provincias provincia_Usr,
+	String nacionalidad_Usr, LocalDate fechaNacimiento_Usr, String direccion_Usr, Provincias provincia_Usr,
 	Localidades localidad_Usr, String email_Usr, String telefono_Usr, boolean tipo_Usr, String usuario_Usr,
 	String contrasenia_Usr, boolean estado_Usr) {
 		
@@ -100,11 +100,12 @@ public class Usuarios {
 		Nacionalidad_Usr = nacionalidad_Usr;
 	}
 
-	public Date getFechaNacimiento_Usr() {
+
+	public LocalDate getFechaNacimiento_Usr() {
 		return FechaNacimiento_Usr;
 	}
 
-	public void setFechaNacimiento_Usr(Date fechaNacimiento_Usr) {
+	public void setFechaNacimiento_Usr(LocalDate fechaNacimiento_Usr) {
 		FechaNacimiento_Usr = fechaNacimiento_Usr;
 	}
 

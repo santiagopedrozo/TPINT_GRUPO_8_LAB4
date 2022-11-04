@@ -6,6 +6,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class UsuariosDaoImpl implements UsuariosDao{
 			cst.setString(4, usuario.getApellido_Usr());
 			cst.setString(5, usuario.getSexo_Usr());
 			cst.setString(6,usuario.getNacionalidad_Usr());
-			cst.setDate(7, usuario.getFechaNacimiento_Usr());
+			cst.setObject(7, usuario.getFechaNacimiento_Usr()); 
 			cst.setString(8,usuario.getDireccion_Usr());
 			cst.setInt(9,usuario.getProvincia_Usr().getIdProvincia_Prov());
 			cst.setInt(10, usuario.getLocalidad_Usr().getIdLocalidad_Loc());
@@ -38,8 +39,8 @@ public class UsuariosDaoImpl implements UsuariosDao{
 			cst.setBoolean(13, usuario.isTipo_Usr());
 			cst.setString(14,usuario.getUsuario_Usr());
 			cst.setString(15, usuario.getContrasenia_Usr());
-			cst.execute();
-			return true;
+			return cst.execute();
+			
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -86,7 +87,7 @@ public class UsuariosDaoImpl implements UsuariosDao{
 		String Apellido_Usr = resultSet.getString("Apellido_Usr");
 		String Sexo_Usr = resultSet.getString("Sexo_Usr");
 		String Nacionalidad_Usr  = resultSet.getString("Nacionalidad_Usr");
-		Date FechaNacimiento_Usr = resultSet.getDate("FechaNacimiento_Usr");
+		LocalDate FechaNacimiento_Usr = resultSet.getDate("FechaNacimiento_Usr").toLocalDate();
 		String Direccion_Usr= resultSet.getString("Direccion_Usr");
 		Provincias Provincia_Usr = new Provincias(resultSet.getInt("IdProvincia_Usr"), resultSet.getString("Descripcion_Prov"));
 		Localidades Localidad_Usr = new Localidades(Provincia_Usr, resultSet.getInt("IdLocalidad_Usr"), resultSet.getString("Descripcion_Loc"));

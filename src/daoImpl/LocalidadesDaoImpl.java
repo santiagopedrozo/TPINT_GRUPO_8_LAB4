@@ -12,7 +12,7 @@ import entidades.Provincias;
 
 public class LocalidadesDaoImpl implements LocalidadesDao {
 	@Override
-	public ArrayList<Localidades> readALL(int idProv) {
+	public ArrayList<Localidades> LocxProv(int idProv) {
 		PreparedStatement statement;
 		ResultSet resultSet; //Guarda el resultado de la query
 		ArrayList<Localidades> localidades= new ArrayList<Localidades>();
@@ -39,6 +39,36 @@ public class LocalidadesDaoImpl implements LocalidadesDao {
 		}
 		return localidades;
 	}	
+	@Override
+	public int buscarNumLoc(String descripcion) {
+		PreparedStatement statement;
+		ResultSet resultSet; //Guarda el resultado de la query
+		int numLoc=0;
+		Conexion conexion = Conexion.getConexion();
+		System.out.println(descripcion);
+		String consulta = 
+		"SELECT IdLocalidad_Loc FROM Localidades WHERE Descripcion_Loc = '" + descripcion + "'";
+		System.out.println(consulta);
+		try 
+		{
+			Class.forName("com.mysql.jdbc.Driver");
+			statement = conexion.getSQLConexion().prepareStatement(consulta);
+			resultSet = statement.executeQuery();
+			resultSet.next();
+			numLoc = resultSet.getInt("IdLocalidad_Loc");
+			
+		
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(numLoc);
+		return numLoc;
+	}
 
 	private Localidades getLocalidades(ResultSet resultSet) throws SQLException
 	{
@@ -50,5 +80,6 @@ public class LocalidadesDaoImpl implements LocalidadesDao {
 		
 		return new Localidades(new Provincias (IdProvincia_Prov, Descripcion_Prov), IdLocalidades_Loc, Descripcion_Loc);
 	}
+
 		
 }

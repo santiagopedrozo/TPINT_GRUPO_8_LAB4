@@ -15,8 +15,7 @@ public class UsuariosNegocioImpl implements UsuariosNegocio {
 	@Override
 	public boolean insert(Usuarios usuario) {
 		if (existe(usuario.getDNI_Usr(), usuario.getCUIL_Usr(), usuario.getEmail_Usr(), usuario.getUsuario_Usr())==false) {
-			userDao.insert(usuario);
-			return true;
+			return userDao.insert(usuario);
 		}
 		return false;
 	}

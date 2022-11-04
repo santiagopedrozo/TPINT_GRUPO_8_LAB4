@@ -190,6 +190,7 @@
                             minlength="7" 
                             maxlength="8"
                             placeholder="-"
+                            required
                             >
                             <label for="floatingInput">DNI</label>
                         </div>
@@ -202,6 +203,7 @@
                             minlength="11"
                             maxlength="11"
                             placeholder="-"
+                            required
                             >
                             <label for="floatingInput">CUIL</label>
                         </div>
@@ -209,37 +211,37 @@
     
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="text" name="txtNombre" class="form-control" id="floatingInput" placeholder="-">
+                            <input type="text" name="txtNombre" class="form-control" id="floatingInput" placeholder="-" required>
                             <label for="floatingInput">Nombre</label>
                         </div>
                     </div>
                
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="text" name="txtApellido" class="form-control" id="floatingInput" placeholder="-">
+                            <input type="text" name="txtApellido" class="form-control" id="floatingInput" placeholder="-" required>
                             <label for="floatingInput">Apellido</label> 
                         </div>
                     </div>
 
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="tel"  name="txtTelefono"class="form-control"  id="floatingInput" placeholder="-">
+                            <input type="tel"  name="txtTelefono"class="form-control"  id="floatingInput" placeholder="-"required>
                             <label for="floatingInput">Telï¿½fono</label>
                         </div>
                     </div>
                     
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="email" name="txtEmail" class="form-control"  id="floatingInput" placeholder="-">
+                            <input type="email" name="txtEmail" class="form-control"  id="floatingInput" placeholder="-" required>
                             <label for="floatingInput">Email</label>
                         </div>
                     </div>
 
                     <div class="col-md-6">
                         <div class="form-floating">
-                            <select name="ddlTipo" id="" class="form-select" id="floatingInput" placeholder="-">
-                            <option value="">Estandar</option>
-                            <option value="">Admin</option>
+                            <select name="ddlTipo" id="" class="form-select" id="floatingInput" placeholder="-" required>
+                            <option value=false> Estandar </option>
+                            <option value=true> Admin </option>
                             </select>
                             <label for="floatingSelect">Tipo de usuario</label>
                         </div>
@@ -247,22 +249,22 @@
                		
                		  <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="text" name="txtUsuario" class="form-control" id="floatingInput" placeholder="-">
+                            <input type="text" name="txtUsuario" class="form-control" id="floatingInput" placeholder="-" required>
                             <label for="floatingSelect">Usuario</label>
                         </div>
                     </div>
                		
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="text" name="txtContraseï¿½a" class="form-control" id="floatingInput" placeholder="-">
-                            <label for="floatingSelect">Contraseï¿½a</label>
+                            <input type="text" name="txtContrasenia" class="form-control" id="floatingInput" placeholder="-" required>
+                            <label for="floatingSelect">Contraseña</label>
                         </div>
                     </div>
 
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="text" name="txtDireccion" class="form-control" id="floatingInput" placeholder="-">
-                            <label for="floatingSelect">Direcciï¿½n</label>
+                            <input type="text" name="txtDireccion" class="form-control" id="floatingInput" placeholder="-" required>
+                            <label for="floatingSelect">Direccion</label>
                         </div>
                     </div>
                
@@ -289,7 +291,7 @@
                     
                     <div class="col-md-4">
                         <div class="form-floating mb-3">
-                            <input type="text" name="txtNacionalidad" class="form-control" id="floatingInput" placeholder="-">
+                            <input type="text" name="txtNacionalidad" class="form-control" id="floatingInput" placeholder="-" required>
                             <label for="floatingSelect">Nacionalidad</label>
                         </div>
                     </div>
@@ -302,8 +304,8 @@
                     %>
 						<div class="col-md-6">
 	                        <div class="form-floating">
-								<form action="servletUsuarios?paramProv=1" method="post" name="formProv">	
-	                            <select name="ddlProvincias"  class="form-select" id="floatingInput" placeholder="-" onchange="document.formProv.submit();">
+
+	                            <select name="ddlProvincias"  class="form-select" id="floatingInput" placeholder="-" >
 	                                <%
 	                                int cProv=0;
 									if (provincias!=null)
@@ -317,7 +319,6 @@
 	                            </select>
 	                            <label for="floatingSelect">Provincia</label>
 	                             <button type="submit" name="btnAgregarLocs" class="btn btn-outline-primary btn-sm">Ver Locs</button>
-                    			</form>
 	                        </div>
 	                    </div>
                
@@ -325,13 +326,13 @@
                         <div class="form-floating">
                             <select name="ddlLocalidades" id="" class="form-select" id="floatingInput" placeholder="-">
                                 <% 
-                                int cLoc=0;
+                               
 								if (localidades!=null)
 
 								for(Localidades loc : localidades){
-									cLoc++;
+									
 									%>
-									<option value=<%=cLoc%>><%=loc.getDescripcion_Loc()%></option>
+									<option><%=loc.getDescripcion_Loc()%></option>
 									<%
 								}
 								%>
@@ -344,7 +345,6 @@
                         <br>
                         <button type="submit" name="btnAgregarUsr" class="btn btn-outline-primary form-control btn-lg">Dar de alta usuario</button>
                     </div>
-                </form>
               </form>
             </div>
         </div>

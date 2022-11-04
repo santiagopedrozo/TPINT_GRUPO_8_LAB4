@@ -2607,7 +2607,7 @@ CREATE PROCEDURE SPAgregarUsuario (
 BEGIN
 	INSERT INTO Usuarios (DNI_Usr,CUIL_Usr,Nombre_Usr ,Apellido_Usr ,Sexo_Usr ,Nacionalidad_Usr,FechaNacimiento_Usr ,Direccion_Usr ,IdProvincia_Usr ,IdLocalidad_Usr , Email_Usr,
 	Telefono_Usr ,Tipo_Usr, Usuario_Usr,Contrasenia_Usr) VALUES
-	(DNI,CUIL,Nombre, Apellido, Sexo, Nacionalidad , FechaNacimiento,Direccion, IdProvincia, IdLocalidad,Email,Telefono, Tipo,Usuario,Contraseña);
+	(DNI,CUIL,Nombre, Apellido, Sexo, Nacionalidad , FechaNacimiento,Direccion, IdProvincia, IdLocalidad,Email,Telefono, Tipo,Usuario,Contrasenia);
 END //
 DELIMITER ;
 
