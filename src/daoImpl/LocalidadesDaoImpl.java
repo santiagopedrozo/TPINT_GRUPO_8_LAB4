@@ -22,12 +22,13 @@ public class LocalidadesDaoImpl implements LocalidadesDao {
 		try 
 		{
 			Class.forName("com.mysql.jdbc.Driver");
-			statement = conexion.getSQLConexion().prepareStatement();
-			resultSet = statement.executeQuery(consulta);
+			statement = conexion.getSQLConexion().prepareStatement(consulta);
+			resultSet = statement.executeQuery();
 			while(resultSet.next())
 			{
 				localidades.add(getLocalidades(resultSet));
 			}
+			localidades.forEach(System.out::println);
 		} 
 		catch (SQLException e) 
 		{

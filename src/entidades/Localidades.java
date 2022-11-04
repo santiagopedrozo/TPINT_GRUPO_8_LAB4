@@ -13,7 +13,7 @@ public class Localidades {
 	public Localidades(Provincias Provincia_Loc, int IdLocalidad_Loc, String Descripcion_Loc) {
 		this.Provincia_Loc = Provincia_Loc;
 		this.IdLocalidad_Loc = IdLocalidad_Loc;
-		Descripcion_Loc = Descripcion_Loc;
+		this.Descripcion_Loc = Descripcion_Loc;
 	}
 	
 	//Gets y Sets

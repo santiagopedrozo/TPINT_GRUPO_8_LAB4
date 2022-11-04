@@ -179,7 +179,7 @@
         <div class="card text-center">
             <div class="card-header"><h5>Crear y asignar usuario</h5></div>
             <div class="card-body" style="font-size: 13px;">
-                <form name="formAgregarUsr" method="POST" action="servletUsuario" class="row">
+                <form name="formAgregarUsr" method="POST" action="servletUsuarios" class="row">
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
                             <input type="text" 
@@ -293,38 +293,17 @@
                             <label for="floatingSelect">Nacionalidad</label>
                         </div>
                     </div>
-
-                    <!--                     
-                  	<%
-                        ArrayList<TipoSeguro> lSeguros = null;
-                        if(request.getAttribute("TiposSeguro") != null){
-                            lSeguros = 
-                                (ArrayList<TipoSeguro>) request.getAttribute("TiposSeguro");
-                        }
-                    %>
-
-     
-                        <select name="tipoSeguro">
-                        <%
-                            if(lSeguros != null)
-                            for(TipoSeguro tipSeg : lSeguros){ 
-                                System.out.println(tipSeg.getID());
-                        %>
-                            <option value="<%=tipSeg.getID() %>"> <%= tipSeg.getDESCRIPCION_TIPO_SEGURO() %> </option>
-                        <%		
-                            }
-                        %>	 -->
-
-                    <%
+                    <% 
                     //Agarramos los par�metros
                     ArrayList<Provincias> provincias = null;
                     ArrayList<Localidades> localidades= null;
                     if (request.getAttribute("provincias")!=null) provincias = (ArrayList<Provincias>) request.getAttribute("provincias");
+                    if (request.getAttribute("localidades")!=null) localidades = (ArrayList<Localidades>) request.getAttribute("localidades");
                     %>
-					<form action="servletUsuario?paramProv=1" method="post" name="formProv">
-	                    <div class="col-md-6">
+						<div class="col-md-6">
 	                        <div class="form-floating">
-	                            <select name="ddlProvincias"  class="form-select" id="floatingInput" placeholder="-" onchange="document.formAgregarUsr.submit(); <%= %>">
+								<form action="servletUsuarios?paramProv=1" method="post" name="formProv">	
+	                            <select name="ddlProvincias"  class="form-select" id="floatingInput" placeholder="-" onchange="document.formProv.submit();">
 	                                <%
 	                                int cProv=0;
 									if (provincias!=null)
@@ -337,14 +316,25 @@
 									%>
 	                            </select>
 	                            <label for="floatingSelect">Provincia</label>
+	                             <button type="submit" name="btnAgregarLocs" class="btn btn-outline-primary btn-sm">Ver Locs</button>
+                    			</form>
 	                        </div>
 	                    </div>
-                    </form>
                
                     <div class="col-md-6">
                         <div class="form-floating">
                             <select name="ddlLocalidades" id="" class="form-select" id="floatingInput" placeholder="-">
-                                
+                                <% 
+                                int cLoc=0;
+								if (localidades!=null)
+
+								for(Localidades loc : localidades){
+									cLoc++;
+									%>
+									<option value=<%=cLoc%>><%=loc.getDescripcion_Loc()%></option>
+									<%
+								}
+								%>
                             </select>
                             <label for="floatingSelect">Localidad</label>
                         </div>
