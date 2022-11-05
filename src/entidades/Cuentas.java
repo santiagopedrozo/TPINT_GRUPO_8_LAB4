@@ -6,7 +6,7 @@ import com.sun.jmx.snmp.Timestamp;
 
 public class Cuentas {
 	private int Nro_Cuentas;
-	private String DNI_Cuentas;
+	private Usuarios Usuario_Cuentas;
 	private LocalDateTime FechaCreacion_Cuentas;
 	private TipoCuentas TipoCuenta_Cuentas;
 	private String CBU_Cuentas;
@@ -18,10 +18,10 @@ public class Cuentas {
 		TipoCuenta_Cuentas = new TipoCuentas();
 	}
 	
-	public Cuentas(int nro_Cuentas, String dNI_Cuentas, LocalDateTime fechaCreacion_Cuentas,
+	public Cuentas(int nro_Cuentas, Usuarios Usuario_Cuentas, LocalDateTime fechaCreacion_Cuentas,
 	TipoCuentas tipoCuenta_Cuentas, String cBU_Cuentas, float saldo_Cuentas, boolean estado_Cuentas) {
 		Nro_Cuentas = nro_Cuentas;
-		DNI_Cuentas = dNI_Cuentas;
+		this.Usuario_Cuentas = Usuario_Cuentas;
 		FechaCreacion_Cuentas = fechaCreacion_Cuentas;
 		TipoCuenta_Cuentas = tipoCuenta_Cuentas;
 		CBU_Cuentas = cBU_Cuentas;
@@ -38,12 +38,12 @@ public class Cuentas {
 		Nro_Cuentas = nro_Cuentas;
 	}
 
-	public String getDNI_Cuentas() {
-		return DNI_Cuentas;
+	public Usuarios getUsuario_Cuentas() {
+		return Usuario_Cuentas;
 	}
 
-	public void setDNI_Cuentas(String dNI_Cuentas) {
-		DNI_Cuentas = dNI_Cuentas;
+	public void setUsuario_Cuentas(Usuarios Usuario_Cuentas) {
+		this.Usuario_Cuentas = Usuario_Cuentas;
 	}
 
 	public LocalDateTime getFechaCreacion_Cuentas() {
@@ -89,7 +89,7 @@ public class Cuentas {
 	//toString
 	@Override
 	public String toString() {
-		return "Cuentas [Nro_Cuentas=" + Nro_Cuentas + ", DNI_Cuentas=" + DNI_Cuentas + ", FechaCreacion_Cuentas="
+		return "Cuentas [Nro_Cuentas=" + Nro_Cuentas + ", DNI_Cuentas=" + Usuario_Cuentas.getDNI_Usr()  + ", FechaCreacion_Cuentas="
 				+ FechaCreacion_Cuentas + ", TipoCuenta_Cuentas=" + TipoCuenta_Cuentas + ", CBU_Cuentas=" + CBU_Cuentas
 				+ ", Saldo_Cuentas=" + Saldo_Cuentas + ", Estado_Cuentas=" + Estado_Cuentas + "]";
 	}

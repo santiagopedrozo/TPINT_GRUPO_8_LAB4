@@ -1,14 +1,14 @@
 package entidades;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 import com.sun.jmx.snmp.Timestamp;
 
 public class Prestamos {
 	private int Id_Pr;
-	private Usuarios Usuario_Pr;
 	private Cuentas CuentaDestino_Pr;
-	private Timestamp FechaSolicitado_Pr;
+	private Date FechaSolicitado_Pr;
 	private float ImpSolicitado_Pr;
 	private float ImpResultante_Pr;
 	private int PlazoMeses_Pr;
@@ -19,15 +19,14 @@ public class Prestamos {
 	
 	//Constructores
 	public Prestamos() {
-		Usuario_Pr = new Usuarios();
+		//Usuario_Pr = new Usuarios();
 		CuentaDestino_Pr = new Cuentas();
 	}
 	
-	public Prestamos(int id_Pr, Usuarios usuario_Pr, Cuentas cuentaDestino_Pr, Timestamp fechaSolicitado_Pr,
+	public Prestamos(int id_Pr, Cuentas cuentaDestino_Pr, Date fechaSolicitado_Pr,
 	float impSolicitado_Pr, float impResultante_Pr, int plazoMeses_Pr, float impPagoAlMes_Pr, int cantCuotas_Pr,
 	boolean autorizado_Pr, boolean estado_Pr) {
 		Id_Pr = id_Pr;
-		Usuario_Pr = usuario_Pr;
 		CuentaDestino_Pr = cuentaDestino_Pr;
 		FechaSolicitado_Pr = fechaSolicitado_Pr;
 		ImpSolicitado_Pr = impSolicitado_Pr;
@@ -50,16 +49,6 @@ public class Prestamos {
 	}
 
 
-	public Usuarios getUsuario_Pr() {
-		return Usuario_Pr;
-	}
-
-
-	public void setUsuario_Pr(Usuarios usuario_Pr) {
-		Usuario_Pr = usuario_Pr;
-	}
-
-
 	public Cuentas getCuentaDestino_Pr() {
 		return CuentaDestino_Pr;
 	}
@@ -69,11 +58,11 @@ public class Prestamos {
 		CuentaDestino_Pr = cuentaDestino_Pr;
 	}
 
-	public Timestamp getFechaSolicitado_Pr() {
+	public Date getFechaSolicitado_Pr() {
 		return FechaSolicitado_Pr;
 	}
 
-	public void setFechaSolicitado_Pr(Timestamp fechaSolicitado_Pr) {
+	public void setFechaSolicitado_Pr(Date fechaSolicitado_Pr) {
 		FechaSolicitado_Pr = fechaSolicitado_Pr;
 	}
 
@@ -150,7 +139,7 @@ public class Prestamos {
 	//toString
 	@Override
 	public String toString() {
-		return "Prestamos [Id_Pr=" + Id_Pr + ", Usuario_Pr=" + Usuario_Pr + ", CuentaDestino_Pr=" + CuentaDestino_Pr
+		return "Prestamos [Id_Pr=" + Id_Pr + " CuentaDestino_Pr=" + CuentaDestino_Pr
 				+ ", FechaSolicitado_Pr=" + FechaSolicitado_Pr + ", ImpSolicitado_Pr=" + ImpSolicitado_Pr
 				+ ", ImpResultante_Pr=" + ImpResultante_Pr + ", PlazoMeses_Pr=" + PlazoMeses_Pr + ", ImpPagoAlMes_Pr="
 				+ ImpPagoAlMes_Pr + ", CantCuotas_Pr=" + CantCuotas_Pr + ", Autorizado_Pr=" + Autorizado_Pr
