@@ -107,7 +107,7 @@
             <div class="card-header"><h5>Crear y asignar usuario</h5></div>
             <div class="card-body" style="font-size: 13px;">
                 <form name="formAgregarUsr" method="POST" action="servletUsuarios" class="row">  
-                	 <div class="col-md-6">
+               	 	    <div class="col-md-6">
                         <div class="form-floating mb-3">
                             <input type="text" 
                             name="txtDNI" 
@@ -117,6 +117,7 @@
                             minlength="7" 
                             maxlength="8"
                             placeholder="-"
+                            value="25390401"
                             required
                             >
                             <label for="floatingInput">DNI</label>
@@ -130,6 +131,7 @@
                             minlength="11"
                             maxlength="11"
                             placeholder="-"
+                            value="20253904019"
                             required
                             >
                             <label for="floatingInput">CUIL</label>
@@ -138,28 +140,28 @@
     
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="text" name="txtNombre" class="form-control" id="floatingInput" placeholder="-" required>
+                            <input type="text" name="txtNombre" class="form-control" id="floatingInput" placeholder="-" value="prueba" required>
                             <label for="floatingInput">Nombre</label>
                         </div>
                     </div>
                
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="text" name="txtApellido" class="form-control" id="floatingInput" placeholder="-" required>
+                            <input type="text" name="txtApellido" class="form-control" id="floatingInput" placeholder="-" value="prueba" required>
                             <label for="floatingInput">Apellido</label> 
                         </div>
                     </div>
 
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="tel"  name="txtTelefono"class="form-control"  id="floatingInput" placeholder="-"required>
+                            <input type="tel"  name="txtTelefono"class="form-control"  id="floatingInput" placeholder="-" value="1122332211" required>
                             <label for="floatingInput">Telï¿½fono</label>
                         </div>
                     </div>
                     
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="email" name="txtEmail" class="form-control"  id="floatingInput" placeholder="-" required>
+                            <input type="email" name="txtEmail" class="form-control"  id="floatingInput" placeholder="-" value="santi@gmail.com"required>
                             <label for="floatingInput">Email</label>
                         </div>
                     </div>
@@ -167,7 +169,7 @@
                     <div class="col-md-6">
                         <div class="form-floating">
                             <select name="ddlTipo" id="" class="form-select" id="floatingInput" placeholder="-" required>
-                            <option value=false> Estandar </option>
+                            <option value=false selected> Estandar </option>
                             <option value=true> Admin </option>
                             </select>
                             <label for="floatingSelect">Tipo de usuario</label>
@@ -176,32 +178,32 @@
                		
                		  <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="text" name="txtUsuario" class="form-control" id="floatingInput" placeholder="-" required>
+                            <input type="text" name="txtUsuario" class="form-control" id="floatingInput" placeholder="-" value="usr" required>
                             <label for="floatingSelect">Usuario</label>
                         </div>
                     </div>
                		
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="text" name="txtContrasenia" class="form-control" id="floatingInput" placeholder="-" required>
+                            <input type="password" name="txtContrasenia" class="form-control" id="floatingInput" placeholder="-" value="contra" required>
                             <label for="floatingSelect">Contraseña</label>
                         </div>
                     </div>
 
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="text" name="txtDireccion" class="form-control" id="floatingInput" placeholder="-" required>
+                            <input type="text" name="txtDireccion" class="form-control" id="floatingInput" placeholder="-" value="prueba123" required>
                             <label for="floatingSelect">Direccion</label>
                         </div>
                     </div>
-               
+                
                     <div class="col-md-4">
                         <div class="form-floating mb-3">
-                            <input class="form-control"type="date" name="Fecha"/>
+                            <input class="form-control" type="date" name="Fecha" required/>
                             <label for="floatingSelect">Nacimiento</label>
                         </div>
                     </div>
-               
+                
                     <div class="col-md-4" >
                         <label class="form-label">Sexo</label>
                         <br>
@@ -218,11 +220,11 @@
                     
                     <div class="col-md-4">
                         <div class="form-floating mb-3">
-                            <input type="text" name="txtNacionalidad" class="form-control" id="floatingInput" placeholder="-" required>
+                            <input type="text" name="txtNacionalidad" class="form-control" id="floatingInput" placeholder="-" value="prueba" required>
                             <label for="floatingSelect">Nacionalidad</label>
                         </div>
                     </div>
-                	            
+                	             
 					<div class="col-md-6">
                         <div class="form-floating">
 							<input type="hidden" name="provSeleccionada" value="relleno"> 

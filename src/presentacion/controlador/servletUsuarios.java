@@ -42,13 +42,14 @@ public class servletUsuarios extends HttpServlet {
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if(request.getParameter("provSeleccionada") != null) //cuando sean muchos estaria bueno que sea un switch de parametros
+		if(request.getParameter("provSeleccionada") != null && request.getParameter("btnAgregarUsr") == null) //cuando sean muchos estaria bueno que sea un switch de parametros
 			filtradoLocalidades(request);	
-		if (request.getParameter("btnAgregarUsr")!=null) 
+		if (request.getParameter("btnAgregarUsr")!=null) {
 			asignarInputsAEntidad(request);
+			//System.out.println(LocalDate.parse(request.getParameter("Fecha"))); 
+		} 
 		
-		
-		refreshDePost(request);
+		//refreshDePost(request);
 		RequestDispatcher rd = request.getRequestDispatcher("AdministrarUsuarios.jsp");
 		rd.forward(request, response);
 	}
@@ -77,13 +78,16 @@ public class servletUsuarios extends HttpServlet {
 	
 	private void asignarInputsAEntidad(HttpServletRequest request) {
 		boolean agrego=false;
+		System.out.println("adentro de asignarInputs");
 		String DNI_Usr = request.getParameter("txtDNI");
 		String CUIL_Usr = request.getParameter("txtCUIL");
 		String Nombre_Usr = request.getParameter("txtNombre");
 		String Apellido_Usr = request.getParameter("txtApellido");
 		String Sexo_Usr = request.getParameter("txtSexo");
 		String Nacionalidad_Usr  = request.getParameter("txtNacionalidad");
+		System.out.println("antes de parsear fecha" + LocalDate.parse(request.getParameter("Fecha")));
 		LocalDate FechaNacimiento_Usr = LocalDate.parse(request.getParameter("Fecha"));
+		System.out.println("fecha parseada: " + FechaNacimiento_Usr.toString());
 		String Direccion_Usr= request.getParameter("txtDireccion");
 		Provincias Provincia_Usr = new Provincias(Integer.parseInt(request.getParameter("ddlProvincias")),null);  
 		Localidades Localidad_Usr = new Localidades(Provincia_Usr,locNeg.buscarNumLoc(request.getParameter("ddlLocalidades")),null);

@@ -134,7 +134,6 @@ public class Prestamos {
 	public void setEstado_Pr(boolean estado_Pr) {
 		Estado_Pr = estado_Pr;
 	}
-
 	
 	//toString
 	@Override
