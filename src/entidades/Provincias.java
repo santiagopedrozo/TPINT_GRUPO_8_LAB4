@@ -28,6 +28,8 @@ public class Provincias {
 	public void setDescripcion_Prov(String descripcion_Prov) {
 		Descripcion_Prov = descripcion_Prov;
 	}
+	
+	
 
 	//ToString
 	@Override

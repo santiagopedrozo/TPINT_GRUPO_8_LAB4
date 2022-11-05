@@ -1,5 +1,7 @@
 package entidades;
 
+import org.eclipse.jdt.internal.compiler.ast.ThisReference;
+
 public class Localidades {
 	private Provincias Provincia_Loc;
 	private int IdLocalidad_Loc;
@@ -14,6 +16,10 @@ public class Localidades {
 		this.Provincia_Loc = Provincia_Loc;
 		this.IdLocalidad_Loc = IdLocalidad_Loc;
 		this.Descripcion_Loc = Descripcion_Loc;
+	}
+	
+	public Provincias getProvincia() {
+		return this.Provincia_Loc;
 	}
 	
 	//Gets y Sets
@@ -47,6 +53,8 @@ public class Localidades {
 		return "Localidades [Provincia_Loc=" + Provincia_Loc + ", IdLocalidad_Loc=" + IdLocalidad_Loc
 				+ ", Descripcion_Loc=" + Descripcion_Loc + "]";
 	}
+	
+	
 
 	
 	

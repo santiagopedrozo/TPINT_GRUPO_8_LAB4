@@ -12,29 +12,27 @@ import entidades.Provincias;
 
 public class LocalidadesDaoImpl implements LocalidadesDao {
 	@Override
-	public ArrayList<Localidades> LocxProv(int idProv) {
+	public ArrayList<Localidades> GetAllLocalidadesPorProv(int idProv) {
 		PreparedStatement statement;
 		ResultSet resultSet; //Guarda el resultado de la query
 		ArrayList<Localidades> localidades= new ArrayList<Localidades>();
 		Conexion conexion = Conexion.getConexion();
-		String consulta = 
-		"SELECT Localidades.* ,Provincias.Descripcion_Prov from Localidades INNER JOIN Provincias ON IdProvincia_Loc = IdProvincia_Prov WHERE idprovincia_loc = " + idProv;
+		String consulta =  
+		"SELECT Localidades.* ,Provincias.Descripcion_Prov from Localidades INNER JOIN Provincias ON IdProvincia_Loc = IdProvincia_Prov ";
+		if(idProv != -1)
+			consulta += " WHERE idprovincia_loc = " + idProv; 
 		try 
 		{
 			Class.forName("com.mysql.jdbc.Driver");
 			statement = conexion.getSQLConexion().prepareStatement(consulta);
 			resultSet = statement.executeQuery();
 			while(resultSet.next())
-			{
 				localidades.add(getLocalidades(resultSet));
-			}
-			localidades.forEach(System.out::println);
 		} 
 		catch (SQLException e) 
 		{
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return localidades;
@@ -56,8 +54,6 @@ public class LocalidadesDaoImpl implements LocalidadesDao {
 			resultSet = statement.executeQuery();
 			resultSet.next();
 			numLoc = resultSet.getInt("IdLocalidad_Loc");
-			
-		
 		} 
 		catch (SQLException e) 
 		{

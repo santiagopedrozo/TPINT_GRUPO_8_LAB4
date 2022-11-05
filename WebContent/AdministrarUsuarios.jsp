@@ -12,15 +12,24 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 
 </head>
-<body>
-<%@ include file="MasterPageAdmin.html" %>
 
+	<script type="text/javascript">
+		function onLoad(id){
+			const a = document.getElementById('ddlProv');
+	       	a.value = id;
+		}
+	</script>
 
-
-
-
-<br>
-    <div class="container-fluid" style="width:95%;">
+ 	<% 
+	    ArrayList<Provincias> provincias = null;
+	    ArrayList<Localidades> localidades= null;
+	    if (request.getAttribute("provincias")!=null) provincias = (ArrayList<Provincias>) request.getAttribute("provincias");
+	    if (request.getAttribute("localidades")!=null) localidades = (ArrayList<Localidades>) request.getAttribute("localidades");
+    %>
+<body onload="onLoad(<%= localidades.get(0).getProvincia().getIdProvincia_Prov() %>)">
+	<%@ include file="MasterPageAdmin.html" %>
+	<br>
+	<div class="container-fluid" style="width:95%;">
         <div class="card text-center">
             <div class="card-header "><h5>Usuarios</h5></div>
             <table class="table table-hover" style="font-size: 11px;">
@@ -71,89 +80,7 @@
                         <td>Messi2022</td> 
                     </tr>
                 </tbody>
-                <tbody>
-                    <tr>
-                        <th scope="row">
-                            <button type="button" class="btn btn-outline-success btn-sm">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </button>
-                            <button type="button" class="btn btn-outline-danger btn-sm">
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
-                        </th>  
-                        <td>44724905</td>  
-                        <td>20447249058</td>
-                        <td>Santiago</td>  
-                        <td>Pedrozo</td> 
-                        <td>Masculino</td>
-                        <td>Mexicano</td>
-                        <td>23/01/2003</td>
-                        <td>Juncal 2468</td>
-                        <td>Buenos Aires</td>
-                        <td>San Fernando</td>
-                        <td>santiagopedrozo@hotmail.com</td>
-                        <td>1122112211</td>
-                        <td>Est�ndar</td>
-                        <td>santito123</td>
-                        <td>Messi2022</td> 
-                    </tr>
-                </tbody>
-                <tbody>
-                    <tr>
-                        <th scope="row">
-                            <button type="button" class="btn btn-outline-success btn-sm">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </button>
-                            <button type="button" class="btn btn-outline-danger btn-sm">
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
-                        </th>  
-                         <td>44724905</td>  
-                        <td>20447249058</td>
-                        <td>Santiago</td>  
-                        <td>Pedrozo</td> 
-                        <td>Masculino</td>
-                        <td>Mexicano</td>
-                        <td>23/01/2003</td>
-                        <td>Juncal 2468</td>
-                        <td>Buenos Aires</td>
-                        <td>San Fernando</td>
-                        <td>santiagopedrozo@hotmail.com</td>
-                        <td>1122112211</td>
-                        <td>Est�ndar</td>
-                        <td>santito123</td>
-                        <td>Messi2022</td> 
-                    </tr>
-                </tbody>
-                <tbody>
-                    <tr>
-                        <th scope="row">
-                            <button type="button" class="btn btn-outline-success btn-sm">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </button>
-                            <button type="button" class="btn btn-outline-danger btn-sm">
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
-                        </th>  
-                          <td>44724905</td>  
-                        <td>20447249058</td>
-                        <td>Santiago</td>  
-                        <td>Pedrozo</td> 
-                        <td>Masculino</td>
-                        <td>Mexicano</td>
-                        <td>23/01/2003</td>
-                        <td>Juncal 2468</td>
-                        <td>Buenos Aires</td>
-                        <td>San Fernando</td>
-                        <td>santiagopedrozo@hotmail.com</td>
-                        <td>1122112211</td>
-                        <td>Est�ndar</td>
-                        <td>santito123</td>
-                        <td>Messi2022</td> 
-
-                    </tr>
-                </tbody>
-
+                
             </table>
         
             <div class="card-footer">
@@ -173,14 +100,14 @@
           </div>
         </div>
       </div>
-
+    
       <br>
       <div class="container-fluid" style="width:50%;">
         <div class="card text-center">
             <div class="card-header"><h5>Crear y asignar usuario</h5></div>
             <div class="card-body" style="font-size: 13px;">
-                <form name="formAgregarUsr" method="POST" action="servletUsuarios" class="row">
-                    <div class="col-md-6">
+                <form name="formAgregarUsr" method="POST" action="servletUsuarios" class="row">  
+                	 <div class="col-md-6">
                         <div class="form-floating mb-3">
                             <input type="text" 
                             name="txtDNI" 
@@ -295,42 +222,32 @@
                             <label for="floatingSelect">Nacionalidad</label>
                         </div>
                     </div>
-                    <% 
-                    //Agarramos los par�metros
-                    ArrayList<Provincias> provincias = null;
-                    ArrayList<Localidades> localidades= null;
-                    if (request.getAttribute("provincias")!=null) provincias = (ArrayList<Provincias>) request.getAttribute("provincias");
-                    if (request.getAttribute("localidades")!=null) localidades = (ArrayList<Localidades>) request.getAttribute("localidades");
-                    %>
-						<div class="col-md-6">
-	                        <div class="form-floating">
-
-	                            <select name="ddlProvincias"  class="form-select" id="floatingInput" placeholder="-" >
-	                                <%
-	                                int cProv=0;
-									if (provincias!=null)
-									for(Provincias prov : provincias){
-										cProv++;
-										%>
-										<option value=<%=cProv%>><%=prov.getDescripcion_Prov()%></option>
-										<%
-									}
+                	            
+					<div class="col-md-6">
+                        <div class="form-floating">
+							<input type="hidden" name="provSeleccionada" value="relleno"> 
+							<!-- input que sirve como parametro para provSeleccionada para no tener que meter otro form -->
+                            <select name="ddlProvincias" class="form-select" id="ddlProv" placeholder="-" onchange="formAgregarUsr.submit();" >
+                                <%
+								if (provincias!=null)
+								for(Provincias prov : provincias){
 									%>
-	                            </select>
-	                            <label for="floatingSelect">Provincia</label>
-	                             <button type="submit" name="btnAgregarLocs" class="btn btn-outline-primary btn-sm">Ver Locs</button>
-	                        </div>
-	                    </div>
-               
+									<option value=<%=prov.getIdProvincia_Prov()%>><%=prov.getDescripcion_Prov()%></option>
+									<%
+								}
+								%>
+                            </select>
+                            <label for="floatingSelect">Provincia</label>
+                        </div>
+                    </div>
+                    
                     <div class="col-md-6">
                         <div class="form-floating">
-                            <select name="ddlLocalidades" id="" class="form-select" id="floatingInput" placeholder="-">
+                            <select name="ddlLocalidades" id="" class="form-select" id="floatingInput" placeholder="-" onchange="">
+                            	<!-- <option selected value="-1">Seleccionar localidad</option>  -->
                                 <% 
-                               
 								if (localidades!=null)
-
 								for(Localidades loc : localidades){
-									
 									%>
 									<option><%=loc.getDescripcion_Loc()%></option>
 									<%
