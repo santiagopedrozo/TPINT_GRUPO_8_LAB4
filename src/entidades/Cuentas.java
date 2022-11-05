@@ -7,7 +7,7 @@ import com.sun.jmx.snmp.Timestamp;
 public class Cuentas {
 	private int Nro_Cuentas;
 	private String DNI_Cuentas;
-	private Timestamp FechaCreacion_Cuentas;
+	private LocalDateTime FechaCreacion_Cuentas;
 	private TipoCuentas TipoCuenta_Cuentas;
 	private String CBU_Cuentas;
 	private float Saldo_Cuentas;
@@ -18,7 +18,7 @@ public class Cuentas {
 		TipoCuenta_Cuentas = new TipoCuentas();
 	}
 	
-	public Cuentas(int nro_Cuentas, String dNI_Cuentas, Timestamp fechaCreacion_Cuentas,
+	public Cuentas(int nro_Cuentas, String dNI_Cuentas, LocalDateTime fechaCreacion_Cuentas,
 	TipoCuentas tipoCuenta_Cuentas, String cBU_Cuentas, float saldo_Cuentas, boolean estado_Cuentas) {
 		Nro_Cuentas = nro_Cuentas;
 		DNI_Cuentas = dNI_Cuentas;
@@ -46,11 +46,11 @@ public class Cuentas {
 		DNI_Cuentas = dNI_Cuentas;
 	}
 
-	public Timestamp getFechaCreacion_Cuentas() {
+	public LocalDateTime getFechaCreacion_Cuentas() {
 		return FechaCreacion_Cuentas;
 	}
 
-	public void setFechaCreacion_Cuentas(Timestamp fechaCreacion_Cuentas) {
+	public void setFechaCreacion_Cuentas(LocalDateTime fechaCreacion_Cuentas) {
 		FechaCreacion_Cuentas = fechaCreacion_Cuentas;
 	}
 

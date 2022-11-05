@@ -1,6 +1,7 @@
 package entidades;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 import com.sun.jmx.snmp.Timestamp;
 
@@ -8,7 +9,7 @@ public class Movimientos {
 	private int Id_Mov;
 	private Cuentas Cuenta_Mov;
 	private TipoMovimientos TiposMov_Mov;
-	private Timestamp Fecha_Mov;
+	private Date Fecha_Mov;
 	private String Detalle_Mov;
 	private float Importe_Mov;
 	private boolean Estado_Mov;
@@ -19,7 +20,7 @@ public class Movimientos {
 		TiposMov_Mov = new TipoMovimientos();
 	}
 	
-	public Movimientos(int id_Mov, Cuentas cuenta_Mov, TipoMovimientos tiposMov_Mov, Timestamp fecha_Mov,
+	public Movimientos(int id_Mov, Cuentas cuenta_Mov, TipoMovimientos tiposMov_Mov, Date fecha_Mov,
 	String detalle_Mov, float importe_Mov, boolean estado_Mov) {
 
 		Id_Mov = id_Mov;
@@ -56,11 +57,11 @@ public class Movimientos {
 		TiposMov_Mov = tiposMov_Mov;
 	}
 
-	public Timestamp getFecha_Mov() {
+	public Date getFecha_Mov() {
 		return Fecha_Mov;
 	}
 
-	public void setFecha_Mov(Timestamp fecha_Mov) {
+	public void setFecha_Mov(Date fecha_Mov) {
 		Fecha_Mov = fecha_Mov;
 	}
 
