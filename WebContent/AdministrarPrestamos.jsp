@@ -26,6 +26,7 @@
                       <th>Monto a pagar por cuota</th> 
                     </tr>
                 </thead>
+			<%! PrestamosNegocio np = new PrestamosNegocioImpl(); %>
                 <tbody>
                     <tr>
                         <th scope="row">
@@ -45,65 +46,6 @@
                         <td>20.000</td>
                     </tr>
                 </tbody>
-               <tbody>
-                    <tr>
-                        <th scope="row">
-                            <button type="button" class="btn btn-outline-success btn-sm">
-                                <i class="fa-solid fa-check"></i>
-                            </button>
-                            <button type="button" class="btn btn-outline-danger btn-sm">
-                                <i class="fa-solid fa-xmark"></i>
-                            </button>
-                        </th>  
-                        <td>1</td>  
-                        <td>22233212</td>
-                        <td>5</td>
-                        <td>31/10/2022</td>  
-                        <td>12</td> 
-                        <td>200.000</td>
-                        <td>20.000</td>
-                    </tr>
-                </tbody>
-                <tbody>
-                    <tr>
-                        <th scope="row">
-                            <button type="button" class="btn btn-outline-success btn-sm">
-                                <i class="fa-solid fa-check"></i>
-                            </button>
-                            <button type="button" class="btn btn-outline-danger btn-sm">
-                                <i class="fa-solid fa-xmark"></i>
-                            </button>
-                        </th>  
-                        <td>1</td>  
-                        <td>22233212</td>
-                        <td>5</td>
-                        <td>31/10/2022</td>  
-                        <td>12</td> 
-                        <td>200.000</td>
-                        <td>20.000</td>
-                    </tr>
-                </tbody>
-                <tbody>
-                    <tr>
-                        <th scope="row">
-                            <button type="button" class="btn btn-outline-success btn-sm">
-                                <i class="fa-solid fa-check"></i>
-                            </button>
-                            <button type="button" class="btn btn-outline-danger btn-sm">
-                                <i class="fa-solid fa-xmark"></i>
-                            </button>
-                        </th>  
-                        <td>1</td>  
-                        <td>22233212</td>
-                        <td>5</td>
-                        <td>31/10/2022</td>  
-                        <td>12</td> 
-                        <td>200.000</td>
-                        <td>20.000</td>
-                    </tr>
-                </tbody>
-
-
             </table>
         
             <div class="card-footer">
