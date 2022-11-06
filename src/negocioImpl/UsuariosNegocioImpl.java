@@ -33,6 +33,22 @@ public class UsuariosNegocioImpl implements UsuariosNegocio {
 
 		return false;
 	}
+
+
+	@Override
+	public boolean existeUsuario(String user, String contra) {
+		if (userDao.existeUsuario(user,contra)) {
+			return true;	
+		}
+		return false;
+	}
+
+
+	@Override
+	public Usuarios readOne(String user) {
+		return userDao.readOne(user);
+		
+	}
 	
 
 }

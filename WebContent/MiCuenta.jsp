@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ page import="entidades.Usuarios" %> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -7,9 +8,15 @@
 <title>Mi perfil</title>
 </head>
 <body>
+	<%
+	Usuarios user = (Usuarios)session.getAttribute("sessionUser");
+	%>
 	
+	<%if (user.isTipo_Usr()==false){ %>
 	<%@ include file="MasterPage.html" %>
-
+	<%}else{ %>
+	<%@ include file="MasterPageAdmin.html" %>
+	<%} %>
  
   <br>
   <div class="container-fluid" style="width:40%;">
@@ -18,51 +25,51 @@
             <table class="table table-hover" style="text-align: start; margin: 1px; font-size: 19px;">
               <tbody>
                 <td><b>DNI</b></td>  
-                <td>2033322</td>      
+                <td><%=user.getDNI_Usr() %></td>      
             </tbody>
             <tbody>
                 <td><b>CUIL</b></td>  
-                <td>203322299220</td>
+                <td><%=user.getCUIL_Usr() %></td>
             </tbody>
             <tbody>
                 <td><b>Usuario</b></td>  
-                <td>Santi2003</td>
+                <td><%=user.getUsuario_Usr() %></td>
             </tbody>
             <tbody>
                 <td><b>Nombre y apellido</b></td>  
-                <td>Santiago pedrozo</td>
+                <td><%= user.getNombre_Usr() + " " +user.getApellido_Usr()%></td>
             </tbody>
             <tbody>
                 <td><b>Sexo</b></td>  
-                <td>Masculino</td>
+                <td><%=user.getSexo_Usr() %></td>
             </tbody>
             <tbody>
               <td><b>Nacionalidad</b></td>  
-              <td>Italiano</td>
+              <td><%=user.getNacionalidad_Usr() %></td>
             </tbody>
             <tbody>
                 <td><b>Fecha nacimiento</b></td>  
-                <td>23/02/2004</td>
+                <td><%=user.getFechaNacimiento_Usr()%></td>
             </tbody>
             <tbody>
                 <td><b>Dirección</b></td>  
-                <td>Av. Siempre viva 123</td>
+                <td><%=user.getDireccion_Usr()%></td>
             </tbody>
             <tbody>
                 <td><b>Provincia</b></td>  
-                <td>Buenos aires</td>
+                <td><%=user.getProvincia_Usr().getDescripcion_Prov()%></td>
             </tbody>
             <tbody>
               <td><b>Localidad</b></td>  
-              <td>Morón</td>
+              <td><%= user.getLocalidad_Usr().getDescripcion_Loc()%></td>
             </tbody>
             <tbody>
                 <td><b>Correo</b></td>  
-                <td>santi@gmail.com</td>
+                <td><%=user.getEmail_Usr() %></td>
             </tbody>
             <tbody>
             	<td><b>Telefono</b></td>  
-                <td>123212211</td>
+                <td><%=user.getTelefono_Usr() %></td>
             </tbody>
       	</table>
       </div>

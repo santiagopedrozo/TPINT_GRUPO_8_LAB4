@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import daoImpl.UsuariosDaoImpl;
 import entidades.Localidades;
@@ -42,15 +43,33 @@ public class servletUsuarios extends HttpServlet {
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("pase");
 		if(request.getParameter("provSeleccionada") != null && request.getParameter("btnAgregarUsr") == null) //cuando sean muchos estaria bueno que sea un switch de parametros
 			filtradoLocalidades(request);	
 		if (request.getParameter("btnAgregarUsr")!=null) {
 			asignarInputsAEntidad(request);
 		} 
-		
-		refreshDePost(request);
-		RequestDispatcher rd = request.getRequestDispatcher("AdministrarUsuarios.jsp");
-		rd.forward(request, response);
+		if (request.getParameter("btnIniciar")!=null) {
+			//Primero verificamos que el usuario exista mediante el iniciar sesion. Si devuelve true, nos fijamos que tipo es para devolver al JSP correcto
+			if (iniciarSesion(request)) {
+				Usuarios user = (Usuarios)request.getSession().getAttribute("sessionUser");
+				RequestDispatcher rd;
+				if (user.isTipo_Usr()==false) {
+					rd = request.getRequestDispatcher("Inicio.jsp");
+				}
+				else {
+					rd = request.getRequestDispatcher("AdministrarCuentas.jsp");
+				}
+				rd.forward(request, response);			
+			}
+			//Si la funcion devuelve false, el usuario no existe!
+			else {
+				request.setAttribute("noExiste", true);
+				RequestDispatcher rd = request.getRequestDispatcher("IniciarSesion.jsp");
+				rd.forward(request, response);
+			}
+			
+		}
 	}
 	
 	private void refreshDeGet(HttpServletRequest request) {
@@ -103,4 +122,19 @@ public class servletUsuarios extends HttpServlet {
 		System.out.println(agrego);
 	}
 	
+	private boolean iniciarSesion(HttpServletRequest request) {
+		String user = request.getParameter("txtUsuario");
+		String contra = request.getParameter("txtContraseña");
+		boolean existe=usrNeg.existeUsuario(user, contra);
+		if (existe) {
+			Usuarios usuario=usrNeg.readOne(user);
+			HttpSession sessionUser = request.getSession();
+			sessionUser.setAttribute("sessionUser", usuario);
+			return true;
+		}
+		else {
+			System.out.println("no existo");
+			return false;
+		}
+	}
 }

@@ -3,6 +3,8 @@ package conexion;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Conexion {
@@ -53,32 +55,25 @@ public class Conexion {
 		instancia = null;
 	}
 	
-	/* asi se llama a un sp de manera limpia xd
-	 public boolean modifyPersonaSP(Persona persona)
-	{
-		Connection cn = null;
-		  try
-		  {
-			 cn = DriverManager.getConnection(host+dbName,user,pass);
-			 CallableStatement cst = cn.prepareCall("CALL sp_ModificarPersona(?,?,?)");
-			 cst.setString(1, persona.getDni());
-			 cst.setString(2, persona.getNombre());
-			 cst.setString(3, persona.getApellido());
-			 cst.execute();
-			 return true;
-		  }
-		  catch (Exception e) {
-			e.printStackTrace();
+	public static Boolean existe(String consulta)
+    {
+        PreparedStatement statement;
+		ResultSet resultSet;
+		boolean existe=false;
+		try 
+		{
+			statement = Conexion.getConexion().getSQLConexion().prepareStatement(consulta);
+			resultSet = statement.executeQuery();
+			resultSet.next();
+			String user = resultSet.getString("Usuario_Usr");
+			if (!user.isEmpty())existe= true;
+		} 
+		catch (SQLException e) 
+		{
+			existe=false;
 		}
-		  finally {
-				try {
-					cn.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		return false;
-	}
-	  */
+		return existe;
+    }
+	
+	
 }

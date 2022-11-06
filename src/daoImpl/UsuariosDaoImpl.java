@@ -59,25 +59,47 @@ public class UsuariosDaoImpl implements UsuariosDao{
 	@Override
 	public ArrayList<Usuarios> readALL() {
 		
-			PreparedStatement statement;
-			ResultSet resultSet; //Guarda el resultado de la query
-			ArrayList<Usuarios> usuarios = new ArrayList<Usuarios>();
-			Conexion conexion = Conexion.getConexion();
-			try 
+		PreparedStatement statement;
+		ResultSet resultSet; //Guarda el resultado de la query
+		ArrayList<Usuarios> usuarios = new ArrayList<Usuarios>();
+		Conexion conexion = Conexion.getConexion();
+		try 
+		{
+			statement = conexion.getSQLConexion().prepareStatement("SELECT *,Descripcion_Prov, Descripcion_Loc FROM Usuarios INNER JOIN Provincias ON IdProvincia_Prov = IdProvincia_Usr INNER JOIN Localidades ON IdLocalidad_Usr = IdLocalidad_Loc");
+			resultSet = statement.executeQuery();
+			while(resultSet.next())
 			{
-				statement = conexion.getSQLConexion().prepareStatement("SELECT *,Descripcion_Prov, Descripcion_Loc FROM Usuarios INNER JOIN Provincias ON IdProvincia_Prov = IdProvincia_Usr INNER JOIN Localidades ON IdLocalidad_Usr = IdLocalidad_Loc");
-				resultSet = statement.executeQuery();
-				while(resultSet.next())
-				{
-					usuarios.add(getUsuario(resultSet));
-				}
-			} 
-			catch (SQLException e) 
-			{
-				e.printStackTrace();
+				usuarios.add(getUsuario(resultSet));
 			}
-			return usuarios;
-		}	
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return usuarios;
+	}	
+	
+	@Override
+	public Usuarios readOne(String nombreUsuario) {
+		PreparedStatement statement;
+		ResultSet resultSet; //Guarda el resultado de la query
+		Usuarios usuario=new Usuarios();
+		Conexion conexion = Conexion.getConexion();
+		try 
+		{
+			statement = conexion.getSQLConexion().prepareStatement("SELECT *,Descripcion_Prov, Descripcion_Loc FROM Usuarios INNER JOIN Provincias ON IdProvincia_Prov = IdProvincia_Usr INNER JOIN Localidades ON IdLocalidad_Usr = IdLocalidad_Loc WHERE Usuario_Usr = '" +nombreUsuario+ "'");
+			resultSet = statement.executeQuery();
+			resultSet.next();
+			usuario=getUsuario(resultSet);
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+			return null;
+		}
+		
+		return usuario;
+	}
 	
 	private Usuarios getUsuario(ResultSet resultSet) throws SQLException
 	{
@@ -99,5 +121,14 @@ public class UsuariosDaoImpl implements UsuariosDao{
 		boolean Estado_Usr = resultSet.getBoolean("Estado_Usr");
 		return new Usuarios(DNI_Usr, CUIL_Usr,Nombre_Usr,  Apellido_Usr, Sexo_Usr, Nacionalidad_Usr, FechaNacimiento_Usr, Direccion_Usr,Provincia_Usr, Localidad_Usr ,Email_Usr,Telefono_Usr,  Tipo_Usr, Usuario_Usr,  Contrasenia_Usr, Estado_Usr);
 	}
+
+	@Override
+	public boolean existeUsuario(String user, String contra) {
+		String query = "SELECT * FROM Usuarios WHERE Usuario_usr = '" +user+ "' AND Contrasenia_Usr= '" +contra+ "'";
+		System.out.println(query);
+		if (Conexion.existe(query)) return true;
+		return false;
+	}
+
 	
 }

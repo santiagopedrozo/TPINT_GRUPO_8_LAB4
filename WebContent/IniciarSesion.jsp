@@ -13,17 +13,17 @@
 </head>
 <body>
 
+
 <br>
 <H1 style="text-align:center;">Bienvenido al banco Brusafa</H1>
 <br>
-<form method="get" action="Inicio.jsp">
 
 
+<form method="post" action="servletUsuarios" class="row">
 <div style="width: 40%; margin: auto">
       <div class="card text-center">
         <div class="card-header">Iniciar sesión</div>
         <div class="card-body">
-          <form method="get" action="Inicio.jsp" class="row">
             <div class="col-md-12">
               <div class="form-floating mb-3">
                 <input
@@ -32,6 +32,7 @@
                   id="floatingInput"
                   name="txtUsuario"
                   placeholder="-"
+                  required
                 />
                 <label for="floatingInput">Usuario</label>
               </div>
@@ -55,24 +56,33 @@
                 type="submit"
                 class="btn btn-outline-primary form-control btn-lg"
                 name="btnIniciar"
+                required
               >
                 Ingresar
               </button>
             </div>
-          </form>
         </div>
       </div>
     </div>
-</form>
+   </form>
 <br>
-
-	<div style="display: flex; justify-content: center;">
-        
-        <div ID="MsgErrorDiv" class="col-md-4 alert alert-danger" runat="server" visible="false">
+ 		<% 
+        boolean noExiste=false;
+        if (request.getAttribute("noExiste")!=null) noExiste=(boolean)request.getAttribute("noExiste");
+        if (noExiste==true){
+     	%>
+      
+	<div style="display: flex; justify-content: center; visibility="hidden";>
+        <div ID="MsgErrorDiv" class="col-md-4 alert alert-danger">
             <strong>Error</strong> No se pudo encontrar usuario.
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            
         </div>
     </div>
+    <% 
+    }
+    %>
+    	
 
 
       
