@@ -1,5 +1,7 @@
 package daoImpl;
 
+import java.sql.CallableStatement;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -55,7 +57,7 @@ public class CuentasDaoImpl implements CuentasDao
 	}
 
 	@Override
-	public ArrayList<Cuentas> cuentasXPropietario(Usuarios us) {
+	public ArrayList<Cuentas> cuentasXPropietario(String DNI) {
 		PreparedStatement statement;
 		ResultSet resultSet; //Guarda el resultado de la query
 		ArrayList<Cuentas> cuentas= new ArrayList<Cuentas>();
@@ -66,7 +68,7 @@ public class CuentasDaoImpl implements CuentasDao
 		"		on (cuentas.DNI_Cuentas = usuarios.DNI_Usr) inner join localidades " + 
 		"			on (usuarios.IdLocalidad_Usr = localidades.IdLocalidad_Loc and usuarios.IdProvincia_Usr = localidades.IdProvincia_Loc) inner join provincias " + 
 		"				on (localidades.IdProvincia_Loc = provincias.IdProvincia_Prov)" + 
-		"where  usuarios.DNI_Usr = '" + us.getDNI_Usr() + "'"; 
+		"where  usuarios.DNI_Usr = '" + DNI + "'"; 
 		try 
 		{
 			Class.forName("com.mysql.jdbc.Driver");
@@ -199,4 +201,36 @@ public class CuentasDaoImpl implements CuentasDao
 		}
 		return cuentas;
 	}
+
+	@Override
+	public boolean insert(Cuentas cuenta) {
+		
+			Connection cn = null;
+			try {
+				cn = Conexion.getConexion().getSQLConexion();
+				CallableStatement cst = cn.prepareCall("{CALL SPAgregarCuentas(?,?,?)}");
+				System.out.println(cuenta.getUsuario_Cuentas().getDNI_Usr());
+				cst.setString(1,cuenta.getUsuario_Cuentas().getDNI_Usr());
+				cst.setInt(2,cuenta.getTipoCuenta_Cuentas().getId_TipoCuenta());
+				cst.setString(3,cuenta.getCBU_Cuentas());
+				return cst.execute();
+				
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+			  finally {
+					
+				}
+			return false;
+		}
+
+	@Override
+	public boolean existeCuenta(String CBU) {
+		String query = "SELECT * FROM Cuentas WHERE CBU_Cuentas= '" +CBU+ "'";
+		System.out.println(query);
+		if (Conexion.existe(query)) return true;
+		return false;
+	}
 }
+

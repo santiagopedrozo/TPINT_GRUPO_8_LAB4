@@ -10,7 +10,9 @@ import entidades.Usuarios;
 public interface CuentasDao 
 {
 	public ArrayList<Cuentas> obtenerTodos();
-	public ArrayList<Cuentas> cuentasXPropietario(Usuarios us);
+	public ArrayList<Cuentas> cuentasXPropietario(String DNI);
 	public ArrayList<Cuentas> cuentasXFechaCreacion(Date fecha1, Date fecha2);
 	public ArrayList<Cuentas> cuentasXTipo(TipoCuentas tipoCuentas);
+	public boolean insert(Cuentas cuenta); 
+	public boolean existeCuenta(String CBU);
 }

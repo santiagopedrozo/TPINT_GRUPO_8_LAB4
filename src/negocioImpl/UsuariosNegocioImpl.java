@@ -49,6 +49,12 @@ public class UsuariosNegocioImpl implements UsuariosNegocio {
 		return userDao.readOne(user);
 		
 	}
+
+
+	@Override
+	public ArrayList<Usuarios> readALL() {
+		return userDao.readALL(); 
+	}
 	
 
 }

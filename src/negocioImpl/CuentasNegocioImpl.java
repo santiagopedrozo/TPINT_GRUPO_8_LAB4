@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import dao.CuentasDao;
+import daoImpl.CuentasDaoImpl;
 import entidades.Cuentas;
 import entidades.TipoCuentas;
 import entidades.Usuarios;
@@ -11,7 +12,7 @@ import negocio.CuentasNegocio;
 
 public class CuentasNegocioImpl implements CuentasNegocio {
 
-	private CuentasDao cd;
+	private CuentasDao cd = new CuentasDaoImpl();
 	
 	@Override
 	public ArrayList<Cuentas> obtenerTodos() {
@@ -19,8 +20,8 @@ public class CuentasNegocioImpl implements CuentasNegocio {
 	}
 
 	@Override
-	public ArrayList<Cuentas> cuentasXPropietario(Usuarios us) {
-		return cd.cuentasXPropietario(us);
+	public ArrayList<Cuentas> cuentasXPropietario(String DNI) {
+		return cd.cuentasXPropietario(DNI);
 	}
 
 	@Override
@@ -31,5 +32,25 @@ public class CuentasNegocioImpl implements CuentasNegocio {
 	@Override
 	public ArrayList<Cuentas> cuentasXTipo(TipoCuentas tipoCuentas) {
 		return cd.cuentasXTipo(tipoCuentas);
+	}
+
+	@Override
+	public int insert(Cuentas cuenta) {
+		if (cd.existeCuenta(cuenta.getCBU_Cuentas())==false) {
+			ArrayList <Cuentas> listaCuentas = cd.cuentasXPropietario(cuenta.getUsuario_Cuentas().getDNI_Usr());
+			if (listaCuentas.size()<3) {
+				boolean agrego=cd.insert(cuenta);
+				if (agrego==true) return 1;
+				else return -2; //Si hubo algun error al agregar de cualquier tipo
+			}
+			else {
+				//Si ya tiene 3 cuentas
+				return -1;
+			}
+		}
+		else {
+		//Si ya existe una cuenta con ese CBU
+		return 0;
+		}
 	}
 }

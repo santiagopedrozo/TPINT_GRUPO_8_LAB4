@@ -58,7 +58,7 @@ public class servletUsuarios extends HttpServlet {
 					rd = request.getRequestDispatcher("Inicio.jsp");
 				}
 				else {
-					rd = request.getRequestDispatcher("AdministrarCuentas.jsp");
+					rd = request.getRequestDispatcher("MiCuenta.jsp");
 				}
 				rd.forward(request, response);			
 			}

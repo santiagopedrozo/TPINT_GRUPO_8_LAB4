@@ -10,7 +10,8 @@ import entidades.Usuarios;
 public interface CuentasNegocio
 {
 	public ArrayList<Cuentas> obtenerTodos();
-	public ArrayList<Cuentas> cuentasXPropietario(Usuarios us);
+	public ArrayList<Cuentas> cuentasXPropietario(String DNI);
 	public ArrayList<Cuentas> cuentasXFechaCreacion(Date fecha1, Date fecha2);
 	public ArrayList<Cuentas> cuentasXTipo(TipoCuentas tipoCuentas);
+	public int insert (Cuentas cuenta);
 }

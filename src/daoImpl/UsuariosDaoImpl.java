@@ -46,13 +46,8 @@ public class UsuariosDaoImpl implements UsuariosDao{
 			e.printStackTrace();
 		}
 		  finally {
-				try {
-					cn.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
+				
+		}
 		return false;
 	}
 

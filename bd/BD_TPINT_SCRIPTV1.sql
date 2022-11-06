@@ -2676,7 +2676,7 @@ CREATE PROCEDURE SPAgregarCuentas (
 BEGIN
 
 	INSERT INTO Cuentas (DNI_Cuentas, IdTipoCuenta_Cuentas,CBU_Cuentas) VALUES
-    (Nro,DNI,IdTipoCuenta,CBU);
+    (DNI,IdTipoCuenta,CBU);
 END //
 DELIMITER ;
 
@@ -2687,7 +2687,7 @@ CREATE PROCEDURE SPEliminarCuentas (
 	IN Nro CHAR(10)
 ) 
 BEGIN
-	UPDATE Usuario 
+	UPDATE Cuentas 
     SET Estado_Cuentas = 0
     WHERE Nro_Cuentas = Nro;
 END //
@@ -2779,5 +2779,3 @@ BEGIN
 END //
 DELIMITER ;
 
-
-	

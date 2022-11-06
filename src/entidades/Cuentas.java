@@ -16,6 +16,7 @@ public class Cuentas {
 	//Constructores
 	public Cuentas() {
 		TipoCuenta_Cuentas = new TipoCuentas();
+		Usuario_Cuentas = new Usuarios();
 	}
 	
 	public Cuentas(int nro_Cuentas, Usuarios Usuario_Cuentas, LocalDateTime fechaCreacion_Cuentas,
