@@ -48,11 +48,6 @@ public class servletUsuarios extends HttpServlet {
 			asignarInputsAEntidad(request);
 		} 
 		
-		if (request.getParameter("btnIniciar")!=null) {
-			iniciarSesion(request);
-		}
-		
-		
 		refreshDePost(request);
 		RequestDispatcher rd = request.getRequestDispatcher("AdministrarUsuarios.jsp");
 		rd.forward(request, response);
@@ -106,10 +101,6 @@ public class servletUsuarios extends HttpServlet {
 		//otra funcion aca
 		agrego=usrNeg.insert(user);
 		System.out.println(agrego);
-	}
-	
-	private void iniciarSesion(HttpServletRequest request) {
-		
 	}
 	
 }

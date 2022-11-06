@@ -1,0 +1,12 @@
+!!!!!!hazaña de los ddl de provincias y localidades!!!!!!.
+
+en el get (cuando se carga por 1ra vez el jsp) traemos todos las provincias y localidades (solo las de provid 1).
+
+Luego cada que cambia la provincia (ddlprov onchange form.submit() de javascript)
+
+despues con una funcion que se ejecuta despues de que carga el jsp (especificamente en el body de .html de agregar usuario, onload())
+se le pasa por parametro el id de la provincia de la localidad seleccionada (listaLocalidades.get(0).getProv.getProvID()) y con otra funcion javascript (onLoad en script) se modifica el ddl de prov con el id de la prov que tiene la localidad. Todo este quilombo porque por cada post se pierde el registro de la provincia seleccionada, por eso se consulta desde la localidad la provincia (la cual llegan filtradas por una provincia).
+
+!!!!! modularizacion de html !!!!!!
+Separé el modulo de agregarUsuarios en un html y quedo bien, asi que consideremos una buena practica separar el codigo asi para tener bien separadas las responsabilidades.
+<%@ include file="AgregarUsuario.html" %>

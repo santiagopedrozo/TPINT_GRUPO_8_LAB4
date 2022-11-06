@@ -3,29 +3,27 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Iniciar sesión</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/3c33daaf69.js" crossorigin="anonymous"></script>
+    <title>Iniciar sesion</title>
 </head>
 <body>
-<H1> <b>  <p style="text-align:center;">Bienvenido al banco Brusafa, tu banco de confianza! </b></H1>
+
+<br>
+<H1 style="text-align:center;">Bienvenido al banco Brusafa</H1>
+<br>
 <form method="get" action="Inicio.jsp">
-<<<<<<< Updated upstream
-<p style="text-align:center;"> Ingrese sus credenciales para poder ingresar
-<br> <br>
-Usuario:  <input type="text" placeholder="Ingrese usuario" name="txtUsuario" />
-<br> <br>
-Contraseña:  <input type="password" placeholder="Ingrese contraseña" name= "txtContraseña" />
-<br> <br>
-<input type="submit" name= "btnIniciar" value="Iniciar sesión"/>  
-</p>
-=======
 
 
 <div style="width: 40%; margin: auto">
       <div class="card text-center">
         <div class="card-header">Iniciar sesión</div>
         <div class="card-body">
-          <form method="get" action="ServletUsuarios.jsp" class="row">
+          <form method="get" action="Inicio.jsp" class="row">
             <div class="col-md-12">
               <div class="form-floating mb-3">
                 <input
@@ -65,7 +63,20 @@ Contraseña:  <input type="password" placeholder="Ingrese contraseña" name= "txtC
         </div>
       </div>
     </div>
->>>>>>> Stashed changes
 </form>
+<br>
+
+	<div style="display: flex; justify-content: center;">
+        
+        <div ID="MsgErrorDiv" class="col-md-4 alert alert-danger" runat="server" visible="false">
+            <strong>Error</strong> No se pudo encontrar usuario.
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    </div>
+
+
+      
+<%@ include file="FooterPage.html" %>
+
 </body>
 </html>
