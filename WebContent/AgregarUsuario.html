@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+
+<script type="text/javascript">
+	function onLoad(id){
+		const a = document.getElementById('ddlProv');
+       	a.value = id;
+	}
+</script>
+
+<% 
+    ArrayList<Provincias> provincias = null;
+    ArrayList<Localidades> localidades= null;
+    if (request.getAttribute("provincias")!=null) provincias = (ArrayList<Provincias>) request.getAttribute("provincias");
+    if (request.getAttribute("localidades")!=null) localidades = (ArrayList<Localidades>) request.getAttribute("localidades");
+%>
+
+<body onload="onLoad(<%= localidades.get(0).getProvincia().getIdProvincia_Prov() %>)">
+
+<div class="container-fluid" style="width:50%;">
+        <div class="card text-center">
+            <div class="card-header"><h5>Crear y asignar usuario</h5></div>
+            <div class="card-body" style="font-size: 13px;">
+                <form name="formAgregarUsr" method="POST" action="servletUsuarios" class="row">  
+               	 	    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="text" 
+                            name="txtDNI" 
+                            class="form-control" 
+                            id="floatingInput" placeholder="-"
+                            oninput="this.value =this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" 
+                            minlength="7" 
+                            maxlength="8"
+                            placeholder="-"
+                            value="25390401"
+                            required
+                            >
+                            <label for="floatingInput">DNI</label>
+                        </div>
+                    </div>
+               
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="text" name="txtCUIL" class="form-control" id="floatingInput" placeholder="-" 
+                            oninput="this.value =this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" 
+                            minlength="11"
+                            maxlength="11"
+                            placeholder="-"
+                            value="20253904019"
+                            required
+                            >
+                            <label for="floatingInput">CUIL</label>
+                        </div>
+                    </div>
+    
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="text" name="txtNombre" class="form-control" id="floatingInput" placeholder="-" value="prueba" required>
+                            <label for="floatingInput">Nombre</label>
+                        </div>
+                    </div>
+               
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="text" name="txtApellido" class="form-control" id="floatingInput" placeholder="-" value="prueba" required>
+                            <label for="floatingInput">Apellido</label> 
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="tel"  name="txtTelefono"class="form-control"  id="floatingInput" placeholder="-" value="1122332211" required>
+                            <label for="floatingInput">Telï¿½fono</label>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="email" name="txtEmail" class="form-control"  id="floatingInput" placeholder="-" value="santi@gmail.com"required>
+                            <label for="floatingInput">Email</label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-floating">
+                            <select name="ddlTipo" id="" class="form-select" id="floatingInput" placeholder="-" required>
+                            <option value=false selected> Estandar </option>
+                            <option value=true> Admin </option>
+                            </select>
+                            <label for="floatingSelect">Tipo de usuario</label>
+                        </div>
+                    </div>
+               		
+               		  <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="text" name="txtUsuario" class="form-control" id="floatingInput" placeholder="-" value="usr" required>
+                            <label for="floatingSelect">Usuario</label>
+                        </div>
+                    </div>
+               		
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="password" name="txtContrasenia" class="form-control" id="floatingInput" placeholder="-" value="contra" required>
+                            <label for="floatingSelect">Contraseña</label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="text" name="txtDireccion" class="form-control" id="floatingInput" placeholder="-" value="prueba123" required>
+                            <label for="floatingSelect">Direccion</label>
+                        </div>
+                    </div>
+                
+                    <div class="col-md-4">
+                        <div class="form-floating mb-3">
+                            <input class="form-control" type="date" name="Fecha" required/>
+                            <label for="floatingSelect">Nacimiento</label>
+                        </div>
+                    </div>
+                
+                    <div class="col-md-4" >
+                        <label class="form-label">Sexo</label>
+                        <br>
+                        <div class="form-check form-check-inline">
+                            <input type="radio" class="form-check-input" name="rbSexo" checked>
+                            <label class="form-check-label">Hombre</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input type="radio" class="form-check-input" name="rbSexo">
+                            <label class="form-check-label">Mujer</label>
+                        </div>
+                    </div>
+
+                    
+                    <div class="col-md-4">
+                        <div class="form-floating mb-3">
+                            <input type="text" name="txtNacionalidad" class="form-control" id="floatingInput" placeholder="-" value="prueba" required>
+                            <label for="floatingSelect">Nacionalidad</label>
+                        </div>
+                    </div>
+                	             
+					<div class="col-md-6">
+                        <div class="form-floating">
+							<input type="hidden" name="provSeleccionada" value="relleno"> 
+							<!-- input que sirve como parametro para provSeleccionada para no tener que meter otro form -->
+                            <select name="ddlProvincias" class="form-select" id="ddlProv" placeholder="-" onchange="formAgregarUsr.submit();" >
+                                <%
+								if (provincias!=null)
+								for(Provincias prov : provincias){
+									%>
+									<option value=<%=prov.getIdProvincia_Prov()%>><%=prov.getDescripcion_Prov()%></option>
+									<%
+								}
+								%>
+                            </select>
+                            <label for="floatingSelect">Provincia</label>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="form-floating">
+                            <select name="ddlLocalidades" id="" class="form-select" id="floatingInput" placeholder="-" onchange="">
+                            	<!-- <option selected value="-1">Seleccionar localidad</option>  -->
+                                <% 
+								if (localidades!=null)
+								for(Localidades loc : localidades){
+									%>
+									<option><%=loc.getDescripcion_Loc()%></option>
+									<%
+								}
+								%>
+                            </select>
+                            <label for="floatingSelect">Localidad</label>
+                        </div>
+                    </div>
+            
+                    <div class="col-md-12">
+                        <br>
+                        <button type="submit" name="btnAgregarUsr" class="btn btn-outline-primary form-control btn-lg">Dar de alta usuario</button>
+                    </div>
+              </form>
+            </div>
+        </div>
+	</div>
+</body>
+</html>

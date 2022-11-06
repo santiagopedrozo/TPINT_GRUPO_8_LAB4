@@ -46,10 +46,9 @@ public class servletUsuarios extends HttpServlet {
 			filtradoLocalidades(request);	
 		if (request.getParameter("btnAgregarUsr")!=null) {
 			asignarInputsAEntidad(request);
-			//System.out.println(LocalDate.parse(request.getParameter("Fecha"))); 
 		} 
 		
-		//refreshDePost(request);
+		refreshDePost(request);
 		RequestDispatcher rd = request.getRequestDispatcher("AdministrarUsuarios.jsp");
 		rd.forward(request, response);
 	}
@@ -59,14 +58,16 @@ public class servletUsuarios extends HttpServlet {
 		cargarLocalidadesUser(request, -1);
 	}
 	
+	private void refreshDePost(HttpServletRequest request){
+		cargarProvinciasUser(request);
+	}
+	
 	private void filtradoLocalidades(HttpServletRequest request) {
 		int idProv = Integer.parseInt(request.getParameter("ddlProvincias").toString());
 		cargarLocalidadesUser(request, idProv);
 	}
 	
-	private void refreshDePost(HttpServletRequest request){
-		cargarProvinciasUser(request);
-	}
+	
 	
 	private void cargarProvinciasUser(HttpServletRequest request) {		
 		request.setAttribute("provincias", provNeg.readALL());
