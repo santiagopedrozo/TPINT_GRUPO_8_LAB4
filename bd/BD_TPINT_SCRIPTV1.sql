@@ -2617,7 +2617,7 @@ CREATE PROCEDURE SPEliminarUsuario (
 	IN DNI CHAR(10)
 ) 
 BEGIN
-	UPDATE Usuario 
+	UPDATE Usuarios 
     SET Estado_Usr = 0
     WHERE DNI_Usr = DNI;
 END //
