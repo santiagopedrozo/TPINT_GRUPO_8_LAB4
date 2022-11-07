@@ -37,11 +37,12 @@ public class servletUsuarios extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		refreshDeGet(request);
-
+		cargarUsuarios(request);
 		RequestDispatcher rd = request.getRequestDispatcher("AdministrarUsuarios.jsp");
 		rd.forward(request, response);
 	}
 	
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("pase");
 		if(request.getParameter("provSeleccionada") != null && request.getParameter("btnAgregarUsr") == null) //cuando sean muchos estaria bueno que sea un switch de parametros
@@ -136,5 +137,11 @@ public class servletUsuarios extends HttpServlet {
 			System.out.println("no existo");
 			return false;
 		}
+	}
+	private void cargarUsuarios(HttpServletRequest request) {
+		ArrayList <Usuarios> users = null;
+		users = usrNeg.readALL();
+		request.setAttribute("listaUser", users);
+		
 	}
 }

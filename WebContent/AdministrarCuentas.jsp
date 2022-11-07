@@ -143,8 +143,8 @@ if (request.getAttribute("listaCuentas")!=null) listaCuentas=(ArrayList <Cuentas
                   name="txtCBU"
                   class="form-control" 
                   oninput="this.value =this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" 
-                  minlength="22"
-                  maxlength="22"
+                  minlength="20"
+                  maxlength="20"
                   placeholder="-"
                   required
                   >

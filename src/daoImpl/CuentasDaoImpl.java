@@ -190,7 +190,6 @@ public class CuentasDaoImpl implements CuentasDao
 			{
 				cuentas.add(getCuentas(resultSet));
 			}
-			cuentas.forEach(System.out::println);
 		} 
 		catch (SQLException e) 
 		{
@@ -208,8 +207,7 @@ public class CuentasDaoImpl implements CuentasDao
 			Connection cn = null;
 			try {
 				cn = Conexion.getConexion().getSQLConexion();
-				CallableStatement cst = cn.prepareCall("{CALL SPAgregarCuentas(?,?,?)}");
-				System.out.println(cuenta.getUsuario_Cuentas().getDNI_Usr());
+				CallableStatement cst = cn.prepareCall("{CALL bd_tpint_labiv.SPAgregarCuentas(?,?,?)}");
 				cst.setString(1,cuenta.getUsuario_Cuentas().getDNI_Usr());
 				cst.setInt(2,cuenta.getTipoCuenta_Cuentas().getId_TipoCuenta());
 				cst.setString(3,cuenta.getCBU_Cuentas());
@@ -228,9 +226,28 @@ public class CuentasDaoImpl implements CuentasDao
 	@Override
 	public boolean existeCuenta(String CBU) {
 		String query = "SELECT * FROM Cuentas WHERE CBU_Cuentas= '" +CBU+ "'";
-		System.out.println(query);
-		if (Conexion.existe(query)) return true;
+		if (existe(query)) return true;
 		return false;
 	}
+	
+	public static Boolean existe(String consulta)
+    {
+        PreparedStatement statement;
+		ResultSet resultSet;
+		boolean existe=false;
+		try 
+		{
+			statement = Conexion.getConexion().getSQLConexion().prepareStatement(consulta);
+			resultSet = statement.executeQuery();
+			resultSet.next();
+			String CBU = resultSet.getString("CBU_Cuentas");
+			if (!CBU.isEmpty())existe= true;
+		} 
+		catch (SQLException e) 
+		{
+			existe=false;
+		}
+		return existe;
+    }
 }
 

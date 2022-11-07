@@ -121,9 +121,29 @@ public class UsuariosDaoImpl implements UsuariosDao{
 	public boolean existeUsuario(String user, String contra) {
 		String query = "SELECT * FROM Usuarios WHERE Usuario_usr = '" +user+ "' AND Contrasenia_Usr= '" +contra+ "'";
 		System.out.println(query);
-		if (Conexion.existe(query)) return true;
+		if (existe(query)) return true;
 		return false;
 	}
 
+	
+	public static Boolean existe(String consulta)
+    {
+        PreparedStatement statement;
+		ResultSet resultSet;
+		boolean existe=false;
+		try 
+		{
+			statement = Conexion.getConexion().getSQLConexion().prepareStatement(consulta);
+			resultSet = statement.executeQuery();
+			resultSet.next();
+			String user = resultSet.getString("Usuario_Usr");
+			if (!user.isEmpty())existe= true;
+		} 
+		catch (SQLException e) 
+		{
+			existe=false;
+		}
+		return existe;
+    }
 	
 }

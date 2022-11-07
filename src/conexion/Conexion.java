@@ -55,25 +55,5 @@ public class Conexion {
 		instancia = null;
 	}
 	
-	public static Boolean existe(String consulta)
-    {
-        PreparedStatement statement;
-		ResultSet resultSet;
-		boolean existe=false;
-		try 
-		{
-			statement = Conexion.getConexion().getSQLConexion().prepareStatement(consulta);
-			resultSet = statement.executeQuery();
-			resultSet.next();
-			String user = resultSet.getString("Usuario_Usr");
-			if (!user.isEmpty())existe= true;
-		} 
-		catch (SQLException e) 
-		{
-			existe=false;
-		}
-		return existe;
-    }
-	
 	
 }

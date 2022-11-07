@@ -56,7 +56,7 @@
                 type="submit"
                 class="btn btn-outline-primary form-control btn-lg"
                 name="btnIniciar"
-                required
+                
               >
                 Ingresar
               </button>

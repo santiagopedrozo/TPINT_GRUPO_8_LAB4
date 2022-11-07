@@ -2,7 +2,8 @@
     pageEncoding="ISO-8859-1"%>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="entidades.Provincias" %>  
-<%@ page import="entidades.Localidades" %>      
+<%@ page import="entidades.Localidades" %> 
+<%@ page import="entidades.Usuarios" %>      
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -11,6 +12,51 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+	
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript" charset="utf8"
+	src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#table_id_usuarios').DataTable({
+                language: {
+                    processing: "Tratamiento en curso...",
+                    search: "Buscar&nbsp;:",
+                    lengthMenu: "Agrupar de _MENU_ items",
+                    info: "Mostrando del item _START_ al _END_ de un total de _TOTAL_ items",
+                    infoEmpty: "No existen datos.",
+                    infoFiltered: "(filtrado de _MAX_ elementos en total)",
+                    infoPostFix: "",
+                    loadingRecords: "Cargando...",
+                    zeroRecords: "No se encontraron datos con tu busqueda",
+                    emptyTable: "No hay datos disponibles en la tabla.",
+                    paginate: {
+                        first: "Primero",
+                        previous: "Anterior",
+                        next: "Siguiente",
+                        last: "Ultimo"
+                    },
+                    aria: {
+                        sortAscending: ": active para ordenar la columna en orden ascendente",
+                        sortDescending: ": active para ordenar la columna en orden descendente"
+                    }
+                },
+                scrollY: 400,
+                lengthMenu: [ [10, 25, -1], [10, 25, "All"] ],
+            });
+        });
+    </script>
+
+
+
+<%
+ArrayList <Usuarios> listaUser= null;
+if (request.getAttribute("listaUser")!=null) listaUser=(ArrayList <Usuarios>)request.getAttribute("listaUser");
+%>   
 </head>
 <body>
 	<%@ include file="MasterPageAdmin.html" %>
@@ -18,7 +64,7 @@
 	<div class="container-fluid" style="width:95%;">
         <div class="card text-center">
             <div class="card-header "><h5>Usuarios</h5></div>
-            <table class="table table-hover" style="font-size: 11px;">
+            <table class="table table-hover" id="table_id_usuarios" style="font-size: 11px;">
                 <thead>
                     <tr>
                       <th> </th> 
@@ -29,18 +75,24 @@
                       <th>Sexo</th> 
                       <th>Nacionalidad</th> 
                       <th>Fecha de nacimiento</th> 
-                      <th>Direcciï¿½n</th>
+                      <th>Dirección</th>
                       <th>Provincia</th>
                       <th>Localidad</th>
                       <th>Email</th>
                       <th>Telï¿½fono</th> 
                       <th>Tipo de usuario</th> 
                       <th>Usuario</th>
-                      <th>Contraseï¿½a</th>
+                      <th>Contraseña</th>
                     </tr>
                 </thead>
+               
                 <tbody>
-                    <tr>
+                <%
+                	if (listaUser!=null)
+                		for(Usuarios user: listaUser){
+                			if (user.isTipo_Usr()==false){
+                	%>
+                 	<tr>
                         <th scope="row">
                             <button type="button" class="btn btn-outline-success btn-sm">
                                 <i class="fa-solid fa-pen-to-square"></i>
@@ -49,41 +101,33 @@
                                 <i class="fa-solid fa-trash"></i>
                             </button>
                         </th>  
-                        <td>44724905</td>  
-                        <td>20447249058</td>
-                        <td>Santiago</td>  
-                        <td>Pedrozo</td> 
-                        <td>Masculino</td>
-                        <td>Mexicano</td>
-                        <td>23/01/2003</td>
-                        <td>Juncal 2468</td>
-                        <td>Buenos Aires</td>
-                        <td>San Fernando</td>
-                        <td>santiagopedrozo@hotmail.com</td>
-                        <td>1122112211</td>
-                        <td>Estï¿½ndar</td>
-                        <td>santito123</td>
-                        <td>Messi2022</td> 
-                    </tr>
-                </tbody>
+               		
+	                <td><%=user.getDNI_Usr() %></td>                            
+	                <td><%=user.getCUIL_Usr() %></td>                                            
+	                <td><%=user.getNombre_Usr() %></td>
+	                <td><%=user.getApellido_Usr() %></td>                       
+	                <td><%=user.getSexo_Usr() %></td>                        
+	              	<td><%=user.getNacionalidad_Usr() %></td>            
+	                <td><%=user.getFechaNacimiento_Usr()%></td>           
+	                <td><%=user.getDireccion_Usr()%></td>           
+	                <td><%=user.getProvincia_Usr().getDescripcion_Prov()%></td>          
+	              	<td><%=user.getLocalidad_Usr().getDescripcion_Loc()%></td>           
+	                <td><%=user.getEmail_Usr() %></td>           
+	                <td><%=user.getTelefono_Usr() %></td>
+	                <td><%=user.isTipo_Usr() %></td>
+	                <td><%=user.getUsuario_Usr() %></td>  
+	                <td><%=user.getContrasenia_Usr() %></td>  
+	                </tr>
+	                <%
+                			}
+                		}
+	                %>
+            	</tbody>                                             
+	       
                 
             </table>
         
-            <div class="card-footer">
-              <nav aria-label="Page navigation example">
-                <ul class="pagination justify-content-center">
-                    <li class="page-item disabled">
-                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                    <a class="page-link" href="#">Next</a>
-                    </li>
-                </ul>
-            </nav>
-          </div>
+            
         </div>
       </div>
     
