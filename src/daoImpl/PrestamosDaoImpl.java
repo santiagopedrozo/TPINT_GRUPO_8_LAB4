@@ -27,12 +27,7 @@ public class PrestamosDaoImpl implements PrestamosDao
 		ArrayList<Prestamos> prestamos= new ArrayList<Prestamos>();
 		Conexion conexion = Conexion.getConexion();
 		String consulta = 
-		"Select * from prestamos inner join cuentas " + 
-		"	on (prestamos.NroCuentaDestino_Pr = cuentas.Nro_Cuentas) inner join tipocuentas " + 
-		"		on (cuentas.IdTipoCuenta_Cuentas = tipocuentas.Id_TipoCuenta) inner join usuarios " + 
-		"			on (cuentas.DNI_Cuentas = usuarios.DNI_Usr) inner join localidades " + 
-		"				on (usuarios.IdLocalidad_Usr = localidades.IdLocalidad_Loc and usuarios.IdProvincia_Usr = localidades.IdProvincia_Loc) inner join provincias " + 
-		"					on (localidades.IdProvincia_Loc = provincias.IdProvincia_Prov)"; 
+		"Select * from prestamos inner join cuentas on (prestamos.NroCuentaDestino_Pr = cuentas.Nro_Cuentas) inner join tipocuentas on (cuentas.IdTipoCuenta_Cuentas = tipocuentas.Id_TipoCuenta) inner join usuarios on (cuentas.DNI_Cuentas = usuarios.DNI_Usr) inner join localidades on (usuarios.IdLocalidad_Usr = localidades.IdLocalidad_Loc and usuarios.IdProvincia_Usr = localidades.IdProvincia_Loc) inner join provincias on (localidades.IdProvincia_Loc = provincias.IdProvincia_Prov)"; 
 		try 
 		{
 			Class.forName("com.mysql.jdbc.Driver");
@@ -295,5 +290,4 @@ public class PrestamosDaoImpl implements PrestamosDao
 					Estado_Pr
 				);
 	}
-	
 }

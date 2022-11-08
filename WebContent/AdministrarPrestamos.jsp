@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@ page import="java.util.ArrayList" %>
+    <%@ page import="entidades.Prestamos" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -10,6 +12,7 @@
 <%@ include file="MasterPageAdmin.html" %>
 <br>
 <br>
+<form method = "post" action = "ServletPrestamos">
 	<div class="container-fluid" style="width:90%;">
         <div class="card text-center">
             <div class="card-header "><h5>Prestamos</h5></div>
@@ -26,7 +29,19 @@
                       <th>Monto a pagar por cuota</th> 
                     </tr>
                 </thead>
-			<%! PrestamosNegocio np = new PrestamosNegocioImpl(); %>
+			<%
+			ArrayList<Prestamos> listaPrestamos = null;
+			
+			if (request.getAttribute("listaPrestamos") != null)
+				listaPrestamos = (ArrayList<Prestamos>) request.getAttribute("listaPrestamos");
+			%>
+			
+			<%
+			if (request.getAttribute("listaPrestamos") != null)
+			for (Prestamos prestamo : listaPrestamos)
+			{ 
+				System.out.println(prestamo);
+			%>
                 <tbody>
                     <tr>
                         <th scope="row">
@@ -37,15 +52,16 @@
                                 <i class="fa-solid fa-xmark"></i>
                             </button>
                         </th>  
-                        <td>1</td>  
-                        <td>22233212</td>
-                        <td>5</td>
-                        <td>31/10/2022</td>  
-                        <td>12</td> 
-                        <td>200.000</td>
-                        <td>20.000</td>
+                        <td><%= prestamo.getId_Pr() %></td>  
+                        <td><%= prestamo.getCuentaDestino_Pr().getUsuario_Cuentas().getDNI_Usr() %></td>
+                        <td><%= prestamo.getCuentaDestino_Pr().getNro_Cuentas() %></td>
+                        <td><%= prestamo.getFechaSolicitado_Pr().toString() %></td>  
+                        <td><%= prestamo.getCantCuotas_Pr() %></td> 
+                        <td><%= prestamo.getImpSolicitado_Pr() %></td>
+                        <td><%= prestamo.getImpPagoAlMes_Pr() %></td>
                     </tr>
                 </tbody>
+            <%}%>
             </table>
         
             <div class="card-footer">
@@ -65,6 +81,7 @@
           </div>
         </div>
       </div>
+</form>
       <br>
       <br>
       <br>

@@ -140,6 +140,5 @@ public class servletUsuarios extends HttpServlet {
 		ArrayList <Usuarios> users = null;
 		users = usrNeg.readALL();
 		request.setAttribute("listaUser", users);
-		
 	}
 }
