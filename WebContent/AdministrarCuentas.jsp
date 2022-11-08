@@ -63,6 +63,7 @@
 <%
 ArrayList <Cuentas> listaCuentas = null;
 if (request.getAttribute("listaCuentas")!=null) listaCuentas=(ArrayList <Cuentas>)request.getAttribute("listaCuentas");
+int posicion=0;
 %>  
         <table class="table table-hover" id="table_id_cuentas">
             <thead>
@@ -84,10 +85,10 @@ if (request.getAttribute("listaCuentas")!=null) listaCuentas=(ArrayList <Cuentas
                 %>
               <tr>
                 <th scope="row">
-                  <button type="button" class="btn btn-outline-success">
+                  <button type="submit" class="btn btn-outline-success">
                     <i class="fa-solid fa-pen-to-square"></i>
                   </button>
-                  <button type="button" class="btn btn-outline-danger">
+                  <button type="submit" name="btnEliminar" class="btn btn-outline-danger">
                     <i class="fa-solid fa-trash"></i>
                   </button>
                   
@@ -101,11 +102,10 @@ if (request.getAttribute("listaCuentas")!=null) listaCuentas=(ArrayList <Cuentas
               </tr>
              
              	<%
-             	}
-            	 %>
+                	}
+             	%>
             </tbody>     
           </table>
-    
         <div class="card-footer">
           <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center">
