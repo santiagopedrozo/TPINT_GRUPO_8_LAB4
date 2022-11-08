@@ -22,6 +22,7 @@ import entidades.Usuarios;
 
 public class CuentasDaoImpl implements CuentasDao
 {
+	final String INSERT_CUENTA= "INSERT INTO Cuentas (DNI_Cuentas, IdTipoCuenta_Cuentas,CBU_Cuentas) VALUES (?,?,?)";
 
 	@Override
 	public ArrayList<Cuentas> obtenerTodos() {
@@ -78,7 +79,7 @@ public class CuentasDaoImpl implements CuentasDao
 			{
 				cuentas.add(getCuentas(resultSet));
 			}
-			cuentas.forEach(System.out::println);
+			
 		} 
 		catch (SQLException e) 
 		{
@@ -203,24 +204,24 @@ public class CuentasDaoImpl implements CuentasDao
 
 	@Override
 	public boolean insert(Cuentas cuenta) {
-		
+			boolean r=false;
 			Connection cn = null;
 			try {
 				cn = Conexion.getConexion().getSQLConexion();
-				CallableStatement cst = cn.prepareCall("{CALL bd_tpint_labiv.SPAgregarCuentas(?,?,?)}");
-				cst.setString(1,cuenta.getUsuario_Cuentas().getDNI_Usr());
-				cst.setInt(2,cuenta.getTipoCuenta_Cuentas().getId_TipoCuenta());
-				cst.setString(3,cuenta.getCBU_Cuentas());
-				return cst.execute();
+				PreparedStatement st = cn.prepareStatement(INSERT_CUENTA);
+				st.setString(1,cuenta.getUsuario_Cuentas().getDNI_Usr());
+				st.setInt(2,cuenta.getTipoCuenta_Cuentas().getId_TipoCuenta());
+				st.setString(3,cuenta.getCBU_Cuentas());
+				if (st.executeUpdate()>0) r=true;
 				
 			}
 			catch (Exception e) {
 				e.printStackTrace();
 			}
 			  finally {
-					
-				}
-			return false;
+				
+			}
+			return r;
 		}
 
 	@Override
