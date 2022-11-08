@@ -18,12 +18,13 @@ import entidades.Usuarios;
 
 public class UsuariosDaoImpl implements UsuariosDao{
 
-	@Override
 	public boolean insert(Usuarios usuario) {	
 		Connection cn = null;
 		try {
 			cn = Conexion.getConexion().getSQLConexion();
-			CallableStatement cst = cn.prepareCall("CALL SPAgregarUsuario(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+			CallableStatement cst = cn.prepareCall("{CALL SPAgregarUsuario(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+			System.out.println(usuario);
+			
 			cst.setString(1, usuario.getDNI_Usr());
 			cst.setString(2, usuario.getCUIL_Usr());
 			cst.setString(3, usuario.getNombre_Usr());
@@ -39,18 +40,37 @@ public class UsuariosDaoImpl implements UsuariosDao{
 			cst.setBoolean(13, usuario.isTipo_Usr());
 			cst.setString(14,usuario.getUsuario_Usr());
 			cst.setString(15, usuario.getContrasenia_Usr());
-			return cst.execute();
+
+			if(cst.executeUpdate() > 0) 
+				return true;
+			return false;
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
+	
+	public boolean delete(Usuarios usuario) {
+		
+		Connection cn = null;
+		try {
+			cn = Conexion.getConexion().getSQLConexion();
+			CallableStatement cst = cn.prepareCall("{CALL SPEliminarUsuario(?);}");
+			cst.setString(1, usuario.getDNI_Usr());
+			
+			
+			if(cst.executeUpdate() > 0) 
+				return true;
+			return false;
 			
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 		}
-		  finally {
-				
-		}
 		return false;
 	}
-
 	@Override
 	public ArrayList<Usuarios> readALL() {
 		
