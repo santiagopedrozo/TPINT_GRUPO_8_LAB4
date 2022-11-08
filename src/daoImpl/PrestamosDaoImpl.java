@@ -22,6 +22,7 @@ public class PrestamosDaoImpl implements PrestamosDao
 
 	@Override
 	public ArrayList<Prestamos> obtenerTodos() {
+		System.out.println("adentro obtener todos");
 		PreparedStatement statement;
 		ResultSet resultSet; //Guarda el resultado de la query
 		ArrayList<Prestamos> prestamos= new ArrayList<Prestamos>();
@@ -36,6 +37,7 @@ public class PrestamosDaoImpl implements PrestamosDao
 			while(resultSet.next())
 			{
 				prestamos.add(getPrestamos(resultSet));
+				System.out.println("daoImplPrestamos lin 39: " + getPrestamos(resultSet).getId_Pr());
 			}
 			prestamos.forEach(System.out::println);
 		} 
