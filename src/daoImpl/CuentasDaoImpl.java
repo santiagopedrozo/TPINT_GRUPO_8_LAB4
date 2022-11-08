@@ -113,7 +113,6 @@ public class CuentasDaoImpl implements CuentasDao
 			{
 				cuentas.add(getCuentas(resultSet));
 			}
-			cuentas.forEach(System.out::println);
 		} 
 		catch (SQLException e) 
 		{

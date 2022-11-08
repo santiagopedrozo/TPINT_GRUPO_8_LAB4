@@ -18,14 +18,12 @@ public class Conexion {
 			Class.forName("com.mysql.jdbc.Driver");
 			this.connection = DriverManager.getConnection(
 			"jdbc:mysql://localhost:3306/bd_tpint_labiv","root","root");
-			this.connection.setAutoCommit(false);
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
 		}
 	}
-	
 	
 	public static Conexion getConexion()   
 	{								

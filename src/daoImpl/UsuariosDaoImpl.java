@@ -120,7 +120,6 @@ public class UsuariosDaoImpl implements UsuariosDao{
 	@Override
 	public boolean existeUsuario(String user, String contra) {
 		String query = "SELECT * FROM Usuarios WHERE Usuario_usr = '" +user+ "' AND Contrasenia_Usr= '" +contra+ "'";
-		System.out.println(query);
 		if (existe(query)) return true;
 		return false;
 	}

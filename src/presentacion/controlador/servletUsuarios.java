@@ -44,7 +44,6 @@ public class servletUsuarios extends HttpServlet {
 	
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("pase");
 		if(request.getParameter("provSeleccionada") != null && request.getParameter("btnAgregarUsr") == null) //cuando sean muchos estaria bueno que sea un switch de parametros
 			filtradoLocalidades(request);	
 		if (request.getParameter("btnAgregarUsr")!=null) {
@@ -99,7 +98,6 @@ public class servletUsuarios extends HttpServlet {
 	
 	private void asignarInputsAEntidad(HttpServletRequest request) {
 		boolean agrego=false;
-		System.out.println("adentro de asignarInputs");
 		String DNI_Usr = request.getParameter("txtDNI");
 		String CUIL_Usr = request.getParameter("txtCUIL");
 		String Nombre_Usr = request.getParameter("txtNombre");
