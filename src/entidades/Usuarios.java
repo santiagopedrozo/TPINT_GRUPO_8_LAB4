@@ -28,6 +28,25 @@ public class Usuarios {
 		Localidad_Usr = new Localidades();
 	}
 	
+	public Usuarios(String dNI_Usr) {
+		DNI_Usr = dNI_Usr;
+		CUIL_Usr = "";
+		Nombre_Usr = "";
+		Apellido_Usr = "";
+		Sexo_Usr = "";
+		Nacionalidad_Usr = "";
+		FechaNacimiento_Usr = null;
+		Direccion_Usr = "";
+		Provincia_Usr = new Provincias();
+		Localidad_Usr = new Localidades();
+		Email_Usr = "";
+		Telefono_Usr = "";
+		Tipo_Usr = false;
+		Usuario_Usr = "";
+		Contrasenia_Usr = "";
+		Estado_Usr = false;
+	}
+	
 	public Usuarios(String dNI_Usr, String cUIL_Usr, String nombre_Usr, String apellido_Usr, String sexo_Usr,
 	String nacionalidad_Usr, LocalDate fechaNacimiento_Usr, String direccion_Usr, Provincias provincia_Usr,
 	Localidades localidad_Usr, String email_Usr, String telefono_Usr, boolean tipo_Usr, String usuario_Usr,
