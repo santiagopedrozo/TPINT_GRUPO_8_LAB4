@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+
+<script type="text/javascript">
+	function onLoad(id){
+		const a = document.getElementById('ddlProv');
+       	a.value = id;
+	}
+</script>
+
+<style>
+	.form-floating>.form-control,
+	.form-floating>.form-control-plaintext {
+	  padding: 0rem 0.75rem;
+	}
+	
+	.form-floating>.form-control,
+	.form-floating>.form-control-plaintext,
+	.form-floating>.form-select {
+	  height: calc(2.5rem + 2px);
+	  line-height: 1;
+	}
+	
+	.form-floating>label {
+	  padding: 0.5rem 0.75rem;
+	}
+
+</style>
+
+<% 
+    int idProvEdit = 1; 
+    ArrayList<Provincias> provinciasEdit = null;
+    ArrayList<Localidades> localidadesEdit = null;
+    if (request.getAttribute("provincias")!=null) provinciasEdit = (ArrayList<Provincias>) request.getAttribute("provincias");
+    if (request.getAttribute("localidades")!=null){
+    	localidadesEdit = (ArrayList<Localidades>) request.getAttribute("localidades");
+    	idProvEdit = localidadesEdit.get(0).getProvincia().getIdProvincia_Prov();
+    }
+%>
+
+<body >
+
+<div class="container-fluid" style="width:50%;">
+        <div class="card text-center">
+            <div class="card-header"><h5>Modificar</h5></div>
+            <div class="card-body" style="font-size: 14px;">
+                <form name="formEditarUsr" method="POST" action="ModificarUsuario" class="row">  
+           	 	    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="text" 
+                            name="txtDNIEdit" 
+                            class="form-control" 
+                            id="floatingInput" placeholder="-"
+                            oninput="this.value =this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" 
+                            minlength="7" 
+                            maxlength="8"
+                            placeholder="-"
+                            value="25390401"
+                            disabled="true"
+                            required
+                            >
+                            <label for="floatingInput">DNI</label>
+                        </div>
+                    </div>
+               
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="text" name="txtCUILEdit" class="form-control" id="floatingInput" placeholder="-" 
+                            oninput="this.value =this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" 
+                            minlength="11"
+                            maxlength="11"
+                            placeholder="-"
+                            value="20253904019"
+                            disabled="true"
+                            required
+                            >
+                            <label for="floatingInput">CUIL</label>
+                        </div>
+                    </div>
+      
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="text" name="txtNombreEdit" class="form-control" id="floatingInput" placeholder="-" value="prueba" required>
+                            <label for="floatingInput">Nombre</label>
+                        </div>
+                    </div>
+               
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="text" name="txtApellidoEdit" class="form-control" id="floatingInput" placeholder="-" value="prueba" required>
+                            <label for="floatingInput">Apellido</label> 
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="tel"  name="txtTelefonoEdit"class="form-control"  id="floatingInput" placeholder="-" value="1122332211" required>
+                            <label for="floatingInput">Telï¿½fono</label>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="email" name="txtEmailEdit" class="form-control"  id="floatingInput" placeholder="-" value="santi@gmail.com"required>
+                            <label for="floatingInput">Email</label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-floating">
+                            <select name="ddlTipoEdit" id="" class="form-select" id="floatingInput" placeholder="-" required>
+                            <option value=false selected> Estandar </option>
+                            <option value=true> Admin </option>
+                            </select>
+                            <label for="floatingSelect">Tipo de usuario</label>
+                        </div>
+                    </div>
+                    
+                    <br>
+               		
+               		  <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="text" name="txtUsuarioEdit" class="form-control" id="floatingInput" placeholder="-" value="usr" required>
+                            <label for="floatingSelect">Usuario</label>
+                        </div>
+                    </div>
+               		
+                    <div class="col-md-12">
+                        <div class="form-floating mb-3">
+                            <input type="password" name="txtContraseniaEdit" class="form-control" id="floatingInput" placeholder="-" value="contra" required>
+                            <label for="floatingSelect">Contraseña</label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-floating mb-3">
+                            <input type="text" name="txtDireccionEdit" class="form-control" id="floatingInput" placeholder="-" value="prueba123" required>
+                            <label for="floatingSelect">Direccion</label>
+                        </div>
+                    </div>
+                
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input class="form-control" type="date" name="FechaEdit" required/>
+                            <label for="floatingSelect">Nacimiento</label>
+                        </div>
+                    </div>
+                
+                    <div class="col-md-6" >
+                        <label class="form-label">Sexo</label>
+                        <br>
+                        <div class="form-check form-check-inline">
+                            <input type="radio" class="form-check-input" name="rbSexoEdit" value="MASCULINO" checked>
+                            <label class="form-check-label">Hombre</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input type="radio" class="form-check-input" name="rbSexoEdit" value="FEMENINO">
+                            <label class="form-check-label">Mujer</label>
+                        </div>
+                    </div>
+
+                    
+                    <div class="col-md-12">
+                        <div class="form-floating mb-3">
+                            <input type="text" name="txtNacionalidadEdit" class="form-control" id="floatingInput" placeholder="-" value="prueba" required>
+                            <label for="floatingSelect">Nacionalidad</label>
+                        </div>
+                    </div>
+                	             
+					<div class="col-md-6">
+                        <div class="form-floating">
+							<input type="hidden" name="provSeleccionadaEdit" value="relleno"> 
+							<!-- input que sirve como parametro para provSeleccionada para no tener que meter otro form -->
+                            <select name="ddlProvincias" class="form-select" id="ddlProv" placeholder="-" onchange="formAgregarUsr.submit();" >
+                                <%
+								if (provinciasEdit!=null)
+								for(Provincias prov : provinciasEdit){
+									%>
+									<option value=<%=prov.getIdProvincia_Prov()%>><%=prov.getDescripcion_Prov()%></option>
+									<%
+								}
+								%>
+                            </select>
+                            <label for="floatingSelect">Provincia</label>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="form-floating">
+                            <select name="ddlLocalidadesEdit" id="" class="form-select" id="floatingInput" placeholder="-" onchange="">
+                            	<!-- <option selected value="-1">Seleccionar localidad</option>  -->
+                                <% 
+								if (localidadesEdit!=null)
+								for(Localidades loc : localidadesEdit){
+									%>
+									<option><%=loc.getDescripcion_Loc()%></option>
+									<%
+								}
+								%>
+                            </select>
+                            <label for="floatingSelect">Localidad</label>
+                        </div>
+                    </div>
+            		<br>
+                    <div class="col-md-12">
+                        <br>
+                        <button type="submit" name="btnModificar" class="btn btn-outline-primary form-control btn-lg">Modificar</button>
+                    </div>
+              </form>
+			    
+			    
+			     <%
+					Boolean resultadoEdit = null;
+			    	if (request.getAttribute("estadoEditado") != null) resultadoEdit = (Boolean)request.getAttribute("estadoEditado");
+					if (resultadoEdit!=null){
+						%>
+						<h1> <%= resultadoEdit %> </h1>	 
+						<%
+					}
+				%>
+				
+				
+			    
+		     	
+				
+            </div>
+        </div>
+	</div>
+</body>
+</html>

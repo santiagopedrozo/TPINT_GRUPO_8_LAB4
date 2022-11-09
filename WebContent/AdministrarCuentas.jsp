@@ -60,11 +60,11 @@
           <h5>Cuentas</h5>
         </div>
       
-<%
-ArrayList <Cuentas> listaCuentas = null;
-if (request.getAttribute("listaCuentas")!=null) listaCuentas=(ArrayList <Cuentas>)request.getAttribute("listaCuentas");
-int posicion=0;
-%>  
+		<%
+		ArrayList <Cuentas> listaCuentas = null;
+		if (request.getAttribute("listaCuentas")!=null) listaCuentas=(ArrayList <Cuentas>)request.getAttribute("listaCuentas");
+		int posicion=0;
+		%>  
         <table class="table table-hover" id="table_id_cuentas">
             <thead>
               <tr>

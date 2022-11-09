@@ -50,11 +50,16 @@
             });
         });
         
+        function modificar(){
+        	<% estaModificando = true; %>
+        }
+        
     </script>
 
 
 
 <%
+boolean estaModificando = false;
 ArrayList <Usuarios> listaUser = null;
 if (request.getAttribute("listaUser")!=null) listaUser= (ArrayList <Usuarios>) request.getAttribute("listaUser");
 %>   
@@ -94,10 +99,10 @@ if (request.getAttribute("listaUser")!=null) listaUser= (ArrayList <Usuarios>) r
                 	%>
                  	<tr>
                         <th scope="row">
-                            <button type="button" onClick="" class="btn btn-outline-success btn-sm">
+                            <button type="button" onClick="modificar()" class="btn btn-outline-success btn-sm">
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </button>
-                            <button type="button" class="btn btn-outline-danger btn-sm">
+                            <button type="button" onClick="alert(2)" class="btn btn-outline-danger btn-sm">
                                 <i class="fa-solid fa-trash"></i>
                             </button>
                         </th>  
@@ -126,14 +131,25 @@ if (request.getAttribute("listaUser")!=null) listaUser= (ArrayList <Usuarios>) r
             </table>
         </div>
       </div>
-    
-      <br>
       
-      
-      
-      <br>
-      <%@ include file="AgregarUsuario.html" %>
-      <br>
+       <%
+			
+			if (estaModificando){
+				%>
+				<br>
+				<%@ include file="ModificarUsuario.html" %>
+				<br>
+				<%
+			}
+			else{
+				%>
+				<br>
+				<%@ include file="AgregarUsuario.html" %>
+				<br>
+				<%
+			}
+		%>
+
       <%@ include file="FooterPage.html" %>
       
 </body>
