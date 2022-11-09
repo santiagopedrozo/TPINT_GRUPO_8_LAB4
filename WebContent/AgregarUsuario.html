@@ -13,19 +13,23 @@
 </script>
 
 <% 
+    int idProv = 1; 
     ArrayList<Provincias> provincias = null;
     ArrayList<Localidades> localidades= null;
     if (request.getAttribute("provincias")!=null) provincias = (ArrayList<Provincias>) request.getAttribute("provincias");
-    if (request.getAttribute("localidades")!=null) localidades = (ArrayList<Localidades>) request.getAttribute("localidades");
+    if (request.getAttribute("localidades")!=null){
+    	localidades = (ArrayList<Localidades>) request.getAttribute("localidades");
+    	idProv = localidades.get(0).getProvincia().getIdProvincia_Prov();
+    }
 %>
 
-<body onload="onLoad(<%= localidades.get(0).getProvincia().getIdProvincia_Prov() %>)">
+<body onload="onLoad(<%= idProv %>)">
 
 <div class="container-fluid" style="width:50%;">
         <div class="card text-center">
             <div class="card-header"><h5>Crear y asignar usuario</h5></div>
             <div class="card-body" style="font-size: 13px;">
-                <form name="formAgregarUsr" method="POST" action="servletUsuarios" class="row">  
+                <form name="formAgregarUsr" method="POST" action="AgregarUsuario" class="row">  
                	 	    <div class="col-md-6">
                         <div class="form-floating mb-3">
                             <input type="text" 
@@ -127,11 +131,11 @@
                         <label class="form-label">Sexo</label>
                         <br>
                         <div class="form-check form-check-inline">
-                            <input type="radio" class="form-check-input" name="rbSexo" checked>
+                            <input type="radio" class="form-check-input" name="rbSexo" value="MASCULINO" checked>
                             <label class="form-check-label">Hombre</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input type="radio" class="form-check-input" name="rbSexo">
+                            <input type="radio" class="form-check-input" name="rbSexo" value="FEMENINO">
                             <label class="form-check-label">Mujer</label>
                         </div>
                     </div>
@@ -184,6 +188,22 @@
                         <button type="submit" name="btnAgregarUsr" class="btn btn-outline-primary form-control btn-lg">Dar de alta usuario</button>
                     </div>
               </form>
+			    
+			    
+			     <%
+					Boolean resultado = null;
+			    	if (request.getAttribute("estadoInsertado") != null) resultado = (Boolean)request.getAttribute("estadoInsertado");
+					if (resultado!=null){
+						%>
+						<h1> <%= resultado %> </h1>	 
+						<%
+					}
+				%>
+				
+				
+			    
+		     	
+				
             </div>
         </div>
 	</div>

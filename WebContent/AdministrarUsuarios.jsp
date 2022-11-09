@@ -49,13 +49,14 @@
                 lengthMenu: [ [10, 25, -1], [10, 25, "All"] ],
             });
         });
+        
     </script>
 
 
 
 <%
-ArrayList <Usuarios> listaUser= null;
-if (request.getAttribute("listaUser")!=null) listaUser=(ArrayList <Usuarios>)request.getAttribute("listaUser");
+ArrayList <Usuarios> listaUser = null;
+if (request.getAttribute("listaUser")!=null) listaUser= (ArrayList <Usuarios>) request.getAttribute("listaUser");
 %>   
 </head>
 <body>
@@ -85,7 +86,6 @@ if (request.getAttribute("listaUser")!=null) listaUser=(ArrayList <Usuarios>)req
                       <th>Contraseña</th>
                     </tr>
                 </thead>
-               
                 <tbody>
                 <%
                 	if (listaUser!=null)
@@ -94,7 +94,7 @@ if (request.getAttribute("listaUser")!=null) listaUser=(ArrayList <Usuarios>)req
                 	%>
                  	<tr>
                         <th scope="row">
-                            <button type="button" class="btn btn-outline-success btn-sm">
+                            <button type="button" onClick="" class="btn btn-outline-success btn-sm">
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </button>
                             <button type="button" class="btn btn-outline-danger btn-sm">
@@ -102,36 +102,34 @@ if (request.getAttribute("listaUser")!=null) listaUser=(ArrayList <Usuarios>)req
                             </button>
                         </th>  
                		
-	                <td><%=user.getDNI_Usr() %></td>                            
-	                <td><%=user.getCUIL_Usr() %></td>                                            
-	                <td><%=user.getNombre_Usr() %></td>
-	                <td><%=user.getApellido_Usr() %></td>                       
-	                <td><%=user.getSexo_Usr() %></td>                        
-	              	<td><%=user.getNacionalidad_Usr() %></td>            
-	                <td><%=user.getFechaNacimiento_Usr()%></td>           
-	                <td><%=user.getDireccion_Usr()%></td>           
-	                <td><%=user.getProvincia_Usr().getDescripcion_Prov()%></td>          
-	              	<td><%=user.getLocalidad_Usr().getDescripcion_Loc()%></td>           
-	                <td><%=user.getEmail_Usr() %></td>           
-	                <td><%=user.getTelefono_Usr() %></td>
-	                <td><%=user.isTipo_Usr() %></td>
-	                <td><%=user.getUsuario_Usr() %></td>  
-	                <td><%=user.getContrasenia_Usr() %></td>  
+		                <td><%=user.getDNI_Usr() %></td>                            
+		                <td><%=user.getCUIL_Usr() %></td>                                            
+		                <td><%=user.getNombre_Usr() %></td>
+		                <td><%=user.getApellido_Usr() %></td>                       
+		                <td><%=user.getSexo_Usr() %></td>                        
+		              	<td><%=user.getNacionalidad_Usr() %></td>            
+		                <td><%=user.getFechaNacimiento_Usr()%></td>           
+		                <td><%=user.getDireccion_Usr()%></td>           
+		                <td><%=user.getProvincia_Usr().getDescripcion_Prov()%></td>          
+		              	<td><%=user.getLocalidad_Usr().getDescripcion_Loc()%></td>           
+		                <td><%=user.getEmail_Usr() %></td>           
+		                <td><%=user.getTelefono_Usr() %></td>
+		                <td><%=user.isTipo_Usr() %></td>
+		                <td><%=user.getUsuario_Usr() %></td>  
+		                <td><%=user.getContrasenia_Usr() %></td>  
 	                </tr>
 	                <%
                 			}
                 		}
 	                %>
             	</tbody>                                             
-	       
-                
             </table>
-        
-            
         </div>
       </div>
     
       <br>
+      
+      
       
       <br>
       <%@ include file="AgregarUsuario.html" %>

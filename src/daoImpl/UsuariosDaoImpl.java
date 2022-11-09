@@ -18,12 +18,12 @@ import entidades.Usuarios;
 
 public class UsuariosDaoImpl implements UsuariosDao{
 
-	public boolean insert(Usuarios usuario) {	
+	public Boolean insert(Usuarios usuario) {	
 		Connection cn = null;
 		try {
 			cn = Conexion.getConexion().getSQLConexion();
 			CallableStatement cst = cn.prepareCall("{CALL SPAgregarUsuario(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
-			System.out.println(usuario);
+			System.out.println("daoimpl: " + usuario);
 			
 			cst.setString(1, usuario.getDNI_Usr());
 			cst.setString(2, usuario.getCUIL_Usr());
@@ -40,8 +40,9 @@ public class UsuariosDaoImpl implements UsuariosDao{
 			cst.setBoolean(13, usuario.isTipo_Usr());
 			cst.setString(14,usuario.getUsuario_Usr());
 			cst.setString(15, usuario.getContrasenia_Usr());
-
-			if(cst.executeUpdate() > 0) 
+			
+			int i = cst.executeUpdate();
+			if(i > 0) 
 				return true;
 			return false;
 		}
