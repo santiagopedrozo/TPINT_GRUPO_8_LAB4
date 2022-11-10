@@ -50,9 +50,7 @@
             });
         });
         
-        function modificar(){
-        	<% estaModificando = true; %>
-        }
+      
         
     </script>
 
@@ -98,30 +96,33 @@ if (request.getAttribute("listaUser")!=null) listaUser= (ArrayList <Usuarios>) r
                 			if (user.isTipo_Usr()==false){
                 	%>
                  	<tr>
-                        <th scope="row">
-                            <button type="button" onClick="modificar()" class="btn btn-outline-success btn-sm">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </button>
-                            <button type="button" onClick="alert(2)" class="btn btn-outline-danger btn-sm">
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
-                        </th>  
-               		
-		                <td><%=user.getDNI_Usr() %></td>                            
-		                <td><%=user.getCUIL_Usr() %></td>                                            
-		                <td><%=user.getNombre_Usr() %></td>
-		                <td><%=user.getApellido_Usr() %></td>                       
-		                <td><%=user.getSexo_Usr() %></td>                        
-		              	<td><%=user.getNacionalidad_Usr() %></td>            
-		                <td><%=user.getFechaNacimiento_Usr()%></td>           
-		                <td><%=user.getDireccion_Usr()%></td>           
-		                <td><%=user.getProvincia_Usr().getDescripcion_Prov()%></td>          
-		              	<td><%=user.getLocalidad_Usr().getDescripcion_Loc()%></td>           
-		                <td><%=user.getEmail_Usr() %></td>           
-		                <td><%=user.getTelefono_Usr() %></td>
-		                <td><%=user.isTipo_Usr() %></td>
-		                <td><%=user.getUsuario_Usr() %></td>  
-		                <td><%=user.getContrasenia_Usr() %></td>  
+                 		<form action= "servletCuentas" method="post" name="formCuentas">
+	                        <th scope="row">
+	                        	
+	                            <button type="button" onClick="formCuentas.submit();" class="btn btn-outline-success btn-sm">
+	                                <i class="fa-solid fa-pen-to-square"></i>
+	                            </button>
+	                            <button type="button" onClick="alert(2)" class="btn btn-outline-danger btn-sm">
+	                                <i class="fa-solid fa-trash"></i>
+	                            </button>
+	                        </th>  
+	               		
+			                <td><%=user.getDNI_Usr() %>  <input type="hidden" name="hiddenEditar" value="<%=user.getDNI_Usr()%>"> </td>                            
+			                <td><%=user.getCUIL_Usr() %></td>                                            
+			                <td><%=user.getNombre_Usr() %></td>
+			                <td><%=user.getApellido_Usr() %></td>                       
+			                <td><%=user.getSexo_Usr() %></td>                        
+			              	<td><%=user.getNacionalidad_Usr() %></td>            
+			                <td><%=user.getFechaNacimiento_Usr()%></td>           
+			                <td><%=user.getDireccion_Usr()%></td>           
+			                <td><%=user.getProvincia_Usr().getDescripcion_Prov()%></td>          
+			              	<td><%=user.getLocalidad_Usr().getDescripcion_Loc()%></td>           
+			                <td><%=user.getEmail_Usr() %></td>           
+			                <td><%=user.getTelefono_Usr() %></td>
+			                <td><%=user.isTipo_Usr() %></td>
+			                <td><%=user.getUsuario_Usr() %></td>  
+			                <td><%=user.getContrasenia_Usr() %></td>  
+			        	</form>
 	                </tr>
 	                <%
                 			}
@@ -132,6 +133,17 @@ if (request.getAttribute("listaUser")!=null) listaUser= (ArrayList <Usuarios>) r
         </div>
       </div>
       
+      <%
+		     
+		     
+	      	if (request.getAttribute("usrSeleccionado") != null){
+	      		Usuarios usrSeleccionadoEditar = (Usuarios) request.getAttribute("usrSeleccionado");
+				estaModificando = true;	
+	      	
+				%>
+					<h1> <%= usrSeleccionadoEditar.getDNI_Usr() %></h1>
+				<%
+	      	} %>
        <%
 			
 			if (estaModificando){
