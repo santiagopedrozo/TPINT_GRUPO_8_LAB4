@@ -1,5 +1,7 @@
 package daoImpl;
 
+import java.sql.CallableStatement;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,13 +24,12 @@ public class PrestamosDaoImpl implements PrestamosDao
 
 	@Override
 	public ArrayList<Prestamos> obtenerTodos() {
-		System.out.println("adentro obtener todos");
 		PreparedStatement statement;
 		ResultSet resultSet; //Guarda el resultado de la query
 		ArrayList<Prestamos> prestamos= new ArrayList<Prestamos>();
 		Conexion conexion = Conexion.getConexion();
 		String consulta = 
-		"Select * from prestamos inner join cuentas on (prestamos.NroCuentaDestino_Pr = cuentas.Nro_Cuentas) inner join tipocuentas on (cuentas.IdTipoCuenta_Cuentas = tipocuentas.Id_TipoCuenta) inner join usuarios on (cuentas.DNI_Cuentas = usuarios.DNI_Usr) inner join localidades on (usuarios.IdLocalidad_Usr = localidades.IdLocalidad_Loc and usuarios.IdProvincia_Usr = localidades.IdProvincia_Loc) inner join provincias on (localidades.IdProvincia_Loc = provincias.IdProvincia_Prov)"; 
+		"Select * from prestamos inner join cuentas on (prestamos.NroCuentaDestino_Pr = cuentas.Nro_Cuentas) inner join tipocuentas on (cuentas.IdTipoCuenta_Cuentas = tipocuentas.Id_TipoCuenta) inner join usuarios on (cuentas.DNI_Cuentas = usuarios.DNI_Usr) inner join localidades on (usuarios.IdLocalidad_Usr = localidades.IdLocalidad_Loc and usuarios.IdProvincia_Usr = localidades.IdProvincia_Loc) inner join provincias on (localidades.IdProvincia_Loc = provincias.IdProvincia_Prov) where Autorizado_Pr = 0 and Estado_Pr = 1"; 
 		try 
 		{
 			Class.forName("com.mysql.jdbc.Driver");
@@ -37,7 +38,6 @@ public class PrestamosDaoImpl implements PrestamosDao
 			while(resultSet.next())
 			{
 				prestamos.add(getPrestamos(resultSet));
-				System.out.println("daoImplPrestamos lin 39: " + getPrestamos(resultSet).getId_Pr());
 			}
 			prestamos.forEach(System.out::println);
 		} 
@@ -291,5 +291,60 @@ public class PrestamosDaoImpl implements PrestamosDao
 					Autorizado_Pr,
 					Estado_Pr
 				);
+	}
+	
+	@Override
+	public boolean modificarAutorizado(Prestamos prestamo, boolean aprobado)
+	{
+		boolean r=false;
+		Connection cn = null;
+		try 
+		{
+			cn = Conexion.getConexion().getSQLConexion();
+			CallableStatement st = cn.prepareCall("CALL SPActualizarPrestamos(?,?,?,?,?,?,?,?,?)");
+			st.setInt(1, prestamo.getId_Pr());
+			st.setString(2, prestamo.getCuentaDestino_Pr().getUsuario_Cuentas().getDNI_Usr());
+			st.setInt(3, prestamo.getCuentaDestino_Pr().getNro_Cuentas());
+			st.setFloat(4, prestamo.getImpSolicitado_Pr());
+			st.setFloat(5, prestamo.getImpResultante_Pr());
+			st.setInt(6, prestamo.getPlazoMeses_Pr());
+			st.setFloat(7, prestamo.getImpPagoAlMes_Pr());
+			st.setInt(8, prestamo.getCantCuotas_Pr());
+			st.setBoolean(9,aprobado);
+			if (st.executeUpdate()>0) 
+				r=true;
+			
+		}
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
+		finally 
+		{
+		}
+		return r;
+	}
+
+	@Override
+	public boolean eliminarPrestamo(Prestamos prestamo) {
+		boolean r=false;
+		Connection cn = null;
+		try 
+		{
+			cn = Conexion.getConexion().getSQLConexion();
+			CallableStatement st = cn.prepareCall("CALL SPEliminarPrestamos(?)");
+			st.setInt(1, prestamo.getId_Pr());
+			if (st.executeUpdate()>0) 
+				r=true;
+			
+		}
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
+		finally 
+		{
+		}
+		return r;
 	}
 }

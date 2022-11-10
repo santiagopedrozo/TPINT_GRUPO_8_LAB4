@@ -2606,10 +2606,10 @@ CREATE PROCEDURE SPAgregarUsuario (
 ) 
 BEGIN
 
-	IF EXISTS (SELECT * FROM Usuarios WHERE DNI_Usr = DNI and Estado_Usr = 0) 
+	IF EXISTS (SELECT * FROM Usuarios WHERE DNI_Usr = DNI and Estado_Usr = 0)
 		THEN UPDATE Usuarios SET Estado_Usr = 1 WHERE  DNI_Usr = DNI;
-	
-	ELSE 
+
+	ELSE
 	INSERT INTO Usuarios (DNI_Usr,CUIL_Usr,Nombre_Usr ,Apellido_Usr ,Sexo_Usr ,Nacionalidad_Usr,FechaNacimiento_Usr ,Direccion_Usr ,IdProvincia_Usr ,IdLocalidad_Usr , Email_Usr,
 	Telefono_Usr ,Tipo_Usr, Usuario_Usr,Contrasenia_Usr) VALUES
 	(DNI,CUIL,Nombre, Apellido, Sexo, Nacionalidad , FechaNacimiento,Direccion, IdProvincia, IdLocalidad,Email,Telefono, Tipo,Usuario,Contrasenia);
@@ -2623,7 +2623,7 @@ CREATE PROCEDURE SPEliminarUsuario (
 	IN DNI CHAR(10)
 ) 
 BEGIN
-	UPDATE Usuarios 
+	UPDATE Usuarios
     SET Estado_Usr = 0
     WHERE DNI_Usr = DNI;
 END //
@@ -2680,13 +2680,16 @@ CREATE PROCEDURE SPAgregarCuentas (
 )
     
 BEGIN
-	IF EXISTS (SELECT * FROM Cuentas WHERE CBU_Cuentas = CBU and Estado_Cuentas = 0) 
+	IF EXISTS (SELECT * FROM Cuentas WHERE CBU_Cuentas = CBU and Estado_Cuentas = 0)
 		THEN UPDATE Cuentas SET Estado_Cuentas = 1 WHERE CBU_Cuentas = CBU;
-	
-	ELSE 
+
+	ELSE
 		INSERT INTO Cuentas (DNI_Cuentas, IdTipoCuenta_Cuentas,CBU_Cuentas) VALUES
 		(DNI,IdTipoCuenta,CBU);
 	END IF;
+
+	INSERT INTO Cuentas (DNI_Cuentas, IdTipoCuenta_Cuentas,CBU_Cuentas) VALUES
+    (DNI,IdTipoCuenta,CBU);
 END //
 DELIMITER ;
 
@@ -2694,10 +2697,10 @@ DELIMITER ;
 
 DELIMITER //
 CREATE PROCEDURE SPEliminarCuentas (
-	IN Nro int(10)
+	IN Nro int
 ) 
 BEGIN
-	UPDATE Cuentas 
+	UPDATE Cuentas
     SET Estado_Cuentas = 0
     WHERE Nro_Cuentas = Nro;
 END //
@@ -2766,7 +2769,7 @@ DELIMITER //
 CREATE PROCEDURE SPActualizarPrestamos (
 	IN Id INT,
     IN DNI CHAR(10),
-    IN NroCuentaDestino VARCHAR(5),
+    IN NroCuentaDestino INT,
     IN ImpSolicitado DECIMAL(15,2),
     IN ImpResultante DECIMAL(15,2),
     IN PlazoMeses INT,
@@ -2788,5 +2791,4 @@ BEGIN
     WHERE Id_Prestamos = Id;
 END //
 DELIMITER ;
-
 
