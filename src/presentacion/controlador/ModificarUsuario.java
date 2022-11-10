@@ -21,7 +21,7 @@ import negocioImpl.ProvinciasNegocioImpl;
 import negocioImpl.UsuariosNegocioImpl;
 
 
-@WebServlet("/AgregarUsuario")
+@WebServlet("/ModificarUsuario")
 public class ModificarUsuario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ProvinciasNegocio provNeg = new ProvinciasNegocioImpl();

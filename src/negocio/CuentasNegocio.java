@@ -14,4 +14,5 @@ public interface CuentasNegocio
 	public ArrayList<Cuentas> cuentasXFechaCreacion(Date fecha1, Date fecha2);
 	public ArrayList<Cuentas> cuentasXTipo(TipoCuentas tipoCuentas);
 	public int insert (Cuentas cuenta);
+	public boolean delete (int id);
 }

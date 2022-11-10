@@ -54,6 +54,7 @@
 <body>
 	
    <br>
+   
   <div class="container-fluid" style="width:70%;">
     <div class="card text-center">
         <div class="card-header ">
@@ -84,21 +85,24 @@
                 	for(Cuentas cuenta : listaCuentas){
                 %>
               <tr>
+  				<form action= "servletCuentas" method="post" name="formCuentas">
                 <th scope="row">
                   <button type="submit" class="btn btn-outline-success">
                     <i class="fa-solid fa-pen-to-square"></i>
                   </button>
+                  
                   <button type="submit" name="btnEliminar" class="btn btn-outline-danger">
                     <i class="fa-solid fa-trash"></i>
                   </button>
                   
                 </th>
-                <td><%=cuenta.getNro_Cuentas() %></td>  
+                <td><%=cuenta.getNro_Cuentas() %> <input type="hidden" name="hiddenEliminar" value="<%=cuenta.getNro_Cuentas()%>"> </td> 
                 <td><%=cuenta.getCBU_Cuentas() %></td>
                 <td><%=cuenta.getTipoCuenta_Cuentas().getDescripcion_TipoCuenta() %></td>  
                 <td><%=cuenta.getUsuario_Cuentas().getDNI_Usr() %></td>
                 <td><%=cuenta.getFechaCreacion_Cuentas() %></td>   
                 <td>$<%=cuenta.getSaldo_Cuentas() %></td>
+				</form>
               </tr>
              
              	<%
@@ -115,7 +119,6 @@
       </div>
     </div>
   </div>
-
   <br>
   <div class="container-fluid" style="width:50%;">
     <div class="card text-center">

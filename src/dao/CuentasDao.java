@@ -14,5 +14,8 @@ public interface CuentasDao
 	public ArrayList<Cuentas> cuentasXFechaCreacion(Date fecha1, Date fecha2);
 	public ArrayList<Cuentas> cuentasXTipo(TipoCuentas tipoCuentas);
 	public boolean insert(Cuentas cuenta); 
+	public boolean delete(int id); 
+	
 	public boolean existeCuenta(String CBU);
+	
 }
