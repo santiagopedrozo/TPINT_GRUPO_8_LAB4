@@ -156,7 +156,7 @@
 		%>
 
 		<div ID="MsgCorrectoDiv" class="col-md-4 alert alert-success" runat="server" visible="false">
-			<strong>Correcto</strong> Usuario eliminado correctamente!
+			<strong>Eliminado</strong> Usuario eliminado correctamente!
 			<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
 		</div>
 		<%

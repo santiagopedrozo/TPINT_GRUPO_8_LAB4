@@ -51,12 +51,15 @@ public class ServletPrestamos extends HttpServlet {
 	
 	private void autorizarPrestamo (HttpServletRequest request)
 	{
+	   
 		if (request.getParameter("btnAceptarPrestamo") != null)
 		{
 			for (Prestamos prestamo : pn.obtenerTodos())
 			{
 				if (prestamo.getId_Pr() ==  Integer.parseInt(request.getParameter("btnAceptarPrestamo")))
+					//Autorizamos el prestamo
 					pn.modificarAutorizado(prestamo, true);
+					request.setAttribute("modificado", 1);
 			}
 		}
 		if (request.getParameter("btnRechazarPrestamo") != null)
@@ -65,8 +68,10 @@ public class ServletPrestamos extends HttpServlet {
 			{
 				if (prestamo.getId_Pr() ==  Integer.parseInt(request.getParameter("btnRechazarPrestamo")))
 				{
+					//Rechazamos el prestamo
 					pn.modificarAutorizado(prestamo, false);
 					pn.eliminarPrestamo(prestamo);
+					request.setAttribute("modificado", 0);
 				}
 			}
 		}

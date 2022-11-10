@@ -226,7 +226,7 @@ if (request.getAttribute("mensaje")!=null) mensaje=(int)request.getAttribute("me
         %>
         
         <div ID="MsgCorrectoDiv" class="col-md-4 alert alert-success" runat="server" visible="false">
-            <strong>Correcto</strong> Cuenta agregada correctamente.
+            <strong>Agregada</strong> Cuenta agregada correctamente.
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
         <%
@@ -249,7 +249,7 @@ if (request.getAttribute("mensaje")!=null) mensaje=(int)request.getAttribute("me
         %>
         
         <div ID="MsgCorrectoDiv" class="col-md-4 alert alert-success" runat="server" visible="false">
-            <strong>Correcto</strong> Cuenta eliminada correctamente.
+            <strong>Eliminada</strong> Cuenta eliminada correctamente.
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
         <%

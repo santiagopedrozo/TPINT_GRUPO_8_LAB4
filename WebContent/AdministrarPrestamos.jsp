@@ -107,11 +107,33 @@
         </div>
       </div>
 </form>
-      <br>
-      <br>
-      <br>
+      <br>      
+       <div style="display: flex; justify-content: center;">
+      <%		int modificado = -1;
+			if (request.getAttribute("modificado")!=null) {
+				modificado= (int) request.getAttribute("modificado");
+			}
+			if (modificado == 0){
+		%>
+		 <div ID="MsgEliminadoDiv" class="col-md-4 alert alert-success" runat="server" visible="false">
+            <strong>Eliminada</strong> Cuenta eliminada correctamente.
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+		<%
+		}
+		else if (modificado == 1){
+		%>
+
+		 <div ID="MsgAgregadoDiv" class="col-md-4 alert alert-success" runat="server" visible="false">
+            <strong>Agregado</strong> Prestamo agregado correctamente.
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+		<%
+			}
+		%>
       
+	</div>
+  
     <%@ include file="FooterPage.html" %>
-	
 </body>
 </html>

@@ -41,7 +41,7 @@ CREATE TABLE Usuarios(
     Usuario_Usr VARCHAR (30) NOT NULL,
 	Contrasenia_Usr VARCHAR(16) NOT NULL, 
 	Estado_Usr BIT DEFAULT 1,
-    
+    
 	CONSTRAINT PK_USUARIOS PRIMARY KEY(DNI_Usr),
 	CONSTRAINT FK_LOCALIDADES_USUARIOS FOREIGN KEY (IdLocalidad_Usr, IdProvincia_Usr)
 		REFERENCES Localidades(IdLocalidad_Loc, IdProvincia_Loc)
@@ -92,6 +92,10 @@ CREATE TABLE Prestamos(
     Autorizado_Pr BIT NOT NULL DEFAULT 0, -- 1 AUTORIZADO, 0 NO AUTORIZADO
     Estado_Pr BIT DEFAULT 1,
     
+    -- A autorizar: Autorizado 0 y Estado 1  /  Lo puede ver solo admin
+    -- Autorizado: Autorizado 1 y Estado 1  /  Lo puede ver el usuario
+    -- Rechazado: Autorizado 0 y Estado 0  /  Solo se puede ver en los registros
+    
     CONSTRAINT PK_PRESTAMOS PRIMARY KEY(Id_Pr),
     CONSTRAINT FK_USUARIOS_PRESTAMOS FOREIGN KEY (DNI_Pr)
 		REFERENCES Usuarios(DNI_Usr),
@@ -99,6 +103,7 @@ CREATE TABLE Prestamos(
 		REFERENCES Cuentas(Nro_Cuentas)
         
 );
+
 
 CREATE TABLE TiposMovimientos(
 	Id_TiposMov INT auto_increment NOT NULL,
@@ -2584,6 +2589,25 @@ INSERT INTO TiposMovimientos(Descripcion_TiposMov) VALUES
 ('Pago de préstamo'),
 ('Transferencia');
 
+
+INSERT INTO Prestamos (DNI_Pr,NroCuentaDestino_Pr, ImpSolicitado_Pr, ImpResultante_Pr, PlazoMeses_Pr, ImpPagoAlMes_Pr, CantCuotas_Pr, Autorizado_Pr, Estado_Pr) VALUES
+ (44298830,1,10000,17000,12,1416.66,12,1,1),
+ (44298829,2,20000,34000,12,2833.33,12,1,1),
+ (44298830,3,30000,51000,12,4250,12,0,1),
+ (44666777,4,40000,68000,12,5666.66,12,0,1),
+ (44666777,5,50000,85000,12,7083.33,12,1,1),
+ (40334556,6,60000,102000,12,8500,12,0,1),
+ (44567566,7,70000,119000,12,9916.66,12,1,1),
+ (41000999,8,80000,136000,12,10461.53,12,0,1),
+ (41000999,9,90000,153000,12,12750,12,1,1),
+ (40400500,10,100000,170000,12,14166.66,12,0,1),
+ (44298830,11,110000,187000,12,15583.33,12,1,1),
+ (40900800,12,120000,204000,12, 17000,12,0,1),
+ (44768845,13,130000,221000,12,18415.66,12,1,0),
+ (44768845,14,140000,238000,12, 19833.33,12,1,1),
+ (42456879,15,150000,255000,12,21250,12,0,1);
+
+
 -- CREACION DE PROCEDIMIENTOS ALMACENADOS
 -- Usuario
 DELIMITER //
@@ -2605,15 +2629,9 @@ CREATE PROCEDURE SPAgregarUsuario (
 	IN Contrasenia VARCHAR(16)
 ) 
 BEGIN
-
-	IF EXISTS (SELECT * FROM Usuarios WHERE DNI_Usr = DNI and Estado_Usr = 0)
-		THEN UPDATE Usuarios SET Estado_Usr = 1 WHERE  DNI_Usr = DNI;
-
-	ELSE
 	INSERT INTO Usuarios (DNI_Usr,CUIL_Usr,Nombre_Usr ,Apellido_Usr ,Sexo_Usr ,Nacionalidad_Usr,FechaNacimiento_Usr ,Direccion_Usr ,IdProvincia_Usr ,IdLocalidad_Usr , Email_Usr,
 	Telefono_Usr ,Tipo_Usr, Usuario_Usr,Contrasenia_Usr) VALUES
 	(DNI,CUIL,Nombre, Apellido, Sexo, Nacionalidad , FechaNacimiento,Direccion, IdProvincia, IdLocalidad,Email,Telefono, Tipo,Usuario,Contrasenia);
-    END IF;
 END //
 DELIMITER ;
 
@@ -2623,7 +2641,7 @@ CREATE PROCEDURE SPEliminarUsuario (
 	IN DNI CHAR(10)
 ) 
 BEGIN
-	UPDATE Usuarios
+	UPDATE Usuarios 
     SET Estado_Usr = 0
     WHERE DNI_Usr = DNI;
 END //
@@ -2680,13 +2698,6 @@ CREATE PROCEDURE SPAgregarCuentas (
 )
     
 BEGIN
-	IF EXISTS (SELECT * FROM Cuentas WHERE CBU_Cuentas = CBU and Estado_Cuentas = 0)
-		THEN UPDATE Cuentas SET Estado_Cuentas = 1 WHERE CBU_Cuentas = CBU;
-
-	ELSE
-		INSERT INTO Cuentas (DNI_Cuentas, IdTipoCuenta_Cuentas,CBU_Cuentas) VALUES
-		(DNI,IdTipoCuenta,CBU);
-	END IF;
 
 	INSERT INTO Cuentas (DNI_Cuentas, IdTipoCuenta_Cuentas,CBU_Cuentas) VALUES
     (DNI,IdTipoCuenta,CBU);
@@ -2697,10 +2708,10 @@ DELIMITER ;
 
 DELIMITER //
 CREATE PROCEDURE SPEliminarCuentas (
-	IN Nro int
+	IN Nro CHAR(10)
 ) 
 BEGIN
-	UPDATE Cuentas
+	UPDATE Cuentas 
     SET Estado_Cuentas = 0
     WHERE Nro_Cuentas = Nro;
 END //
@@ -2759,7 +2770,7 @@ CREATE PROCEDURE SPEliminarPrestamos (
 BEGIN
 	UPDATE Prestamos
     SET Estado_Pr = 0
-    WHERE Id_Prestamos = Id;
+    WHERE Id_Pr = Id;
 END //
 DELIMITER ;
 
@@ -2769,7 +2780,7 @@ DELIMITER //
 CREATE PROCEDURE SPActualizarPrestamos (
 	IN Id INT,
     IN DNI CHAR(10),
-    IN NroCuentaDestino INT,
+    IN NroCuentaDestino VARCHAR(5),
     IN ImpSolicitado DECIMAL(15,2),
     IN ImpResultante DECIMAL(15,2),
     IN PlazoMeses INT,
@@ -2779,16 +2790,15 @@ CREATE PROCEDURE SPActualizarPrestamos (
 ) 
 BEGIN
 	UPDATE Prestamos
-    SET DNI_Prestamos = DNI,
+    SET DNI_Pr = DNI,
     NroCuentaDestino_Pr = NroCuentaDestino,
 	ImpSolicitado_Pr = ImpSolicitado,
 	ImpResultante_Pr = ImpResultante,
 	PlazoMeses_Pr = PlazoMeses,
 	ImpPagoAlMes_Pr = ImpPagoAlMes,
 	CantCuotas_Pr = CantCuotas,
-	Autorizado_Pr = Estado
+	Autorizado_Pr = Autorizado
     
-    WHERE Id_Prestamos = Id;
+    WHERE Id_Pr= Id;
 END //
 DELIMITER ;
-
