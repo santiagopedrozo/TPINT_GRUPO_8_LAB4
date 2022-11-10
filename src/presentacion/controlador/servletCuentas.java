@@ -61,6 +61,7 @@ public class servletCuentas extends HttpServlet {
 			rd.forward(request, response);	
 		}
 		
+		
 	}
 	private void cargarCuentas(HttpServletRequest request) {
 		ArrayList <Cuentas> cuentas = null;
@@ -91,7 +92,7 @@ public class servletCuentas extends HttpServlet {
 	
 	private void eliminarCuenta(HttpServletRequest request) {
 		int id= Integer.parseInt(request.getParameter("hiddenEliminar"));
-		int mensajeEliminar=negCuentas.delete(id);
+		int mensajeEliminar = negCuentas.delete(id);
 		request.setAttribute("mensajeEliminar", mensajeEliminar);
 		cargarCuentas(request);
 		cargarUsuarios(request);

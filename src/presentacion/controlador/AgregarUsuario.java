@@ -53,6 +53,7 @@ public class AgregarUsuario extends HttpServlet {
 		
 	private void refreshPost(HttpServletRequest request) {
 		cargarProvinciasUser(request);
+		cargarUsuarios(request);
 	}
 	
 	private void filtradoLocalidades(HttpServletRequest request) {
@@ -89,6 +90,10 @@ public class AgregarUsuario extends HttpServlet {
 		String Usuario_Usr = request.getParameter("txtUsuario");
 		String Contrasenia_Usr = request.getParameter("txtContrasenia");
 		return new Usuarios (DNI_Usr, CUIL_Usr,Nombre_Usr,  Apellido_Usr, Sexo_Usr, Nacionalidad_Usr, FechaNacimiento_Usr, Direccion_Usr,Provincia_Usr, Localidad_Usr ,Email_Usr,Telefono_Usr,  Tipo_Usr, Usuario_Usr,  Contrasenia_Usr, true);	
+	}
+	
+	private void cargarUsuarios(HttpServletRequest request) {
+		request.setAttribute("listaUser", usrNeg.readALL());
 	}
 
 }
