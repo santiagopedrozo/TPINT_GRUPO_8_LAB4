@@ -55,6 +55,13 @@ public class UsuariosNegocioImpl implements UsuariosNegocio {
 	public ArrayList<Usuarios> readALL() {
 		return userDao.readALL(); 
 	}
+
+
+	@Override
+	public boolean delete(String DNI) {
+		return userDao.delete(DNI);
+		
+	}
 	
 
 }

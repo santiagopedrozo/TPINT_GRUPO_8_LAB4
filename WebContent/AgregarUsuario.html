@@ -40,7 +40,6 @@
                             minlength="7" 
                             maxlength="8"
                             placeholder="-"
-                            value="25390401"
                             required
                             >
                             <label for="floatingInput">DNI</label>
@@ -54,7 +53,6 @@
                             minlength="11"
                             maxlength="11"
                             placeholder="-"
-                            value="20253904019"
                             required
                             >
                             <label for="floatingInput">CUIL</label>
@@ -63,28 +61,28 @@
     
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="text" name="txtNombre" class="form-control" id="floatingInput" placeholder="-" value="prueba" required>
+                            <input type="text" name="txtNombre" class="form-control" id="floatingInput" placeholder="-"  required>
                             <label for="floatingInput">Nombre</label>
                         </div>
                     </div>
                
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="text" name="txtApellido" class="form-control" id="floatingInput" placeholder="-" value="prueba" required>
+                            <input type="text" name="txtApellido" class="form-control" id="floatingInput" placeholder="-"  required>
                             <label for="floatingInput">Apellido</label> 
                         </div>
                     </div>
 
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="tel"  name="txtTelefono"class="form-control"  id="floatingInput" placeholder="-" value="1122332211" required>
-                            <label for="floatingInput">Telï¿½fono</label>
+                            <input type="tel"  name="txtTelefono"class="form-control"  id="floatingInput" placeholder="-" required>
+                            <label for="floatingInput">Teléfono</label>
                         </div>
                     </div>
                     
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="email" name="txtEmail" class="form-control"  id="floatingInput" placeholder="-" value="santi@gmail.com"required>
+                            <input type="email" name="txtEmail" class="form-control"  id="floatingInput" placeholder="-" required>
                             <label for="floatingInput">Email</label>
                         </div>
                     </div>
@@ -92,7 +90,7 @@
                     <div class="col-md-6">
                         <div class="form-floating">
                             <select name="ddlTipo" id="" class="form-select" id="floatingInput" placeholder="-" required>
-                            <option value=false selected> Estandar </option>
+                            <option value=false> Estandar </option>
                             <option value=true> Admin </option>
                             </select>
                             <label for="floatingSelect">Tipo de usuario</label>
@@ -101,21 +99,21 @@
                		
                		  <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="text" name="txtUsuario" class="form-control" id="floatingInput" placeholder="-" value="usr" required>
+                            <input type="text" name="txtUsuario" class="form-control" id="floatingInput" placeholder="-" required>
                             <label for="floatingSelect">Usuario</label>
                         </div>
                     </div>
                		
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="password" name="txtContrasenia" class="form-control" id="floatingInput" placeholder="-" value="contra" required>
+                            <input type="password" name="txtContrasenia" class="form-control" id="floatingInput" placeholder="-"  required>
                             <label for="floatingSelect">Contraseña</label>
                         </div>
                     </div>
 
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="text" name="txtDireccion" class="form-control" id="floatingInput" placeholder="-" value="prueba123" required>
+                            <input type="text" name="txtDireccion" class="form-control" id="floatingInput" placeholder="-"  required>
                             <label for="floatingSelect">Direccion</label>
                         </div>
                     </div>
@@ -143,7 +141,7 @@
                     
                     <div class="col-md-4">
                         <div class="form-floating mb-3">
-                            <input type="text" name="txtNacionalidad" class="form-control" id="floatingInput" placeholder="-" value="prueba" required>
+                            <input type="text" name="txtNacionalidad" class="form-control" id="floatingInput" placeholder="-"  required>
                             <label for="floatingSelect">Nacionalidad</label>
                         </div>
                     </div>
@@ -190,15 +188,34 @@
               </form>
 			    
 			    
-			     <%
-					Boolean resultado = null;
-			    	if (request.getAttribute("estadoInsertado") != null) resultado = (Boolean)request.getAttribute("estadoInsertado");
-					if (resultado!=null){
-						%>
-						<h1> <%= resultado %> </h1>	 
-						<%
-					}
-				%>
+	    <div style="display: flex; justify-content: center;">
+		<%
+		boolean estadoInsertado=false;
+		int estadoInsertadoInt = -1;
+	    if (request.getAttribute("estadoInsertado")!=null) {
+	    estadoInsertado= (boolean) request.getAttribute("estadoInsertado");
+	    estadoInsertadoInt =  estadoInsertado ? 1 : 0; 
+	    }
+	    if (estadoInsertadoInt == 0){
+	    %>
+	        <div ID="MsgErrorDiv" style="font-size: 16px" class="col-md-12 alert alert-danger" runat="server" visible="false">
+	            <strong>Error</strong> No se pudo agregar el usuario!
+	            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+	        </div>
+	        <%
+	        }
+	        else if (estadoInsertadoInt == 1){
+	        %>
+	        
+	        <div ID="MsgCorrectoDiv" style="font-size: 16px" class="col-md-12 alert alert-success" runat="server" visible="false">
+	            <strong>Correcto</strong> Usuario agregado correctamente!
+	            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+	        </div>
+	        <%
+	        }
+	        %> 
+		</div>
+			     
 				
 				
 			    

@@ -83,6 +83,7 @@
             <%
                 if (listaCuentas!=null)
                 	for(Cuentas cuenta : listaCuentas){
+                		if (cuenta.isEstado_Cuentas()==true){
                 %>
               <tr>
   				<form action= "servletCuentas" method="post" name="formCuentas">
@@ -106,6 +107,7 @@
               </tr>
              
              	<%
+                	}
                 	}
              	%>
             </tbody>     
@@ -192,7 +194,7 @@ if (request.getAttribute("listaUser")!=null) listaUser=(ArrayList <Usuarios>)req
   
 <%
 int mensaje=-3;
-if (request.getAttribute("mensaje")!=null) mensaje=(int)request.getAttribute("mensaje");
+if (request.getAttribute("mensaje")!=null) mensaje=(int)request.getAttribute("mensaje");                        		
 %>   
   <div style="display: flex; justify-content: center;">
         <%
@@ -230,6 +232,30 @@ if (request.getAttribute("mensaje")!=null) mensaje=(int)request.getAttribute("me
         <%
         }
         %>
+        
+        <%
+        int mensajeEliminar=-1;
+        if (request.getAttribute("mensajeEliminar")!=null) mensajeEliminar=(int)request.getAttribute("mensajeEliminar");
+        
+       	if (mensajeEliminar == 0){
+        %>
+        <div ID="MsgErrorDiv" class="col-md-4 alert alert-danger" runat="server" visible="false">
+            <strong>Error</strong> Error al intentar eliminar la cuenta!
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        <%
+        }
+        else if (mensajeEliminar == 1){
+        %>
+        
+        <div ID="MsgCorrectoDiv" class="col-md-4 alert alert-success" runat="server" visible="false">
+            <strong>Correcto</strong> Cuenta eliminada correctamente.
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        <%
+        }
+        %> 
+        
         
     </div>
    

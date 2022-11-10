@@ -74,7 +74,7 @@
       
 	<div style="display: flex; justify-content: center; visibility="hidden";>
         <div ID="MsgErrorDiv" class="col-md-4 alert alert-danger">
-            <strong>Error</strong> No se pudo encontrar usuario.
+            <strong>Error</strong> Usuario o contraseña incorrecta!
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             
         </div>

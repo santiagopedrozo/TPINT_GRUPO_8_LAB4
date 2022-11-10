@@ -49,8 +49,7 @@
                 lengthMenu: [ [10, 25, -1], [10, 25, "All"] ],
             });
         });
-        
-      
+
         
     </script>
 
@@ -59,16 +58,15 @@
 <%
 	boolean estaModificando = false;
 	if (request.getAttribute("usrSeleccionado") != null)
-		estaModificando = true;	
+		estaModificando = true;
 	ArrayList <Usuarios> listaUser = null;
-	if (request.getAttribute("listaUser")!=null) 
+	if (request.getAttribute("listaUser")!=null)
 		listaUser = (ArrayList <Usuarios>) request.getAttribute("listaUser");
-%>   
+%>
 </head>
 <body>
 	<%@ include file="MasterPageAdmin.html" %>
 	<br>
-	<h1> <%= estaModificando %></h1>
 	<div class="container-fluid" style="width:95%;">
         <div class="card text-center">
             <div class="card-header "><h5>Usuarios</h5></div>
@@ -97,21 +95,22 @@
                 <%
                 	if (listaUser!=null)
                 		for(Usuarios user: listaUser){
-                			if (user.isTipo_Usr()==false){
+                			if (user.isTipo_Usr()==false && user.isEstado_Usr()==true){
                 	%>
                  	<tr>
-                 		<form action= "servletUsuarios" method="post" name="formCuentas">
+                 		<form action= "servletCuentas" method="post" name="formUsuario">
 	                        <th scope="row">
-	                        	
-	                            <button type="submit" class="btn btn-outline-success btn-sm">
-	                                <i class="fa-solid fa-pen-to-square"></i>
-	                            </button>
-	                            <button type="button" onClick="alert(2)" class="btn btn-outline-danger btn-sm">
-	                                <i class="fa-solid fa-trash"></i>
-	                            </button>
-	                        </th>  
-	               		
-			                <td><%=user.getDNI_Usr() %>  <input type="hidden" name="hiddenEditar" value="<%=user.getDNI_Usr()%>"> </td>                            
+								<!-- EN SERVLET NO PREGUNTO POR ESTE BTN, RECIEN LO AGREGO-->
+								<button type="submit" name="btnEditar" class="btn btn-outline-success btn-sm">
+									<i class="fa-solid fa-pen-to-square"></i>
+								</button>
+								<button type="submit" name ="btnEliminarUsr"class="btn btn-outline-danger btn-sm">
+									<i class="fa-solid fa-trash"></i>
+								</button>
+	                        </th>
+							<!-- el nombre del input hidden se pisa, en uno se llama hiddenEditar y en otro hiddenEliminarUsr
+							hay que ponerle un nombre en comun y cambiar unas lineas del servlet -> hiddenAccion -->
+			                <td><%=user.getDNI_Usr() %>  <input type="hidden" name="hiddenEliminarUsr" value="<%=user.getDNI_Usr()%>"> </td>
 			                <td><%=user.getCUIL_Usr() %></td>                                            
 			                <td><%=user.getNombre_Usr() %></td>
 			                <td><%=user.getApellido_Usr() %></td>                       
@@ -136,10 +135,61 @@
             </table>
         </div>
       </div>
+
+	<div style="display: flex; justify-content: center;">
+		<%
+			boolean mensajeDeleteUsr=false;
+			int mensajeDeleteUsrInt = -1;
+			if (request.getAttribute("mensajeDeleteUsr")!=null) {
+				mensajeDeleteUsr= (boolean) request.getAttribute("mensajeDeleteUsr");
+				mensajeDeleteUsrInt =  mensajeDeleteUsr ? 1 : 0;
+			}
+			if (mensajeDeleteUsrInt == 0){
+		%>
+		<div ID="MsgErrorDiv" class="col-md-4 alert alert-danger" runat="server" visible="false">
+			<strong>Error</strong> No se pudo eliminar el usuario!
+			<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+		</div>
+		<%
+		}
+		else if (mensajeDeleteUsrInt == 1){
+		%>
+
+		<div ID="MsgCorrectoDiv" class="col-md-4 alert alert-success" runat="server" visible="false">
+			<strong>Correcto</strong> Usuario eliminado correctamente!
+			<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+		</div>
+		<%
+			}
+		%>
+	</div>
       
-      <%@ include file="ModificarUsuario.html" %>
-       
-		
+      <%
+	      	if (request.getAttribute("usrSeleccionado") != null){
+	      		Usuarios usrSeleccionadoEditar = (Usuarios) request.getAttribute("usrSeleccionado");
+				estaModificando = true;	
+	      	
+				%>
+					<h1> <%= usrSeleccionadoEditar.getDNI_Usr() %></h1>
+				<%
+	      	}
+		%>
+       <%
+			if (estaModificando){
+				%>
+				<br>
+				<%@ include file="ModificarUsuario.html" %>
+				<br>
+				<%
+			}
+			else{
+				%>
+				<br>
+				<%@ include file="AgregarUsuario.html" %>
+				<br>
+				<%
+			}
+		%>
 
       <%@ include file="FooterPage.html" %>
       

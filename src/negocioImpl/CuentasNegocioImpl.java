@@ -54,7 +54,8 @@ public class CuentasNegocioImpl implements CuentasNegocio {
 		}
 	}
 	
-	public boolean delete(int id) {
-		return cd.delete(id);
+	public int delete(int id) {
+		if (cd.delete(id)) return 1;
+		else return 0;
 	}
 }

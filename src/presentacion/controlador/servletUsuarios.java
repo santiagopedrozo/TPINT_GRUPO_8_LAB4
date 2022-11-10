@@ -44,22 +44,38 @@ public class servletUsuarios extends HttpServlet {
 	
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		RequestDispatcher rd;
 		if (request.getParameter("btnIniciar")!=null) {
 			logicaIniciarSesion(request, response);
 		}
 		
 		if (request.getParameter("hiddenEditar") != null) {
 			request.setAttribute("usrSeleccionado", obtenerUsrPorDNI(request.getParameter("hiddenEditar").toString()));
+			rd = request.getRequestDispatcher("AdministrarUsuarios.jsp");
+			refreshDePost(request);
+		}
+
+		if (request.getParameter("btnEliminarUsr")!=null) {
+			eliminarUsr(request);
+			rd = request.getRequestDispatcher("AdministrarUsuarios.jsp");
+			refreshDePost(request);
 			System.out.println(obtenerUsrPorDNI(request.getParameter("hiddenEditar").toString()));
 			RequestDispatcher rd = request.getRequestDispatcher("AdministrarUsuarios.jsp");
-			rd.forward(request, response);	
+			rd.forward(request, response);
 		}
 		
 		refreshDePost(request);
-		RequestDispatcher rd = request.getRequestDispatcher("AdministrarUsuarios.jsp");
+		rd = request.getRequestDispatcher("AdministrarUsuarios.jsp");
 		rd.forward(request, response);
 	}
 	
+	private void eliminarUsr(HttpServletRequest request) {
+		String DNI= request.getParameter("hiddenEliminarUsr");
+		boolean mensajeDeleteUsr=usrNeg.delete(DNI);
+		request.setAttribute("mensajeDeleteUsr", mensajeDeleteUsr);
+
+	}
+
 	private void refreshDeGet(HttpServletRequest request) {
 		cargarProvinciasUser(request);
 		cargarLocalidadesUser(request, -1);
@@ -67,6 +83,7 @@ public class servletUsuarios extends HttpServlet {
 	
 	private void refreshDePost(HttpServletRequest request) {
 		cargarProvinciasUser(request);
+		cargarUsuarios(request);
 	}
 	
 	private Usuarios obtenerUsrPorDNI(String dni) {
@@ -119,7 +136,7 @@ public class servletUsuarios extends HttpServlet {
 	
 	private boolean iniciarSesion(HttpServletRequest request) {
 		String user = request.getParameter("txtUsuario");
-		String contra = request.getParameter("txtContraseña");
+		String contra = request.getParameter("txtContraseï¿½a");
 		boolean existe= usrNeg.existeUsuario(user, contra);
 		if (existe) {
 			Usuarios usuario= usrNeg.readOne(user);

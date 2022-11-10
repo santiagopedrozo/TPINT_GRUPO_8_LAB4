@@ -53,25 +53,7 @@ public class UsuariosDaoImpl implements UsuariosDao{
 		return false;
 	}
 	
-	public boolean delete(Usuarios usuario) {
-		
-		Connection cn = null;
-		try {
-			cn = Conexion.getConexion().getSQLConexion();
-			CallableStatement cst = cn.prepareCall("{CALL SPEliminarUsuario(?);}");
-			cst.setString(1, usuario.getDNI_Usr());
-			
-			
-			if(cst.executeUpdate() > 0) 
-				return true;
-			return false;
-			
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-		return false;
-	}
+	
 	@Override
 	public ArrayList<Usuarios> readALL() {
 		
@@ -140,7 +122,7 @@ public class UsuariosDaoImpl implements UsuariosDao{
 
 	@Override
 	public boolean existeUsuario(String user, String contra) {
-		String query = "SELECT * FROM Usuarios WHERE Usuario_usr = '" +user+ "' AND Contrasenia_Usr= '" +contra+ "'";
+		String query = "SELECT * FROM Usuarios WHERE Usuario_usr = '" +user+ "' AND Contrasenia_Usr= '" +contra+ "' AND Estado_Usr = 1" ;
 		if (existe(query)) return true;
 		return false;
 	}
@@ -165,5 +147,26 @@ public class UsuariosDaoImpl implements UsuariosDao{
 		}
 		return existe;
     }
+
+
+	@Override
+	public boolean delete(String dni) {
+		Connection cn = null;
+		try {
+			cn = Conexion.getConexion().getSQLConexion();
+			CallableStatement cst = cn.prepareCall("CALL SPEliminarUsuario(?)");
+			cst.setString(1, dni);
+			
+			
+			if(cst.executeUpdate() > 0) 
+				return true;
+			return false;
+			
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 	
 }
