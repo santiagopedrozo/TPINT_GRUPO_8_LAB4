@@ -6,7 +6,8 @@ import java.util.List;
 import entidades.Usuarios;
 
 public interface UsuariosDao {
-	public boolean insert(Usuarios usuario);
+	public Boolean insert(Usuarios usuario);
+	public boolean delete (String dni);
 	public ArrayList<Usuarios> readALL();
 	public Usuarios readOne(String nombreUsuario);
 	public boolean existeUsuario(String user, String contra);

@@ -54,17 +54,18 @@
 <body>
 	
    <br>
+   
   <div class="container-fluid" style="width:70%;">
     <div class="card text-center">
         <div class="card-header ">
           <h5>Cuentas</h5>
         </div>
       
-<%
-ArrayList <Cuentas> listaCuentas = null;
-if (request.getAttribute("listaCuentas")!=null) listaCuentas=(ArrayList <Cuentas>)request.getAttribute("listaCuentas");
-int posicion=0;
-%>  
+		<%
+		ArrayList <Cuentas> listaCuentas = null;
+		if (request.getAttribute("listaCuentas")!=null) listaCuentas=(ArrayList <Cuentas>)request.getAttribute("listaCuentas");
+		int posicion=0;
+		%>  
         <table class="table table-hover" id="table_id_cuentas">
             <thead>
               <tr>
@@ -82,26 +83,31 @@ int posicion=0;
             <%
                 if (listaCuentas!=null)
                 	for(Cuentas cuenta : listaCuentas){
+                		if (cuenta.isEstado_Cuentas()==true){
                 %>
               <tr>
+  				<form action= "servletCuentas" method="post" name="formCuentas">
                 <th scope="row">
                   <button type="submit" class="btn btn-outline-success">
                     <i class="fa-solid fa-pen-to-square"></i>
                   </button>
+                  
                   <button type="submit" name="btnEliminar" class="btn btn-outline-danger">
                     <i class="fa-solid fa-trash"></i>
                   </button>
                   
                 </th>
-                <td><%=cuenta.getNro_Cuentas() %></td>  
+                <td><%=cuenta.getNro_Cuentas() %> <input type="hidden" name="hiddenEliminar" value="<%=cuenta.getNro_Cuentas()%>"> </td> 
                 <td><%=cuenta.getCBU_Cuentas() %></td>
                 <td><%=cuenta.getTipoCuenta_Cuentas().getDescripcion_TipoCuenta() %></td>  
                 <td><%=cuenta.getUsuario_Cuentas().getDNI_Usr() %></td>
                 <td><%=cuenta.getFechaCreacion_Cuentas() %></td>   
                 <td>$<%=cuenta.getSaldo_Cuentas() %></td>
+				</form>
               </tr>
              
              	<%
+                	}
                 	}
              	%>
             </tbody>     
@@ -115,7 +121,6 @@ int posicion=0;
       </div>
     </div>
   </div>
-
   <br>
   <div class="container-fluid" style="width:50%;">
     <div class="card text-center">
@@ -189,7 +194,7 @@ if (request.getAttribute("listaUser")!=null) listaUser=(ArrayList <Usuarios>)req
   
 <%
 int mensaje=-3;
-if (request.getAttribute("mensaje")!=null) mensaje=(int)request.getAttribute("mensaje");
+if (request.getAttribute("mensaje")!=null) mensaje=(int)request.getAttribute("mensaje");                        		
 %>   
   <div style="display: flex; justify-content: center;">
         <%
@@ -227,6 +232,30 @@ if (request.getAttribute("mensaje")!=null) mensaje=(int)request.getAttribute("me
         <%
         }
         %>
+        
+        <%
+        int mensajeEliminar=-1;
+        if (request.getAttribute("mensajeEliminar")!=null) mensajeEliminar=(int)request.getAttribute("mensajeEliminar");
+        
+       	if (mensajeEliminar == 0){
+        %>
+        <div ID="MsgErrorDiv" class="col-md-4 alert alert-danger" runat="server" visible="false">
+            <strong>Error</strong> Error al intentar eliminar la cuenta!
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        <%
+        }
+        else if (mensajeEliminar == 1){
+        %>
+        
+        <div ID="MsgCorrectoDiv" class="col-md-4 alert alert-success" runat="server" visible="false">
+            <strong>Correcto</strong> Cuenta eliminada correctamente.
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        <%
+        }
+        %> 
+        
         
     </div>
    

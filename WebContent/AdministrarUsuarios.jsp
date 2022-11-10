@@ -49,13 +49,16 @@
                 lengthMenu: [ [10, 25, -1], [10, 25, "All"] ],
             });
         });
+        
+        
     </script>
 
 
 
 <%
-ArrayList <Usuarios> listaUser= null;
-if (request.getAttribute("listaUser")!=null) listaUser=(ArrayList <Usuarios>)request.getAttribute("listaUser");
+boolean estaModificando = false;
+ArrayList <Usuarios> listaUser = null;
+if (request.getAttribute("listaUser")!=null) listaUser= (ArrayList <Usuarios>) request.getAttribute("listaUser");
 %>   
 </head>
 <body>
@@ -85,57 +88,97 @@ if (request.getAttribute("listaUser")!=null) listaUser=(ArrayList <Usuarios>)req
                       <th>Contraseña</th>
                     </tr>
                 </thead>
-               
                 <tbody>
                 <%
                 	if (listaUser!=null)
                 		for(Usuarios user: listaUser){
-                			if (user.isTipo_Usr()==false){
+                			if (user.isTipo_Usr()==false && user.isEstado_Usr()==true){
                 	%>
                  	<tr>
+                 	<form action= "servletUsuarios" method="post" name="formUsuario">
                         <th scope="row">
-                            <button type="button" class="btn btn-outline-success btn-sm">
+                            <button type="submit" class="btn btn-outline-success btn-sm">
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </button>
-                            <button type="button" class="btn btn-outline-danger btn-sm">
+                            <button type="submit" name ="btnEliminarUsr"class="btn btn-outline-danger btn-sm">
                                 <i class="fa-solid fa-trash"></i>
                             </button>
                         </th>  
                		
-	                <td><%=user.getDNI_Usr() %></td>                            
-	                <td><%=user.getCUIL_Usr() %></td>                                            
-	                <td><%=user.getNombre_Usr() %></td>
-	                <td><%=user.getApellido_Usr() %></td>                       
-	                <td><%=user.getSexo_Usr() %></td>                        
-	              	<td><%=user.getNacionalidad_Usr() %></td>            
-	                <td><%=user.getFechaNacimiento_Usr()%></td>           
-	                <td><%=user.getDireccion_Usr()%></td>           
-	                <td><%=user.getProvincia_Usr().getDescripcion_Prov()%></td>          
-	              	<td><%=user.getLocalidad_Usr().getDescripcion_Loc()%></td>           
-	                <td><%=user.getEmail_Usr() %></td>           
-	                <td><%=user.getTelefono_Usr() %></td>
-	                <td><%=user.isTipo_Usr() %></td>
-	                <td><%=user.getUsuario_Usr() %></td>  
-	                <td><%=user.getContrasenia_Usr() %></td>  
+		                <td><%=user.getDNI_Usr() %><input type="hidden" name="hiddenEliminarUsr" value="<%=user.getDNI_Usr()%>"> </td>                            
+		                <td><%=user.getCUIL_Usr() %></td>                                            
+		                <td><%=user.getNombre_Usr() %></td>
+		                <td><%=user.getApellido_Usr() %></td>                       
+		                <td><%=user.getSexo_Usr() %></td>                        
+		              	<td><%=user.getNacionalidad_Usr() %></td>            
+		                <td><%=user.getFechaNacimiento_Usr()%></td>           
+		                <td><%=user.getDireccion_Usr()%></td>           
+		                <td><%=user.getProvincia_Usr().getDescripcion_Prov()%></td>          
+		              	<td><%=user.getLocalidad_Usr().getDescripcion_Loc()%></td>           
+		                <td><%=user.getEmail_Usr() %></td>           
+		                <td><%=user.getTelefono_Usr() %></td>
+		                <td><%=user.isTipo_Usr() %></td>
+		                <td><%=user.getUsuario_Usr() %></td>  
+		                <td><%=user.getContrasenia_Usr() %></td>  
+		            </form>
 	                </tr>
 	                <%
                 			}
                 		}
 	                %>
             	</tbody>                                             
-	       
-                
             </table>
-        
-            
         </div>
       </div>
-    
-      <br>
       
-      <br>
-      <%@ include file="AgregarUsuario.html" %>
-      <br>
+      
+      <div style="display: flex; justify-content: center;">
+		<%
+		boolean mensajeDeleteUsr=false;
+		int mensajeDeleteUsrInt = -1;
+	    if (request.getAttribute("mensajeDeleteUsr")!=null) {
+	    mensajeDeleteUsr= (boolean) request.getAttribute("mensajeDeleteUsr");
+	    mensajeDeleteUsrInt =  mensajeDeleteUsr ? 1 : 0; 
+	    }
+	    if (mensajeDeleteUsrInt == 0){
+	    %>
+	        <div ID="MsgErrorDiv" class="col-md-4 alert alert-danger" runat="server" visible="false">
+	            <strong>Error</strong> No se pudo eliminar el usuario!
+	            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+	        </div>
+	        <%
+	        }
+	        else if (mensajeDeleteUsrInt == 1){
+	        %>
+	        
+	        <div ID="MsgCorrectoDiv" class="col-md-4 alert alert-success" runat="server" visible="false">
+	            <strong>Correcto</strong> Usuario eliminado correctamente!
+	            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+	        </div>
+	        <%
+	        }
+	        %> 
+		</div>
+      
+       <%
+			
+			if (estaModificando){
+				%>
+				<br>
+				<%@ include file="ModificarUsuario.html" %>
+				<br>
+				<%
+			}
+			else{
+				%>
+				<br>
+				<%@ include file="AgregarUsuario.html" %>
+				<br>
+				<%
+			}
+		%>
+		
+
       <%@ include file="FooterPage.html" %>
       
 </body>

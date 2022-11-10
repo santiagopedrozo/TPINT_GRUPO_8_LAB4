@@ -44,6 +44,8 @@ public class servletCuentas extends HttpServlet {
 		
 		
 	}
+	
+	
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -52,9 +54,13 @@ public class servletCuentas extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("AdministrarCuentas.jsp");
 			rd.forward(request, response);	
 		}
+
 		if (request.getParameter("btnEliminar")!=null) {
 			eliminarCuenta(request);
+			RequestDispatcher rd = request.getRequestDispatcher("AdministrarCuentas.jsp");
+			rd.forward(request, response);	
 		}
+		
 		
 	}
 	private void cargarCuentas(HttpServletRequest request) {
@@ -85,9 +91,11 @@ public class servletCuentas extends HttpServlet {
 	}
 	
 	private void eliminarCuenta(HttpServletRequest request) {
-		int id= Integer.parseInt(request.getParameter("cuentaId"));
-		System.out.println(id);
-		//int nroCuenta = Integer.parseInt(request.getParameter)
+		int id= Integer.parseInt(request.getParameter("hiddenEliminar"));
+		int mensajeEliminar = negCuentas.delete(id);
+		request.setAttribute("mensajeEliminar", mensajeEliminar);
+		cargarCuentas(request);
+		cargarUsuarios(request);
 	}
 
 }

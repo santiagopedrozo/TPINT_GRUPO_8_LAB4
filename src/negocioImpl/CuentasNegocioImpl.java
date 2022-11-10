@@ -53,4 +53,9 @@ public class CuentasNegocioImpl implements CuentasNegocio {
 		return 0;
 		}
 	}
+	
+	public int delete(int id) {
+		if (cd.delete(id)) return 1;
+		else return 0;
+	}
 }

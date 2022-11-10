@@ -220,10 +220,30 @@ public class CuentasDaoImpl implements CuentasDao
 			}
 			return r;
 		}
+	
+	@Override
+	public boolean delete(int id) {
+			boolean r=false;
+			Connection cn = null;
+			try {
+				cn = Conexion.getConexion().getSQLConexion();
+				CallableStatement st = cn.prepareCall("CALL SPEliminarCuentas(?)");
+				st.setInt(1,id);
+				if (st.executeUpdate()>0) r=true;
+				
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+			  finally {
+				
+			}
+			return r;
+		}
 
 	@Override
 	public boolean existeCuenta(String CBU) {
-		String query = "SELECT * FROM Cuentas WHERE CBU_Cuentas= '" +CBU+ "'";
+		String query = "SELECT * FROM Cuentas WHERE CBU_Cuentas= '" +CBU+ "' AND Estado_Cuentas = 1";
 		if (existe(query)) return true;
 		return false;
 	}
