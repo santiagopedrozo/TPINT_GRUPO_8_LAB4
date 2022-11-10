@@ -52,7 +52,7 @@ public class servletCuentas extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("AdministrarCuentas.jsp");
 			rd.forward(request, response);	
 		}
-		if (request.getParameter("hiddenEliminar")!=null) {
+		if (request.getParameter("btnEliminar")!=null) {
 			eliminarCuenta(request);
 		}
 		
@@ -85,7 +85,7 @@ public class servletCuentas extends HttpServlet {
 	}
 	
 	private void eliminarCuenta(HttpServletRequest request) {
-		int id= Integer.parseInt(request.getParameter("hiddenEliminar"));
+		int id= Integer.parseInt(request.getParameter("cuentaId"));
 		System.out.println(id);
 		//int nroCuenta = Integer.parseInt(request.getParameter)
 	}

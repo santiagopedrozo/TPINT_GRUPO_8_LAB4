@@ -54,8 +54,6 @@
 <body>
 	
    <br>
-   
-  <form action= "servletCuentas" method="post" name="formCuentas">
   <div class="container-fluid" style="width:70%;">
     <div class="card text-center">
         <div class="card-header ">
@@ -87,11 +85,10 @@
                 %>
               <tr>
                 <th scope="row">
-                  <button type="button" class="btn btn-outline-success">
+                  <button type="submit" class="btn btn-outline-success">
                     <i class="fa-solid fa-pen-to-square"></i>
                   </button>
-                  <input type="hidden" name="cuentaEliminar" value=<%=cuenta.getNro_Cuentas()%>>
-                  <button type="button" name="btnEliminar" onclick="formCuentas.submit();" class="btn btn-outline-danger">
+                  <button type="submit" name="btnEliminar" class="btn btn-outline-danger">
                     <i class="fa-solid fa-trash"></i>
                   </button>
                   
@@ -118,7 +115,7 @@
       </div>
     </div>
   </div>
-</form>
+
   <br>
   <div class="container-fluid" style="width:50%;">
     <div class="card text-center">
