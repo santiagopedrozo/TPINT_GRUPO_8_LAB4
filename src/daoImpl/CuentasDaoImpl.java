@@ -227,7 +227,7 @@ public class CuentasDaoImpl implements CuentasDao
 			Connection cn = null;
 			try {
 				cn = Conexion.getConexion().getSQLConexion();
-				CallableStatement st = cn.prepareCall("CALL SPEliminarCuentas(?");
+				CallableStatement st = cn.prepareCall("CALL SPEliminarCuentas(?)");
 				st.setInt(1,id);
 				if (st.executeUpdate()>0) r=true;
 				
@@ -243,7 +243,7 @@ public class CuentasDaoImpl implements CuentasDao
 
 	@Override
 	public boolean existeCuenta(String CBU) {
-		String query = "SELECT * FROM Cuentas WHERE CBU_Cuentas= '" +CBU+ "'";
+		String query = "SELECT * FROM Cuentas WHERE CBU_Cuentas= '" +CBU+ "' AND Estado_Cuentas = 1";
 		if (existe(query)) return true;
 		return false;
 	}

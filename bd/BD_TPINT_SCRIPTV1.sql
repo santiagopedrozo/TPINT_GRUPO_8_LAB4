@@ -2605,9 +2605,15 @@ CREATE PROCEDURE SPAgregarUsuario (
 	IN Contrasenia VARCHAR(16)
 ) 
 BEGIN
+
+	IF EXISTS (SELECT * FROM Usuarios WHERE DNI_Usr = DNI and Estado_Usr = 0) 
+		THEN UPDATE Usuarios SET Estado_Usr = 1 WHERE  DNI_Usr = DNI;
+	
+	ELSE 
 	INSERT INTO Usuarios (DNI_Usr,CUIL_Usr,Nombre_Usr ,Apellido_Usr ,Sexo_Usr ,Nacionalidad_Usr,FechaNacimiento_Usr ,Direccion_Usr ,IdProvincia_Usr ,IdLocalidad_Usr , Email_Usr,
 	Telefono_Usr ,Tipo_Usr, Usuario_Usr,Contrasenia_Usr) VALUES
 	(DNI,CUIL,Nombre, Apellido, Sexo, Nacionalidad , FechaNacimiento,Direccion, IdProvincia, IdLocalidad,Email,Telefono, Tipo,Usuario,Contrasenia);
+    END IF;
 END //
 DELIMITER ;
 
@@ -2674,9 +2680,13 @@ CREATE PROCEDURE SPAgregarCuentas (
 )
     
 BEGIN
-
-	INSERT INTO Cuentas (DNI_Cuentas, IdTipoCuenta_Cuentas,CBU_Cuentas) VALUES
-    (DNI,IdTipoCuenta,CBU);
+	IF EXISTS (SELECT * FROM Cuentas WHERE CBU_Cuentas = CBU and Estado_Cuentas = 0) 
+		THEN UPDATE Cuentas SET Estado_Cuentas = 1 WHERE CBU_Cuentas = CBU;
+	
+	ELSE 
+		INSERT INTO Cuentas (DNI_Cuentas, IdTipoCuenta_Cuentas,CBU_Cuentas) VALUES
+		(DNI,IdTipoCuenta,CBU);
+	END IF;
 END //
 DELIMITER ;
 
@@ -2684,7 +2694,7 @@ DELIMITER ;
 
 DELIMITER //
 CREATE PROCEDURE SPEliminarCuentas (
-	IN Nro CHAR(10)
+	IN Nro int(10)
 ) 
 BEGIN
 	UPDATE Cuentas 
@@ -2778,4 +2788,5 @@ BEGIN
     WHERE Id_Prestamos = Id;
 END //
 DELIMITER ;
+
 

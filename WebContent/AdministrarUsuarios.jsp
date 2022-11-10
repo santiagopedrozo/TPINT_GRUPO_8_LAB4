@@ -50,9 +50,6 @@
             });
         });
         
-        function modificar(){
-        	<% estaModificando = true; %>
-        }
         
     </script>
 
@@ -149,6 +146,7 @@ if (request.getAttribute("listaUser")!=null) listaUser= (ArrayList <Usuarios>) r
 				<%
 			}
 		%>
+		
 
       <%@ include file="FooterPage.html" %>
       
