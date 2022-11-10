@@ -44,6 +44,8 @@ public class servletCuentas extends HttpServlet {
 		
 		
 	}
+	
+	
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -52,6 +54,7 @@ public class servletCuentas extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("AdministrarCuentas.jsp");
 			rd.forward(request, response);	
 		}
+
 		if (request.getParameter("btnEliminar")!=null) {
 			eliminarCuenta(request);
 			RequestDispatcher rd = request.getRequestDispatcher("AdministrarCuentas.jsp");

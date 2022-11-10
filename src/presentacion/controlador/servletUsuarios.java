@@ -48,6 +48,12 @@ public class servletUsuarios extends HttpServlet {
 			logicaIniciarSesion(request, response);
 		}
 		
+		if (request.getParameter("hiddenEditar") != null) {
+			request.setAttribute("usrSeleccionado", obtenerUsrPorDNI(request.getParameter("hiddenEditar").toString()));
+			RequestDispatcher rd = request.getRequestDispatcher("AdministrarCuentas.jsp");
+			rd.forward(request, response);	
+		}
+		
 		refreshDePost(request);
 		RequestDispatcher rd = request.getRequestDispatcher("AdministrarUsuarios.jsp");
 		rd.forward(request, response);
@@ -60,6 +66,15 @@ public class servletUsuarios extends HttpServlet {
 	
 	private void refreshDePost(HttpServletRequest request) {
 		cargarProvinciasUser(request);
+	}
+	
+	private Usuarios obtenerUsrPorDNI(String dni) {
+		for(Usuarios usr : usrNeg.readALL()) {
+			if(usr.getDNI_Usr().equals(dni))
+				return usr;
+		}
+		
+		return null;
 	}
 	
 	private void logicaIniciarSesion(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
