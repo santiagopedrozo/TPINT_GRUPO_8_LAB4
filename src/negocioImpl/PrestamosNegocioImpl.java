@@ -42,4 +42,14 @@ public class PrestamosNegocioImpl implements PrestamosNegocio {
 		return prDao.prestXCantidadCuotas(cuotas);
 	}
 
+	@Override
+	public boolean modificarAutorizado(Prestamos prestamo, boolean aprobado) {
+		return prDao.modificarAutorizado(prestamo, aprobado);
+	}
+
+	@Override
+	public boolean eliminarPrestamo(Prestamos prestamo) {
+		return prDao.eliminarPrestamo(prestamo);
+	}
+
 }

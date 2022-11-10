@@ -2617,7 +2617,7 @@ CREATE PROCEDURE SPEliminarUsuario (
 	IN DNI CHAR(10)
 ) 
 BEGIN
-	UPDATE Usuarios 
+	UPDATE Usuario 
     SET Estado_Usr = 0
     WHERE DNI_Usr = DNI;
 END //
@@ -2676,7 +2676,7 @@ CREATE PROCEDURE SPAgregarCuentas (
 BEGIN
 
 	INSERT INTO Cuentas (DNI_Cuentas, IdTipoCuenta_Cuentas,CBU_Cuentas) VALUES
-    (DNI,IdTipoCuenta,CBU);
+    (Nro,DNI,IdTipoCuenta,CBU);
 END //
 DELIMITER ;
 
@@ -2687,7 +2687,7 @@ CREATE PROCEDURE SPEliminarCuentas (
 	IN Nro CHAR(10)
 ) 
 BEGIN
-	UPDATE Cuentas 
+	UPDATE Usuario 
     SET Estado_Cuentas = 0
     WHERE Nro_Cuentas = Nro;
 END //
@@ -2737,6 +2737,16 @@ BEGIN
 END //
 DELIMITER ;
 
+execute SPAgregarPrestamo(
+	'44298830',
+    '2',
+	10000,
+    1000
+    6,
+    1000,
+    5
+)
+
 
 
 DELIMITER //
@@ -2756,7 +2766,7 @@ DELIMITER //
 CREATE PROCEDURE SPActualizarPrestamos (
 	IN Id INT,
     IN DNI CHAR(10),
-    IN NroCuentaDestino VARCHAR(5),
+    IN NroCuentaDestino INT,
     IN ImpSolicitado DECIMAL(15,2),
     IN ImpResultante DECIMAL(15,2),
     IN PlazoMeses INT,
@@ -2779,3 +2789,5 @@ BEGIN
 END //
 DELIMITER ;
 
+
+	
