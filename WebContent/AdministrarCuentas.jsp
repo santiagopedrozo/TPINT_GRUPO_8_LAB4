@@ -97,7 +97,7 @@
                   </button>
                   
                 </th>
-                <td><%=cuenta.getNro_Cuentas() %> <input type="hidden" name="hiddenEliminar" value="<%=cuenta.getNro_Cuentas()%>"> </td> 
+                <td><%=cuenta.getNro_Cuentas() %> <input type="hidden" name="hiddenId" value="<%=cuenta.getNro_Cuentas()%>"> </td> 
                 <td><%=cuenta.getCBU_Cuentas() %></td>
                 <td><%=cuenta.getTipoCuenta_Cuentas().getDescripcion_TipoCuenta() %></td>  
                 <td><%=cuenta.getUsuario_Cuentas().getDNI_Usr() %></td>

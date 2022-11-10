@@ -57,10 +57,9 @@ public class servletUsuarios extends HttpServlet {
 
 		if (request.getParameter("btnEliminarUsr")!=null) {
 			eliminarUsr(request);
-			rd = request.getRequestDispatcher("AdministrarUsuarios.jsp");
 			refreshDePost(request);
 			System.out.println(obtenerUsrPorDNI(request.getParameter("hiddenEditar").toString()));
-			RequestDispatcher rd = request.getRequestDispatcher("AdministrarUsuarios.jsp");
+			rd = request.getRequestDispatcher("AdministrarUsuarios.jsp");
 			rd.forward(request, response);
 		}
 		
@@ -70,7 +69,7 @@ public class servletUsuarios extends HttpServlet {
 	}
 	
 	private void eliminarUsr(HttpServletRequest request) {
-		String DNI= request.getParameter("hiddenEliminarUsr");
+		String DNI= request.getParameter("hiddenDNI");
 		boolean mensajeDeleteUsr=usrNeg.delete(DNI);
 		request.setAttribute("mensajeDeleteUsr", mensajeDeleteUsr);
 
@@ -136,7 +135,7 @@ public class servletUsuarios extends HttpServlet {
 	
 	private boolean iniciarSesion(HttpServletRequest request) {
 		String user = request.getParameter("txtUsuario");
-		String contra = request.getParameter("txtContraseï¿½a");
+		String contra = request.getParameter("txtContraseña");
 		boolean existe= usrNeg.existeUsuario(user, contra);
 		if (existe) {
 			Usuarios usuario= usrNeg.readOne(user);
@@ -145,7 +144,6 @@ public class servletUsuarios extends HttpServlet {
 			return true;
 		}
 		else {
-			System.out.println("no existo");
 			return false;
 		}
 	}

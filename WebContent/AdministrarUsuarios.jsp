@@ -85,7 +85,7 @@
                       <th>Provincia</th>
                       <th>Localidad</th>
                       <th>Email</th>
-                      <th>Telï¿½fono</th> 
+                      <th>Teléfono</th> 
                       <th>Tipo de usuario</th> 
                       <th>Usuario</th>
                       <th>Contraseña</th>
@@ -110,7 +110,7 @@
 	                        </th>
 							<!-- el nombre del input hidden se pisa, en uno se llama hiddenEditar y en otro hiddenEliminarUsr
 							hay que ponerle un nombre en comun y cambiar unas lineas del servlet -> hiddenAccion -->
-			                <td><%=user.getDNI_Usr() %>  <input type="hidden" name="hiddenEliminarUsr" value="<%=user.getDNI_Usr()%>"> </td>
+			                <td><%=user.getDNI_Usr() %>  <input type="hidden" name="hiddenDNI" value="<%=user.getDNI_Usr()%>"> </td>
 			                <td><%=user.getCUIL_Usr() %></td>                                            
 			                <td><%=user.getNombre_Usr() %></td>
 			                <td><%=user.getApellido_Usr() %></td>                       

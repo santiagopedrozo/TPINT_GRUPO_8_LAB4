@@ -91,7 +91,7 @@ public class servletCuentas extends HttpServlet {
 	}
 	
 	private void eliminarCuenta(HttpServletRequest request) {
-		int id= Integer.parseInt(request.getParameter("hiddenEliminar"));
+		int id= Integer.parseInt(request.getParameter("hiddenId"));
 		int mensajeEliminar = negCuentas.delete(id);
 		request.setAttribute("mensajeEliminar", mensajeEliminar);
 		cargarCuentas(request);
