@@ -36,7 +36,6 @@ public class servletUsuarios extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		refreshDeGet(request);
 		cargarUsuarios(request);
 		RequestDispatcher rd = request.getRequestDispatcher("AdministrarUsuarios.jsp");
@@ -55,11 +54,14 @@ public class servletUsuarios extends HttpServlet {
 			rd = request.getRequestDispatcher("AdministrarUsuarios.jsp");
 			refreshDePost(request);
 		}
-		
+
 		if (request.getParameter("btnEliminarUsr")!=null) {
 			eliminarUsr(request);
 			rd = request.getRequestDispatcher("AdministrarUsuarios.jsp");
 			refreshDePost(request);
+			System.out.println(obtenerUsrPorDNI(request.getParameter("hiddenEditar").toString()));
+			RequestDispatcher rd = request.getRequestDispatcher("AdministrarUsuarios.jsp");
+			rd.forward(request, response);
 		}
 		
 		refreshDePost(request);
@@ -71,7 +73,7 @@ public class servletUsuarios extends HttpServlet {
 		String DNI= request.getParameter("hiddenEliminarUsr");
 		boolean mensajeDeleteUsr=usrNeg.delete(DNI);
 		request.setAttribute("mensajeDeleteUsr", mensajeDeleteUsr);
-		
+
 	}
 
 	private void refreshDeGet(HttpServletRequest request) {
@@ -134,7 +136,7 @@ public class servletUsuarios extends HttpServlet {
 	
 	private boolean iniciarSesion(HttpServletRequest request) {
 		String user = request.getParameter("txtUsuario");
-		String contra = request.getParameter("txtContraseña");
+		String contra = request.getParameter("txtContraseï¿½a");
 		boolean existe= usrNeg.existeUsuario(user, contra);
 		if (existe) {
 			Usuarios usuario= usrNeg.readOne(user);

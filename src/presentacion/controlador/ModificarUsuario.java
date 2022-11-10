@@ -71,6 +71,8 @@ public class ModificarUsuario extends HttpServlet {
 		return usrNeg.insert(asignarInputsAEntidad(request));
 	}
 	*/
+	
+	
 	private Usuarios asignarInputsAEntidad(HttpServletRequest request) {
 		String DNI_Usr = request.getParameter("txtDNIEdit");
 		String CUIL_Usr = request.getParameter("txtCUILEdit");

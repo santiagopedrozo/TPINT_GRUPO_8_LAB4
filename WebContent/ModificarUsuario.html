@@ -42,7 +42,15 @@
     }
 %>
 
+			
+
 <body >
+
+		<% 
+			Usuarios usrSeleccionadoEditar = new Usuarios();
+	      	if (estaModificando)
+	      		usrSeleccionadoEditar = (Usuarios) request.getAttribute("usrSeleccionado");
+      	%>
 
 <div class="container-fluid" style="width:50%;">
         <div class="card text-center">
@@ -59,13 +67,13 @@
                             minlength="7" 
                             maxlength="8"
                             placeholder="-"
-                            value="25390401"
-                            disabled="true"
-                            required
+                            disabled="false"
+                            value= <%= usrSeleccionadoEditar.getDNI_Usr() %>
                             >
                             <label for="floatingInput">DNI</label>
                         </div>
                     </div>
+                   
                
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
@@ -74,9 +82,8 @@
                             minlength="11"
                             maxlength="11"
                             placeholder="-"
-                            value="20253904019"
-                            disabled="true"
-                            required
+                            disabled="false"
+                            value= <%= usrSeleccionadoEditar.getCUIL_Usr() %>
                             >
                             <label for="floatingInput">CUIL</label>
                         </div>
@@ -84,37 +91,74 @@
       
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="text" name="txtNombreEdit" class="form-control" id="floatingInput" placeholder="-" value="prueba" required>
+                            <input type="text" 
+                           	name="txtNombreEdit"
+                            class="form-control" 
+                            id="floatingInput" 
+                            placeholder="-"
+                            value= <%= usrSeleccionadoEditar.getNombre_Usr() %> 
+                            required>
                             <label for="floatingInput">Nombre</label>
                         </div>
                     </div>
                
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="text" name="txtApellidoEdit" class="form-control" id="floatingInput" placeholder="-" value="prueba" required>
+                            <input type="text"
+                             name="txtApellidoEdit" 
+                             class="form-control" 
+                             id="floatingInput" 
+                             placeholder="-" 
+                             value= <%= usrSeleccionadoEditar.getApellido_Usr() %>
+                             required>
                             <label for="floatingInput">Apellido</label> 
                         </div>
                     </div>
 
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="tel"  name="txtTelefonoEdit"class="form-control"  id="floatingInput" placeholder="-" value="1122332211" required>
+                            <input type="tel" 
+                            name="txtTelefonoEdit"
+                            class="form-control"  
+                            id="floatingInput" 
+                            placeholder="-" 
+                             value= <%= usrSeleccionadoEditar.getTelefono_Usr() %>
+                            required>
                             <label for="floatingInput">Tel�fono</label>
                         </div>
                     </div>
                     
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="email" name="txtEmailEdit" class="form-control"  id="floatingInput" placeholder="-" value="santi@gmail.com"required>
+                            <input type="email" 
+                            name="txtEmailEdit" 
+                            class="form-control"  
+                            id="floatingInput" 
+                            placeholder="-" 
+                            value= <%= usrSeleccionadoEditar.getEmail_Usr() %>
+                            required>
                             <label for="floatingInput">Email</label>
                         </div>
                     </div>
 
                     <div class="col-md-6">
                         <div class="form-floating">
+                        	
                             <select name="ddlTipoEdit" id="" class="form-select" id="floatingInput" placeholder="-" required>
-                            <option value=false selected> Estandar </option>
-                            <option value=true> Admin </option>
+                            	<%
+                            		if(usrSeleccionadoEditar.isTipo_Usr()){
+                            	%>
+	                            	<option value=false selected> Estandar </option>
+	                            	<option value=true > Admin </option>
+	                            <%
+	                            } else {
+	                            %>
+	                            	<option value=false > Estandar </option>
+	                            	<option value=true selected> Admin </option>
+	                            <% 
+	                            }
+	                            %>
+	                            
                             </select>
                             <label for="floatingSelect">Tipo de usuario</label>
                         </div>
@@ -166,7 +210,13 @@
                     
                     <div class="col-md-12">
                         <div class="form-floating mb-3">
-                            <input type="text" name="txtNacionalidadEdit" class="form-control" id="floatingInput" placeholder="-" value="prueba" required>
+                            <input type="text" 
+                            name="txtNacionalidadEdit" 
+                            class="form-control" 
+                            id="floatingInput" 
+                            placeholder="-" 
+                            value="prueba" 
+                            required>
                             <label for="floatingSelect">Nacionalidad</label>
                         </div>
                     </div>
