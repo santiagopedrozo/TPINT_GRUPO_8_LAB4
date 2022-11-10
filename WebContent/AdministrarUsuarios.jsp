@@ -57,14 +57,18 @@
 
 
 <%
-boolean estaModificando = false;
-ArrayList <Usuarios> listaUser = null;
-if (request.getAttribute("listaUser")!=null) listaUser= (ArrayList <Usuarios>) request.getAttribute("listaUser");
+	boolean estaModificando = false;
+	if (request.getAttribute("usrSeleccionado") != null)
+		estaModificando = true;	
+	ArrayList <Usuarios> listaUser = null;
+	if (request.getAttribute("listaUser")!=null) 
+		listaUser = (ArrayList <Usuarios>) request.getAttribute("listaUser");
 %>   
 </head>
 <body>
 	<%@ include file="MasterPageAdmin.html" %>
 	<br>
+	<h1> <%= estaModificando %></h1>
 	<div class="container-fluid" style="width:95%;">
         <div class="card text-center">
             <div class="card-header "><h5>Usuarios</h5></div>
@@ -96,10 +100,10 @@ if (request.getAttribute("listaUser")!=null) listaUser= (ArrayList <Usuarios>) r
                 			if (user.isTipo_Usr()==false){
                 	%>
                  	<tr>
-                 		<form action= "servletCuentas" method="post" name="formCuentas">
+                 		<form action= "servletUsuarios" method="post" name="formCuentas">
 	                        <th scope="row">
 	                        	
-	                            <button type="button" onClick="formCuentas.submit();" class="btn btn-outline-success btn-sm">
+	                            <button type="submit" class="btn btn-outline-success btn-sm">
 	                                <i class="fa-solid fa-pen-to-square"></i>
 	                            </button>
 	                            <button type="button" onClick="alert(2)" class="btn btn-outline-danger btn-sm">
@@ -133,34 +137,9 @@ if (request.getAttribute("listaUser")!=null) listaUser= (ArrayList <Usuarios>) r
         </div>
       </div>
       
-      <%
-		     
-		     
-	      	if (request.getAttribute("usrSeleccionado") != null){
-	      		Usuarios usrSeleccionadoEditar = (Usuarios) request.getAttribute("usrSeleccionado");
-				estaModificando = true;	
-	      	
-				%>
-					<h1> <%= usrSeleccionadoEditar.getDNI_Usr() %></h1>
-				<%
-	      	} %>
-       <%
-			
-			if (estaModificando){
-				%>
-				<br>
-				<%@ include file="ModificarUsuario.html" %>
-				<br>
-				<%
-			}
-			else{
-				%>
-				<br>
-				<%@ include file="AgregarUsuario.html" %>
-				<br>
-				<%
-			}
-		%>
+      <%@ include file="ModificarUsuario.html" %>
+       
+		
 
       <%@ include file="FooterPage.html" %>
       

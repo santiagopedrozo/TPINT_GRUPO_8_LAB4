@@ -50,7 +50,8 @@ public class servletUsuarios extends HttpServlet {
 		
 		if (request.getParameter("hiddenEditar") != null) {
 			request.setAttribute("usrSeleccionado", obtenerUsrPorDNI(request.getParameter("hiddenEditar").toString()));
-			RequestDispatcher rd = request.getRequestDispatcher("AdministrarCuentas.jsp");
+			System.out.println(obtenerUsrPorDNI(request.getParameter("hiddenEditar").toString()));
+			RequestDispatcher rd = request.getRequestDispatcher("AdministrarUsuarios.jsp");
 			rd.forward(request, response);	
 		}
 		
