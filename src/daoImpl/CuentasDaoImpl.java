@@ -267,5 +267,60 @@ public class CuentasDaoImpl implements CuentasDao
 		}
 		return existe;
     }
+
+	@Override
+	public boolean modificate(Cuentas cuenta) {
+		boolean r=false;
+		Connection cn = null;
+		try {
+			cn = Conexion.getConexion().getSQLConexion();
+			CallableStatement st = cn.prepareCall("CALL SPActualizarCuentas(?,?,?,?)");
+			st.setInt(1,cuenta.getNro_Cuentas());
+			st.setInt(2,cuenta.getTipoCuenta_Cuentas().getId_TipoCuenta());
+			st.setString(3,cuenta.getCBU_Cuentas());
+			st.setFloat(4, cuenta.getSaldo_Cuentas());
+			if (st.executeUpdate()>0) r=true;
+			
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		  finally {
+			
+		}
+		return r;
+	}
+
+	@Override
+	public Cuentas cuentaxNro(int nro) {
+		PreparedStatement statement;
+		ResultSet resultSet; //Guarda el resultado de la query
+		Cuentas cuenta= new Cuentas();
+		Conexion conexion = Conexion.getConexion();
+		String consulta = 
+				"Select * from cuentas inner join tipocuentas " + 
+				"	on (cuentas.IdTipoCuenta_Cuentas = tipocuentas.Id_TipoCuenta) inner join usuarios " + 
+				"		on (cuentas.DNI_Cuentas = usuarios.DNI_Usr) inner join localidades " + 
+				"			on (usuarios.IdLocalidad_Usr = localidades.IdLocalidad_Loc and usuarios.IdProvincia_Usr = localidades.IdProvincia_Loc) inner join provincias " + 
+				"				on (localidades.IdProvincia_Loc = provincias.IdProvincia_Prov)" + 
+				"where Nro_Cuentas = " + nro;
+		try 
+		{
+			Class.forName("com.mysql.jdbc.Driver");
+			statement = conexion.getSQLConexion().prepareStatement(consulta);
+			resultSet = statement.executeQuery();
+			resultSet.next();		
+				cuenta=(getCuentas(resultSet));
+
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return cuenta;
+	}
 }
 

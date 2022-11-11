@@ -15,4 +15,5 @@ public interface CuentasNegocio
 	public ArrayList<Cuentas> cuentasXTipo(TipoCuentas tipoCuentas);
 	public int insert (Cuentas cuenta);
 	public int delete (int id);
+	public int modificate (Cuentas cuenta);
 }

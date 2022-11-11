@@ -58,4 +58,21 @@ public class CuentasNegocioImpl implements CuentasNegocio {
 		if (cd.delete(id)) return 1;
 		else return 0;
 	}
+
+	@Override
+	public int modificate(Cuentas cuenta) {
+		Cuentas cuentaAntesMod = cd.cuentaxNro(cuenta.getNro_Cuentas());
+		if (cuenta.getCBU_Cuentas().equals(cuentaAntesMod.getCBU_Cuentas())) {
+			if(cd.modificate(cuenta))return 1;
+			else return -1;			
+		}
+		
+		else if (cd.existeCuenta(cuenta.getCBU_Cuentas())==false) {
+			if(cd.modificate(cuenta))return 1;
+			else return -1;
+		}
+		
+		else return 0;
+		
+	}
 }

@@ -41,7 +41,6 @@ CREATE TABLE Usuarios(
     Usuario_Usr VARCHAR (30) NOT NULL,
 	Contrasenia_Usr VARCHAR(16) NOT NULL, 
 	Estado_Usr BIT DEFAULT 1,
-    
 	CONSTRAINT PK_USUARIOS PRIMARY KEY(DNI_Usr),
 	CONSTRAINT FK_LOCALIDADES_USUARIOS FOREIGN KEY (IdLocalidad_Usr, IdProvincia_Usr)
 		REFERENCES Localidades(IdLocalidad_Loc, IdProvincia_Loc)
@@ -2722,20 +2721,16 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE SPActualizarCuentas (	
 	IN Nro INT,
-    IN DNI CHAR(10) ,
     IN IdTipoCuenta INT,
     IN CBU VARCHAR(22),
-	IN Saldo DECIMAL(15,2),
-    IN Estado BIT
+	IN Saldo DECIMAL(15,2)
 )
     
 BEGIN
 	UPDATE Cuentas 
-    SET DNI_Cuentas = DNI,
-	IdTipoCuenta_Cuentas = IdTipoCuenta,
+	SET IdTipoCuenta_Cuentas = IdTipoCuenta,
 	CBU_Cuentas = CBU,
-    Saldo_Cuentas = Saldo,
-    Estado_Cuentas = Estado
+    Saldo_Cuentas = Saldo
     WHERE Nro_Cuentas = Nro;
 END //
 DELIMITER ;

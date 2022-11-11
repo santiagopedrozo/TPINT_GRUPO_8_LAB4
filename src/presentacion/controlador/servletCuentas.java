@@ -61,8 +61,36 @@ public class servletCuentas extends HttpServlet {
 			rd.forward(request, response);	
 		}
 		
+		if (request.getParameter("btnModificar")!=null) {
+			modificarCuenta(request);
+			request.setAttribute("estaModificado", true);
+			
+			cargarCuentas(request);
+			RequestDispatcher rd = request.getRequestDispatcher("AdministrarCuentas.jsp");
+			rd.forward(request, response);	
+			
+		}
+		
+		if (request.getParameter("btnConfirmarMod")!=null) {
+			confirmarModificacion(request);
+			cargarCuentas(request);
+			cargarUsuarios(request);
+			RequestDispatcher rd = request.getRequestDispatcher("AdministrarCuentas.jsp");
+			rd.forward(request, response);
+		}
+		
+		if (request.getParameter("btnCancelar")!=null) {
+			cargarCuentas(request);
+			cargarUsuarios(request);
+			RequestDispatcher rd = request.getRequestDispatcher("AdministrarCuentas.jsp");
+			rd.forward(request, response);
+		}
+		
 		
 	}
+	
+
+
 	private void cargarCuentas(HttpServletRequest request) {
 		ArrayList <Cuentas> cuentas = null;
 		cuentas = negCuentas.obtenerTodos();
@@ -96,6 +124,31 @@ public class servletCuentas extends HttpServlet {
 		request.setAttribute("mensajeEliminar", mensajeEliminar);
 		cargarCuentas(request);
 		cargarUsuarios(request);
+	}
+	
+	private void modificarCuenta(HttpServletRequest request) {
+		Cuentas cuentaFiltrada = null;
+		ArrayList<Cuentas> cuentas = negCuentas.obtenerTodos();
+		for (Cuentas cuenta : cuentas) {
+			if (cuenta.getCBU_Cuentas().equals(request.getParameter("hiddenCBU")))
+				cuentaFiltrada = cuenta; 
+		}
+		request.setAttribute("cuentaFiltrada", cuentaFiltrada);
+	}
+	
+	private void confirmarModificacion(HttpServletRequest request) {
+		int nroCuenta =  Integer.parseInt(request.getParameter("hiddenNro"));
+		int tipoCuenta = Integer.parseInt(request.getParameter("ddlTipoCuenta"));
+		String CBU = request.getParameter("txtCBU");
+		float saldo = Float.parseFloat(request.getParameter("txtSaldo"));
+		Cuentas cuenta = new Cuentas();
+		cuenta.setNro_Cuentas(nroCuenta);
+		cuenta.getTipoCuenta_Cuentas().setId_TipoCuenta(tipoCuenta);
+		cuenta.setCBU_Cuentas(CBU);
+		cuenta.setSaldo_Cuentas(saldo);
+		int mensajeMod = negCuentas.modificate(cuenta);
+		request.setAttribute("mensajeMod", mensajeMod);
+
 	}
 
 }
