@@ -79,7 +79,6 @@
 					if (request.getAttribute("listaPrestamos") != null)
 					for (Prestamos prestamo : listaPrestamos)
 					{ 
-						System.out.println(prestamo);
 					%>
 	                    <tr>
 						<form method = "get" action = "ServletPrestamos">
