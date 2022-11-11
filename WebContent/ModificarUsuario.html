@@ -5,52 +5,47 @@
 <title>Insert title here</title>
 </head>
 
-<script type="text/javascript">
-	function onLoad(id){
-		const a = document.getElementById('ddlProv');
-       	a.value = id;
-	}
-</script>
 
-<style>
-	.form-floating>.form-control,
-	.form-floating>.form-control-plaintext {
-	  padding: 0rem 0.75rem;
-	}
-	
-	.form-floating>.form-control,
-	.form-floating>.form-control-plaintext,
-	.form-floating>.form-select {
-	  height: calc(2.5rem + 2px);
-	  line-height: 1;
-	}
-	
-	.form-floating>label {
-	  padding: 0.5rem 0.75rem;
-	}
 
-</style>
 
 <% 
-    int idProvEdit = 1; 
+    int idProvEdit = 1;
+    int idLocEdit = 1;  
     ArrayList<Provincias> provinciasEdit = null;
     ArrayList<Localidades> localidadesEdit = null;
     if (request.getAttribute("provincias")!=null) provinciasEdit = (ArrayList<Provincias>) request.getAttribute("provincias");
     if (request.getAttribute("localidades")!=null){
     	localidadesEdit = (ArrayList<Localidades>) request.getAttribute("localidades");
     	idProvEdit = localidadesEdit.get(0).getProvincia().getIdProvincia_Prov();
+    	idLocEdit = localidadesEdit.get(0).getIdLocalidad_Loc(); 
     }
+    
+    Usuarios usrSeleccionadoEditar = new Usuarios();
+   	if (estaModificando)
+   		usrSeleccionadoEditar = (Usuarios) request.getAttribute("usrSeleccionado");
 %>
 
-			
+<script type="text/javascript">
+	function onLoadEdit(prov, loc){
+		setProvinciaEdit(prov);
+		setLocalidadEdit(loc);
+		
+	}
 
-<body >
+	function setProvinciaEdit(idProv){
+		const provs = document.getElementById('ddlProvinciasEdit');
+		provs.value = idProv;
+		alert(idProv);
+	}
+	
+	function setLocalidadEdit(idLoc){
+		const locs = document.getElementById('ddlLocalidadesEdit');
+		locs.value = idLoc;
+		alert(idLoc);
+	}
+</script>
 
-		<% 
-			Usuarios usrSeleccionadoEditar = new Usuarios();
-	      	if (estaModificando)
-	      		usrSeleccionadoEditar = (Usuarios) request.getAttribute("usrSeleccionado");
-      	%>
+<body onload="onLoad('a');" >
 
 <div class="container-fluid" style="width:50%;">
         <div class="card text-center">
@@ -204,13 +199,13 @@
                             <label for="floatingSelect">Direccion</label>
                         </div>
                     </div>
-                
+               
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
                             <input class="form-control" 
                             type="date" 
                             name="FechaEdit" 
-                            
+					     	value=  <%= usrSeleccionadoEditar.getFechaNacimiento_Usr() %>                       
                             required
                             />
                             <label for="floatingSelect">Nacimiento</label>
@@ -220,14 +215,32 @@
                     <div class="col-md-6" >
                         <label class="form-label">Sexo</label>
                         <br>
-                        <div class="form-check form-check-inline">
-                            <input type="radio" class="form-check-input" name="rbSexoEdit" value="MASCULINO" checked>
-                            <label class="form-check-label">Hombre</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input type="radio" class="form-check-input" name="rbSexoEdit" value="FEMENINO">
-                            <label class="form-check-label">Mujer</label>
-                        </div>
+                        <% 
+                        	String sexo = usrSeleccionadoEditar.getSexo_Usr() ;
+                        	if(sexo.equals("MASCULINO")){
+                        %>
+	                       <div class="form-check form-check-inline">
+	                            <input type="radio" class="form-check-input" name="rbSexoEdit" value="MASCULINO" checked>
+	                            <label class="form-check-label">Hombre</label>
+	                        </div>
+	                        <div class="form-check form-check-inline">
+	                            <input type="radio" class="form-check-input" name="rbSexoEdit" value="FEMENINO">
+	                            <label class="form-check-label">Mujer</label>
+	                        </div>
+                        <%}else{%>
+                        	<div class="form-check form-check-inline">
+	                            <input type="radio" class="form-check-input" name="rbSexoEdit" value="MASCULINO" >
+	                            <label class="form-check-label">Hombre</label>
+	                        </div>
+	                        <div class="form-check form-check-inline">
+	                            <input type="radio" class="form-check-input" name="rbSexoEdit" value="FEMENINO" checked>
+	                            <label class="form-check-label">Mujer</label>
+	                        </div>
+                       	<%}%>
+                        <!-- 
+							
+                         -->
+                        
                     </div>
 
                     
@@ -238,22 +251,24 @@
                             class="form-control" 
                             id="floatingInput" 
                             placeholder="-" 
-                            value="prueba" 
+                            value=  <%= usrSeleccionadoEditar.getNacionalidad_Usr() %>   
                             required>
                             <label for="floatingSelect">Nacionalidad</label>
                         </div>
                     </div>
-                	             
+                    
+                    
+                                    	             
 					<div class="col-md-6">
                         <div class="form-floating">
 							<input type="hidden" name="provSeleccionadaEdit" value="relleno"> 
 							<!-- input que sirve como parametro para provSeleccionada para no tener que meter otro form -->
-                            <select name="ddlProvincias" class="form-select" id="ddlProv" placeholder="-" onchange="formAgregarUsr.submit();" >
+                            <select name="ddlProvinciasEdit" class="form-select" id="ddlProv" placeholder="-" onchange="formAgregarUsr.submit();" >
                                 <%
 								if (provinciasEdit!=null)
 								for(Provincias prov : provinciasEdit){
 									%>
-									<option value=<%=prov.getIdProvincia_Prov()%>><%=prov.getDescripcion_Prov()%></option>
+									<option value= <%= prov.getIdProvincia_Prov()%> > <%=prov.getDescripcion_Prov()%> </option>
 									<%
 								}
 								%>
@@ -266,11 +281,12 @@
                         <div class="form-floating">
                             <select name="ddlLocalidadesEdit" id="" class="form-select" id="floatingInput" placeholder="-" onchange="">
                             	<!-- <option selected value="-1">Seleccionar localidad</option>  -->
+                            	<!--  -->
                                 <% 
 								if (localidadesEdit!=null)
 								for(Localidades loc : localidadesEdit){
 									%>
-									<option><%=loc.getDescripcion_Loc()%></option>
+									<option value= <%= loc.getDescripcion_Loc() %>> <%= loc.getDescripcion_Loc() %></option>
 									<%
 								}
 								%>

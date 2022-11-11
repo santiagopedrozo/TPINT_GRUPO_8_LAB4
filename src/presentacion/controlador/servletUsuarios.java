@@ -54,9 +54,8 @@ public class servletUsuarios extends HttpServlet {
 		
 		if (request.getParameter("btnEditar") != null) {
 			request.setAttribute("usrSeleccionado", obtenerUsrPorDNI(request.getParameter("hiddenDNI").toString()));
-			
-			
 		}
+
 
 		if (request.getParameter("btnEliminarUsr")!=null) {
 			eliminarUsr(request);
