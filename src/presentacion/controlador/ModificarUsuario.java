@@ -44,7 +44,7 @@ public class ModificarUsuario extends HttpServlet {
 			//request.setAttribute("estadoInsertado", insert(request));
 			cargarLocalidadesUser(request, -1);
 		}
-			
+				
 		refreshPost(request);
 		RequestDispatcher rd = request.getRequestDispatcher("AdministrarUsuarios.jsp");
 		rd.forward(request, response);	

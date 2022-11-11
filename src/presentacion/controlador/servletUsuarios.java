@@ -45,23 +45,27 @@ public class servletUsuarios extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher rd;
+		if(request.getParameter("provSeleccionada") != null) //cuando sean muchos estaria bueno que sea un switch de parametros
+			filtradoLocalidades(request);
+		
 		if (request.getParameter("btnIniciar")!=null) {
 			logicaIniciarSesion(request, response);
 		}
 		
-		if (request.getParameter("hiddenEditar") != null) {
-			request.setAttribute("usrSeleccionado", obtenerUsrPorDNI(request.getParameter("hiddenEditar").toString()));
-			rd = request.getRequestDispatcher("AdministrarUsuarios.jsp");
-			refreshDePost(request);
+		if (request.getParameter("btnEditar") != null) {
+			request.setAttribute("usrSeleccionado", obtenerUsrPorDNI(request.getParameter("hiddenDNI").toString()));
+			
+			
 		}
 
 		if (request.getParameter("btnEliminarUsr")!=null) {
 			eliminarUsr(request);
-			refreshDePost(request);
-			System.out.println(obtenerUsrPorDNI(request.getParameter("hiddenEditar").toString()));
-			rd = request.getRequestDispatcher("AdministrarUsuarios.jsp");
-			rd.forward(request, response);
+			
+			System.out.println(obtenerUsrPorDNI(request.getParameter("hiddenDNI").toString()));
+			
 		}
+		
+		
 		
 		refreshDePost(request);
 		rd = request.getRequestDispatcher("AdministrarUsuarios.jsp");
@@ -82,6 +86,7 @@ public class servletUsuarios extends HttpServlet {
 	
 	private void refreshDePost(HttpServletRequest request) {
 		cargarProvinciasUser(request);
+		
 		cargarUsuarios(request);
 	}
 	

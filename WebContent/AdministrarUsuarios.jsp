@@ -98,7 +98,7 @@
                 			if (user.isTipo_Usr()==false && user.isEstado_Usr()==true){
                 	%>
                  	<tr>
-                 		<form action= "servletCuentas" method="post" name="formUsuario">
+                 		<form action= "servletUsuarios" method="post" name="formUsuario">
 	                        <th scope="row">
 								<!-- EN SERVLET NO PREGUNTO POR ESTE BTN, RECIEN LO AGREGO-->
 								<button type="submit" name="btnEditar" class="btn btn-outline-success btn-sm">
@@ -108,8 +108,6 @@
 									<i class="fa-solid fa-trash"></i>
 								</button>
 	                        </th>
-							<!-- el nombre del input hidden se pisa, en uno se llama hiddenEditar y en otro hiddenEliminarUsr
-							hay que ponerle un nombre en comun y cambiar unas lineas del servlet -> hiddenAccion -->
 			                <td><%=user.getDNI_Usr() %>  <input type="hidden" name="hiddenDNI" value="<%=user.getDNI_Usr()%>"> </td>
 			                <td><%=user.getCUIL_Usr() %></td>                                            
 			                <td><%=user.getNombre_Usr() %></td>

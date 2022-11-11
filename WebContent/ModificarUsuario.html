@@ -168,28 +168,51 @@
                		
                		  <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="text" name="txtUsuarioEdit" class="form-control" id="floatingInput" placeholder="-" value="usr" required>
+                            <input type="text" 
+                            name="txtUsuarioEdit"
+							class="form-control" 
+							id="floatingInput" 
+							placeholder="-" 
+							value= <%= usrSeleccionadoEditar.getUsuario_Usr() %>
+                            required>
                             <label for="floatingSelect">Usuario</label>
                         </div>
                     </div>
                		
                     <div class="col-md-12">
                         <div class="form-floating mb-3">
-                            <input type="password" name="txtContraseniaEdit" class="form-control" id="floatingInput" placeholder="-" value="contra" required>
+                            <input type="text" 
+                            name="txtContraseniaEdit" 
+                            class="form-control" 
+                            id="floatingInput" 
+                            placeholder="-" 
+                            value= <%= usrSeleccionadoEditar.getContrasenia_Usr() %>
+                            required>
                             <label for="floatingSelect">Contraseña</label>
                         </div>
                     </div>
 
                     <div class="col-md-12">
                         <div class="form-floating mb-3">
-                            <input type="text" name="txtDireccionEdit" class="form-control" id="floatingInput" placeholder="-" value="prueba123" required>
+                            <input type="text" 
+                            name="txtDireccionEdit" 
+                            class="form-control" 
+                            id="floatingInput" 
+                            placeholder="-" 
+                            value= <%= usrSeleccionadoEditar.getDireccion_Usr() %>
+                            required>
                             <label for="floatingSelect">Direccion</label>
                         </div>
                     </div>
                 
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input class="form-control" type="date" name="FechaEdit" required/>
+                            <input class="form-control" 
+                            type="date" 
+                            name="FechaEdit" 
+                            
+                            required
+                            />
                             <label for="floatingSelect">Nacimiento</label>
                         </div>
                     </div>
@@ -256,9 +279,13 @@
                         </div>
                     </div>
             		<br>
-                    <div class="col-md-12">
+            		<div class="col-md-6">
                         <br>
-                        <button type="submit" name="btnModificar" class="btn btn-outline-primary form-control btn-lg">Modificar</button>
+                        <button type="submit" name="btnCancelar" class="btn btn-outline-danger form-control btn-lg">Cancelar</button>
+                    </div>
+                    <div class="col-md-6">
+                        <br>
+                        <button type="submit" name="btnModificar" class="btn btn-outline-success form-control btn-lg">Modificar</button>
                     </div>
               </form>
 			    
