@@ -22,7 +22,7 @@ public class UsuariosDaoImpl implements UsuariosDao{
 		Connection cn = null;
 		try {
 			cn = Conexion.getConexion().getSQLConexion();
-			CallableStatement cst = cn.prepareCall("{CALL SPAgregarUsuario(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+			CallableStatement cst = cn.prepareCall("CALL SPAgregarUsuario(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 			System.out.println("daoimpl: " + usuario);
 			
 			cst.setString(1, usuario.getDNI_Usr());

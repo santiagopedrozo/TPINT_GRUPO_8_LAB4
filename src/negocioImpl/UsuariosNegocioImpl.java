@@ -14,10 +14,12 @@ public class UsuariosNegocioImpl implements UsuariosNegocio {
 	UsuariosDao userDao = new UsuariosDaoImpl();
 	@Override
 	public Boolean insert(Usuarios usuario) {
+		
 		if (existe(usuario.getDNI_Usr(), usuario.getCUIL_Usr(), usuario.getEmail_Usr(), usuario.getUsuario_Usr())==false) {
 			System.out.println("entre acá");
 			return userDao.insert(usuario);
 		}
+		
 		return false;
 	}
 	
@@ -26,10 +28,12 @@ public class UsuariosNegocioImpl implements UsuariosNegocio {
 		ArrayList<Usuarios> userList = new ArrayList<Usuarios>();
 		userList = userDao.readALL(); //Traigo todos los usuarios para comparar con el nuevo a agregar
 		for (Usuarios user : userList) {
-			if (user.getDNI_Usr().equals(DNI)) return true;
-			if (user.getCUIL_Usr().equals(CUIL)) return true;
-			if (user.getEmail_Usr().equals(Email)) return true;
-			if (user.getUsuario_Usr().equals(Usuario)) return true;
+			if (user.isEstado_Usr()!=false) {	
+				if (user.getDNI_Usr().equals(DNI)) return true;
+				if (user.getCUIL_Usr().equals(CUIL)) return true;
+				if (user.getEmail_Usr().equals(Email)) return true;
+				if (user.getUsuario_Usr().equals(Usuario)) return true;
+			}
 		}
 
 		return false;

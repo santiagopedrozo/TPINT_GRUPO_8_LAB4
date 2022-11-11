@@ -2628,9 +2628,30 @@ CREATE PROCEDURE SPAgregarUsuario (
 	IN Contrasenia VARCHAR(16)
 ) 
 BEGIN
+
+	IF EXISTS (SELECT * FROM Usuarios WHERE DNI_Usr = DNI and Estado_Usr = 0) 
+		THEN UPDATE Usuarios 
+		SET Nombre_Usr = Nombre,
+		Apellido_Usr = Apellido,
+		Sexo_Usr = Sexo,
+		Nacionalidad_Usr = Nacionalidad,
+		FechaNacimiento_Usr = FechaNacimiento,
+		Direccion_Usr = Direccion,
+		IdProvincia_Usr = IdProvincia,
+		IdLocalidad_Usr = IdLocalidad,
+		Email_Usr = Email,
+		Telefono_Usr = Telefono,
+		Tipo_Usr = Tipo,
+		Contrasenia_Usr = Contrasenia,
+		Estado_Usr = 1
+        WHERE  DNI_Usr = DNI;
+        
+        
+	ELSE 
 	INSERT INTO Usuarios (DNI_Usr,CUIL_Usr,Nombre_Usr ,Apellido_Usr ,Sexo_Usr ,Nacionalidad_Usr,FechaNacimiento_Usr ,Direccion_Usr ,IdProvincia_Usr ,IdLocalidad_Usr , Email_Usr,
 	Telefono_Usr ,Tipo_Usr, Usuario_Usr,Contrasenia_Usr) VALUES
 	(DNI,CUIL,Nombre, Apellido, Sexo, Nacionalidad , FechaNacimiento,Direccion, IdProvincia, IdLocalidad,Email,Telefono, Tipo,Usuario,Contrasenia);
+    END IF;
 END //
 DELIMITER ;
 
@@ -2695,11 +2716,19 @@ CREATE PROCEDURE SPAgregarCuentas (
     IN IdTipoCuenta INT,
     IN CBU VARCHAR(22)
 )
-    
 BEGIN
-
-	INSERT INTO Cuentas (DNI_Cuentas, IdTipoCuenta_Cuentas,CBU_Cuentas) VALUES
-    (DNI,IdTipoCuenta,CBU);
+	IF EXISTS (SELECT * FROM Cuentas WHERE CBU_Cuentas = CBU and Estado_Cuentas = 0) 
+		THEN UPDATE Cuentas 
+		SET IdTipoCuenta_Cuentas = IdTipoCuenta,
+		CBU_Cuentas = CBU,
+		Saldo_Cuentas = Saldo,
+		Estado_Cuentas = 1
+        WHERE CBU_Cuentas = CBU;
+	
+	ELSE 
+		INSERT INTO Cuentas (DNI_Cuentas, IdTipoCuenta_Cuentas,CBU_Cuentas) VALUES
+		(DNI,IdTipoCuenta,CBU);
+	END IF;
 END //
 DELIMITER ;
 
@@ -2797,3 +2826,5 @@ BEGIN
     WHERE Id_Pr= Id;
 END //
 DELIMITER ;
+
+SELECT * FROM USUARIOS;
