@@ -83,7 +83,9 @@ public class AgregarUsuario extends HttpServlet {
 		LocalDate FechaNacimiento_Usr = LocalDate.parse(request.getParameter("Fecha"));
 		String Direccion_Usr= request.getParameter("txtDireccion");
 		Provincias Provincia_Usr = new Provincias(Integer.parseInt(request.getParameter("ddlProvincias")),null);  
-		Localidades Localidad_Usr = new Localidades(Provincia_Usr,locNeg.buscarNumLoc(request.getParameter("ddlLocalidades")),null);
+		//BUCARNUMLOC PIDE UNA DESCRIPCCION PERO EL DDL TRAE UN NUMERO. HAY QUE ARREGLAR ESO
+		int idLoc= Integer.parseInt(request.getParameter("ddlLocalidades"));
+		Localidades Localidad_Usr = new Localidades(Provincia_Usr,idLoc,null);
 		String Email_Usr = request.getParameter("txtEmail");
 		String Telefono_Usr = request.getParameter("txtTelefono");
 		boolean Tipo_Usr = Boolean.parseBoolean(request.getParameter("ddlTipo"));

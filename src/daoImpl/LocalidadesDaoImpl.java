@@ -57,7 +57,7 @@ public class LocalidadesDaoImpl implements LocalidadesDao {
 		} 
 		catch (SQLException e) 
 		{
-			e.printStackTrace();
+			System.out.println("Numero de localidad vacío");
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
