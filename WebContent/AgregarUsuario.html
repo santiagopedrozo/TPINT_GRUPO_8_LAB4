@@ -172,7 +172,7 @@
 								if (localidades!=null)
 								for(Localidades loc : localidades){
 									%>
-									<option><%=loc.getDescripcion_Loc()%></option>
+									<option value= <%= loc.getIdLocalidad_Loc() %>> <%= loc.getDescripcion_Loc() %></option>
 									<%
 								}
 								%>
