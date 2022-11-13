@@ -18,36 +18,36 @@
 <script type="text/javascript" charset="utf8"
 	src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('#table_id_movimientos').DataTable({
-            language: {
-                processing: "Tratamiento en curso...",
-                search: "Buscar&nbsp;:",
-                lengthMenu: "Agrupar de _MENU_ items",
-                info: "Mostrando del item _START_ al _END_ de un total de _TOTAL_ items",
-                infoEmpty: "No existen datos.",
-                infoFiltered: "(filtrado de _MAX_ elementos en total)",
-                infoPostFix: "",
-                loadingRecords: "Cargando...",
-                zeroRecords: "No se encontraron datos con tu busqueda",
-                emptyTable: "No hay datos disponibles en la tabla.",
-                paginate: {
-                    first: "Primero",
-                    previous: "Anterior",
-                    next: "Siguiente",
-                    last: "Ultimo"
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#table_id_movimientos').DataTable({
+                language: {
+                    processing: "Tratamiento en curso...",
+                    search: "Buscar&nbsp;:",
+                    lengthMenu: "Agrupar de _MENU_ items",
+                    info: "Mostrando del item _START_ al _END_ de un total de _TOTAL_ items",
+                    infoEmpty: "No existen datos.",
+                    infoFiltered: "(filtrado de _MAX_ elementos en total)",
+                    infoPostFix: "",
+                    loadingRecords: "Cargando...",
+                    zeroRecords: "No se encontraron datos con tu busqueda",
+                    emptyTable: "No hay datos disponibles en la tabla.",
+                    paginate: {
+                        first: "Primero",
+                        previous: "Anterior",
+                        next: "Siguiente",
+                        last: "Ultimo"
+                    },
+                    aria: {
+                        sortAscending: ": active para ordenar la columna en orden ascendente",
+                        sortDescending: ": active para ordenar la columna en orden descendente"
+                    }
                 },
-                aria: {
-                    sortAscending: ": active para ordenar la columna en orden ascendente",
-                    sortDescending: ": active para ordenar la columna en orden descendente"
-                }
-            },
-            scrollY: 400,
-            lengthMenu: [ [10, 25, -1], [10, 25, "All"] ],
+                scrollY: 400,
+                lengthMenu: [ [10, 25, -1], [10, 25, "All"] ],
+            });
         });
-    });
-</script>
+    </script>
 
 
 
@@ -113,9 +113,14 @@ if (request.getParameter("btnVerMovimientos")!=null){
 
 <div class="container-fluid" style="width:60%;">
         <div class="card text-center">
-            <div class="card-header "><H3> <b> <p style="text-align:center;"> Movimientos </b></H3></div>
-            <table class="table table-hover" id= "table_id_movimientos" style="font-size: 12px;">
+            <div class="card-header ">
+            <H3> Movimientos </H3>
+            </div>
+            <table class="table table-hover" style="font-size: 12px;" id="table_id_movimientos">
+            <thead>
                 <tr> 
+					<th>Cuenta origen</th>
+					<th>CBU de la cuenta origen</th>  
 					<th>Fecha</th>  
 					<th>Detalle</th>  
 					<th>Importe</th>  
@@ -123,20 +128,22 @@ if (request.getParameter("btnVerMovimientos")!=null){
 					<% if (transferencia == true)%>
 					<th>Cuenta destino</th>
 					<th>CBU de la cuenta destino</th>  
-					
-					
+	
 				</tr>
-				
+				</thead>
+				<tbody>
 				
 				<%
 					if (listaMovimientos!=null)
 						for (Movimientos movimiento : listaMovimientos){
 				%>
 				<tr> 
+					<td><%=movimiento.getCuenta_Mov().getNro_Cuentas() %></td> 
+					<td><%=movimiento.getCuenta_Mov().getCBU_Cuentas()%></td>  
 					<td><%=movimiento.getFecha_Mov() %></td> 
 					<td><%=movimiento.getDetalle_Mov()%></td>   
 					<td><%=movimiento.getImporte_Mov() %></td> 
-					<td><%=movimiento.getTiposMov_Mov().getDescripcion_TiposMov()%></td> 
+					<td><%=movimiento.getTiposMov_Mov().getDescripcion_TiposMov()%></td>
 					<% if (movimiento.getTiposMov_Mov().getId_TiposMov()==4){%>
 					<th><%=movimiento.getCuentaDestino_Mov().getNro_Cuentas() %></th>
 					<th><%=movimiento.getCuentaDestino_Mov().getCBU_Cuentas()%></th>
@@ -148,7 +155,7 @@ if (request.getParameter("btnVerMovimientos")!=null){
 				<%
 				}
 				%>
-                
+                </tbody>
             </table>
         </div>
     </div>

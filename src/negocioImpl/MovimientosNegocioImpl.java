@@ -30,7 +30,7 @@ public class MovimientosNegocioImpl implements MovimientosNegocio {
 	}
 
 	@Override
-	public ArrayList<Movimientos> MovxFecha(Date fecha1, Date fecha2) {
+	public ArrayList<Movimientos> MovxFecha(String fecha1, String fecha2) {
 		return md.MovxFecha(fecha1, fecha2);
 	}
 
