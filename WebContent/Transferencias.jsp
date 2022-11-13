@@ -10,7 +10,7 @@ pageEncoding="ISO-8859-1"%>
     <%@ include file="MasterPage.html" %>
 
     <div class="container-fluid" style="width: 50%">
-      <div class="card text-center">
+      <div class="card text-center" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 100px;">
         <div class="card-header">
           <H2 style="text-align: center">Transferencias</H2>
         </div>
@@ -53,6 +53,18 @@ pageEncoding="ISO-8859-1"%>
               <div class="form-floating mb-3">
                 <input
                   type="number"
+                  class="form-control"
+                  id="floatingInput"
+                  name="txtImporte"
+                  placeholder="-"
+                />
+                <label for="floatingSelect">Detalle</label>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-floating mb-3">
+                <input
+                  type="text"
                   class="form-control"
                   id="floatingInput"
                   name="txtImporte"

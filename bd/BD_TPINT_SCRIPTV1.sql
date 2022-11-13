@@ -38,7 +38,7 @@ CREATE TABLE Usuarios(
     Email_Usr VARCHAR(50) NOT NULL,
     Telefono_Usr VARCHAR(10) NULL,
 	Tipo_Usr BIT DEFAULT 0, -- 0 normal, 1 admin
-    Usuario_Usr VARCHAR (30) NOT NULL,
+    Usuario_Usr VARCHAR (30) UNIQUE NOT NULL,
 	Contrasenia_Usr VARCHAR(16) NOT NULL, 
 	Estado_Usr BIT DEFAULT 1,
 	CONSTRAINT PK_USUARIOS PRIMARY KEY(DNI_Usr),
@@ -118,6 +118,7 @@ CREATE TABLE Movimientos(
     IdTiposMov_Mov INT NOT NULL,
     Fecha_Mov TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     Detalle_Mov VARCHAR(30) NOT NULL,
+    NroCuentaDestino_Mov INT NULL,
     Importe_Mov DECIMAL NOT NULL,
     Estado_Mov BIT DEFAULT 1,
     
@@ -127,6 +128,11 @@ CREATE TABLE Movimientos(
 	CONSTRAINT FK_MOVIMIENTOS_TIPOS FOREIGN KEY (IdTiposMov_Mov)
 		REFERENCES TiposMovimientos(Id_TiposMov)
 );
+
+
+-- TRIGGERS
+
+
 
 -- AGREGADO DE REGISTROS
 
@@ -2582,6 +2588,26 @@ INSERT INTO Cuentas (DNI_Cuentas, IdTipoCuenta_Cuentas,CBU_Cuentas, Saldo_Cuenta
  (44768845, 2, 12328396475328948923, 30402.3),
  (42456879, 1, 12458234975394859399, 55670.45);
  
+ 
+ 
+INSERT INTO Movimientos (NroCuenta_Mov, IdTiposMov_Mov, Detalle_Mov, NroCuentaDestino_Mov, Importe_Mov) VALUES
+(1, 4, 'Varios', 6,20000.0 ),
+(1, 4, 'Varios', 6, 15000.0),
+(1, 4, 'Varios', 6, 10000.0),
+(2, 4, 'Varios', 7, 5000.0),
+(2, 4, 'Varios', 7, 10000.0),
+(2, 4, 'Varios', 7, 8000.99),
+(3, 4, 'Varios', 8, 90000),
+(3, 4, 'Varios', 8, 50000),
+(3, 4, 'Varios', 8, 81222),
+(4, 4, 'Varios', 9, 40000),
+(4, 4, 'Varios', 9, 20000),
+(4, 4, 'Varios', 9, 30400.43),
+(5, 4, 'Varios', 10, 300000),
+(5, 4, 'Varios', 10, 200000),
+(5, 4, 'Varios', 10, 40000.3);
+ 
+ 
 INSERT INTO TiposMovimientos(Descripcion_TiposMov) VALUES
 ('Alta de cuenta'),
 ('Alta de préstamo'),
@@ -2719,11 +2745,14 @@ CREATE PROCEDURE SPAgregarCuentas (
 BEGIN
 	IF EXISTS (SELECT * FROM Cuentas WHERE CBU_Cuentas = CBU and Estado_Cuentas = 0) 
 		THEN UPDATE Cuentas 
-		SET IdTipoCuenta_Cuentas = IdTipoCuenta,
+		SET DNI_Cuentas = DNI,
+        IdTipoCuenta_Cuentas = IdTipoCuenta,
 		CBU_Cuentas = CBU,
-		Saldo_Cuentas = Saldo,
+		Saldo_Cuentas = 10000,
 		Estado_Cuentas = 1
         WHERE CBU_Cuentas = CBU;
+        
+       
 	
 	ELSE 
 		INSERT INTO Cuentas (DNI_Cuentas, IdTipoCuenta_Cuentas,CBU_Cuentas) VALUES
@@ -2828,3 +2857,43 @@ END //
 DELIMITER ;
 
 SELECT * FROM USUARIOS;
+
+
+delimiter //
+CREATE TRIGGER movimientoAltaCuenta
+AFTER INSERT ON cuentas FOR EACH ROW
+BEGIN
+
+	INSERT INTO Movimientos ( NroCuenta_Mov ,IdTiposMov_Mov ,Detalle_Mov ,Importe_Mov) VALUES
+	(NEW.Nro_Cuentas, 1, 'Se crea la cuenta', 10000.00);
+END //
+
+delimiter ;
+
+
+-- Si se hizo una baja lógica en cuentas, bajamos lógicamente todos los movimientos
+delimiter //
+CREATE TRIGGER eliminarMovimientos
+AFTER UPDATE ON cuentas FOR EACH ROW
+BEGIN
+    
+    IF (NEW.Estado_Cuentas = 0) THEN
+		UPDATE Movimientos SET Estado_Mov = 0 WHERE NEW.Nro_Cuentas = NroCuenta_Mov ;
+  END IF;
+END //
+
+delimiter ;
+
+-- Si se está creando una cuenta nueva con un CBU borrado logicamente, creamos un movimiento nuevo para esa cuenta.
+delimiter //
+CREATE TRIGGER movimientoAltaCuentaRevivida
+AFTER UPDATE ON cuentas FOR EACH ROW
+BEGIN
+    
+    IF (OLD.Estado_Cuentas = 0 AND NEW.Estado_Cuentas = 1) THEN
+		INSERT INTO Movimientos ( NroCuenta_Mov ,IdTiposMov_Mov ,Detalle_Mov ,Importe_Mov) VALUES
+		(NEW.Nro_Cuentas, 1, 'Se crea la cuenta', 10000.00);
+  END IF;
+END //
+
+delimiter ;
