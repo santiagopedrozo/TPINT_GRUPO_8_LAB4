@@ -3,12 +3,15 @@ package daoImpl;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 
+
 import conexion.Conexion;
+import dao.CuentasDao;
 import dao.MovimientosDao;
 import entidades.Cuentas;
 import entidades.Localidades;
@@ -20,6 +23,7 @@ import entidades.Usuarios;
 
 public class MovimientosDaoImpl implements MovimientosDao
 {
+	private CuentasDao cd = new CuentasDaoImpl();
 
 	@Override
 	public ArrayList<Movimientos> obtenerTodos() 
@@ -45,7 +49,6 @@ public class MovimientosDaoImpl implements MovimientosDao
 			{
 				movimientos.add(getMovimientos(resultSet));
 			}
-			movimientos.forEach(System.out::println);
 		} 
 		catch (SQLException e) 
 		{
@@ -76,7 +79,6 @@ public class MovimientosDaoImpl implements MovimientosDao
 			{
 				movimientos.add(getMovimientos(resultSet));
 			}
-			movimientos.forEach(System.out::println);
 		} 
 		catch (SQLException e) 
 		{
@@ -107,7 +109,6 @@ public class MovimientosDaoImpl implements MovimientosDao
 			{
 				movimientos.add(getMovimientos(resultSet));
 			}
-			movimientos.forEach(System.out::println);
 		} 
 		catch (SQLException e) 
 		{
@@ -144,7 +145,6 @@ public class MovimientosDaoImpl implements MovimientosDao
 			{
 				movimientos.add(getMovimientos(resultSet));
 			}
-			movimientos.forEach(System.out::println);
 		} 
 		catch (SQLException e) 
 		{
@@ -155,6 +155,43 @@ public class MovimientosDaoImpl implements MovimientosDao
 		}
 		return movimientos;
 	}
+	
+	@Override
+	public ArrayList<Movimientos> MovxCuenta(int nroCuenta) {
+		PreparedStatement statement;
+		ResultSet resultSet; //Guarda el resultado de la query
+		ArrayList<Movimientos> movimientos= new ArrayList<Movimientos>();
+		Conexion conexion = Conexion.getConexion();
+		String consulta = 
+		"Select * from movimientos inner join tiposmovimientos " + 
+		"	on (movimientos.IdTiposMov_Mov = tiposmovimientos.Id_TiposMov) inner join cuentas " + 
+		"		on (movimientos.NroCuenta_Mov = cuentas.Nro_Cuentas) inner join tipocuentas " + 
+		"			on (cuentas.IdTipoCuenta_Cuentas = tipocuentas.Id_TipoCuenta) inner join usuarios " + 
+		"				on (cuentas.DNI_Cuentas = usuarios.DNI_Usr) inner join localidades " + 
+		"					on (usuarios.IdLocalidad_Usr = localidades.IdLocalidad_Loc and usuarios.IdProvincia_Usr = localidades.IdProvincia_Loc) inner join provincias " + 
+		"						on (localidades.IdProvincia_Loc = provincias.IdProvincia_Prov)" + 
+		"where movimientos.NroCuenta_Mov = " + nroCuenta + ";"; 
+		try 
+		{
+			Class.forName("com.mysql.jdbc.Driver");
+			statement = conexion.getSQLConexion().prepareStatement(consulta);
+			resultSet = statement.executeQuery();
+			while(resultSet.next())
+			{
+				movimientos.add(getMovimientos(resultSet));
+			}
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return movimientos;
+	}
+	
+	
 	
 	private Movimientos getMovimientos(ResultSet resultSet) throws SQLException
 	{
@@ -196,8 +233,9 @@ public class MovimientosDaoImpl implements MovimientosDao
 		//Datos movimiento
 		
 		int Id_Mov = resultSet.getInt("Id_Mov");
-		Date Fecha_Mov = resultSet.getDate("Fecha_Mov");
+		Timestamp Fecha_Mov = resultSet.getTimestamp("Fecha_Mov");
 		String Detalle_Mov = resultSet.getString("Detalle_Mov");
+		Cuentas CuentaDestino = cd.cuentaxNro(resultSet.getInt("NroCuentaDestino_Mov"));
 		float Importe_Mov = resultSet.getFloat("Importe_Mov");
 		boolean Estado_Mov = resultSet.getBoolean("Estado_Mov");
 		
@@ -213,11 +251,14 @@ public class MovimientosDaoImpl implements MovimientosDao
 						estado_Cuentas
 						),
 				new TipoMovimientos(Id_TiposMov,Descripcion_TiposMov),
-				Fecha_Mov,
+				Fecha_Mov,	
 				Detalle_Mov,
+				CuentaDestino,
 				Importe_Mov,
 				Estado_Mov
 				);
 	}
+
+	
 	
 }

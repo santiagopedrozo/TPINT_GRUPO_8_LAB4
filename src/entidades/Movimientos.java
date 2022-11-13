@@ -1,16 +1,14 @@
 package entidades;
 
-import java.time.LocalDateTime;
-import java.util.Date;
-
-import com.sun.jmx.snmp.Timestamp;
+import java.sql.Timestamp;
 
 public class Movimientos {
 	private int Id_Mov;
 	private Cuentas Cuenta_Mov;
 	private TipoMovimientos TiposMov_Mov;
-	private Date Fecha_Mov;
+	private Timestamp Fecha_Mov;
 	private String Detalle_Mov;
+	private Cuentas CuentaDestino_Mov;
 	private float Importe_Mov;
 	private boolean Estado_Mov;
 	
@@ -18,19 +16,24 @@ public class Movimientos {
 	public Movimientos() {
 		Cuenta_Mov = new Cuentas();
 		TiposMov_Mov = new TipoMovimientos();
+		CuentaDestino_Mov = new Cuentas();
 	}
 	
-	public Movimientos(int id_Mov, Cuentas cuenta_Mov, TipoMovimientos tiposMov_Mov, Date fecha_Mov,
-	String detalle_Mov, float importe_Mov, boolean estado_Mov) {
 
+	public Movimientos(int id_Mov, Cuentas cuenta_Mov, TipoMovimientos tiposMov_Mov, Timestamp fecha_Mov2, String detalle_Mov,
+			Cuentas cuentaDestino_Mov, float importe_Mov, boolean estado_Mov) {
+		super();
 		Id_Mov = id_Mov;
 		Cuenta_Mov = cuenta_Mov;
 		TiposMov_Mov = tiposMov_Mov;
-		Fecha_Mov = fecha_Mov;
+		Fecha_Mov = fecha_Mov2;
 		Detalle_Mov = detalle_Mov;
+		CuentaDestino_Mov = cuentaDestino_Mov;
 		Importe_Mov = importe_Mov;
 		Estado_Mov = estado_Mov;
 	}
+
+
 
 	//Gets y Sets
 	public int getId_Mov() {
@@ -57,11 +60,11 @@ public class Movimientos {
 		TiposMov_Mov = tiposMov_Mov;
 	}
 
-	public Date getFecha_Mov() {
+	public Timestamp getFecha_Mov() {
 		return Fecha_Mov;
 	}
 
-	public void setFecha_Mov(Date fecha_Mov) {
+	public void setFecha_Mov(Timestamp fecha_Mov) {
 		Fecha_Mov = fecha_Mov;
 	}
 
@@ -72,6 +75,18 @@ public class Movimientos {
 	public void setDetalle_Mov(String detalle_Mov) {
 		Detalle_Mov = detalle_Mov;
 	}
+
+	
+	
+	public Cuentas getCuentaDestino_Mov() {
+		return CuentaDestino_Mov;
+	}
+
+
+	public void setCuentaDestino_Mov(Cuentas cuentaDestino_Mov) {
+		CuentaDestino_Mov = cuentaDestino_Mov;
+	}
+
 
 	public float getImporte_Mov() {
 		return Importe_Mov;
@@ -88,16 +103,16 @@ public class Movimientos {
 	public void setEstado_Mov(boolean estado_Mov) {
 		Estado_Mov = estado_Mov;
 	}
+
+
 	
 	//toString
 	@Override
 	public String toString() {
 		return "Movimientos [Id_Mov=" + Id_Mov + ", Cuenta_Mov=" + Cuenta_Mov + ", TiposMov_Mov=" + TiposMov_Mov
-				+ ", Fecha_Mov=" + Fecha_Mov + ", Detalle_Mov=" + Detalle_Mov + ", Importe_Mov=" + Importe_Mov
-				+ ", Estado_Mov=" + Estado_Mov + "]";
+				+ ", Fecha_Mov=" + Fecha_Mov + ", Detalle_Mov=" + Detalle_Mov + ", CuentaDestino_Mov="
+				+ CuentaDestino_Mov + ", Importe_Mov=" + Importe_Mov + ", Estado_Mov=" + Estado_Mov + "]";
 	}
-	
-	
 	
 	
 }
