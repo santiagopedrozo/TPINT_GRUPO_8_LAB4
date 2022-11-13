@@ -3,6 +3,7 @@ pageEncoding="ISO-8859-1"%>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="entidades.Cuentas" %>
 <%@ page import="entidades.Usuarios" %>
+<%@ page import="entidades.Movimientos" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
   <head>
@@ -101,7 +102,7 @@ pageEncoding="ISO-8859-1"%>
                   type="text"
                   class="form-control"
                   id="floatingInput"
-                  name="txtNombre"
+                  name="txtNombreMovimiento"
                 />
               </td>
             </tbody>
@@ -112,12 +113,12 @@ pageEncoding="ISO-8859-1"%>
                   type="date"
                   class="form-control"
                   id="floatingInput"
-                  name="fecha1"
+                  name="fecha1Movimiento"
                 /><input
                   type="date"
                   class="form-control"
                   id="floatingInput"
-                  name="fecha2"
+                  name="fecha2Movimiento"
                 />
               </td>
             </tbody>
@@ -128,7 +129,7 @@ pageEncoding="ISO-8859-1"%>
                   name="ddlTipos"
                   class="form-control"
                   id="floatingInput"
-                  id="ddlTipos"
+                  id="ddlTiposMovimiento"
                 >
                   <option value="Alta de cuenta">Alta de cuenta</option>
                   <option value="Alta de un prestamo">
@@ -142,7 +143,7 @@ pageEncoding="ISO-8859-1"%>
             <tbody>
             	<td><b></b></td>
               <td>
-                    <button type="button" class="btn btn-outline-primary form-control ">Filtrar</button>
+                    <button type="button" class="btn btn-outline-primary form-control" name = "btnFiltrarMovimientos">Filtrar</button>
               </td>
             </tbody>
           </table>
@@ -152,6 +153,7 @@ pageEncoding="ISO-8859-1"%>
       <div class="container-fluid" style="width: 90%">
         <div class="card text-center">
           <div class="card-header"><h5>Movimientos</h5></div>
+          <form action= "servletReportes" method="get">
           <table class="table table-hover" style="font-size: 12px">
             <thead>
               <tr>
@@ -163,47 +165,32 @@ pageEncoding="ISO-8859-1"%>
                 <th>Cuenta</th>
               </tr>
             </thead>
+            <%
+            ArrayList<Movimientos> listaMovimientos = null;
+            
+            if (request.getAttribute("listaMovimientosFiltrada") != null)
+            	listaMovimientos = (ArrayList<Movimientos>) request.getAttribute("listaMovimientosFiltrada");
+            %>
             <tbody>
+	            <%
+	            if (request.getAttribute("listaMovimientosFiltrada") != null)
+		            for (Movimientos movimiento : listaMovimientos)
+		            {
+	            %>
               <tr>
-                <td>1</td>
-                <td>1/11/2022</td>
-                <td>Pago de spotify</td>
-                <td>850</td>
-                <td>Transaccion</td>
-                <td>Bruno Lisanti</td>
+	            
+                <td><%=movimiento.getId_Mov() %></td>
+                <td><%=movimiento.getFecha_Mov() %></td>
+                <td><%=movimiento.getDetalle_Mov() %></td>
+                <td><%=movimiento.getImporte_Mov() %></td>
+                <td><%=movimiento.getTiposMov_Mov().getDescripcion_TiposMov() %></td>
+                <td><%=movimiento.getCuenta_Mov().getUsuario_Cuentas().getNombre_Usr() %> <%=movimiento.getCuenta_Mov().getUsuario_Cuentas().getApellido_Usr() %></td>
               </tr>
-            </tbody>
-            <tbody>
-              <tr>
-                <td>1</td>
-                <td>1/11/2022</td>
-                <td>Pago de spotify</td>
-                <td>850</td>
-                <td>Transaccion</td>
-                <td>Bruno Lisanti</td>
-              </tr>
-            </tbody>
-            <tbody>
-              <tr>
-                <td>1</td>
-                <td>1/11/2022</td>
-                <td>Pago de spotify</td>
-                <td>850</td>
-                <td>Transaccion</td>
-                <td>Bruno Lisanti</td>
-              </tr>
-            </tbody>
-            <tbody>
-              <tr>
-                <td>1</td>
-                <td>1/11/2022</td>
-                <td>Pago de spotify</td>
-                <td>850</td>
-                <td>Transaccion</td>
-                <td>Bruno Lisanti</td>
-              </tr>
+              <%}%>
             </tbody>
           </table>
+   		</form>
+          
           <div class="card-footer">
 			<nav aria-label="Page navigation example">
 			  <ul class="pagination justify-content-center">

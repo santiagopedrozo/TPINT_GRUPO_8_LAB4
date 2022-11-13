@@ -32,7 +32,10 @@ public class MovimientosDaoImpl implements MovimientosDao
 		"Select * from movimientos inner join tiposmovimientos " + 
 		"	on (movimientos.IdTiposMov_Mov = tiposmovimientos.Id_TiposMov) inner join cuentas " + 
 		"		on (movimientos.NroCuenta_Mov = cuentas.Nro_Cuentas) inner join tipocuentas " + 
-		"			on (cuentas.IdTipoCuenta_Cuentas = tipocuentas.Id_TipoCuenta)"; 
+		"			on (cuentas.IdTipoCuenta_Cuentas = tipocuentas.Id_TipoCuenta) inner join Usuarios " + 
+		"				on (cuentas.DNI_Cuentas = usuarios.DNI_Usr) inner join localidades " + 
+		"					on (usuarios.IdLocalidad_Usr = localidades.IdLocalidad_Loc and usuarios.IdProvincia_Usr = localidades.IdProvincia_Loc) inner join provincias " + 
+		"						on (localidades.IdProvincia_Loc = provincias.IdProvincia_Prov)"; 
 		try 
 		{
 			Class.forName("com.mysql.jdbc.Driver");
@@ -62,13 +65,8 @@ public class MovimientosDaoImpl implements MovimientosDao
 		ArrayList<Movimientos> movimientos= new ArrayList<Movimientos>();
 		Conexion conexion = Conexion.getConexion();
 		String consulta = 
-		"Select * from movimientos inner join tiposmovimientos " + 
-		"	on (movimientos.IdTiposMov_Mov = tiposmovimientos.Id_TiposMov) inner join cuentas " + 
-		"		on (movimientos.NroCuenta_Mov = cuentas.Nro_Cuentas) inner join tipocuentas " + 
-		"			on (cuentas.IdTipoCuenta_Cuentas = tipocuentas.Id_TipoCuenta) inner join usuarios " + 
-		"				on (cuentas.DNI_Cuentas = usuarios.DNI_Usr) " + 
-		"where usuarios.DNI_Usr = '" + usuario.getDNI_Usr() + "';" + 
-		""; 
+		"" + 
+		"where usuarios.DNI_Usr = '" + usuario.getDNI_Usr() + "';"; 
 		try 
 		{
 			Class.forName("com.mysql.jdbc.Driver");
@@ -98,14 +96,8 @@ public class MovimientosDaoImpl implements MovimientosDao
 		ArrayList<Movimientos> movimientos= new ArrayList<Movimientos>();
 		Conexion conexion = Conexion.getConexion();
 		String consulta = 
-		"Select * from movimientos inner join tiposmovimientos " + 
-		"	on (movimientos.IdTiposMov_Mov = tiposmovimientos.Id_TiposMov) inner join cuentas " + 
-		"		on (movimientos.NroCuenta_Mov = cuentas.Nro_Cuentas) inner join tipocuentas " + 
-		"			on (cuentas.IdTipoCuenta_Cuentas = tipocuentas.Id_TipoCuenta) inner join usuarios " + 
-		"				on (cuentas.DNI_Cuentas = usuarios.DNI_Usr) inner join localidades " + 
-		"					on (usuarios.IdLocalidad_Usr = localidades.IdLocalidad_Loc and usuarios.IdProvincia_Usr = localidades.IdProvincia_Loc) inner join provincias " + 
-		"						on (localidades.IdProvincia_Loc = provincias.IdProvincia_Prov)" + 
-		"where tiposmovimientos = '" + tipo.getId_TiposMov() + "'"; 
+		"" + 
+		"where tiposmovimientos = '" + tipo.getDescripcion_TiposMov() + "'"; 
 		try 
 		{
 			Class.forName("com.mysql.jdbc.Driver");
@@ -128,7 +120,7 @@ public class MovimientosDaoImpl implements MovimientosDao
 	}
 
 	@Override
-	public ArrayList<Movimientos> MovxFecha(Date fecha1, Date fecha2) 
+	public ArrayList<Movimientos> MovxFecha(String fecha1, String fecha2) 
 	{
 		PreparedStatement statement;
 		ResultSet resultSet; //Guarda el resultado de la query
@@ -142,7 +134,7 @@ public class MovimientosDaoImpl implements MovimientosDao
 		"				on (cuentas.DNI_Cuentas = usuarios.DNI_Usr) inner join localidades " + 
 		"					on (usuarios.IdLocalidad_Usr = localidades.IdLocalidad_Loc and usuarios.IdProvincia_Usr = localidades.IdProvincia_Loc) inner join provincias " + 
 		"						on (localidades.IdProvincia_Loc = provincias.IdProvincia_Prov)" + 
-		"where movimientos.Fecha_Mov between '" + fecha1.toString() + "' and '" + fecha2.toString() + "';"; 
+		"where movimientos.Fecha_Mov between '" + fecha1 + "' and '" + fecha2 + "';"; 
 		try 
 		{
 			Class.forName("com.mysql.jdbc.Driver");

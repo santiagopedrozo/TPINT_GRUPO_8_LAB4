@@ -13,5 +13,5 @@ public interface MovimientosDao
 	public ArrayList<Movimientos> obtenerTodos();
 	public ArrayList<Movimientos> MovxUsuario(Usuarios usuario);
 	public ArrayList<Movimientos> MovxTipo(TipoMovimientos tipo);
-	public ArrayList<Movimientos> MovxFecha(Date fecha1, Date fecha2);
+	public ArrayList<Movimientos> MovxFecha(String fecha1, String fecha2);
 }
