@@ -7,7 +7,7 @@
 <title>Inicio</title>
 </head>
 <body>
-	<%@ include file="MasterPage.html" %>
+	<%@ include file="MasterPageAdmin.html" %>
 	<br>
 	<H1 style="text-align: center"> Bienvenido: (Usuario) </H1>
 	<br>

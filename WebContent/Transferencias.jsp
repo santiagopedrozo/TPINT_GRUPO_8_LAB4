@@ -7,8 +7,8 @@ pageEncoding="ISO-8859-1"%>
     <title>Transferencias</title>
   </head>
   <body>
-    <%@ include file="MasterPage.html" %>
-
+    <%@ include file="MasterPageAdmin.html" %>
+	<br>
     <div class="container-fluid" style="width: 50%">
       <div class="card text-center" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 100px;">
         <div class="card-header">
@@ -77,10 +77,11 @@ pageEncoding="ISO-8859-1"%>
             <div class="col-md-12">
               <input
                 type="submit"
-                class="btn btn-outline-primary form-control btn-lg"
+                class="btn btn-outline-dark form-control btn-lg"
                 name="btnTransferir"
                 value="Transferir"
-                class="btn btn-outline-primary btn-sm"
+                class="btn btn-outline-dark btn-sm"
+                onclick="return confirm('¿Está seguro de que hacer esta trasnferencia?')"
               />
             </div>
           </form>

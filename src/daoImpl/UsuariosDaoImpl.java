@@ -60,9 +60,15 @@ public class UsuariosDaoImpl implements UsuariosDao{
 		ResultSet resultSet; //Guarda el resultado de la query
 		ArrayList<Usuarios> usuarios = new ArrayList<Usuarios>();
 		Conexion conexion = Conexion.getConexion();
+		String consulta = 
+			"SELECT *, Descripcion_Prov, Descripcion_Loc "
+			+ "FROM Usuarios INNER JOIN Provincias ON IdProvincia_Prov = IdProvincia_Usr "
+			+ "INNER JOIN Localidades ON IdLocalidad_Usr = IdLocalidad_Loc"
+			+ "WHERE estado_usr = 1";
+		
 		try 
 		{
-			statement = conexion.getSQLConexion().prepareStatement("SELECT *,Descripcion_Prov, Descripcion_Loc FROM Usuarios INNER JOIN Provincias ON IdProvincia_Prov = IdProvincia_Usr INNER JOIN Localidades ON IdLocalidad_Usr = IdLocalidad_Loc");
+			statement = conexion.getSQLConexion().prepareStatement(consulta);
 			resultSet = statement.executeQuery();
 			while(resultSet.next())
 			{

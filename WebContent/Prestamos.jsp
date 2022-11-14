@@ -9,10 +9,10 @@ pageEncoding="ISO-8859-1"%>
   </head>
   
   <body>
-  <%@ include file="MasterPage.html" %>
+  <%@ include file="MasterPageAdmin.html" %>
   <br>
     <div class="container-fluid" style="width: 50%">
-      <div class="card text-center">
+      <div class="card text-center" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 100px;">
         <div class="card-header">
           <H2 style="text-align: center">Solicitar préstamo</H2>
         </div>
@@ -47,7 +47,11 @@ pageEncoding="ISO-8859-1"%>
 			
 			<div class="col-md-12">
                 <br>
-            	<input type="submit" name= "btnPedirPrestamo" class="btn btn-outline-primary form-control btn-lg" value="Solicitar préstamo">
+            	<input type="submit"
+            	name="btnPedirPrestamo"
+            	class="btn btn-outline-dark form-control btn-lg"
+            	value="Solicitar préstamo"
+            	onclick="return confirm('¿Está seguro de que quiere solicitar este préstamo?')">
             </div>
 
 		</div>
@@ -71,7 +75,7 @@ pageEncoding="ISO-8859-1"%>
     <br>
 
     <div class="container-fluid" style="width: 50%">
-      <div class="card text-center">
+      <div class="card text-center" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 100px;">
         <div class="card-header">
           <H2 style="text-align: center">Pagar préstamo</H2>
         </div>
@@ -90,7 +94,10 @@ pageEncoding="ISO-8859-1"%>
           
 			<div class="col-md-12">
                 <br>
-            	<input type="submit" name="btnSeleccionar" class="btn btn-outline-primary form-control btn-lg" value="Seleccionar prestamo">
+            	<input type="submit"
+            	name="btnSeleccionar" 
+            	class="btn btn-outline-dark form-control btn-lg"
+            	value="Seleccionar prestamo">
             </div>
         </div>
       </div>
@@ -99,7 +106,7 @@ pageEncoding="ISO-8859-1"%>
     <br>
 
     <div class="container-fluid" style="width: 30%">
-      <div class="card text-center">
+      <div class="card text-center" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 100px;">
         <div class="card-header">
           <H2 style="text-align: center">Cuotas</H2>
         </div>
@@ -123,7 +130,11 @@ pageEncoding="ISO-8859-1"%>
           
           <div class="col-md-12">
                 <br>
-            	<input type="submit" name= "btnPagarCuota" class="btn btn-outline-primary form-control btn-lg" value="Pagar">
+            	<input type="submit"
+            	 name= "btnPagarCuota"
+            	 class="btn btn-outline-dark form-control btn-lg"
+            	 value="Pagar"
+            	 onclick="return confirm('¿Está seguro de que quiere pagar esta cuota?')">
            </div>
         </div>
       </div>

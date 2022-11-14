@@ -59,10 +59,10 @@
 
 </head>
 <body>
-	<%@ include file="MasterPage.html" %>
+	<%@ include file="MasterPageAdmin.html" %>
 	<br>
 		<div class="container-fluid" style="width:90%;">
-	        <div class="card text-center">
+	        <div class="card text-center" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 100px;">
 	            <div class="card-header "><H2> <b> <p style="text-align:center;"> Cuentas </b></H2></div>
 	            <table class="table table-hover" style="font-size: 12px;">
 	                <tr> 
@@ -84,7 +84,7 @@
 						<td><%=cuenta.getTipoCuenta_Cuentas().getDescripcion_TipoCuenta()%></td>   
 						<td><%=cuenta.getCBU_Cuentas()%></td> 
 						<td><%=cuenta.getSaldo_Cuentas() %></td> 
-						<td> <input type="submit" name= "btnVerMovimientos"value= "Movimientos" class="btn btn-outline-primary btn-sm"> </td>
+						<td> <input type="submit" name= "btnVerMovimientos"value= "Movimientos" class="btn btn-outline-dark btn-sm"> </td>
 					</form>
 					</tr>
 					<%		

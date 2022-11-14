@@ -13,15 +13,19 @@
 </head>
 <body>
 
+<nav class="navbar navbar-expand-lg" style="background: #23313e; font-weight: bold; font-size: 15px;">
+<div class="container-fluid ">	
+	<img src="assets/BRUSAFA.png"  alt="" width="80" style="border-radius: 80%;" >
+ 	<ul class="navbar-nav me-auto my-2 "></ul>
+</nav>	
 
 <br>
-<H1 style="text-align:center;">Bienvenido al banco Brusafa</H1>
+	<H1 style="font-family: 'Enriqueta', arial, serif; line-height: 1.25; margin: 0 0 10px; font-size: 40px; font-weight: bold; text-align:center;">Bienvenido al banco Brusafa</H1>
 <br>
-
 
 <form method="post" action="servletUsuarios" class="row">
 <div style="width: 40%; margin: auto">
-      <div class="card text-center">
+      <div class="card text-center" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 100px;">
         <div class="card-header">Iniciar sesión</div>
         <div class="card-body">
             <div class="col-md-12">
@@ -54,7 +58,7 @@
             <div class="col-md-12">
               <button
                 type="submit"
-                class="btn btn-outline-primary form-control btn-lg"
+                class="btn btn-outline-dark form-control btn-lg"
                 name="btnIniciar"
                 
               >
@@ -65,7 +69,7 @@
       </div>
     </div>
    </form>
-<br>
+<br><br>
  		<% 
         boolean noExiste=false;
         if (request.getAttribute("noExiste")!=null) noExiste=(boolean)request.getAttribute("noExiste");
@@ -76,17 +80,14 @@
         <div ID="MsgErrorDiv" class="col-md-4 alert alert-danger">
             <strong>Error</strong> Usuario o contraseña incorrecta!
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            
         </div>
     </div>
     <% 
     }
-    %>
-    	
+    %>    	
 
 
-      
+    <br>
 <%@ include file="FooterPage.html" %>
-
 </body>
 </html>
