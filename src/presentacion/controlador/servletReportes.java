@@ -2,6 +2,10 @@ package presentacion.controlador;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.chrono.ChronoLocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -69,29 +73,24 @@ public class servletReportes extends HttpServlet {
 
 		if (request.getParameter("txtNombreMovimiento") != "")
 		{
-			for (Iterator<Movimientos> i = listaMovimientos.iterator(); i.hasNext();)
-			{
-				if (i.next().getCuenta_Mov().getUsuario_Cuentas().getDNI_Usr() != "44298830")
-				{
-					i.remove();
-				}
-					
-			}
+			listaMovimientos.removeIf(s -> !s.getCuenta_Mov().getUsuario_Cuentas().getDNI_Usr().equals(request.getParameter("txtNombreMovimiento")));
 		}
-		/*if (request.getParameter("fecha1Movimiento") != null && request.getParameter("fecha2Movimiento") != null) 
+		if (request.getParameter("txtImporte1") != "" || request.getParameter("txtImporte2") != "") 
 		{
-			listaMovimientos.retainAll(negMov.MovxFecha(request.getParameter("fecha1Movimiento"),request.getParameter("fecha2Movimiento")));
+			int imp1 = Integer.parseInt(request.getParameter("txtImporte1"));
+			int imp2 = Integer.parseInt(request.getParameter("txtImporte2"));
+			
+			listaMovimientos.removeIf(s -> s.getImporte_Mov() < imp1 || s.getImporte_Mov() > imp2 );
+			
 		}
-		if (request.getParameter("ddlProvincias") != null)
+		if (request.getParameter("ddlTipos") != null)
 		{
-			TipoMovimientos tipo = new TipoMovimientos();
-			tipo.setDescripcion_TiposMov(request.getParameter("ddlProvincias"));
-			listaMovimientos.retainAll(negMov.MovxTipo(tipo));
-		}*/
+			listaMovimientos.removeIf(s -> s.getTiposMov_Mov().getId_TiposMov() != Integer.parseInt((request.getParameter("ddlTipos"))));
+		}
 		if (request.getParameter("btnFiltrarMovimientos") != null)
 			request.setAttribute("listaMovimientosFiltrada", listaMovimientos);
-		//else
-			//request.setAttribute("listaMovimientosFiltrada", negMov.obtenerTodos());
+		else
+			request.setAttribute("listaMovimientosFiltrada", negMov.obtenerTodos());
 	}
 	
 	
