@@ -115,7 +115,10 @@ if (request.getParameter("btnVerMovimientos")!=null){
         <div class="card text-center">
             <div class="card-header "><H3> <b> <p style="text-align:center;"> Movimientos </b></H3></div>
             <table class="table table-hover" id= "table_id_movimientos" style="font-size: 12px;">
+            <thead>
                 <tr> 
+					<th>Cuenta origen</th>
+					<th>CBU de la cuenta origen</th>  
 					<th>Fecha</th>  
 					<th>Detalle</th>  
 					<th>Importe</th>  
@@ -126,15 +129,17 @@ if (request.getParameter("btnVerMovimientos")!=null){
 					
 					
 				</tr>
-				
-				
+				</thead>
+				<tbody>
 				<%
 					if (listaMovimientos!=null)
 						for (Movimientos movimiento : listaMovimientos){
 				%>
 				<tr> 
+					<th><%=movimiento.getCuenta_Mov().getNro_Cuentas() %></th>
+					<th><%=movimiento.getCuenta_Mov().getCBU_Cuentas()%></th>
 					<td><%=movimiento.getFecha_Mov() %></td> 
-					<td><%=movimiento.getDetalle_Mov()%></td>   
+					<td><%=movimiento.getDetalle_Mov()%></td>    
 					<td><%=movimiento.getImporte_Mov() %></td> 
 					<td><%=movimiento.getTiposMov_Mov().getDescripcion_TiposMov()%></td> 
 					<% if (movimiento.getTiposMov_Mov().getId_TiposMov()==4){%>
@@ -148,7 +153,7 @@ if (request.getParameter("btnVerMovimientos")!=null){
 				<%
 				}
 				%>
-                
+             </tbody>   
             </table>
         </div>
     </div>

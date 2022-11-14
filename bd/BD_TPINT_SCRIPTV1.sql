@@ -1,6 +1,5 @@
 create schema bd_tpint_labiv;
-
--- drop database bd_tpint_labiv
+--  drop database bd_tpint_labiv
 
 use bd_tpint_labiv;
 
@@ -2589,9 +2588,14 @@ INSERT INTO Cuentas (DNI_Cuentas, IdTipoCuenta_Cuentas,CBU_Cuentas, Saldo_Cuenta
  (42456879, 1, 12458234975394859399, 55670.45);
  
  
- 
+INSERT INTO TiposMovimientos(Descripcion_TiposMov) VALUES
+('Alta de cuenta'),
+('Alta de préstamo'),
+('Pago de préstamo'),
+('Transferencia');
+
 INSERT INTO Movimientos (NroCuenta_Mov, IdTiposMov_Mov, Detalle_Mov, NroCuentaDestino_Mov, Importe_Mov) VALUES
-(1, 4, 'Varios', 6,20000.0 ),
+(1, 4, 'Varios', 6, 20000.0 ),
 (1, 4, 'Varios', 6, 15000.0),
 (1, 4, 'Varios', 6, 10000.0),
 (2, 4, 'Varios', 7, 5000.0),
@@ -2605,15 +2609,8 @@ INSERT INTO Movimientos (NroCuenta_Mov, IdTiposMov_Mov, Detalle_Mov, NroCuentaDe
 (4, 4, 'Varios', 9, 30400.43),
 (5, 4, 'Varios', 10, 300000),
 (5, 4, 'Varios', 10, 200000),
-(5, 4, 'Varios', 10, 40000.3);
- 
- 
-INSERT INTO TiposMovimientos(Descripcion_TiposMov) VALUES
-('Alta de cuenta'),
-('Alta de préstamo'),
-('Pago de préstamo'),
-('Transferencia');
-
+(5, 4, 'Varios', 10, 40000.3),
+(8, 4, 'Varios', 1, 2503);
 
 INSERT INTO Prestamos (DNI_Pr,NroCuentaDestino_Pr, ImpSolicitado_Pr, ImpResultante_Pr, PlazoMeses_Pr, ImpPagoAlMes_Pr, CantCuotas_Pr, Autorizado_Pr, Estado_Pr) VALUES
  (44298830,1,10000,17000,12,1416.66,12,1,1),
