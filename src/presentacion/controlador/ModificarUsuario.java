@@ -26,6 +26,7 @@ public class ModificarUsuario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ProvinciasNegocio provNeg = new ProvinciasNegocioImpl();
 	private LocalidadesNegocio locNeg = new LocalidadesNegocioImpl();
+	private UsuariosNegocio usrNeg= new UsuariosNegocioImpl();
 	
     public ModificarUsuario() {
         
@@ -36,60 +37,53 @@ public class ModificarUsuario extends HttpServlet {
 		
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if(request.getParameter("provSeleccionada") != null && request.getParameter("btnAgregarUsr") == null) //cuando sean muchos estaria bueno que sea un switch de parametros
-			filtradoLocalidades(request);
-		
-		if (request.getParameter("btnModificar")!=null) {
-			//request.setAttribute("estadoInsertado", insert(request));
-			cargarLocalidadesUser(request, -1);
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
+		if(request.getParameter("btnCancelar") != null) {
+			RequestDispatcher rd = request.getRequestDispatcher("AdministrarUsuarios.jsp");
+			rd.forward(request, response);	
 		}
-				
+/*
+		if (request.getParameter("btnModificar")!=null) {
+			request.setAttribute("estadoInsertado", editar(request));
+		}	
+*/
+
 		refreshPost(request);
 		RequestDispatcher rd = request.getRequestDispatcher("AdministrarUsuarios.jsp");
 		rd.forward(request, response);	
 	}
-		
-	private void refreshPost(HttpServletRequest request) {
-		cargarProvinciasUser(request);
-	}
-	
-	private void filtradoLocalidades(HttpServletRequest request) {
-		int idProv = Integer.parseInt(request.getParameter("ddlProvincias").toString());
-		cargarLocalidadesUser(request, idProv);
-	}
-		
-	private void cargarProvinciasUser(HttpServletRequest request) {		
-		request.setAttribute("provincias", provNeg.readALL());
-	}
-	
-	private void cargarLocalidadesUser(HttpServletRequest request, int idProv) {
-		request.setAttribute("localidades", locNeg.GetAllLocalidadesPorProv(idProv));
-	}
-	/*
-	private Boolean insert(HttpServletRequest request) {
-		return usrNeg.insert(asignarInputsAEntidad(request));
-	}
-	*/
-	
-	
+/*
+	private boolean editar(HttpServletRequest request) {
+	//	return usrNeg.edit(asignarInputsAEntidad(request));
+	}*/
+/*
+
 	private Usuarios asignarInputsAEntidad(HttpServletRequest request) {
 		String DNI_Usr = request.getParameter("txtDNIEdit");
 		String CUIL_Usr = request.getParameter("txtCUILEdit");
-		String Nombre_Usr = request.getParameter("txtNombreEdit");
-		String Apellido_Usr = request.getParameter("txtApellidoEdit");
-		String Sexo_Usr = request.getParameter("rbSexoEdit");
+	
 		String Nacionalidad_Usr  = request.getParameter("txtNacionalidadEdit");
 		LocalDate FechaNacimiento_Usr = LocalDate.parse(request.getParameter("FechaEdit"));
 		String Direccion_Usr= request.getParameter("txtDireccionEdit");
+		System.out.println("id ddllocedit; " + Integer.parseInt(request.getParameter("ddlLocalidadesEdit")));
 		Provincias Provincia_Usr = new Provincias(Integer.parseInt(request.getParameter("ddlProvinciasEdit")),null);  
-		Localidades Localidad_Usr = new Localidades(Provincia_Usr,locNeg.buscarNumLoc(request.getParameter("ddlLocalidadesEdit")),null);
+		Localidades Localidad_Usr = new Localidades(Provincia_Usr, 
+		Integer.parseInt(request.getParameter("ddlLocalidadesEdit")), null);
 		String Email_Usr = request.getParameter("txtEmailEdit");
 		String Telefono_Usr = request.getParameter("txtTelefonoEdit");
 		boolean Tipo_Usr = Boolean.parseBoolean(request.getParameter("ddlTipoEdit"));
 		String Usuario_Usr = request.getParameter("txtUsuarioEdit");
 		String Contrasenia_Usr = request.getParameter("txtContraseniaEdit");
-		return new Usuarios (DNI_Usr, CUIL_Usr,Nombre_Usr,  Apellido_Usr, Sexo_Usr, Nacionalidad_Usr, FechaNacimiento_Usr, Direccion_Usr,Provincia_Usr, Localidad_Usr ,Email_Usr,Telefono_Usr,  Tipo_Usr, Usuario_Usr,  Contrasenia_Usr, true);	
+		Usuarios usr = new Usuarios (DNI_Usr, CUIL_Usr,Nombre_Usr,  Apellido_Usr, Sexo_Usr, Nacionalidad_Usr, FechaNacimiento_Usr, Direccion_Usr,Provincia_Usr, Localidad_Usr ,Email_Usr,Telefono_Usr,  Tipo_Usr, Usuario_Usr,  Contrasenia_Usr, true);
+		System.out.println("modificado: " + usr);
+		return usr;
 	}
+*/
+	private void refreshPost(HttpServletRequest request) {
+		
+		//cargarUsuarios(request);
+	}
+
+	
 
 }

@@ -52,13 +52,16 @@
 
         
     </script>
+    
+    
 
 
 
 <%
-	boolean estaModificando = false;
-	if (request.getAttribute("usrSeleccionado") != null)
-		estaModificando = true;
+	
+	Usuarios usrSeleccionadoEditar = new Usuarios();
+	if(request.getAttribute("usrSeleccionado") != null)
+		usrSeleccionadoEditar = (Usuarios)request.getAttribute("usrSeleccionado");
 	ArrayList <Usuarios> listaUser = null;
 	if (request.getAttribute("listaUser")!=null)
 		listaUser = (ArrayList <Usuarios>) request.getAttribute("listaUser");
@@ -68,7 +71,7 @@
 	<%@ include file="MasterPageAdmin.html" %>
 	<br>
 	<div class="container-fluid" style="width:95%;">
-        <div class="card text-center">
+        <div class="card text-center" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 100px;">
             <div class="card-header "><h5>Usuarios</h5></div>
             <table class="table table-hover" id="table_id_usuarios" style="font-size: 11px;">
                 <thead>
@@ -101,7 +104,7 @@
                  		<form action= "servletUsuarios" method="post" name="formUsuario">
 	                        <th scope="row">
 								<!-- EN SERVLET NO PREGUNTO POR ESTE BTN, RECIEN LO AGREGO-->
-								<button type="submit" name="btnEditar" class="btn btn-outline-success btn-sm">
+								<button type="submit" name="btnEditar" onclick="" class="btn btn-outline-success btn-sm">
 									<i class="fa-solid fa-pen-to-square"></i>
 								</button>
 								<button type="submit" name ="btnEliminarUsr"class="btn btn-outline-danger btn-sm">
@@ -133,6 +136,32 @@
             </table>
         </div>
       </div>
+      <br>
+      
+      <div style="display: flex; justify-content: center;">
+		<%
+			boolean resultadoEdit = false;
+		    if (request.getAttribute("resultadoEdit")!=null) {
+		    resultadoEdit = (boolean)request.getAttribute("resultadoEdit");
+	    }
+	    if (resultadoEdit == false && request.getAttribute("resultadoEdit") != null){
+	    %>
+       <div ID="MsgErrorDiv" style="font-size: 16px box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 100px;" class="col-md-6 alert alert-danger" runat="server" visible="false">
+           <strong>Error</strong> No se pudo editadar correctamente el usuario
+           <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+       </div>
+       <%
+       }
+       else if (resultadoEdit){
+       %>
+       <div ID="MsgCorrectoDiv"  style="font-size: 16px box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 100px;" class="col-md-6 alert alert-success" runat="server" visible="false">
+           <strong>Agregado</strong> Usuario editado correctamente!
+           <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+       </div>
+       <%
+       }
+       %> 
+      </div>
 
 	<div style="display: flex; justify-content: center;">
 		<%
@@ -161,19 +190,8 @@
 			}
 		%>
 	</div>
-      
-      <%
-	      	if (request.getAttribute("usrSeleccionado") != null){
-	      		Usuarios usrSeleccionadoEditar = (Usuarios) request.getAttribute("usrSeleccionado");
-				estaModificando = true;	
-	      	
-				%>
-					<h1> <%= usrSeleccionadoEditar.getDNI_Usr() %></h1>
-				<%
-	      	}
-		%>
        <%
-			if (estaModificando){
+			if (!usrSeleccionadoEditar.getDNI_Usr().equals("-1")){
 				%>
 				<br>
 				<%@ include file="ModificarUsuario.html" %>

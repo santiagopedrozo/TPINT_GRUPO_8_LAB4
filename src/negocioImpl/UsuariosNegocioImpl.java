@@ -67,6 +67,12 @@ public class UsuariosNegocioImpl implements UsuariosNegocio {
 		return userDao.delete(DNI);
 		
 	}
+
+
+	@Override
+	public boolean edit(Usuarios usuario) {
+		return userDao.edit(usuario);
+	}
 	
 
 }

@@ -38,12 +38,10 @@ public class AgregarUsuario extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if(request.getParameter("provSeleccionada") != null && request.getParameter("btnAgregarUsr") == null) //cuando sean muchos estaria bueno que sea un switch de parametros
-			filtradoLocalidades(request);
+
 		
 		if (request.getParameter("btnAgregarUsr")!=null) {
 			request.setAttribute("estadoInsertado", insert(request));
-			cargarLocalidadesUser(request, -1);
 		}
 			
 		refreshPost(request);
@@ -53,20 +51,16 @@ public class AgregarUsuario extends HttpServlet {
 		
 	private void refreshPost(HttpServletRequest request) {
 		cargarProvinciasUser(request);
+		cargarLocalidadesUser(request);
 		cargarUsuarios(request);
 	}
 	
-	private void filtradoLocalidades(HttpServletRequest request) {
-		int idProv = Integer.parseInt(request.getParameter("ddlProvincias").toString());
-		cargarLocalidadesUser(request, idProv);
-	}
-		
 	private void cargarProvinciasUser(HttpServletRequest request) {		
-		request.setAttribute("provincias", provNeg.readALL());
+		request.getSession().setAttribute("provincias", provNeg.readALL());
 	}
 	
-	private void cargarLocalidadesUser(HttpServletRequest request, int idProv) {
-		request.setAttribute("localidades", locNeg.GetAllLocalidadesPorProv(idProv));
+	private void cargarLocalidadesUser(HttpServletRequest request) {
+		request.getSession().setAttribute("localidades", locNeg.GetAllLocalidadesPorProv(-1));
 	}
 	
 	private Boolean insert(HttpServletRequest request) {
@@ -83,14 +77,17 @@ public class AgregarUsuario extends HttpServlet {
 		LocalDate FechaNacimiento_Usr = LocalDate.parse(request.getParameter("Fecha"));
 		String Direccion_Usr= request.getParameter("txtDireccion");
 		Provincias Provincia_Usr = new Provincias(Integer.parseInt(request.getParameter("ddlProvincias")),null);  
-		int idLoc= Integer.parseInt(request.getParameter("ddlLocalidades"));
-		Localidades Localidad_Usr = new Localidades(Provincia_Usr,idLoc,null);
+		
+		Localidades Localidad_Usr = new Localidades(Provincia_Usr,
+				Integer.parseInt(request.getParameter("ddlLocalidades")), null);
 		String Email_Usr = request.getParameter("txtEmail");
 		String Telefono_Usr = request.getParameter("txtTelefono");
 		boolean Tipo_Usr = Boolean.parseBoolean(request.getParameter("ddlTipo"));
 		String Usuario_Usr = request.getParameter("txtUsuario");
 		String Contrasenia_Usr = request.getParameter("txtContrasenia");
-		return new Usuarios (DNI_Usr, CUIL_Usr,Nombre_Usr,  Apellido_Usr, Sexo_Usr, Nacionalidad_Usr, FechaNacimiento_Usr, Direccion_Usr,Provincia_Usr, Localidad_Usr ,Email_Usr,Telefono_Usr,  Tipo_Usr, Usuario_Usr,  Contrasenia_Usr, true);	
+		Usuarios usr = new Usuarios (DNI_Usr, CUIL_Usr,Nombre_Usr,  Apellido_Usr, Sexo_Usr, Nacionalidad_Usr, FechaNacimiento_Usr, Direccion_Usr,Provincia_Usr, Localidad_Usr ,Email_Usr,Telefono_Usr,  Tipo_Usr, Usuario_Usr,  Contrasenia_Usr, true);	
+		System.out.println(usr);
+		return usr;
 	}
 	
 	private void cargarUsuarios(HttpServletRequest request) {

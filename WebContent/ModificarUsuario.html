@@ -6,64 +6,98 @@
 </head>
 
 
-
-
-<% 
-    int idProvEdit = 1;
-    int idLocEdit = 1;  
-    ArrayList<Provincias> provinciasEdit = null;
-    ArrayList<Localidades> localidadesEdit = null;
-    if (request.getAttribute("provincias")!=null) provinciasEdit = (ArrayList<Provincias>) request.getAttribute("provincias");
-    if (request.getAttribute("localidades")!=null){
-    	localidadesEdit = (ArrayList<Localidades>) request.getAttribute("localidades");
-    	idProvEdit = localidadesEdit.get(0).getProvincia().getIdProvincia_Prov();
-    	idLocEdit = localidadesEdit.get(0).getIdLocalidad_Loc(); 
-    }
-    
-    Usuarios usrSeleccionadoEditar = new Usuarios();
-   	if (estaModificando)
-   		usrSeleccionadoEditar = (Usuarios) request.getAttribute("usrSeleccionado");
+<%     
+    ArrayList<Provincias> provincias = (ArrayList<Provincias>) session.getAttribute("provincias");
+   	ArrayList<Localidades> localidades = (ArrayList<Localidades>) session.getAttribute("localidades"); 	
 %>
 
 <script type="text/javascript">
-	function onLoadEdit(prov, loc){
-		setProvinciaEdit(prov);
-		setLocalidadEdit(loc);
-		
-	}
+	function provSeleccionada(idDdlProv, idDdlLoc){
+		class localidad {
+		  constructor(idloc, descloc, idprov) {
+		      this.idloc = idloc;
+		      this.descloc = descloc;
+		      this.idprov = idprov;  
+		  }
+		}
 
-	function setProvinciaEdit(idProv){
-		const provs = document.getElementById('ddlProvinciasEdit');
-		provs.value = idProv;
-		alert(idProv);
+		class localidades {
+		  constructor(){
+		    this.localidades = [];
+		  }
+		  addLocalidad(idloc, descloc, idprov){
+		    let l = new localidad(idloc, descloc, idprov);
+		    this.localidades.push(l);
+		    return l;
+		  }
+		  getLocalidad(){
+			  return this.localidades;
+		  }
+
+		}
+
+		var localidadesvar = new localidades();
+		<%for(Localidades loc : localidades){%>
+
+			var idloc ="<%= loc.getIdLocalidad_Loc() %>";
+			var descloc ="<%= loc.getDescripcion_Loc() %>";
+			var idprov ="<%= loc.getProvincia().getIdProvincia_Prov() %>";
+			localidadesvar.addLocalidad(idloc, descloc, idprov);
+
+		<%}%>
+
+		var idProv = document.getElementById(idDdlProv).value;
+		var localidadesFiltradas = new localidades();
+
+		for(l of localidadesvar.getLocalidad()){
+            if(l.idprov == idProv)
+            	localidadesFiltradas.addLocalidad(l.idloc, l.descloc, l.idprov);
+        }
+
+		var ddlLoc = document.getElementById(idDdlLoc);
+		ddlLoc.innerHTML = "";
+		var fragment = document.createDocumentFragment();
+		for(l of localidadesFiltradas.getLocalidad()) {
+			var opt = document.createElement('option');
+		    opt.innerHTML = l.descloc;
+		    opt.value = l.idloc;
+		    fragment.appendChild(opt);
+		}
+		ddlLoc.appendChild(fragment);
 	}
 	
-	function setLocalidadEdit(idLoc){
-		const locs = document.getElementById('ddlLocalidadesEdit');
-		locs.value = idLoc;
-		alert(idLoc);
+	function onLoadEdit(){
+		
+		const locs = document.getElementById('ddlLocEdit');
+		locs.value = <%= usrSeleccionadoEditar.getLocalidad_Usr().getIdLocalidad_Loc() %>;	
+		const provs = document.getElementById('ddlProvEdit');
+		provs.value = <%= usrSeleccionadoEditar.getProvincia_Usr().getIdProvincia_Prov() %>;
 	}
+
 </script>
 
-<body onload="onLoad('a');" >
+
+
+<body onload="onLoadEdit();">
+
 
 <div class="container-fluid" style="width:50%;">
-        <div class="card text-center">
+        <div class="card text-center" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 100px;">
             <div class="card-header"><h5>Modificar</h5></div>
             <div class="card-body" style="font-size: 14px;">
-                <form name="formEditarUsr" method="POST" action="ModificarUsuario" class="row">  
+                <form name="formEditarUsr" method="POST" action="servletUsuarios" class="row">  
            	 	    <div class="col-md-6">
+           	 	    	<input type="hidden" name="txtDNIEdit"  value=<%= usrSeleccionadoEditar.getDNI_Usr() %> />
                         <div class="form-floating mb-3">
                             <input type="text" 
-                            name="txtDNIEdit" 
                             class="form-control" 
                             id="floatingInput" placeholder="-"
                             oninput="this.value =this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" 
                             minlength="7" 
                             maxlength="8"
                             placeholder="-"
+                            value=<%= usrSeleccionadoEditar.getDNI_Usr() %>
                             disabled="false"
-                            value= <%= usrSeleccionadoEditar.getDNI_Usr() %>
                             >
                             <label for="floatingInput">DNI</label>
                         </div>
@@ -72,13 +106,17 @@
                
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="text" name="txtCUILEdit" class="form-control" id="floatingInput" placeholder="-" 
+                        	<input type="hidden" name="txtCUILEdit" value= <%= usrSeleccionadoEditar.getCUIL_Usr() %> />
+                            <input type="text"  
+                            class="form-control" 
+                            id="floatingInput" 
+                            placeholder="-" 
                             oninput="this.value =this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" 
                             minlength="11"
                             maxlength="11"
                             placeholder="-"
-                            disabled="false"
                             value= <%= usrSeleccionadoEditar.getCUIL_Usr() %>
+                            disabled="false"
                             >
                             <label for="floatingInput">CUIL</label>
                         </div>
@@ -117,6 +155,7 @@
                             class="form-control"  
                             id="floatingInput" 
                             placeholder="-" 
+                            maxlength="9"
                              value= <%= usrSeleccionadoEditar.getTelefono_Usr() %>
                             required>
                             <label for="floatingInput">Tel�fono</label>
@@ -237,10 +276,6 @@
 	                            <label class="form-check-label">Mujer</label>
 	                        </div>
                        	<%}%>
-                        <!-- 
-							
-                         -->
-                        
                     </div>
 
                     
@@ -261,12 +296,10 @@
                                     	             
 					<div class="col-md-6">
                         <div class="form-floating">
-							<input type="hidden" name="provSeleccionadaEdit" value="relleno"> 
-							<!-- input que sirve como parametro para provSeleccionada para no tener que meter otro form -->
-                            <select name="ddlProvinciasEdit" class="form-select" id="ddlProv" placeholder="-" onchange="formAgregarUsr.submit();" >
+                            <select name="ddlProvinciasEdit" class="form-select" id="ddlProvEdit" placeholder="-" onchange="provSeleccionada('ddlProvEdit', 'ddlLocEdit');" >
                                 <%
-								if (provinciasEdit!=null)
-								for(Provincias prov : provinciasEdit){
+								
+								for(Provincias prov : provincias){
 									%>
 									<option value= <%= prov.getIdProvincia_Prov()%> > <%=prov.getDescripcion_Prov()%> </option>
 									<%
@@ -279,15 +312,15 @@
                     
                     <div class="col-md-6">
                         <div class="form-floating">
-                            <select name="ddlLocalidadesEdit" id="" class="form-select" id="floatingInput" placeholder="-" onchange="">
-                            	<!-- <option selected value="-1">Seleccionar localidad</option>  -->
-                            	<!--  -->
+                            <select name="ddlLocalidadesEdit" id="ddlLocEdit" class="form-select" id="floatingInput" placeholder="-">
                                 <% 
-								if (localidadesEdit!=null)
-								for(Localidades loc : localidadesEdit){
+								
+								for(Localidades loc : localidades){
+									if(loc.getProvincia().getIdProvincia_Prov() == usrSeleccionadoEditar.getProvincia_Usr().getIdProvincia_Prov()){
 									%>
-									<option value= <%= loc.getDescripcion_Loc() %>> <%= loc.getDescripcion_Loc() %></option>
+									<option value= <%= loc.getIdLocalidad_Loc() %>> <%= loc.getDescripcion_Loc() %></option>
 									<%
+									}
 								}
 								%>
                             </select>
@@ -304,22 +337,6 @@
                         <button type="submit" name="btnModificar" class="btn btn-outline-success form-control btn-lg">Modificar</button>
                     </div>
               </form>
-			    
-			    
-			     <%
-					Boolean resultadoEdit = null;
-			    	if (request.getAttribute("estadoEditado") != null) resultadoEdit = (Boolean)request.getAttribute("estadoEditado");
-					if (resultadoEdit!=null){
-						%>
-						<h1> <%= resultadoEdit %> </h1>	 
-						<%
-					}
-				%>
-				
-				
-			    
-		     	
-				
             </div>
         </div>
 	</div>

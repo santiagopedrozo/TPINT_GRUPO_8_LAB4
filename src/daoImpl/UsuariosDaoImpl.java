@@ -56,7 +56,6 @@ public class UsuariosDaoImpl implements UsuariosDao{
 	
 	@Override
 	public ArrayList<Usuarios> readALL() {
-		
 		PreparedStatement statement;
 		ResultSet resultSet; //Guarda el resultado de la query
 		ArrayList<Usuarios> usuarios = new ArrayList<Usuarios>();
@@ -166,6 +165,41 @@ public class UsuariosDaoImpl implements UsuariosDao{
 		catch (Exception e) {
 			e.printStackTrace();
 		}
+		return false;
+	}
+
+
+	@Override
+	public boolean edit(Usuarios usuario) {
+		Connection cn = null;
+		try {
+			cn = Conexion.getConexion().getSQLConexion();
+			CallableStatement cst = cn.prepareCall("CALL SPActualizarUsuario(?,?,?,?,?,?,?,?,?,?,?,?,?)");
+			
+			cst.setString(1, usuario.getDNI_Usr());
+			cst.setString(2, usuario.getNombre_Usr());
+			cst.setString(3, usuario.getApellido_Usr());
+			cst.setString(4, usuario.getSexo_Usr());
+			cst.setString(5,usuario.getNacionalidad_Usr());
+			cst.setObject(6, usuario.getFechaNacimiento_Usr()); 
+			cst.setString(7,usuario.getDireccion_Usr());
+			cst.setInt(8,usuario.getProvincia_Usr().getIdProvincia_Prov());
+			cst.setInt(9, usuario.getLocalidad_Usr().getIdLocalidad_Loc());
+			cst.setString(10,usuario.getEmail_Usr());
+			cst.setString(11, usuario.getTelefono_Usr());
+			cst.setBoolean(12, usuario.isTipo_Usr());
+			cst.setString(13, usuario.getContrasenia_Usr());
+			
+			int i = cst.executeUpdate();
+			System.out.println("resultado: " + i);
+			if(i > 0) 
+				return true;
+			return false;
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		return false;
 	}
 	
