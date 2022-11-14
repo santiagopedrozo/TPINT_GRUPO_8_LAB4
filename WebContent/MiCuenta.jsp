@@ -11,16 +11,13 @@
 	<%
 	Usuarios user = (Usuarios)session.getAttribute("sessionUser");
 	%>
-	
-	<%if (user.isTipo_Usr()==false){ %>
-	<%@ include file="MasterPage.html" %>
-	<%}else{ %>
+
 	<%@ include file="MasterPageAdmin.html" %>
-	<%} %>
+
  
   <br>
   <div class="container-fluid" style="width:40%;">
-    <div class="card text-center">
+    <div class="card text-center" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 100px;">
         <div class="card-header"><h4>Mi perfil</h4></div>
             <table class="table table-hover" style="text-align: start; margin: 1px; font-size: 19px;">
               <tbody>
