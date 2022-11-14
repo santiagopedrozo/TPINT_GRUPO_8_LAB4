@@ -113,6 +113,66 @@ public class Movimientos {
 				+ ", Fecha_Mov=" + Fecha_Mov + ", Detalle_Mov=" + Detalle_Mov + ", CuentaDestino_Mov="
 				+ CuentaDestino_Mov + ", Importe_Mov=" + Importe_Mov + ", Estado_Mov=" + Estado_Mov + "]";
 	}
+
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((CuentaDestino_Mov == null) ? 0 : CuentaDestino_Mov.hashCode());
+		result = prime * result + ((Cuenta_Mov == null) ? 0 : Cuenta_Mov.hashCode());
+		result = prime * result + ((Detalle_Mov == null) ? 0 : Detalle_Mov.hashCode());
+		result = prime * result + (Estado_Mov ? 1231 : 1237);
+		result = prime * result + ((Fecha_Mov == null) ? 0 : Fecha_Mov.hashCode());
+		result = prime * result + Id_Mov;
+		result = prime * result + Float.floatToIntBits(Importe_Mov);
+		result = prime * result + ((TiposMov_Mov == null) ? 0 : TiposMov_Mov.hashCode());
+		return result;
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Movimientos other = (Movimientos) obj;
+		if (CuentaDestino_Mov == null) {
+			if (other.CuentaDestino_Mov != null)
+				return false;
+		} else if (!CuentaDestino_Mov.equals(other.CuentaDestino_Mov))
+			return false;
+		if (Cuenta_Mov == null) {
+			if (other.Cuenta_Mov != null)
+				return false;
+		} else if (!Cuenta_Mov.equals(other.Cuenta_Mov))
+			return false;
+		if (Detalle_Mov == null) {
+			if (other.Detalle_Mov != null)
+				return false;
+		} else if (!Detalle_Mov.equals(other.Detalle_Mov))
+			return false;
+		if (Estado_Mov != other.Estado_Mov)
+			return false;
+		if (Fecha_Mov == null) {
+			if (other.Fecha_Mov != null)
+				return false;
+		} else if (!Fecha_Mov.equals(other.Fecha_Mov))
+			return false;
+		if (Id_Mov != other.Id_Mov)
+			return false;
+		if (Float.floatToIntBits(Importe_Mov) != Float.floatToIntBits(other.Importe_Mov))
+			return false;
+		if (TiposMov_Mov == null) {
+			if (other.TiposMov_Mov != null)
+				return false;
+		} else if (!TiposMov_Mov.equals(other.TiposMov_Mov))
+			return false;
+		return true;
+	}
 	
 	
 }

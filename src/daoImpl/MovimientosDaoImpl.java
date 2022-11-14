@@ -68,7 +68,13 @@ public class MovimientosDaoImpl implements MovimientosDao
 		ArrayList<Movimientos> movimientos= new ArrayList<Movimientos>();
 		Conexion conexion = Conexion.getConexion();
 		String consulta = 
-		"" + 
+		"Select * from movimientos inner join tiposmovimientos " + 
+		"	on (movimientos.IdTiposMov_Mov = tiposmovimientos.Id_TiposMov) inner join cuentas " + 
+		"		on (movimientos.NroCuenta_Mov = cuentas.Nro_Cuentas) inner join tipocuentas " + 
+		"			on (cuentas.IdTipoCuenta_Cuentas = tipocuentas.Id_TipoCuenta) inner join Usuarios " + 
+		"				on (cuentas.DNI_Cuentas = usuarios.DNI_Usr) inner join localidades " + 
+		"					on (usuarios.IdLocalidad_Usr = localidades.IdLocalidad_Loc and usuarios.IdProvincia_Usr = localidades.IdProvincia_Loc) inner join provincias " + 
+		"						on (localidades.IdProvincia_Loc = provincias.IdProvincia_Prov)"  + 
 		"where usuarios.DNI_Usr = '" + usuario.getDNI_Usr() + "';"; 
 		try 
 		{

@@ -111,6 +111,7 @@ CREATE TABLE TiposMovimientos(
     CONSTRAINT PK_TiposMovimientos PRIMARY KEY(Id_TiposMov)
 );
 
+DROP TABLE Movimientos
 
 CREATE TABLE Movimientos(
 	Id_Mov INT auto_increment NOT NULL,
@@ -119,7 +120,7 @@ CREATE TABLE Movimientos(
     Fecha_Mov TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     Detalle_Mov VARCHAR(30) NOT NULL,
     NroCuentaDestino_Mov INT NULL,
-    Importe_Mov DECIMAL NOT NULL,
+    Importe_Mov DECIMAL(15,2) NOT NULL,
     Estado_Mov BIT DEFAULT 1,
     
     CONSTRAINT PK_Movimientos PRIMARY KEY(Id_Mov),
