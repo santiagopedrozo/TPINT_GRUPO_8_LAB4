@@ -30,6 +30,7 @@
                   type="text"
                   class="form-control"
                   id="floatingInput"
+                  ....
                   name="txtUsuario"
                   placeholder="-"
                   required
