@@ -1,6 +1,5 @@
 create schema bd_tpint_labiv;
-
--- drop database bd_tpint_labiv
+--  drop database bd_tpint_labiv
 
 use bd_tpint_labiv;
 
@@ -111,7 +110,6 @@ CREATE TABLE TiposMovimientos(
     CONSTRAINT PK_TiposMovimientos PRIMARY KEY(Id_TiposMov)
 );
 
-DROP TABLE Movimientos
 
 CREATE TABLE Movimientos(
 	Id_Mov INT auto_increment NOT NULL,
@@ -120,7 +118,7 @@ CREATE TABLE Movimientos(
     Fecha_Mov TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     Detalle_Mov VARCHAR(30) NOT NULL,
     NroCuentaDestino_Mov INT NULL,
-    Importe_Mov DECIMAL(15,2) NOT NULL,
+    Importe_Mov DECIMAL NOT NULL,
     Estado_Mov BIT DEFAULT 1,
     
     CONSTRAINT PK_Movimientos PRIMARY KEY(Id_Mov),
@@ -2596,7 +2594,6 @@ INSERT INTO TiposMovimientos(Descripcion_TiposMov) VALUES
 ('Pago de préstamo'),
 ('Transferencia');
 
-
 INSERT INTO Movimientos (NroCuenta_Mov, IdTiposMov_Mov, Detalle_Mov, NroCuentaDestino_Mov, Importe_Mov) VALUES
 (1, 4, 'Varios', 6, 20000.0 ),
 (1, 4, 'Varios', 6, 15000.0),
@@ -2612,7 +2609,8 @@ INSERT INTO Movimientos (NroCuenta_Mov, IdTiposMov_Mov, Detalle_Mov, NroCuentaDe
 (4, 4, 'Varios', 9, 30400.43),
 (5, 4, 'Varios', 10, 300000),
 (5, 4, 'Varios', 10, 200000),
-(5, 4, 'Varios', 10, 40000.3);
+(5, 4, 'Varios', 10, 40000.3),
+(8, 4, 'Varios', 1, 2503);
 
 INSERT INTO Prestamos (DNI_Pr,NroCuentaDestino_Pr, ImpSolicitado_Pr, ImpResultante_Pr, PlazoMeses_Pr, ImpPagoAlMes_Pr, CantCuotas_Pr, Autorizado_Pr, Estado_Pr) VALUES
  (44298830,1,10000,17000,12,1416.66,12,1,1),
