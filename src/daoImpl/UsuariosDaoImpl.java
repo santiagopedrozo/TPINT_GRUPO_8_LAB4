@@ -63,8 +63,7 @@ public class UsuariosDaoImpl implements UsuariosDao{
 		String consulta = 
 			"SELECT *, Descripcion_Prov, Descripcion_Loc "
 			+ "FROM Usuarios INNER JOIN Provincias ON IdProvincia_Prov = IdProvincia_Usr "
-			+ "INNER JOIN Localidades ON IdLocalidad_Usr = IdLocalidad_Loc"
-			+ "WHERE estado_usr = 1";
+			+ "INNER JOIN Localidades ON IdLocalidad_Usr = IdLocalidad_Loc";
 		
 		try 
 		{
