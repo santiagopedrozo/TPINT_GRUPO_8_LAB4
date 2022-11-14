@@ -176,11 +176,8 @@ public class MovimientosDaoImpl implements MovimientosDao
 		"				on (cuentas.DNI_Cuentas = usuarios.DNI_Usr) inner join localidades " + 
 		"					on (usuarios.IdLocalidad_Usr = localidades.IdLocalidad_Loc and usuarios.IdProvincia_Usr = localidades.IdProvincia_Loc) inner join provincias " + 
 		"						on (localidades.IdProvincia_Loc = provincias.IdProvincia_Prov)" + 
-<<<<<<< HEAD
 		"where movimientos.NroCuenta_Mov = " + nroCuenta + " OR movimientos.NroCuentaDestino_Mov = " +nroCuenta + ";"; 
-=======
-		"where movimientos.NroCuenta_Mov = " + nroCuenta + " OR movimientos.NroCuentaDestino_Mov = " + nroCuenta + ";"; 
->>>>>>> Facu
+
 		try 
 		{
 			Class.forName("com.mysql.jdbc.Driver");

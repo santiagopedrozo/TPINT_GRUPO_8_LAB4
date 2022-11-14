@@ -113,15 +113,10 @@ if (request.getParameter("btnVerMovimientos")!=null){
 
 <div class="container-fluid" style="width:60%;">
         <div class="card text-center">
-<<<<<<< HEAD
             <div class="card-header ">
             <H3> Movimientos </H3>
-            </div>
-            <table class="table table-hover" style="font-size: 12px;" id="table_id_movimientos">
-=======
-            <div class="card-header "><H3> <b> <p style="text-align:center;"> Movimientos </b></H3></div>
+            </div> 
             <table class="table table-hover" id= "table_id_movimientos" style="font-size: 12px;">
->>>>>>> Facu
             <thead>
                 <tr> 
 					<th>Cuenta origen</th>
@@ -137,22 +132,13 @@ if (request.getParameter("btnVerMovimientos")!=null){
 				</tr>
 				</thead>
 				<tbody>
-<<<<<<< HEAD
-				
-=======
->>>>>>> Facu
 				<%
 					if (listaMovimientos!=null)
 						for (Movimientos movimiento : listaMovimientos){
 				%>
 				<tr> 
-<<<<<<< HEAD
 					<td><%=movimiento.getCuenta_Mov().getNro_Cuentas() %></td> 
-					<td><%=movimiento.getCuenta_Mov().getCBU_Cuentas()%></td>  
-=======
-					<th><%=movimiento.getCuenta_Mov().getNro_Cuentas() %></th>
 					<th><%=movimiento.getCuenta_Mov().getCBU_Cuentas()%></th>
->>>>>>> Facu
 					<td><%=movimiento.getFecha_Mov() %></td> 
 					<td><%=movimiento.getDetalle_Mov()%></td>    
 					<td><%=movimiento.getImporte_Mov() %></td> 
@@ -168,11 +154,7 @@ if (request.getParameter("btnVerMovimientos")!=null){
 				<%
 				}
 				%>
-<<<<<<< HEAD
-                </tbody>
-=======
              </tbody>   
->>>>>>> Facu
             </table>
         </div>
     </div>
