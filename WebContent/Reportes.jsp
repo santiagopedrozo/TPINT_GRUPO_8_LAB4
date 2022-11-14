@@ -108,22 +108,22 @@ pageEncoding="ISO-8859-1"%>
               </td>
             </tbody>
             <tbody>
-              <td><b>Importe:</b></td>
+              <td><b>Fecha:</b></td>
               <td>
                 <input
-                  type="text"
+                  type="date"
                   class="form-control"
                   id="floatingInput"
-                  name="txtImporte1"
+                  name="fecha1Movimiento"
                 /><input
-                  type="text"
+                  type="date"
                   class="form-control"
                   id="floatingInput"
-                  name="txtImporte2"
+                  name="fecha2Movimiento"
                 />
               </td>
             </tbody>
-             <tbody>
+            <tbody>
               <td><b>Tipo:</b></td>
               <td>
                 <select
@@ -132,13 +132,15 @@ pageEncoding="ISO-8859-1"%>
                   id="floatingInput"
                   id="ddlTiposMovimiento"
                 >
-                  <option value="1">Alta de cuenta</option>
-                  <option value="2">Alta de un prestamo</option>
-                  <option value="3">Pago de prestamo</option>
-                  <option value="4">Transferencia</option>
+                  <option value="Alta de cuenta">Alta de cuenta</option>
+                  <option value="Alta de un prestamo">
+                    Alta de un pr�stamo
+                  </option>
+                  <option value="Pago de prestamo">Pago de pr�stamo</option>
+                  <option value="Transferencia">Transferencia</option>
                 </select>
               </td>
-             </tbody>
+            </tbody>
             <tbody>
             	<td><b></b></td>
               <td>

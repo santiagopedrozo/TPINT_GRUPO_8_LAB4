@@ -1,9 +1,6 @@
-drop database bd_tpint_labiv;
-
-
 create schema bd_tpint_labiv;
 
-
+-- drop database bd_tpint_labiv
 
 use bd_tpint_labiv;
 
