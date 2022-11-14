@@ -59,7 +59,7 @@
 
 </head>
 <body>
-	<%@ include file="MasterPage.html" %>
+	<%@ include file="MasterPageAdmin.html" %>
 	<br>
 		<div class="container-fluid" style="width:90%;">
 	        <div class="card text-center">
@@ -177,4 +177,4 @@ if (request.getParameter("btnVerMovimientos")!=null){
     
     <%@ include file="FooterPage.html" %>
 </body>
-</html>
+</

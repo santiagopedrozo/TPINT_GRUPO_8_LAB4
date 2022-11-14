@@ -5,66 +5,58 @@
 <title>Insert title here</title>
 </head>
 
-
-
-
 <% 
-    int idProvEdit = 1;
-    int idLocEdit = 1;  
     ArrayList<Provincias> provinciasEdit = null;
-    ArrayList<Localidades> localidadesEdit = null;
-    if (request.getAttribute("provincias")!=null) provinciasEdit = (ArrayList<Provincias>) request.getAttribute("provincias");
-    if (request.getAttribute("localidades")!=null){
-    	localidadesEdit = (ArrayList<Localidades>) request.getAttribute("localidades");
-    	idProvEdit = localidadesEdit.get(0).getProvincia().getIdProvincia_Prov();
-    	idLocEdit = localidadesEdit.get(0).getIdLocalidad_Loc(); 
-    }
-    
-    Usuarios usrSeleccionadoEditar = new Usuarios();
-   	if (estaModificando)
-   		usrSeleccionadoEditar = (Usuarios) request.getAttribute("usrSeleccionado");
+    if (request.getAttribute("provincias")!=null) 
+    	provinciasEdit = (ArrayList<Provincias>) request.getAttribute("provincias");
+   	ArrayList<Localidades> localidadesEdit= null;
+    if (request.getAttribute("localidades")!=null)
+    	localidadesEdit = (ArrayList<Localidades>) request.getAttribute("localidades");    
 %>
 
 <script type="text/javascript">
-	function onLoadEdit(prov, loc){
-		setProvinciaEdit(prov);
-		setLocalidadEdit(loc);
-		
-	}
-
-	function setProvinciaEdit(idProv){
+	function onLoadEdit(){
 		const provs = document.getElementById('ddlProvinciasEdit');
-		provs.value = idProv;
-		alert(idProv);
+		provs.value = <%= usrSeleccionadoEditar.getProvincia_Usr().getIdProvincia_Prov() %>;
+		const locs = document.getElementById('ddlLocalidadesEdit');
+		locs.value = <%= usrSeleccionadoEditar.getLocalidad_Usr().getIdLocalidad_Loc() %>;	
 	}
 	
-	function setLocalidadEdit(idLoc){
-		const locs = document.getElementById('ddlLocalidadesEdit');
-		locs.value = idLoc;
-		alert(idLoc);
+	window.onload = function() {
+		onLoadEdit();
+		onLoadProv(<%= localidadesEdit.get(0).getProvincia().getIdProvincia_Prov() %>)
+		
+	}
+	
+	function onLoadProv(id){
+		const a = document.getElementById('ddlProvinciasEdit');
+       	a.value = id;
 	}
 </script>
 
-<body onload="onLoad('a');" >
+<body>
 
 <div class="container-fluid" style="width:50%;">
-        <div class="card text-center">
+        <div class="card text-center" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 100px;">
             <div class="card-header"><h5>Modificar</h5></div>
             <div class="card-body" style="font-size: 14px;">
                 <form name="formEditarUsr" method="POST" action="ModificarUsuario" class="row">  
+                
+                	
+                
+                	
            	 	    <div class="col-md-6">
                         <div class="form-floating mb-3">
                             <input type="text" 
                             name="txtDNIEdit" 
                             class="form-control" 
                             id="floatingInput" placeholder="-"
-                            oninput="this.value =this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" 
+                            oninput="this.value=this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" 
                             minlength="7" 
                             maxlength="8"
                             placeholder="-"
                             disabled="false"
-                            value= <%= usrSeleccionadoEditar.getDNI_Usr() %>
-                            >
+                            value= <%= usrSeleccionadoEditar.getDNI_Usr() %> >
                             <label for="floatingInput">DNI</label>
                         </div>
                     </div>
@@ -91,6 +83,7 @@
                             class="form-control" 
                             id="floatingInput" 
                             placeholder="-"
+                            maxlength="19"
                             value= <%= usrSeleccionadoEditar.getNombre_Usr() %> 
                             required>
                             <label for="floatingInput">Nombre</label>
@@ -104,6 +97,7 @@
                              class="form-control" 
                              id="floatingInput" 
                              placeholder="-" 
+                             maxlength="19"
                              value= <%= usrSeleccionadoEditar.getApellido_Usr() %>
                              required>
                             <label for="floatingInput">Apellido</label> 
@@ -116,7 +110,8 @@
                             name="txtTelefonoEdit"
                             class="form-control"  
                             id="floatingInput" 
-                            placeholder="-" 
+                            placeholder="-"
+                            maxlength="9" 
                              value= <%= usrSeleccionadoEditar.getTelefono_Usr() %>
                             required>
                             <label for="floatingInput">Telï¿½fono</label>
@@ -130,6 +125,7 @@
                             class="form-control"  
                             id="floatingInput" 
                             placeholder="-" 
+                            maxlength="40"
                             value= <%= usrSeleccionadoEditar.getEmail_Usr() %>
                             required>
                             <label for="floatingInput">Email</label>
@@ -168,6 +164,7 @@
 							class="form-control" 
 							id="floatingInput" 
 							placeholder="-" 
+							maxlength="29"
 							value= <%= usrSeleccionadoEditar.getUsuario_Usr() %>
                             required>
                             <label for="floatingSelect">Usuario</label>
@@ -181,6 +178,7 @@
                             class="form-control" 
                             id="floatingInput" 
                             placeholder="-" 
+                            maxlength="15"
                             value= <%= usrSeleccionadoEditar.getContrasenia_Usr() %>
                             required>
                             <label for="floatingSelect">Contraseña</label>
@@ -193,7 +191,8 @@
                             name="txtDireccionEdit" 
                             class="form-control" 
                             id="floatingInput" 
-                            placeholder="-" 
+                            placeholder="-"
+                            maxlength="29" 
                             value= <%= usrSeleccionadoEditar.getDireccion_Usr() %>
                             required>
                             <label for="floatingSelect">Direccion</label>
@@ -251,19 +250,18 @@
                             class="form-control" 
                             id="floatingInput" 
                             placeholder="-" 
-                            value=  <%= usrSeleccionadoEditar.getNacionalidad_Usr() %>   
+                            value=  <%= usrSeleccionadoEditar.getNacionalidad_Usr() %>
+                            maxlength="19"   
                             required>
                             <label for="floatingSelect">Nacionalidad</label>
                         </div>
                     </div>
                     
-                    
-                                    	             
-					<div class="col-md-6">
+                    <div class="col-md-6">
                         <div class="form-floating">
-							<input type="hidden" name="provSeleccionadaEdit" value="relleno"> 
+							<input type="hidden" name="provSeleccionadaEdit" value="<%=usrSeleccionadoEditar.getDNI_Usr()%>"> 
 							<!-- input que sirve como parametro para provSeleccionada para no tener que meter otro form -->
-                            <select name="ddlProvinciasEdit" class="form-select" id="ddlProv" placeholder="-" onchange="formAgregarUsr.submit();" >
+                            <select id="ddlProvinciasEdit" name="ddlProvinciasEdit" class="form-select" placeholder="-" onchange="provSeleccionada('ddlProvinciasEdit', 'ddlLocalidadesEdit');" >
                                 <%
 								if (provinciasEdit!=null)
 								for(Provincias prov : provinciasEdit){
@@ -279,32 +277,32 @@
                     
                     <div class="col-md-6">
                         <div class="form-floating">
-                            <select name="ddlLocalidadesEdit" id="" class="form-select" id="floatingInput" placeholder="-" onchange="">
-                            	<!-- <option selected value="-1">Seleccionar localidad</option>  -->
-                            	<!--  -->
-                                <% 
+                            <select id="ddlLocalidadesEdit" class="form-select" placeholder="-">
+                            	<% 
 								if (localidadesEdit!=null)
 								for(Localidades loc : localidadesEdit){
+									if(loc.getProvincia().getIdProvincia_Prov() == 1){	
 									%>
-									<option value= <%= loc.getDescripcion_Loc() %>> <%= loc.getDescripcion_Loc() %></option>
+									<option value= <%= loc.getIdLocalidad_Loc() %>> <%= loc.getDescripcion_Loc() %></option>
 									<%
+									}
 								}
 								%>
                             </select>
                             <label for="floatingSelect">Localidad</label>
                         </div>
-                    </div>
+                    </div>				
             		<br>
+           
             		<div class="col-md-6">
                         <br>
-                        <button type="submit" name="btnCancelar" class="btn btn-outline-danger form-control btn-lg">Cancelar</button>
+                        <input type="button" onclick="window.location.href='servletUsuarios';" value="cancelar" class="btn btn-light form-control btn-lg"/>
                     </div>
                     <div class="col-md-6">
                         <br>
-                        <button type="submit" name="btnModificar" class="btn btn-outline-success form-control btn-lg">Modificar</button>
+                        <button type="submit" name="btnModificar" class="btn btn-outline-dark form-control btn-lg">Modificar</button>
                     </div>
               </form>
-			    
 			    
 			     <%
 					Boolean resultadoEdit = null;
@@ -315,13 +313,9 @@
 						<%
 					}
 				%>
-				
-				
-			    
-		     	
-				
             </div>
         </div>
 	</div>
+
 </body>
 </html>

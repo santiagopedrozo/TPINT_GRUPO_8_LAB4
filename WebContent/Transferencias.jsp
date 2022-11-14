@@ -7,7 +7,7 @@ pageEncoding="ISO-8859-1"%>
     <title>Transferencias</title>
   </head>
   <body>
-    <%@ include file="MasterPage.html" %>
+    <%@ include file="MasterPageAdmin.html" %>
 
     <div class="container-fluid" style="width: 50%">
       <div class="card text-center" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 100px;">
@@ -103,4 +103,4 @@ pageEncoding="ISO-8859-1"%>
     </div>
     <%@ include file="FooterPage.html" %>
   </body>
-</html>
+</ht

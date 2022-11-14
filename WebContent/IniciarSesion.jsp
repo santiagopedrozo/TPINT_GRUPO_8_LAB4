@@ -12,7 +12,14 @@
     <title>Iniciar sesion</title>
 </head>
 <body>
+<nav class="navbar navbar-expand-lg" style="background: #23313e; font-weight: bold; font-size: 15px;">
+<div class="container-fluid ">	
+	<a class="navbar-brand text-white" style="font-size: 35px; "><i class="fa-sharp fa-solid fa-building-columns"></i>  Brusafa</a>
+  	
 
+ 	<ul class="navbar-nav me-auto my-2 "></ul>
+	
+</nav>
 
 <br>
 <H1 style="text-align:center;">Bienvenido al banco Brusafa</H1>
@@ -21,7 +28,7 @@
 
 <form method="post" action="servletUsuarios" class="row">
 <div style="width: 40%; margin: auto">
-      <div class="card text-center">
+      <div class="card text-center" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 100px;">
         <div class="card-header">Iniciar sesión</div>
         <div class="card-body">
             <div class="col-md-12">
@@ -54,7 +61,7 @@
             <div class="col-md-12">
               <button
                 type="submit"
-                class="btn btn-outline-primary form-control btn-lg"
+                class="btn btn-outline-dark form-control btn-lg"
                 name="btnIniciar"
                 
               >
@@ -72,21 +79,4 @@
         if (noExiste==true){
      	%>
       
-	<div style="display: flex; justify-content: center; visibility="hidden";>
-        <div ID="MsgErrorDiv" class="col-md-4 alert alert-danger">
-            <strong>Error</strong> Usuario o contraseña incorrecta!
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            
-        </div>
-    </div>
-    <% 
-    }
-    %>
-    	
-
-
-      
-<%@ include file="FooterPage.html" %>
-
-</body>
-</html>
+	<div style="display: flex; justify-content: center; visibili

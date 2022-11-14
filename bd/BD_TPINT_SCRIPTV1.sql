@@ -2694,6 +2694,12 @@ DELIMITER ;
 
 
 
+call SPActualizarUsuario('44768845', 'asdasd', 'Alasdasdderete', 'MASCULINO', 'Argentina', '2002-03-20', 'Paraná 21', 7, 561, 'marinalde@gmail.com', '1145965247', 0, 'martin123')
+
+call SPActualizarUsuario('44768845' 1, 'Martín'2, 'Alderete'3, 'FEMENINO'4, 'MEXICANO'5, '2002-03-20'6, 'Paraná 21'7, 7 8, 561 9, 'marinalde@gmail.com' 10, '1145965247' 11, 0 12, 'martin123' 13)
+
+
+select * from usuarios
 
 DELIMITER //
 CREATE PROCEDURE SPActualizarUsuario (
@@ -2710,12 +2716,12 @@ CREATE PROCEDURE SPActualizarUsuario (
     IN Telefono VARCHAR(10),
 	IN Tipo BIT, 
 	IN Contrasenia VARCHAR(16)
-
 ) 
 
 BEGIN
 	UPDATE Usuarios 
-    SET Nombre_Usr = Nombre,
+    SET 
+    Nombre_Usr = Nombre,
     Apellido_Usr = Apellido,
 	Sexo_Usr = Sexo,
 	Nacionalidad_Usr = Nacionalidad,

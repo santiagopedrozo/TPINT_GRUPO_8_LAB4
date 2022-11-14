@@ -4,33 +4,81 @@
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 </head>
+<script src="javascript/scriptProvLocs.js"></script>
+
+<%     
+    ArrayList<Provincias> provincias = (ArrayList<Provincias>) session.getAttribute("provincias");
+   	ArrayList<Localidades> localidades = (ArrayList<Localidades>) session.getAttribute("localidades"); 	
+%>
 
 <script type="text/javascript">
-	function onLoad(id){
-		const a = document.getElementById('ddlProv');
-       	a.value = id;
+	function provSeleccionada(idDdlProv, idDdlLoc){
+		class localidad {
+		  constructor(idloc, descloc, idprov) {
+		      this.idloc = idloc;
+		      this.descloc = descloc;
+		      this.idprov = idprov;  
+		  }
+		}
+
+		class localidades {
+		  constructor(){
+		    this.localidades = [];
+		  }
+		  addLocalidad(idloc, descloc, idprov){
+		    let l = new localidad(idloc, descloc, idprov);
+		    this.localidades.push(l);
+		    return l;
+		  }
+		  getLocalidad(){
+			  return this.localidades;
+		  }
+	
+		}
+			
+		var localidadesvar = new localidades();
+		<%for(Localidades loc : localidades){%>
+			
+			var idloc ="<%= loc.getIdLocalidad_Loc() %>";
+			var descloc ="<%= loc.getDescripcion_Loc() %>";
+			var idprov ="<%= loc.getProvincia().getIdProvincia_Prov() %>";
+			localidadesvar.addLocalidad(idloc, descloc, idprov);
+			
+		<%}%>
+		
+		var idProv = document.getElementById(idDdlProv).value;
+		var localidadesFiltradas = new localidades();
+		
+		for(l of localidadesvar.getLocalidad()){
+            if(l.idprov == idProv)
+            	localidadesFiltradas.addLocalidad(l.idloc, l.descloc, l.idprov);
+        }
+
+		var ddlLoc = document.getElementById(idDdlLoc);
+		ddlLoc.innerHTML = "";
+		var fragment = document.createDocumentFragment();
+		for(l of localidadesFiltradas.getLocalidad()) {
+			var opt = document.createElement('option');
+		    opt.innerHTML = l.descloc;
+		    opt.value = l.idloc;
+		    fragment.appendChild(opt);
+		}
+		ddlLoc.appendChild(fragment);
 	}
 </script>
 
-<% 
-    int idProv = 1; 
-    ArrayList<Provincias> provincias = null;
-    ArrayList<Localidades> localidades= null;
-    if (request.getAttribute("provincias")!=null) provincias = (ArrayList<Provincias>) request.getAttribute("provincias");
-    if (request.getAttribute("localidades")!=null){
-    	localidades = (ArrayList<Localidades>) request.getAttribute("localidades");
-    	idProv = localidades.get(0).getProvincia().getIdProvincia_Prov();
-    }
-%>
 
-<body onload="onLoad(<%= idProv %>)">
+
+
+<body>
 
 <div class="container-fluid" style="width:50%;">
-        <div class="card text-center">
+        <div class="card text-center" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 100px;">
             <div class="card-header"><h5>Crear y asignar usuario</h5></div>
             <div class="card-body" style="font-size: 13px;">
-                <form name="formAgregarUsr" method="POST" action="AgregarUsuario" class="row">  
-               	 	    <div class="col-md-6">
+                <form name="formAgregarUsr" method="POST" action="AgregarUsuario" class="row"> 
+                    
+             	 	 <div class="col-md-6">
                         <div class="form-floating mb-3">
                             <input type="text" 
                             name="txtDNI" 
@@ -40,6 +88,7 @@
                             minlength="7" 
                             maxlength="8"
                             placeholder="-"
+                            
                             required
                             >
                             <label for="floatingInput">DNI</label>
@@ -53,6 +102,7 @@
                             minlength="11"
                             maxlength="11"
                             placeholder="-"
+                           
                             required
                             >
                             <label for="floatingInput">CUIL</label>
@@ -61,35 +111,62 @@
     
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="text" name="txtNombre" class="form-control" id="floatingInput" placeholder="-"  required>
+                            <input type="text" 
+                            name="txtNombre" 
+                            class="form-control" 
+                            id="floatingInput" 
+                            placeholder="-" 
+                           
+                            required>
                             <label for="floatingInput">Nombre</label>
                         </div>
                     </div>
                
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="text" name="txtApellido" class="form-control" id="floatingInput" placeholder="-"  required>
+                            <input type="text" 
+                            name="txtApellido" 
+                            class="form-control" 
+                            id="floatingInput" 
+                            placeholder="-" 
+                            
+                            required>
                             <label for="floatingInput">Apellido</label> 
                         </div>
                     </div>
 
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="tel"  name="txtTelefono"class="form-control"  id="floatingInput" placeholder="-" required>
+                            <input type="tel"  
+                            name="txtTelefono"
+                            class="form-control"  
+                            id="floatingInput" 
+                            placeholder="-"
+                            maxlength="9"
+                            
+                            required>
                             <label for="floatingInput">Teléfono</label>
                         </div>
                     </div>
                     
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="email" name="txtEmail" class="form-control"  id="floatingInput" placeholder="-" required>
+                            <input type="email" 
+                            name="txtEmail" 
+                            class="form-control"  
+                            id="floatingInput"
+                            placeholder="-"
+                            maxlength="40"
+                           
+                            required>
                             <label for="floatingInput">Email</label>
                         </div>
                     </div>
 
                     <div class="col-md-6">
                         <div class="form-floating">
-                            <select name="ddlTipo" id="" class="form-select" id="floatingInput" placeholder="-" required>
+                            <select name="ddlTipo" 
+                            id="" class="form-select" id="floatingInput" placeholder="-" required>
                             <option value=false> Estandar </option>
                             <option value=true> Admin </option>
                             </select>
@@ -99,21 +176,40 @@
                		
                		  <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="text" name="txtUsuario" class="form-control" id="floatingInput" placeholder="-" required>
+                            <input type="text" name="txtUsuario" 
+                            class="form-control" 
+                            id="floatingInput"
+                           
+                            maxlength="25"
+                            placeholder="-" 
+                            required>
                             <label for="floatingSelect">Usuario</label>
                         </div>
                     </div>
                		
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="password" name="txtContrasenia" class="form-control" id="floatingInput" placeholder="-"  required>
+                            <input type="password" 
+                            name="txtContrasenia" 
+                            class="form-control" 
+                            id="floatingInput" 
+                            placeholder="-"
+                            maxlength="15" 
+                            
+                            required>
                             <label for="floatingSelect">Contraseña</label>
                         </div>
                     </div>
 
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
-                            <input type="text" name="txtDireccion" class="form-control" id="floatingInput" placeholder="-"  required>
+                            <input type="text"
+                             name="txtDireccion"
+                              class="form-control"
+                              id="floatingInput"
+                              placeholder="-"
+                                
+                              required>
                             <label for="floatingSelect">Direccion</label>
                         </div>
                     </div>
@@ -141,18 +237,23 @@
                     
                     <div class="col-md-4">
                         <div class="form-floating mb-3">
-                            <input type="text" name="txtNacionalidad" class="form-control" id="floatingInput" placeholder="-"  required>
+                            <input type="text"
+                             name="txtNacionalidad"
+                             class="form-control"
+                             id="floatingInput"
+                             placeholder="-"
+                             maxlength="30"
+                             required>
                             <label for="floatingSelect">Nacionalidad</label>
                         </div>
                     </div>
-                	             
-					<div class="col-md-6">
+                    
+                    <div class="col-md-6">
                         <div class="form-floating">
-							<input type="hidden" name="provSeleccionada" value="relleno"> 
-							<!-- input que sirve como parametro para provSeleccionada para no tener que meter otro form -->
-                            <select name="ddlProvincias" class="form-select" id="ddlProv" placeholder="-" onchange="formAgregarUsr.submit();" >
+                            <select name="ddlProvincias" class="form-select"
+                             id="ddlProv" placeholder="-" onchange="provSeleccionada('ddlProv', 'ddlLoc');">
                                 <%
-								if (provincias!=null)
+								if(provincias != null)
 								for(Provincias prov : provincias){
 									%>
 									<option value= <%= prov.getIdProvincia_Prov()%> > <%=prov.getDescripcion_Prov()%> </option>
@@ -166,61 +267,54 @@
                     
                     <div class="col-md-6">
                         <div class="form-floating">
-                            <select name="ddlLocalidades" id="" class="form-select" id="floatingInput" placeholder="-" onchange="">
-                            	<!-- <option selected value="-1">Seleccionar localidad</option>  -->
-                                <% 
+                            <select name="ddlLocalidades" id="ddlLoc" class="form-select" id="floatingInput" placeholder="-" onchange="">
+                            	<% 
 								if (localidades!=null)
 								for(Localidades loc : localidades){
+									if(loc.getProvincia().getIdProvincia_Prov() == 1){
 									%>
 									<option value= <%= loc.getIdLocalidad_Loc() %>> <%= loc.getDescripcion_Loc() %></option>
 									<%
+									}
 								}
 								%>
+                                
                             </select>
                             <label for="floatingSelect">Localidad</label>
                         </div>
-                    </div>
-            
+                    </div> 
+
                     <div class="col-md-12">
                         <br>
-                        <button type="submit" name="btnAgregarUsr" class="btn btn-outline-primary form-control btn-lg">Dar de alta usuario</button>
+                        <button type="submit" name="btnAgregarUsr" class="btn btn-outline-dark form-control btn-lg">Dar de alta usuario</button>
                     </div>
-              </form>
+              </form>		    
+			    <br>
+			    <div style="display: flex; justify-content: center;">
+				<%
+					boolean estadoInsertado=false;
+				    if (request.getAttribute("estadoInsertado")!=null) {
+				    estadoInsertado = (boolean)request.getAttribute("estadoInsertado");
+			    }
+			    if (estadoInsertado == false && request.getAttribute("estadoInsertado") != null){
+			    %>
+			        <div ID="MsgErrorDiv" style="font-size: 16px" class="col-md-12 alert alert-danger" runat="server" visible="false">
+			            <strong>Error</strong> No se pudo agregar correctamente el usuario
+			            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+			        </div>
+			        <%
+			        }
+			        else if (estadoInsertado){
+			        %>
+			        <div ID="MsgCorrectoDiv" style="font-size: 16px" class="col-md-12 alert alert-success" runat="server" visible="false">
+			            <strong>Agregado</strong> Usuario agregado correctamente!
+			            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+			        </div>
+			        <%
+			        }
+			        %> 
+				</div>
 			    
-			    
-	    <div style="display: flex; justify-content: center;">
-		<%
-		boolean estadoInsertado=false;
-		int estadoInsertadoInt = -1;
-	    if (request.getAttribute("estadoInsertado")!=null) {
-	    estadoInsertado= (boolean) request.getAttribute("estadoInsertado");
-	    estadoInsertadoInt =  estadoInsertado ? 1 : 0; 
-	    }
-	    if (estadoInsertadoInt == 0){
-	    %>
-	        <div ID="MsgErrorDiv" style="font-size: 16px" class="col-md-12 alert alert-danger" runat="server" visible="false">
-	            <strong>Error</strong> El usuario ya se encuentra registrado!
-	            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-	        </div>
-	        <%
-	        }
-	        else if (estadoInsertadoInt == 1){
-	        %>
-	        
-	        <div ID="MsgCorrectoDiv" style="font-size: 16px" class="col-md-12 alert alert-success" runat="server" visible="false">
-	            <strong>Agregado</strong> Usuario agregado correctamente!
-	            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-	        </div>
-	        <%
-	        }
-	        %> 
-		</div>
-			     
-				
-				
-			    
-		     	
-				
             </div>
         </div>
 	</div>
