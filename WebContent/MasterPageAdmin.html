@@ -1,54 +1,44 @@
-<!DOCTYPE html>
+<%@ page import="entidades.Usuarios" %>  
 <html>
 <head>
 <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <!-- Bootstrap CSS -->
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
    	<script src="https://kit.fontawesome.com/3c33daaf69.js" crossorigin="anonymous"></script>
     
     
     <title>master</title>
 <body>
+<% 
+	Usuarios UsuarioActual = new Usuarios();
+	if(session.getAttribute("sessionUser") != null){
+		UsuarioActual = (Usuarios)session.getAttribute("sessionUser");
+	}
+%>
 
 
-<nav class="navbar navbar-expand-lg navbar-light" style="background: #ecf9ff; border: solid 0.5px #e4f6ff">
-<div class="container-fluid">
+<nav class="navbar navbar-expand-lg" style="background: #23313e; font-weight: bold; font-size: 15px;">
+<div class="container-fluid ">	
 	<a class="navbar-brand">
-	    <img src="assets/icon.png"  alt="" width="80" style="border-radius: 80%;" >
+	    <img src="assets/BRUSAFA.png" alt="" width="85" style="border-radius: 50%;" >
 	</a>
-  
-  	<div class="collapse navbar-collapse" id="navbarScroll">
-
- 	<ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;"></ul>
-    
-    <form class="d-flex">
-        <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+  	
+  	<div class="collapse navbar-collapse " id="navbarScroll">
+  	<ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;"></ul> <!-- mueve a la derecha los ul -->
+  	<%if ( UsuarioActual.isTipo_Usr() == false){%>
+ 	<form class="d-flex">
+        <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link" href="servletUsuarios">Administrar usuarios</a>
+              <a class="nav-link text-white" href="Cuentas.jsp"><i class="fa-solid fa-users-rectangle"></i> Cuentas</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="servletCuentas?ParamCuentas=1">Administrar cuentas</a>
+              <a class="nav-link text-white" href="Transferencias.jsp"><i class="fa-solid fa-money-bill-transfer"></i> Transferencias</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="ServletPrestamos">Administrar prestamos</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="servletReportes?ParamRep=1">Reportes</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="MiCuenta.jsp">Mi cuenta</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="IniciarSesion.jsp">Salir</a>
-            </li>
-          </ul>
-    </form>
-  </div>
-</div>
-</nav>
-
-
-</body>
-</html>
+              <a class="nav-link text-white" href="Prestamos.jsp"><i class="fa-solid fa-file-invoice-dollar"></i> Prestamos</a>
+            </li>         
+            <li class="nav-item ">
+	              <a class="nav-link text-white" href="MiCuenta.jsp">

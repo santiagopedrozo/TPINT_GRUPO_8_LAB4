@@ -95,6 +95,7 @@ pageEncoding="ISO-8859-1"%>
             class="table table-hover"
             style="text-align: start; margin: 1px; font-size: 17px"
           >
+        	<form action="servletReportes" method="get">
             <tbody>
               <td><b>Propietario de cuenta:</b></td>
               <td>
@@ -143,9 +144,10 @@ pageEncoding="ISO-8859-1"%>
             <tbody>
             	<td><b></b></td>
               <td>
-                    <button type="button" class="btn btn-outline-primary form-control" name = "btnFiltrarMovimientos">Filtrar</button>
+                    <button type="submit" class="btn btn-outline-primary form-control" name = "btnFiltrarMovimientos">Filtrar</button>
               </td>
             </tbody>
+          </form>
           </table>
         </div>
       </div>

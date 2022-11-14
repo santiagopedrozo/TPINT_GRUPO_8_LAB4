@@ -49,16 +49,17 @@
                 lengthMenu: [ [10, 25, -1], [10, 25, "All"] ],
             });
         });
-
-        
+ 
     </script>
 
 
 
 <%
-	boolean estaModificando = false;
-	if (request.getAttribute("usrSeleccionado") != null)
-		estaModificando = true;
+	Usuarios usrSeleccionadoEditar = new Usuarios();
+	if (request.getAttribute("usrSeleccionado") != null){
+		usrSeleccionadoEditar = (Usuarios) request.getAttribute("usrSeleccionado");
+	}
+
 	ArrayList <Usuarios> listaUser = null;
 	if (request.getAttribute("listaUser")!=null)
 		listaUser = (ArrayList <Usuarios>) request.getAttribute("listaUser");
@@ -67,10 +68,12 @@
 <body>
 	<%@ include file="MasterPageAdmin.html" %>
 	<br>
-	<div class="container-fluid" style="width:95%;">
-        <div class="card text-center">
+	
+	
+	<div class="container-fluid" style="width:98%;">
+        <div class="card text-center" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 100px;">
             <div class="card-header "><h5>Usuarios</h5></div>
-            <table class="table table-hover" id="table_id_usuarios" style="font-size: 11px;">
+            <table class="table table-hover" id="table_id_usuarios" style="font-size: 10px;">
                 <thead>
                     <tr>
                       <th> </th> 
@@ -161,19 +164,9 @@
 			}
 		%>
 	</div>
-      
-      <%
-	      	if (request.getAttribute("usrSeleccionado") != null){
-	      		Usuarios usrSeleccionadoEditar = (Usuarios) request.getAttribute("usrSeleccionado");
-				estaModificando = true;	
-	      	
-				%>
-					<h1> <%= usrSeleccionadoEditar.getDNI_Usr() %></h1>
-				<%
-	      	}
-		%>
+<h1>a editar <%= usrSeleccionadoEditar.getDNI_Usr() %></h1>
        <%
-			if (estaModificando){
+			if (!usrSeleccionadoEditar.getDNI_Usr().equals("-1")){
 				%>
 				<br>
 				<%@ include file="ModificarUsuario.html" %>

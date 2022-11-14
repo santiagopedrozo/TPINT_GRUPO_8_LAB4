@@ -3,6 +3,7 @@ package presentacion.controlador;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -58,39 +59,47 @@ public class servletReportes extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		RequestDispatcher rd = request.getRequestDispatcher("Reportes.jsp");
+		rd.forward(request, response);
 	}
 	
 	private void armarMovimientosFiltrados(HttpServletRequest request) 
 	{
-		ArrayList <Movimientos> listaMovimientos = negMov.obtenerTodos();			
+		ArrayList <Movimientos> listaMovimientos = negMov.obtenerTodos();
 
-		/*if (request.getParameter("txtNombreMovimiento") != null)
+		if (request.getParameter("txtNombreMovimiento") != "")
 		{
-			Usuarios us = new Usuarios();
-			us.setDNI_Usr(request.getParameter("txtNombreMovimiento"));
-			listaMovimientos.retainAll(negMov.MovxUsuario(us));
+			for (Iterator<Movimientos> i = listaMovimientos.iterator(); i.hasNext();)
+			{
+				if (i.next().getCuenta_Mov().getUsuario_Cuentas().getDNI_Usr() != "44298830")
+				{
+					i.remove();
+				}
+					
+			}
 		}
-		if (request.getParameter("fecha1Movimiento") != null && request.getParameter("fecha2Movimiento") != null) 
+		/*if (request.getParameter("fecha1Movimiento") != null && request.getParameter("fecha2Movimiento") != null) 
 		{
 			listaMovimientos.retainAll(negMov.MovxFecha(request.getParameter("fecha1Movimiento"),request.getParameter("fecha2Movimiento")));
 		}
-		/*if (request.getParameter("ddlProvincias") != null)
+		if (request.getParameter("ddlProvincias") != null)
 		{
 			TipoMovimientos tipo = new TipoMovimientos();
 			tipo.setDescripcion_TiposMov(request.getParameter("ddlProvincias"));
 			listaMovimientos.retainAll(negMov.MovxTipo(tipo));
 		}*/
-		//if (request.getParameter("btnFiltrarMovimientos") != null)
-		if (listaMovimientos.isEmpty())
-			System.out.println("NO TIENE ELEMENTOS LA LISTAAAAAAAAAAAAAAAA/////////////////////////////////////");
-		request.setAttribute("listaMovimientosFiltrada",listaMovimientos);
+		if (request.getParameter("btnFiltrarMovimientos") != null)
+			request.setAttribute("listaMovimientosFiltrada", listaMovimientos);
+		//else
+			//request.setAttribute("listaMovimientosFiltrada", negMov.obtenerTodos());
 	}
+	
+	
 	
 	private void cargarCuentas(HttpServletRequest request) {
 		ArrayList <Cuentas> cuentas = null;
 		cuentas = negCuentas.obtenerTodos();
 		request.setAttribute("listaCuentas", cuentas);
-		
 	}
 	private void cargarUsuarios(HttpServletRequest request) {
 		request.setAttribute("listaUser", negUser.readALL());

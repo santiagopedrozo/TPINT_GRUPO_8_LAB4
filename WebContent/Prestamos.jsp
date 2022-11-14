@@ -9,7 +9,7 @@ pageEncoding="ISO-8859-1"%>
   </head>
   
   <body>
-  <%@ include file="MasterPage.html" %>
+  <%@ include file="MasterPageAdmin.html" %>
   <br>
     <div class="container-fluid" style="width: 50%">
       <div class="card text-center">
@@ -148,4 +148,4 @@ pageEncoding="ISO-8859-1"%>
   </body>
   
   
-</html>
+</ht

@@ -54,6 +54,10 @@
 boolean estaModificando = false;
 	if (request.getAttribute("estaModificado") != null)
 		estaModificando = (boolean)request.getAttribute("estaModificado");
+	
+	//if ( ((Usuarios)session.getAttribute("sessionUser")).getDNI_Usr().equals("-1")){
+		
+	
 %>
 
 </head>
@@ -62,12 +66,13 @@ boolean estaModificando = false;
    <br>
    
   <div class="container-fluid" style="width:70%;">
-    <div class="card text-center">
+    <div class="card text-center" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 100px;">
         <div class="card-header ">
           <h5>Cuentas</h5>
         </div>
       
 		<%
+
 		ArrayList <Cuentas> listaCuentas = null;
 		if (request.getAttribute("listaCuentas")!=null) listaCuentas=(ArrayList <Cuentas>)request.getAttribute("listaCuentas");
 		int posicion=0;

@@ -16,7 +16,6 @@ public class UsuariosNegocioImpl implements UsuariosNegocio {
 	public Boolean insert(Usuarios usuario) {
 		
 		if (existe(usuario.getDNI_Usr(), usuario.getCUIL_Usr(), usuario.getEmail_Usr(), usuario.getUsuario_Usr())==false) {
-			System.out.println("entre acá");
 			return userDao.insert(usuario);
 		}
 		
@@ -64,9 +63,4 @@ public class UsuariosNegocioImpl implements UsuariosNegocio {
 
 	@Override
 	public boolean delete(String DNI) {
-		return userDao.delete(DNI);
-		
-	}
-	
-
-}
+		return userDao.delete(DN

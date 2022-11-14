@@ -24,8 +24,22 @@ public class Usuarios {
 	
 	//Constructores
 	public Usuarios() {
+		DNI_Usr = "-1";
+		CUIL_Usr = "";
+		Nombre_Usr = "";
+		Apellido_Usr = "";
+		Sexo_Usr = "";
+		Nacionalidad_Usr = "";
+		FechaNacimiento_Usr = null;
+		Direccion_Usr = "";
 		Provincia_Usr = new Provincias();
 		Localidad_Usr = new Localidades();
+		Email_Usr = "";
+		Telefono_Usr = "";
+		Tipo_Usr = false;
+		Usuario_Usr = "";
+		Contrasenia_Usr = "";
+		Estado_Usr = false;
 	}
 	
 	public Usuarios(String dNI_Usr) {
@@ -206,14 +220,4 @@ public class Usuarios {
 		return "Usuarios [DNI_Usr=" + DNI_Usr + ", CUIL_Usr=" + CUIL_Usr + ", Nombre_Usr=" + Nombre_Usr
 				+ ", Apellido_Usr=" + Apellido_Usr + ", Sexo_Usr=" + Sexo_Usr + ", Nacionalidad_Usr=" + Nacionalidad_Usr
 				+ ", FechaNacimiento_Usr=" + FechaNacimiento_Usr + ", Direccion_Usr=" + Direccion_Usr
-				+ ", Provincia_Usr=" + Provincia_Usr + ", Localidad_Usr=" + Localidad_Usr + ", Email_Usr=" + Email_Usr
-				+ ", Telefono_Usr=" + Telefono_Usr + ", Tipo_Usr=" + Tipo_Usr + ", Usuario_Usr=" + Usuario_Usr
-				+ ", Contrasenia_Usr=" + Contrasenia_Usr + ", Estado_Usr=" + Estado_Usr + "]";
-	}
-	
-	
-	
-	
-	
-	
-}
+				+ ", 
