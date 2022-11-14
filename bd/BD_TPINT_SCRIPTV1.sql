@@ -119,7 +119,7 @@ CREATE TABLE Movimientos(
     Fecha_Mov TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     Detalle_Mov VARCHAR(30) NOT NULL,
     NroCuentaDestino_Mov INT NULL,
-    Importe_Mov DECIMAL NOT NULL,
+    Importe_Mov DECIMAL(15,2) NOT NULL,
     Estado_Mov BIT DEFAULT 1,
     
     CONSTRAINT PK_Movimientos PRIMARY KEY(Id_Mov),
@@ -2895,3 +2895,5 @@ BEGIN
 END //
 
 delimiter ;
+
+SELECT COUNT  (DNI_USR)FROM USUARIOS WHERE ESTADO_USR = 1
