@@ -154,8 +154,16 @@
                             <label for="floatingSelect">Contraseña</label>
                         </div>
                     </div>
-
+                    <br>
+                    
                     <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="password" name="txtContraseniaConfirm" class="form-control" id="floatingInput" placeholder="-"  required>
+                            <label for="floatingSelect">Confirmar Contraseña</label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
                         <div class="form-floating mb-3">
                             <input type="text" name="txtDireccion" class="form-control" id="floatingInput" placeholder="-"  required>
                             <label for="floatingSelect">Direccion</label>
@@ -227,11 +235,29 @@
             
                     <div class="col-md-12">
                         <br>
-                        <button type="submit" name="btnAgregarUsr" class="btn btn-outline-primary form-control btn-lg">Dar de alta usuario</button>
+                        <button type="submit"
+                        name="btnAgregarUsr"
+                        class="btn btn-outline-dark form-control btn-lg"
+                        >Dar de alta usuario</button>
                     </div>
               </form>
 
 	    		<br>
+	    	<div style="display: flex; justify-content: center;">
+				<%
+					Boolean estadoContrasenia = false;
+				    if (request.getAttribute("contraseniaEstado")!=null) {
+				    	estadoContrasenia = (boolean)request.getAttribute("contraseniaEstado");
+			    	}
+			    if (estadoContrasenia == false && request.getAttribute("estadoInsertado") != null){
+			    %>
+			        <div ID="MsgErrorDiv" style="font-size: 16px" class="col-md-12 alert alert-danger" runat="server" visible="false">
+			            <strong>Error</strong> Las contraseñas no coinciden
+			            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+			        </div>
+		        <%}%>    
+            </div>	
+	    		
 		    <div style="display: flex; justify-content: center;">
 				<%
 					boolean estadoInsertado=false;
@@ -254,8 +280,7 @@
 		        </div>
 		        <%
 		        }
-		        %> 
-			     
+		        %>    
             </div>
         </div>
 	</div>

@@ -7,7 +7,7 @@
 <body>
 
 <div class="container-fluid" style="width:50%;">
-    <div class="card text-center">
+    <div class="card text-center" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 100px;">
         <div class="card-header"><h5>Crear y asignar cuenta</h5></div>
         <div class="card-body">
           <form method="post" action="servletCuentas" class="row">
@@ -67,7 +67,10 @@ if (request.getAttribute("listaUser")!=null) listaUser=(ArrayList <Usuarios>)req
             </div>
             
             <div class="col-md-12">
-                <button type="submit" name="btnCuentas"class="btn btn-outline-primary form-control btn-lg">Dar de alta cuenta</button>
+                <button type="submit" 
+                name="btnCuentas"
+                class="btn btn-outline-dark form-control btn-lg"
+                onclick="return confirm('¿Está seguro de que quiere dar de alta la cuenta?')">Dar de alta cuenta</button>
             </div>
       
           </form>

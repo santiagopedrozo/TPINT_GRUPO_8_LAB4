@@ -41,6 +41,7 @@ public class AgregarUsuario extends HttpServlet {
 
 		
 		if (request.getParameter("btnAgregarUsr")!=null) {
+			System.out.println("hola");
 			request.setAttribute("estadoInsertado", insert(request));
 		}
 			
@@ -64,10 +65,28 @@ public class AgregarUsuario extends HttpServlet {
 	}
 	
 	private Boolean insert(HttpServletRequest request) {
-		return usrNeg.insert(asignarInputsAEntidad(request));
+		
+		if(asignarInputsAEntidad(request) != null) {
+			return usrNeg.insert(asignarInputsAEntidad(request));
+		}
+		return false;
+		
+	}
+	
+	private Boolean contraseniaVerificada(HttpServletRequest request) {
+		String contra1 = request.getParameter("txtContrasenia");
+		String contra2 = request.getParameter("txtContraseniaConfirm");
+		if(contra1.equals(contra2))
+			return true;
+		return false;
 	}
 	
 	private Usuarios asignarInputsAEntidad(HttpServletRequest request) {
+		if(!contraseniaVerificada(request)) {
+			request.setAttribute("contraseniaEstado", false);
+			return null;
+		}
+		request.setAttribute("contraseniaEstado", true);
 		String DNI_Usr = request.getParameter("txtDNI");
 		String CUIL_Usr = request.getParameter("txtCUIL");
 		String Nombre_Usr = request.getParameter("txtNombre");
@@ -77,7 +96,6 @@ public class AgregarUsuario extends HttpServlet {
 		LocalDate FechaNacimiento_Usr = LocalDate.parse(request.getParameter("Fecha"));
 		String Direccion_Usr= request.getParameter("txtDireccion");
 		Provincias Provincia_Usr = new Provincias(Integer.parseInt(request.getParameter("ddlProvincias")),null);  
-		
 		Localidades Localidad_Usr = new Localidades(Provincia_Usr,
 				Integer.parseInt(request.getParameter("ddlLocalidades")), null);
 		String Email_Usr = request.getParameter("txtEmail");

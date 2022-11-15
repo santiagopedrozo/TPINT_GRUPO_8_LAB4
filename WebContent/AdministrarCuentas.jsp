@@ -62,7 +62,7 @@ boolean estaModificando = false;
    <br>
    
   <div class="container-fluid" style="width:70%;">
-    <div class="card text-center">
+    <div class="card text-center" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 100px;">
         <div class="card-header ">
           <h5>Cuentas</h5>
         </div>
@@ -98,7 +98,10 @@ boolean estaModificando = false;
                     <i class="fa-solid fa-pen-to-square"></i>
                   </button>
                   
-                  <button type="submit" name="btnEliminar" class="btn btn-outline-danger">
+                  <button type="submit"
+                   name="btnEliminar" 
+                   class="btn btn-outline-danger"
+                   onclick="return confirm('¿Está seguro de que quiere eliminar la cuenta?')">
                     <i class="fa-solid fa-trash"></i>
                   </button>
                   

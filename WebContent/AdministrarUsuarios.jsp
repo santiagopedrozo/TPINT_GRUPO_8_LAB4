@@ -107,7 +107,7 @@
 								<button type="submit" name="btnEditar" onclick="" class="btn btn-outline-success btn-sm">
 									<i class="fa-solid fa-pen-to-square"></i>
 								</button>
-								<button type="submit" name ="btnEliminarUsr"class="btn btn-outline-danger btn-sm">
+								<button type="submit" name ="btnEliminarUsr"class="btn btn-outline-danger btn-sm" onclick="return confirm('¿Esta seguro de que quiere eliminar el usuario?')">
 									<i class="fa-solid fa-trash"></i>
 								</button>
 	                        </th>

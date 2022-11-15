@@ -53,7 +53,7 @@
 <br>
 <br>
 	<div class="container-fluid" style="width:90%;">
-        <div class="card text-center">
+        <div class="card text-center" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 100px;">
             <div class="card-header "><h5>Prestamos</h5></div>
             <table class="table table-hover" id = "table_id_prestamos">
                 <thead>
@@ -84,10 +84,18 @@
 						<form method = "get" action = "ServletPrestamos">
 						<div>
 	                        <th scope="row">
-	                            <button type="submit" name = "btnAceptarPrestamo" class="btn btn-outline-success btn-sm" value = "<%=prestamo.getId_Pr()%>">
+	                            <button type="submit"
+	                            name = "btnAceptarPrestamo"
+	                            class="btn btn-outline-success btn-sm"
+	                            value = "<%=prestamo.getId_Pr()%>"
+	                            onclick="return confirm('¿Está seguro de que quiere aceptar este prestamo?')">
 	                                <i class="fa-solid fa-check"></i>
 	                            </button>
-	                            <button type="submit" name = "btnRechazarPrestamo" class="btn btn-outline-danger btn-sm" value = "<%=prestamo.getId_Pr()%>">
+	                            <button type="submit"
+	                            name = "btnRechazarPrestamo"
+	                            class="btn btn-outline-danger btn-sm"
+	                            value = "<%=prestamo.getId_Pr()%>"
+	                            onclick="return confirm('¿Está seguro de que quiere rechazar este prestamo?')">
 	                                <i class="fa-solid fa-xmark"></i>
 	                            </button>
 	                        </th>  
