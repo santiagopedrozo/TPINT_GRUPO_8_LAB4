@@ -13,6 +13,7 @@ public interface CuentasNegocio
 	public ArrayList<Cuentas> cuentasXPropietario(String DNI);
 	public ArrayList<Cuentas> cuentasXFechaCreacion(Date fecha1, Date fecha2);
 	public ArrayList<Cuentas> cuentasXTipo(TipoCuentas tipoCuentas);
+	public Cuentas cuentasXNro(int nroCuenta);
 	public int insert (Cuentas cuenta);
 	public int delete (int id);
 	public int modificate (Cuentas cuenta);

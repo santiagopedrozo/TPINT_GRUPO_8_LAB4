@@ -14,4 +14,5 @@ public interface MovimientosNegocio
 	public ArrayList<Movimientos> MovxTipo(TipoMovimientos tipo);
 	public ArrayList<Movimientos> MovxFecha(String fecha1, String fecha2);
 	public ArrayList<Movimientos> MovxCuenta(int nroCuenta);
+	public int insert(Movimientos movimiento);
 }

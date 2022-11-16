@@ -1,5 +1,7 @@
 package daoImpl;
 
+import java.sql.CallableStatement;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -264,6 +266,30 @@ public class MovimientosDaoImpl implements MovimientosDao
 				Importe_Mov,
 				Estado_Mov
 				);
+	}
+
+	@Override
+	public boolean insert(Movimientos movimiento) {
+		boolean r=false;
+		Connection cn = null;
+		try {
+			cn = Conexion.getConexion().getSQLConexion();
+			CallableStatement st = cn.prepareCall("CALL SPAgregarMovimiento(?,?,?,?,?)");
+			st.setInt(1,movimiento.getCuenta_Mov().getNro_Cuentas());
+			st.setInt(2, movimiento.getTiposMov_Mov().getId_TiposMov());
+			st.setString(3, movimiento.getDetalle_Mov());
+			st.setInt(4,movimiento.getCuentaDestino_Mov().getNro_Cuentas());
+			st.setFloat(5, movimiento.getImporte_Mov());
+			if (st.executeUpdate()>0) r=true;
+			
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		  finally {
+			
+		}
+		return r;
 	}
 
 	

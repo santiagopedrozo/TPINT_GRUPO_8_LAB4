@@ -33,6 +33,11 @@ public class CuentasNegocioImpl implements CuentasNegocio {
 	public ArrayList<Cuentas> cuentasXTipo(TipoCuentas tipoCuentas) {
 		return cd.cuentasXTipo(tipoCuentas);
 	}
+	
+	@Override
+	public Cuentas cuentasXNro(int nroCuenta) {
+		return cd.cuentaxNro(nroCuenta);
+	}
 
 	@Override
 	public int insert(Cuentas cuenta) {
@@ -75,4 +80,6 @@ public class CuentasNegocioImpl implements CuentasNegocio {
 		else return 0;
 		
 	}
+
+	
 }

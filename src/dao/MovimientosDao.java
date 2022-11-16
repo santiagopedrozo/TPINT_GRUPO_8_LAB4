@@ -15,4 +15,5 @@ public interface MovimientosDao
 	public ArrayList<Movimientos> MovxTipo(TipoMovimientos tipo);
 	public ArrayList<Movimientos> MovxFecha(String fecha1, String fecha2);
 	public ArrayList<Movimientos> MovxCuenta(int nroCuenta);
+	public boolean insert(Movimientos movimiento);
 }

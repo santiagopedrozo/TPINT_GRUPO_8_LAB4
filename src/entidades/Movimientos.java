@@ -32,6 +32,14 @@ public class Movimientos {
 		Importe_Mov = importe_Mov;
 		Estado_Mov = estado_Mov;
 	}
+	
+	public Movimientos(Cuentas cuenta_Mov, TipoMovimientos tiposMov_Mov, String detalle_Mov, Cuentas cuentaDestino_Mov, float importe_Mov) {
+		Cuenta_Mov = cuenta_Mov;
+		TiposMov_Mov = tiposMov_Mov;
+		Detalle_Mov = detalle_Mov;
+		CuentaDestino_Mov = cuentaDestino_Mov;
+		Importe_Mov = importe_Mov;
+	}
 
 
 
