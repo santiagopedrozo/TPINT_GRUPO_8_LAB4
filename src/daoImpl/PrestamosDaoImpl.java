@@ -21,7 +21,43 @@ import entidades.Usuarios;
 
 public class PrestamosDaoImpl implements PrestamosDao
 {
-
+	@Override
+	public boolean agregarPrestamo(Prestamos prestamo) {
+		Connection cn = null;
+		/*
+		try {
+			cn = Conexion.getConexion().getSQLConexion();
+			CallableStatement cst = cn.prepareCall("CALL SPAgregarUsuario(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+			System.out.println("prestamo: " + prestamo);
+			
+			cst.setString(1, usuario.getDNI_Usr());
+			cst.setString(2, usuario.getCUIL_Usr());
+			cst.setString(3, usuario.getNombre_Usr());
+			cst.setString(4, usuario.getApellido_Usr());
+			cst.setString(5, usuario.getSexo_Usr());
+			cst.setString(6,usuario.getNacionalidad_Usr());
+			cst.setObject(7, usuario.getFechaNacimiento_Usr()); 
+			cst.setString(8,usuario.getDireccion_Usr());
+			cst.setInt(9,usuario.getProvincia_Usr().getIdProvincia_Prov());
+			cst.setInt(10, usuario.getLocalidad_Usr().getIdLocalidad_Loc());
+			cst.setString(11,usuario.getEmail_Usr());
+			cst.setString(12, usuario.getTelefono_Usr());
+			cst.setBoolean(13, usuario.isTipo_Usr());
+			cst.setString(14,usuario.getUsuario_Usr());
+			cst.setString(15, usuario.getContrasenia_Usr());
+			
+			int i = cst.executeUpdate();
+			if(i > 0) 
+				return true;
+			return false;
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		*/
+		return false;
+	}
+	
 	@Override
 	public ArrayList<Prestamos> obtenerTodos() {
 		PreparedStatement statement;
@@ -228,7 +264,6 @@ public class PrestamosDaoImpl implements PrestamosDao
 	
 	private Prestamos getPrestamos(ResultSet resultSet) throws SQLException
 	{
-		
 		//Datos cuenta
 		int nro_Cuentas = resultSet.getInt("Nro_Cuentas");
 		LocalDateTime fechaCreacion_Cuentas = resultSet.getTimestamp("FechaCreacion_Cuentas").toLocalDateTime();
@@ -273,6 +308,24 @@ public class PrestamosDaoImpl implements PrestamosDao
 		
 		return new Prestamos(
 					Id_Pr,
+					new Usuarios(
+						DNI_Usr,
+						CUIL_Usr,
+						Nombre_Usr,
+						Apellido_Usr,
+						Sexo_Usr,
+						Nacionalidad_Usr,
+						FechaNacimiento_Usr,
+						Direccion_Usr,
+						Provincia_Usr,
+						Localidad_Usr,
+						Email_Usr,
+						Telefono_Usr,
+						Tipo_Usr,
+						Usuario_Usr,
+						Contrasenia_Usr,
+						Estado_Usr 
+					),
 					new Cuentas(
 						nro_Cuentas,
 						new Usuarios(DNI_Usr, CUIL_Usr,Nombre_Usr,  Apellido_Usr, Sexo_Usr, Nacionalidad_Usr, FechaNacimiento_Usr, Direccion_Usr,Provincia_Usr, Localidad_Usr ,Email_Usr,Telefono_Usr,  Tipo_Usr, Usuario_Usr,  Contrasenia_Usr, Estado_Usr),
@@ -296,7 +349,7 @@ public class PrestamosDaoImpl implements PrestamosDao
 	@Override
 	public boolean modificarAutorizado(Prestamos prestamo, boolean aprobado)
 	{
-		boolean r=false;
+		boolean res=false;
 		Connection cn = null;
 		try 
 		{
@@ -312,7 +365,7 @@ public class PrestamosDaoImpl implements PrestamosDao
 			st.setInt(8, prestamo.getCantCuotas_Pr());
 			st.setBoolean(9,aprobado);
 			if (st.executeUpdate()>0) 
-				r=true;
+				res=true;
 			
 		}
 		catch (Exception e) 
@@ -322,7 +375,7 @@ public class PrestamosDaoImpl implements PrestamosDao
 		finally 
 		{
 		}
-		return r;
+		return res;
 	}
 
 	@Override
@@ -347,4 +400,6 @@ public class PrestamosDaoImpl implements PrestamosDao
 		}
 		return r;
 	}
+
+	
 }

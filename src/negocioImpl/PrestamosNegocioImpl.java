@@ -52,4 +52,9 @@ public class PrestamosNegocioImpl implements PrestamosNegocio {
 		return prDao.eliminarPrestamo(prestamo);
 	}
 
+	@Override
+	public boolean agregarPrestamo(Prestamos prestamo) {
+		return prDao.agregarPrestamo(prestamo);
+	}
+
 }

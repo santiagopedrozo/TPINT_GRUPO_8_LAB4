@@ -19,31 +19,34 @@ pageEncoding="ISO-8859-1"%>
         <div class="card-body" style="font-size: 16px">
         	<div class="col-md-12">
                 <div class="form-floating mb-3">
-                    <input type="number" class="form-control" name="txtImporte" placeholder="-">
-                    <label for="floatingInput">Importe a pedir</label>
+                    <input 
+                    type="number"
+                    class="form-control"
+                    name="txtImporte"
+                    placeholder="-"
+
+                    step=0.01
+                    required>
+                    <label for="floatingInput">$ Importe a pedir</label>
                 </div>
             </div>
           	<div class="col-md-12">
            		<div class="form-floating">
-					<select name="ddlCuotas" class="form-select" id="floatingInput" placeholder="-">
-						<%for (int i=1; i<=12; i++){ %>
+					<select name="ddlCuotas"
+					 class="form-select" id="floatingInput" placeholder="-">
+						<%for (int i=1; i<=24; i++){ %>
 						<option value=<%=i%>><%=i%></option>
 						<%} %>
 					</select>
 					<label for="floatingSelect">Número de cuotas</label>
 				</div>
 			</div>
-			
 			<br>
-			
-			<div class="col-md-12">
-           		<div class="form-floating">
-           			<select  name="ddlCuentaOrigenPrestamo" class="form-select" id="floatingInput" placeholder="-"> 
-           				<option>(dni)</option>
-           			</select> 
-           			<label for="floatingSelect">Cuenta destino</label>
-           		</div>
-          	</div>
+			<!--   ddlCuentaOrigenPrestamo> -->
+                </select>
+                <label for="floatingSelect">Usuario asignado</label>
+              </div>
+            </div>
 			
 			<div class="col-md-12">
                 <br>
@@ -58,19 +61,22 @@ pageEncoding="ISO-8859-1"%>
       </div>
     </div>
     
-    <div style="display: flex; justify-content: center;">
-        
-        <div ID="MsgErrorDiv" class="col-md-4 alert alert-danger" runat="server" visible="false">
-            <strong>Error</strong> No se pudo solicitar prestamo correctamente.
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-        
-        <div ID="MsgCorrectoDiv" class="col-md-4 alert alert-success" runat="server" visible="false">
-            <strong>Correcto</strong> Prestamo solicitado correctamente.
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-        
-    </div>
+   		<%
+		boolean resultadoInsert = false;
+	    if (request.getAttribute("resultadoPrestamo")!=null) resultadoInsert = (boolean)request.getAttribute("resultadoPrestamo");
+    	if (resultadoInsert == false && request.getAttribute("resultadoPrestamo") != null){
+    	%>
+	       <div ID="MsgErrorDiv" style="font-size: 16px box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 100px;" class="col-md-6 alert alert-danger" runat="server" visible="false">
+	           <strong>Error</strong> No se pudo solicitar prestamo correctamente.
+	           <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+	       </div>
+       <%}else if (resultadoInsert){
+       %>
+	       <div ID="MsgCorrectoDiv"  style="font-size: 16px box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 100px;" class="col-md-6 alert alert-success" runat="server" visible="false">
+	           <strong>Agregado</strong> Prestamo solicitado correctamente.
+	           <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+	       </div>
+       <%}%>
     
     <br>
 

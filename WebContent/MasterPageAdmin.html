@@ -32,7 +32,7 @@
   	<div class="collapse navbar-collapse" id="navbarScroll">
   	
  	<ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;"></ul>
-    <%if ( UsuarioActual.isTipo_Usr() ){%>
+    <%if ( UsuarioActual.isTipo_Usr() == true ){%>
 	    <form class="d-flex">
 	        <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
 	            <li class="nav-item">
@@ -65,8 +65,22 @@
 	                <a class="nav-link text-white" href="IniciarSesion.jsp" onclick="return confirm('¿Salir?');">Salir</a>
 	            </li>
 	          </ul>
+	          
+	          <li class="nav-item">
+	              <a class="nav-link text-white" href="Prestamos.jsp">
+		              	<i class="fa-solid fa-money-bill"></i> Prestamos
+	            	</a>
+	            </li>
+<li class="nav-item">
+	              <a class="nav-link text-white" href="Transferencias.jsp">
+		              <i class="fa-solid fa-money-bill"></i> Transferencias
+	              </a>
+	            </li>
+	          
+	          
+	          
 	    </form>
-    <% } else  { %>
+    <% } else if( UsuarioActual.isTipo_Usr() == false ) { %>
     	<form class="d-flex">
 	        <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
 	            <li class="nav-item">

@@ -1,5 +1,5 @@
 create schema bd_tpint_labiv;
---  drop database bd_tpint_labiv
+-- drop database bd_tpint_labiv
 
 use bd_tpint_labiv;
 
@@ -2801,12 +2801,12 @@ CREATE PROCEDURE SPAgregarPrestamo(
     IN ImpSolicitado DECIMAL(15,2),
     IN ImpResultante DECIMAL(15,2),
     IN PlazoMeses INT,
-    IN ImpPagoAlMes DECIMAL(15,2),
-    IN CantCuotas INT
+    IN ImpPagoAlMes DECIMAL(15,2)
+    -- cant cuotas pagadas borradas
 )
 BEGIN
-	INSERT INTO Prestamos (DNI_Pr, NroCuentaDestino_Pr, ImpSolicitado_Pr,ImpResultante_Pr, PlazoMeses_Pr, ImpPagoAlMes_Pr, CantCuotas_Pr) VALUES
-    (DNI, NroCuentaDestino, ImpSolicitado, ImpResultante, PlazoMeses, ImpPagoAlMes, CantCuotas);
+	INSERT INTO Prestamos (DNI_Pr, NroCuentaDestino_Pr, ImpSolicitado_Pr,ImpResultante_Pr, PlazoMeses_Pr, ImpPagoAlMes_Pr) VALUES
+    (DNI, NroCuentaDestino, ImpSolicitado, ImpResultante, PlazoMeses, ImpPagoAlMes);
    
 END //
 DELIMITER ;

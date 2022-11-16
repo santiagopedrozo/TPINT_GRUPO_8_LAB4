@@ -13,6 +13,7 @@ public interface PrestamosNegocio {
 	public ArrayList<Prestamos> prestXImportePagar(float importe1, float importe2);
 	public ArrayList<Prestamos> prestXImportePedido(float importe1, float importe2);
 	public ArrayList<Prestamos> prestXCantidadCuotas(int cuotas);
+	public boolean agregarPrestamo(Prestamos prestamo);
 	public boolean modificarAutorizado(Prestamos prestamo, boolean aprobado);
 	public boolean eliminarPrestamo(Prestamos prestamo);
 }

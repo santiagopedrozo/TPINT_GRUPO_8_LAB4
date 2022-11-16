@@ -7,6 +7,7 @@ import com.sun.jmx.snmp.Timestamp;
 
 public class Prestamos {
 	private int Id_Pr;
+	private Usuarios usuario_Pr;
 	private Cuentas CuentaDestino_Pr;
 	private Date FechaSolicitado_Pr;
 	private float ImpSolicitado_Pr;
@@ -23,10 +24,24 @@ public class Prestamos {
 		CuentaDestino_Pr = new Cuentas();
 	}
 	
-	public Prestamos(int id_Pr, Cuentas cuentaDestino_Pr, Date fechaSolicitado_Pr,
+	public Prestamos(Usuarios usr_pr, Cuentas cuentaDestino_Pr, float impSolicitado_Pr, float impResultante_Pr, int plazoMeses_Pr, float impPagoAlMes_Pr) {
+		Id_Pr = 0;
+		usuario_Pr = usr_pr;
+		CuentaDestino_Pr = cuentaDestino_Pr;
+		FechaSolicitado_Pr = null;
+		ImpSolicitado_Pr = impSolicitado_Pr;
+		ImpResultante_Pr = impResultante_Pr;
+		PlazoMeses_Pr = plazoMeses_Pr;
+		ImpPagoAlMes_Pr = impPagoAlMes_Pr;
+		Autorizado_Pr = false;
+		Estado_Pr = true;
+	}
+	
+	public Prestamos(int id_Pr, Usuarios usr_pr, Cuentas cuentaDestino_Pr, Date fechaSolicitado_Pr,
 	float impSolicitado_Pr, float impResultante_Pr, int plazoMeses_Pr, float impPagoAlMes_Pr, int cantCuotas_Pr,
 	boolean autorizado_Pr, boolean estado_Pr) {
 		Id_Pr = id_Pr;
+		usuario_Pr = usr_pr;
 		CuentaDestino_Pr = cuentaDestino_Pr;
 		FechaSolicitado_Pr = fechaSolicitado_Pr;
 		ImpSolicitado_Pr = impSolicitado_Pr;
@@ -134,16 +149,25 @@ public class Prestamos {
 	public void setEstado_Pr(boolean estado_Pr) {
 		Estado_Pr = estado_Pr;
 	}
-	
-	//toString
+
+	public Usuarios getUsuario_Pr() {
+		return usuario_Pr;
+	}
+
+	public void setUsuario_Pr(Usuarios usuario_Pr) {
+		this.usuario_Pr = usuario_Pr;
+	}
+
 	@Override
 	public String toString() {
-		return "Prestamos [Id_Pr=" + Id_Pr + " CuentaDestino_Pr=" + CuentaDestino_Pr
+		return "Prestamos [Id_Pr=" + Id_Pr + ", usuario_Pr=" + usuario_Pr + ", CuentaDestino_Pr=" + CuentaDestino_Pr
 				+ ", FechaSolicitado_Pr=" + FechaSolicitado_Pr + ", ImpSolicitado_Pr=" + ImpSolicitado_Pr
 				+ ", ImpResultante_Pr=" + ImpResultante_Pr + ", PlazoMeses_Pr=" + PlazoMeses_Pr + ", ImpPagoAlMes_Pr="
 				+ ImpPagoAlMes_Pr + ", CantCuotas_Pr=" + CantCuotas_Pr + ", Autorizado_Pr=" + Autorizado_Pr
 				+ ", Estado_Pr=" + Estado_Pr + "]";
 	}
+	
+	
 	
 	
 	
