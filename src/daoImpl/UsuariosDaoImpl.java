@@ -67,10 +67,6 @@ public class UsuariosDaoImpl implements UsuariosDao{
 		
 		try 
 		{
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
 			statement = conexion.getSQLConexion().prepareStatement(consulta);
 			resultSet = statement.executeQuery();
 			while(resultSet.next())

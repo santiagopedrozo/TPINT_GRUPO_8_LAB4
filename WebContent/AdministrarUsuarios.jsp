@@ -190,6 +190,8 @@
 			}
 		%>
 	</div>
+	
+	
        <%
 			if (!usrSeleccionadoEditar.getDNI_Usr().equals("-1")){
 				%>
@@ -207,7 +209,8 @@
 			}
 		%>
 
-      <%@ include file="FooterPage.html" %>
       
+      
+      <%@ include file="FooterPage.html" %>
 </body>
 </html>
