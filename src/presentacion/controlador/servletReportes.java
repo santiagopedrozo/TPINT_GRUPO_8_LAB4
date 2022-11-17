@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import entidades.Cuentas;
 import entidades.Movimientos;
+import entidades.Prestamos;
 import entidades.TipoMovimientos;
 import entidades.Usuarios;
 import negocio.CuentasNegocio;
@@ -23,6 +24,7 @@ import negocio.UsuariosNegocio;
 import negocioImpl.CuentasNegocioImpl;
 import negocioImpl.MovimientosNegocioImpl;
 import negocioImpl.PrestamosNegocioImpl;
+import negocioImpl.ProvinciasNegocioImpl;
 import negocioImpl.UsuariosNegocioImpl;
 
 /**
@@ -34,6 +36,8 @@ public class servletReportes extends HttpServlet {
 	CuentasNegocio negCuentas = new CuentasNegocioImpl();
 	UsuariosNegocio negUser= new UsuariosNegocioImpl();
 	MovimientosNegocioImpl negMov = new MovimientosNegocioImpl();
+	ProvinciasNegocioImpl negProv = new ProvinciasNegocioImpl();
+	PrestamosNegocioImpl negPrest = new PrestamosNegocioImpl();
   
     public servletReportes() {
        
@@ -41,13 +45,17 @@ public class servletReportes extends HttpServlet {
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//if (request.getParameter("ParamRep") != null) 
-		//{	
+		//if (request.getParameter("ParamRep") != null)	
+		//{
 			armarMovimientosFiltrados(request);
+			
+			cargarDDlProvincias(request);
+			
+			armarUsuariosFiltrados(request);
 				
 			cargarCuentas(request);
 			
-			cargarUsuarios(request);
+			cargarPrestamos(request);
 			
 			RequestDispatcher rd = request.getRequestDispatcher("Reportes.jsp");
 			rd.forward(request, response);
@@ -58,51 +66,162 @@ public class servletReportes extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		RequestDispatcher rd = request.getRequestDispatcher("Reportes.jsp");
-		rd.forward(request, response);
+		//if (request.getParameter("ParamRep") != null)	
+		//{
+			RequestDispatcher rd = request.getRequestDispatcher("Reportes.jsp");
+			rd.forward(request, response);
+		//}
 	}
 	
 	private void armarMovimientosFiltrados(HttpServletRequest request) 
 	{
 		ArrayList <Movimientos> listaMovimientos = negMov.obtenerTodos();
-
+		
 		if (request.getParameter("txtNombreMovimiento") != "")
 		{
-			for (Iterator<Movimientos> i = listaMovimientos.iterator(); i.hasNext();)
+			listaMovimientos.removeIf(s -> !s.getCuenta_Mov().getUsuario_Cuentas().getDNI_Usr().equals(request.getParameter("txtNombreMovimiento")));
+		}
+		
+		if (request.getParameter("importe1Movimiento") != null && request.getParameter("importe2Movimiento") != null) 
+		{
+			try 
 			{
-				if (i.next().getCuenta_Mov().getUsuario_Cuentas().getDNI_Usr() != "44298830")
-				{
-					i.remove();
-				}
-					
+				listaMovimientos.removeIf(s -> 
+				s.getImporte_Mov() > Float.parseFloat(request.getParameter("importe2Movimiento")) ||
+				s.getImporte_Mov() < Float.parseFloat(request.getParameter("importe1Movimiento"))
+				);
+			}
+			catch(Exception e)
+			{
+				
 			}
 		}
-		/*if (request.getParameter("fecha1Movimiento") != null && request.getParameter("fecha2Movimiento") != null) 
+		
+		
+		if (request.getParameter("ddlTipos") != null)
 		{
-			listaMovimientos.retainAll(negMov.MovxFecha(request.getParameter("fecha1Movimiento"),request.getParameter("fecha2Movimiento")));
+			listaMovimientos.removeIf(s -> s.getTiposMov_Mov().getId_TiposMov() != Integer.parseInt(request.getParameter("ddlTipos")));
 		}
-		if (request.getParameter("ddlProvincias") != null)
-		{
-			TipoMovimientos tipo = new TipoMovimientos();
-			tipo.setDescripcion_TiposMov(request.getParameter("ddlProvincias"));
-			listaMovimientos.retainAll(negMov.MovxTipo(tipo));
-		}*/
+			
 		if (request.getParameter("btnFiltrarMovimientos") != null)
 			request.setAttribute("listaMovimientosFiltrada", listaMovimientos);
-		//else
-			//request.setAttribute("listaMovimientosFiltrada", negMov.obtenerTodos());
+		else
+			request.setAttribute("listaMovimientosFiltrada", negMov.obtenerTodos());
 	}
 	
-	
-	
-	private void cargarCuentas(HttpServletRequest request) {
-		ArrayList <Cuentas> cuentas = null;
-		cuentas = negCuentas.obtenerTodos();
-		request.setAttribute("listaCuentas", cuentas);
+	private void armarUsuariosFiltrados(HttpServletRequest request) {
+		ArrayList <Usuarios> listaUsuarios = negUser.readALL();
+		
+		if (request.getParameter("txtNombreCliente") != "")
+		{
+			listaUsuarios.removeIf(s -> !s.getNombre_Usr().equals(request.getParameter("txtNombreCliente")));
+		}
+		
+		if (request.getParameter("txtApellidoCliente") != "")
+		{
+			listaUsuarios.removeIf(s -> !s.getApellido_Usr().equals(request.getParameter("txtApellidoCliente")));
+		}
+		
+		if (request.getParameter("ddlProvinciasCliente") != null)
+		{
+			if (!request.getParameter("ddlProvinciasCliente").equals("-1"))
+				listaUsuarios.removeIf(s -> s.getProvincia_Usr().getIdProvincia_Prov() != Integer.parseInt(request.getParameter("ddlProvinciasCliente")));
+		}
+			
+		if (request.getParameter("btnFiltrarUser") != null)
+			request.setAttribute("listaUser", listaUsuarios);
+		else
+			request.setAttribute("listaUser", negUser.readALL());
 	}
-	private void cargarUsuarios(HttpServletRequest request) {
-		request.setAttribute("listaUser", negUser.readALL());
+	
+	private void cargarDDlProvincias(HttpServletRequest request) {
+		request.setAttribute("listaProvincias", negProv.readALL());
+	}
+	
+	private void cargarCuentas(HttpServletRequest request) 
+	{
+		ArrayList <Cuentas> listaCuentas = negCuentas.obtenerTodos();
+		
+		if (request.getParameter("txtNombreCuentas") != "")
+		{
+			listaCuentas.removeIf(s -> !s.getUsuario_Cuentas().getDNI_Usr().equals(request.getParameter("txtNombreCuentas")));
+		}
+		
+		if (request.getParameter("txtSaldoMenorCuenta") != null && request.getParameter("txtSaldoMayorCuenta") != null) 
+		{
+			try 
+			{
+				listaCuentas.removeIf(s -> 
+				s.getSaldo_Cuentas() < Float.parseFloat(request.getParameter("txtSaldoMenorCuenta"))  ||
+				s.getSaldo_Cuentas() > Float.parseFloat(request.getParameter("txtSaldoMayorCuenta"))
+				);
+			}
+			catch(Exception e)
+			{
+				
+			}
+		}
+		
+		if (request.getParameter("ddlTiposCuentas") != null)
+		{
+			if (!request.getParameter("ddlTiposCuentas").equals("-1"))
+				listaCuentas.removeIf(s -> s.getTipoCuenta_Cuentas().getId_TipoCuenta() != Integer.parseInt(request.getParameter("ddlTiposCuentas")));
+		}
+			
+		if (request.getParameter("btnFiltrarCuentas") != null)
+			request.setAttribute("listaCuentas", listaCuentas);
+		else
+			request.setAttribute("listaCuentas", negCuentas.obtenerTodos());
+	}
+	
+	private void cargarPrestamos(HttpServletRequest request)
+	{
+		ArrayList<Prestamos> listaPrestamos = negPrest.obtenerTodos();
+		
+		if (request.getParameter("txtNombrePrestamo") != "")
+		{
+			listaPrestamos.removeIf(s -> !s.getCuentaDestino_Pr().getUsuario_Cuentas().getDNI_Usr().equals(request.getParameter("txtNombrePrestamo")));
+		}
+		
+		if (request.getParameter("txtImportePagar1") != null && request.getParameter("txtImportePagar2") != null) 
+		{
+			try 
+			{
+				listaPrestamos.removeIf(s -> 
+				s.getImpResultante_Pr() < Float.parseFloat(request.getParameter("txtImportePagar1"))  ||
+				s.getImpResultante_Pr() > Float.parseFloat(request.getParameter("txtImportePagar2"))
+				);
+			}
+			catch(Exception e)
+			{
+				
+			}
+		}
+		
+		if (request.getParameter("txtImportePedido1") != null && request.getParameter("txtImportePedido2") != null) 
+		{
+			try 
+			{
+				listaPrestamos.removeIf(s -> 
+				s.getImpSolicitado_Pr() < Float.parseFloat(request.getParameter("txtImportePedido1"))  ||
+				s.getImpSolicitado_Pr() > Float.parseFloat(request.getParameter("txtImportePedido2"))
+				);
+			}
+			catch(Exception e)
+			{
+				
+			}
+		}
+		
+		if (request.getParameter("txtCuotasPrestamo") != "")
+		{
+			listaPrestamos.removeIf(s -> s.getCantCuotas_Pr() != Integer.parseInt(request.getParameter("txtCuotasPrestamo")));
+		}
+			
+		if (request.getParameter("btnFiltrarPrestamos") != null)
+			request.setAttribute("listaPrestamos", listaPrestamos);
+		else
+			request.setAttribute("listaPrestamos", negPrest.obtenerTodos() );
 	}
 
 }

@@ -41,12 +41,13 @@ public class ServletPrestamos extends HttpServlet {
 		obtenerAllPrestamos(request);
 		solicitarPrestamo(request);
 		
+		cargarPrestamos(request);
+		
 		RequestDispatcher rd = request.getRequestDispatcher("AdministrarPrestamos.jsp");
 		rd.forward(request, response);
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		autorizarPrestamo(request);
 		RequestDispatcher rd = request.getRequestDispatcher("AdministrarPrestamos.jsp");
 		request.setAttribute("listaCuentas", cn.obtenerTodos());
 		rd.forward(request, response);
