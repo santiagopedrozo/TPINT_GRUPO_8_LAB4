@@ -4,6 +4,8 @@ pageEncoding="ISO-8859-1"%>
 <%@ page import="entidades.Cuentas" %>
 <%@ page import="entidades.Usuarios" %>
 <%@ page import="entidades.Movimientos" %>
+<%@ page import="entidades.Provincias" %>
+<%@ page import="entidades.Prestamos" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
   <head>
@@ -108,18 +110,18 @@ pageEncoding="ISO-8859-1"%>
               </td>
             </tbody>
             <tbody>
-              <td><b>Fecha:</b></td>
+              <td><b>Importe:</b></td>
               <td>
                 <input
-                  type="date"
+                  type="text"
                   class="form-control"
                   id="floatingInput"
-                  name="fecha1Movimiento"
+                  name="importe1Movimiento"
                 /><input
-                  type="date"
+                  type="text"
                   class="form-control"
                   id="floatingInput"
-                  name="fecha2Movimiento"
+                  name="importe2Movimiento"
                 />
               </td>
             </tbody>
@@ -132,12 +134,10 @@ pageEncoding="ISO-8859-1"%>
                   id="floatingInput"
                   id="ddlTiposMovimiento"
                 >
-                  <option value="Alta de cuenta">Alta de cuenta</option>
-                  <option value="Alta de un prestamo">
-                    Alta de un prï¿½stamo
-                  </option>
-                  <option value="Pago de prestamo">Pago de prï¿½stamo</option>
-                  <option value="Transferencia">Transferencia</option>
+                  <option value="1">Alta de cuenta</option>
+                  <option value="2">Alta de un prestamo</option>
+                  <option value="3">Pago de prestamo</option>
+                  <option value="4">Transferencia</option>
                 </select>
               </td>
             </tbody>
@@ -167,13 +167,13 @@ pageEncoding="ISO-8859-1"%>
                 <th>Cuenta</th>
               </tr>
             </thead>
+            <tbody>
             <%
             ArrayList<Movimientos> listaMovimientos = null;
             
             if (request.getAttribute("listaMovimientosFiltrada") != null)
             	listaMovimientos = (ArrayList<Movimientos>) request.getAttribute("listaMovimientosFiltrada");
             %>
-            <tbody>
 	            <%
 	            if (request.getAttribute("listaMovimientosFiltrada") != null)
 		            for (Movimientos movimiento : listaMovimientos)
@@ -217,10 +217,10 @@ pageEncoding="ISO-8859-1"%>
     <div style="display: flex; justify-content: center">
       <div class="container-fluid" style="width: 40%">
         <div class="card text-center">
-	<form action= "servletReportes" method="post">
           <table
             class="table table-hover"
             style="text-align: start; margin: 1px; font-size: 17px">
+			<form action= "servletReportes" method="get">
             <tbody>
               <td><b>Nombre:</b></td>
               <td>
@@ -228,7 +228,7 @@ pageEncoding="ISO-8859-1"%>
                   type="text"
                   class="form-control"
                   id="floatingInput"
-                  name="txtNombre"
+                  name="txtNombreCliente"
                 />
               </td>
             </tbody>
@@ -239,69 +239,53 @@ pageEncoding="ISO-8859-1"%>
                   type="text"
                   class="form-control"
                   id="floatingInput"
-                  name="txtApellido"
+                  name="txtApellidoCliente"
                 />
-              </td>
-            </tbody>
-            <tbody>
-              <td><b>Nacionalidad:</b></td>
-              <td>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="floatingInput"
-                  name="txtNacionalidad"
-                />
-                
               </td>
             </tbody>
             <tbody>
               <td><b>Provincia:</b></td>
               <td>
                 <select
-                  name="ddlProvincias"
+                  name="ddlProvinciasCliente"
                   class="form-control"
                   id="floatingInput"
-                  id="ddlProvincias"
+                  id="ddlProvinciasCliente"
                 >
-                  <option value="Buenos Aires">Buenos Aires</option>
-                  <option value="Catamarca">Catamarca</option>
-                  <option value="La rioja">La rioja</option>
-                  <option value="Cordoba">Cordoba</option>
+                <option value = "-1" selected></option>
+                  <%
+            ArrayList<Provincias> listaProvincias = null;
+            
+            if (request.getAttribute("listaProvincias") != null)
+            	listaProvincias = (ArrayList<Provincias>) request.getAttribute("listaProvincias");
+            %>
+            <%
+            if (request.getAttribute("listaProvincias") != null)
+	            for (Provincias provincia : listaProvincias)
+	            {
+            %>
+            	<option value = <%=provincia.getIdProvincia_Prov() %>><%=provincia.getDescripcion_Prov()%> </option>
+            <%	} %>
+                  
                 </select>
               </td>
             </tbody>
-            <tbody>
-              <td><b>Localidad:</b></td>
-              <td>
-                <select
-                  name="ddlProvincias"
-                  class="form-control"
-                  id="floatingInput"
-                  id="ddlProvincias"
-                >
-                  <option value="Don Torcuato">Don Torcuato</option>
-                  <option value="Pacheco">Pacheco</option>
-                  <option value="Ricardo Rojas">Ricardo Rojas</option>
-                  <option value="Malvinas">Malvinas</option>
-                </select>
-              </td>
-              <tbody>
             	<td><b></b></td>
               <td>
-             <button type="submit" name ="filtrarUser" class="btn btn-outline-primary form-control ">Filtrar</button>
+             <button type="submit" name ="btnFiltrarUser" class="btn btn-outline-primary form-control ">Filtrar</button>
               </td>
             </tbody>
             </tbody>
+      		</form>
           </table>
-      </form>
         </div>
       </div>
       </div> 
      	
     <% 
     ArrayList <Usuarios> listaUser = null;
-	if (request.getAttribute("listaUser")!=null)listaUser = (ArrayList <Usuarios>) request.getAttribute("listaUser");
+	if (request.getAttribute("listaUser") != null)
+		listaUser = (ArrayList<Usuarios>)request.getAttribute("listaUser");
 	%>
       <div class="container-fluid" style="width: 90%">
         <div class="card text-center">
@@ -314,21 +298,18 @@ pageEncoding="ISO-8859-1"%>
                 <th>Nombre</th> 
                 <th>Apellido</th>
                 <th>Sexo</th> 
-                <th>Nacionalidad</th> 
                 <th>Fecha de nacimiento</th> 
                 <th>Dirección</th>
                 <th>Provincia</th>
-                <th>Localidad</th>
                 <th>Email</th>
                 <th>Teléfono</th> 
-                <th>Tipo de usuario</th> 
                 <th>Usuario</th>
                 <th>Contraseña</th>
               </tr>
             </thead>
             <tbody>
             <%
-              	if (listaUser!=null)
+              	if (listaUser != null){
               		for(Usuarios user: listaUser){
               			if (user.isTipo_Usr()==false && user.isEstado_Usr()==true){
              %>
@@ -337,24 +318,22 @@ pageEncoding="ISO-8859-1"%>
                 <td><%=user.getCUIL_Usr() %></td>                                            
                 <td><%=user.getNombre_Usr() %></td>
                 <td><%=user.getApellido_Usr() %></td>                       
-                <td><%=user.getSexo_Usr() %></td>                        
-              	<td><%=user.getNacionalidad_Usr() %></td>            
+                <td><%=user.getSexo_Usr() %></td>                                
                 <td><%=user.getFechaNacimiento_Usr()%></td>           
                 <td><%=user.getDireccion_Usr()%></td>           
-                <td><%=user.getProvincia_Usr().getDescripcion_Prov()%></td>          
-              	<td><%=user.getLocalidad_Usr().getDescripcion_Loc()%></td>           
+                <td><%=user.getProvincia_Usr().getDescripcion_Prov()%></td>                 
                 <td><%=user.getEmail_Usr() %></td>           
                 <td><%=user.getTelefono_Usr() %></td>
-                <td><%=user.isTipo_Usr() %></td>
                 <td><%=user.getUsuario_Usr() %></td>  
                 <td><%=user.getContrasenia_Usr() %></td>  
               </tr>
               <%
               		}
               }
+              }
               %>
             </tbody>
-          </table>               
+          </table>         
         </div>
       </div>
     </div>
@@ -369,6 +348,7 @@ pageEncoding="ISO-8859-1"%>
             class="table table-hover"
             style="text-align: start; margin: 1px; font-size: 17px"
           >
+          <form action= "servletReportes" method="get">
             <tbody>
               <td><b>Propietario de cuenta:</b></td>
               <td>
@@ -376,23 +356,7 @@ pageEncoding="ISO-8859-1"%>
                   type="text"
                   class="form-control"
                   id="floatingInput"
-                  name="txtNombre"
-                />
-              </td>
-            </tbody>
-            <tbody>
-              <td><b>Fecha:</b></td>
-              <td>
-                <input
-                  type="date"
-                  class="form-control"
-                  id="floatingInput"
-                  name="fecha1"
-                /><input
-                  type="date"
-                  class="form-control"
-                  id="floatingInput"
-                  name="fecha2"
+                  name="txtNombreCuentas"
                 />
               </td>
             </tbody>
@@ -400,11 +364,12 @@ pageEncoding="ISO-8859-1"%>
               <td><b>Tipo:</b></td>
               <td>
                 <select
-                  name="ddlTipos"
+                  name="ddlTiposCuentas"
                   class="form-control"
                   id="floatingInput"
                   id="ddlTipos"
                 >
+                  <option value="-1" selected></option>
                   <option value=1>Caja de ahorro</option>
                   <option value=2>Cuenta corriente</option>               
                 </select>
@@ -417,21 +382,22 @@ pageEncoding="ISO-8859-1"%>
                   type="text"
                   class="form-control"
                   id="floatingInput"
-                  name="txtSaldoMenor"
+                  name="txtSaldoMenorCuenta"
                 />Hasta<input
                   type="text"
                   class="form-control"
                   id="floatingInput"
-                  name="txtSaldoMayor"
+                  name="txtSaldoMayorCuenta"
                 />
               </td>
             </tbody>
             <tbody>
             	<td><b></b></td>
               <td>
-                    <button type="button" class="btn btn-outline-primary form-control ">Filtrar</button>
+                    <button type="submit" name = "btnFiltrarCuentas" class="btn btn-outline-primary form-control ">Filtrar</button>
               </td>
             </tbody>
+            </form>
           </table>
         </div>
       </div>
@@ -439,8 +405,8 @@ pageEncoding="ISO-8859-1"%>
       
       <%
 		ArrayList <Cuentas> listaCuentas = null;
-		if (request.getAttribute("listaCuentas")!=null) listaCuentas=(ArrayList <Cuentas>)request.getAttribute("listaCuentas");
-		int posicion=0;
+		if (request.getAttribute("listaCuentas")!=null)
+			listaCuentas=(ArrayList <Cuentas>)request.getAttribute("listaCuentas");
 	%>  
       <div class="container-fluid" style="width: 90%">
         <div class="card text-center">
@@ -468,7 +434,7 @@ pageEncoding="ISO-8859-1"%>
                 <td><%=cuenta.getTipoCuenta_Cuentas().getDescripcion_TipoCuenta() %></td>  
                 <td><%=cuenta.getUsuario_Cuentas().getDNI_Usr() %></td>
                 <td><%=cuenta.getFechaCreacion_Cuentas() %></td>   
-                <td>$<%=cuenta.getSaldo_Cuentas() %></td>
+                <td><%=cuenta.getSaldo_Cuentas() %></td>
               </tr>
               <%
               	}
@@ -490,6 +456,7 @@ pageEncoding="ISO-8859-1"%>
             class="table table-hover"
             style="text-align: start; margin: 1px; font-size: 14px"
           >
+          <form action= "servletReportes" method="get">
             <tbody>
               <td><b>Propietario de cuenta:</b></td>
               <td>
@@ -497,23 +464,7 @@ pageEncoding="ISO-8859-1"%>
                   type="text"
                   class="form-control"
                   id="floatingInput"
-                  name="txtNombre"
-                />
-              </td>
-            </tbody>
-            <tbody>
-              <td><b>Fecha:</b></td>
-              <td>
-                <input
-                  type="date"
-                  class="form-control"
-                  id="floatingInput"
-                  name="fecha1"
-                /><input
-                  type="date"
-                  class="form-control"
-                  id="floatingInput"
-                  name="fecha2"
+                  name="txtNombrePrestamo"
                 />
               </td>
             </tbody>
@@ -521,12 +472,12 @@ pageEncoding="ISO-8859-1"%>
               <td><b>Importe a pagar por cliente:</b></td>
               <td style="font-size: 12px;">
                 <div class="form-floating mb-3">
-                    <input type="number" class="form-control form-control-sm" id="floatingInput" placeholder="-" name="txtImportePedido1">
+                    <input type="number" class="form-control form-control-sm" id="floatingInput" placeholder="-" name="txtImportePagar1">
                     <label for="floatingSelect">Desde</label>
                 </div>
                 
                 <div class="form-floating mb-3">
-                    <input type="number" class="form-control form-control-sm" id="floatingInput" placeholder="-" name="txtImportePedido2">
+                    <input type="number" class="form-control form-control-sm" id="floatingInput" placeholder="-" name="txtImportePagar2">
                     <label for="floatingSelect">Hasta</label>
                 </div>
               </td>
@@ -544,7 +495,6 @@ pageEncoding="ISO-8859-1"%>
                     <input type="number" class="form-control form-control-sm" id="floatingInput" placeholder="-" name="txtImportePedido2">
                     <label for="floatingSelect">Hasta</label>
                 </div>
-     
 
               </td>
             </tbody>
@@ -555,20 +505,25 @@ pageEncoding="ISO-8859-1"%>
                   type="text"
                   class="form-control"
                   id="floatingInput"
-                  name="txtCuotas"
+                  name="txtCuotasPrestamo"
                 />
               </td>
             </tbody>
             <tbody>
             	<td><b></b></td>
               <td>
-                    <button type="button" class="btn btn-outline-primary form-control ">Filtrar</button>
+                <button type="submit" name = "btnFiltrarPrestamos" class="btn btn-outline-primary form-control ">Filtrar</button>
               </td>
             </tbody>
-            
+            </form>
           </table>
         </div>
       </div>
+      <%
+		ArrayList <Prestamos> listaPrestamos = null;
+		if (request.getAttribute("listaPrestamos")!=null)
+			listaPrestamos = (ArrayList <Prestamos>)request.getAttribute("listaPrestamos");
+		%> 
       <div class="container-fluid" style="width: 90%">
         <div class="card text-center">
           <div class="card-header"><h5>Prestamos</h5></div>
@@ -585,54 +540,24 @@ pageEncoding="ISO-8859-1"%>
                 <th>Cantidad de cuotas</th>
               </tr>
             </thead>
+            <%
+                if (listaPrestamos!=null)
+                	for(Prestamos prestamo : listaPrestamos){
+                		if (prestamo.isEstado_Pr()){
+                %>
             <tbody>
               <tr>
-                <td>1</td>
-                <td>Bruno Lisanti</td>
-                <td>1/11/2022</td>
-                <td>500000.00</td>
-                <td>400000.00</td>
-                <td>12</td>
-                <td>80000.00</td>
-                <td>12</td>
+                <td><%= prestamo.getId_Pr() %></td>
+                <td><%= prestamo.getCuentaDestino_Pr().getUsuario_Cuentas().getNombre_Usr() + prestamo.getCuentaDestino_Pr().getUsuario_Cuentas().getApellido_Usr() %></td>
+                <td><%= prestamo.getFechaSolicitado_Pr().toString() %></td>
+                <td><%= prestamo.getImpResultante_Pr() %></td>
+                <td><%= prestamo.getImpSolicitado_Pr() %></td>
+                <td><%= prestamo.getPlazoMeses_Pr() %></td>
+                <td><%= prestamo.getImpPagoAlMes_Pr() %></td>
+                <td><%= prestamo.getCantCuotas_Pr() %></td>
               </tr>
             </tbody>
-            <tbody>
-              <tr>
-                <td>1</td>
-                <td>Bruno Lisanti</td>
-                <td>1/11/2022</td>
-                <td>500000.00</td>
-                <td>400000.00</td>
-                <td>12</td>
-                <td>80000.00</td>
-                <td>12</td>
-              </tr>
-            </tbody>
-            <tbody>
-              <tr>
-                <td>1</td>
-                <td>Bruno Lisanti</td>
-                <td>1/11/2022</td>
-                <td>500000.00</td>
-                <td>400000.00</td>
-                <td>12</td>
-                <td>80000.00</td>
-                <td>12</td>
-              </tr>
-            </tbody>
-            <tbody>
-              <tr>
-                <td>1</td>
-                <td>Bruno Lisanti</td>
-                <td>1/11/2022</td>
-                <td>500000.00</td>
-                <td>400000.00</td>
-                <td>12</td>
-                <td>80000.00</td>
-                <td>12</td>
-              </tr>
-            </tbody>
+            <%}}%>
           </table>
           <div class="card-footer">
               <nav aria-label="Page navigation example">
