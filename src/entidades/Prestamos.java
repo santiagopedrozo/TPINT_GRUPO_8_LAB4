@@ -160,7 +160,7 @@ public class Prestamos {
 
 	@Override
 	public String toString() {
-		return "Prestamos [Id_Pr=" + Id_Pr + ", usuario_Pr=" + usuario_Pr + ", CuentaDestino_Pr=" + CuentaDestino_Pr
+		return "Prestamos [Id_Pr=" + Id_Pr + ", usuario_Pr=" + usuario_Pr.getDNI_Usr() + ", CuentaDestino_Pr=" + CuentaDestino_Pr.getNro_Cuentas()
 				+ ", FechaSolicitado_Pr=" + FechaSolicitado_Pr + ", ImpSolicitado_Pr=" + ImpSolicitado_Pr
 				+ ", ImpResultante_Pr=" + ImpResultante_Pr + ", PlazoMeses_Pr=" + PlazoMeses_Pr + ", ImpPagoAlMes_Pr="
 				+ ImpPagoAlMes_Pr + ", CantCuotas_Pr=" + CantCuotas_Pr + ", Autorizado_Pr=" + Autorizado_Pr

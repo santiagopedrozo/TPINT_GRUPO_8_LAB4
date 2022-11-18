@@ -35,56 +35,19 @@ public class ServletPrestamos extends HttpServlet {
 
     public ServletPrestamos() {}
     
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		autorizarPrestamo(request);
-		obtenerAllPrestamos(request);
-		solicitarPrestamo(request);
-		
+		request.setAttribute("listaPrestamos", pn.obtenerTodos());
 		RequestDispatcher rd = request.getRequestDispatcher("AdministrarPrestamos.jsp");
 		rd.forward(request, response);
+		
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		autorizarPrestamo(request);
 		RequestDispatcher rd = request.getRequestDispatcher("AdministrarPrestamos.jsp");
-		request.setAttribute("listaCuentas", cn.obtenerTodos());
 		rd.forward(request, response);
-	}
-	
-	private void solicitarPrestamo(HttpServletRequest request) {
-		if(request.getParameter("btnPedirPrestamo") != null) {
-			insertPrestamo(request);
-		}
-	
-	}
-	
-	private void insertPrestamo(HttpServletRequest request) {
-		request.setAttribute("resultadoPrestamo",  pn.agregarPrestamo(asignarInputsPrestamo(request)));
-	}
-	
-	private Prestamos asignarInputsPrestamo(HttpServletRequest request) {
-		Usuarios usr = (Usuarios)request.getSession().getAttribute("sessionUser");
-	    Cuentas CuentaDestino = obtenerCuentaXNro(Integer.parseInt(request.getParameter("ddlCuentaOrigenPrestamo")));
-	    float ImpSolicitado_Pr = Float.parseFloat(request.getParameter("txtImporte"));
-	    float ImpResultante_Pr = (float) (ImpSolicitado_Pr * 1.70);
-	    int PlazoMeses_Pr = Integer.parseInt(request.getParameter("ddlCuotas"));
-	    float ImpPagoAlMes = ImpResultante_Pr / PlazoMeses_Pr;
-	    Prestamos p = new Prestamos(usr, CuentaDestino, ImpSolicitado_Pr, ImpResultante_Pr, PlazoMeses_Pr, ImpPagoAlMes);	
-	    System.out.println("prestamos: " + p);
-	    return p;
-	}
-	
-	private Cuentas obtenerCuentaXNro(int nro) {
-		for(Cuentas cta : cn.obtenerTodos()) {
-			if(cta.getNro_Cuentas() == nro)
-				return cta;
-		}
-		return null;
-	}
-	
-	private void obtenerAllPrestamos(HttpServletRequest request){
-		request.setAttribute("listaPrestamos", pn.obtenerTodos());
 	}
 	
 	private void cargarPrestamos (HttpServletRequest request)
