@@ -80,6 +80,7 @@ pageEncoding="ISO-8859-1"%>
                 <th>Imp. a pagar</th>
                 <th>Imp. a pagar por mes</th> 
                 <th>Plazo meses</th>
+                <th>Cuotas pagadas</th>
                 <th>Estado aprobacion</th>
               </tr>
             </thead>
@@ -111,6 +112,7 @@ pageEncoding="ISO-8859-1"%>
 		                <td><%=pr.getImpResultante_Pr() %></td>
 		                <td><%=pr.getImpPagoAlMes_Pr() %></td>   
 		                <td><%=pr.getPlazoMeses_Pr() %></td>
+		                <td><%=pr.getCantCuotas_Pr() %></td>
 		                <td><%=pr.isAutorizado_Pr() %></td>
 					</form>
 	              </tr> 
@@ -211,8 +213,7 @@ pageEncoding="ISO-8859-1"%>
 			                >
 			                <%if (listaCuentasOrigen!=null)
 			                	for (Cuentas c : listaCuentasOrigen){%>
-			                  		<option value=<%=c.getNro_Cuentas() %>>  <%="CBU " +c.getCBU_Cuentas() + " - Saldo " + c.getSaldo_Cuentas() %></option>
-			                		
+			                  		<option value=<%=c.getNro_Cuentas() %>>  <%="CBU " +c.getCBU_Cuentas() + " - Saldo " + c.getSaldo_Cuentas() %></option>	
 			                <%}%>
 			                </select>
 			                <label for="floatingSelect">Cuenta origen para debitar</label>

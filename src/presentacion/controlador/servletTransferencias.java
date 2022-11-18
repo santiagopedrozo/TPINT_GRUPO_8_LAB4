@@ -70,7 +70,6 @@ public class servletTransferencias extends HttpServlet {
 	}
 	
 	private void transferir(HttpServletRequest request) {
-		System.out.println(request.getParameter("ddlCuentaOrigen"));
 		Cuentas cuentaOrigen = negCuentas.cuentasXNro(Integer.parseInt(request.getParameter("ddlCuentaOrigen")));
 		Cuentas cuentaDestino = negCuentas.cuentasXNro(Integer.parseInt(request.getParameter("ddlCuentaDestino")));
 		String detalle = request.getParameter("txtDetalle");
