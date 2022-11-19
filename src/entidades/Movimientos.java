@@ -22,7 +22,6 @@ public class Movimientos {
 
 	public Movimientos(int id_Mov, Cuentas cuenta_Mov, TipoMovimientos tiposMov_Mov, Timestamp fecha_Mov2, String detalle_Mov,
 			Cuentas cuentaDestino_Mov, float importe_Mov, boolean estado_Mov) {
-		super();
 		Id_Mov = id_Mov;
 		Cuenta_Mov = cuenta_Mov;
 		TiposMov_Mov = tiposMov_Mov;
@@ -38,6 +37,13 @@ public class Movimientos {
 		TiposMov_Mov = tiposMov_Mov;
 		Detalle_Mov = detalle_Mov;
 		CuentaDestino_Mov = cuentaDestino_Mov;
+		Importe_Mov = importe_Mov;
+	}
+	
+	public Movimientos(Cuentas cuenta_Mov, TipoMovimientos tiposMov_Mov, String detalle_Mov, float importe_Mov) {
+		Cuenta_Mov = cuenta_Mov;
+		TiposMov_Mov = tiposMov_Mov;
+		Detalle_Mov = detalle_Mov;
 		Importe_Mov = importe_Mov;
 	}
 
@@ -117,7 +123,7 @@ public class Movimientos {
 	//toString
 	@Override
 	public String toString() {
-		return "Movimientos [Id_Mov=" + Id_Mov + ", Cuenta_Mov=" + Cuenta_Mov + ", TiposMov_Mov=" + TiposMov_Mov
+		return "Movimientos [Id_Mov=" + Id_Mov + ", Cuenta_Mov=" + Cuenta_Mov.getNro_Cuentas() + ", TiposMov_Mov=" + TiposMov_Mov.getId_TiposMov()
 				+ ", Fecha_Mov=" + Fecha_Mov + ", Detalle_Mov=" + Detalle_Mov + ", CuentaDestino_Mov="
 				+ CuentaDestino_Mov + ", Importe_Mov=" + Importe_Mov + ", Estado_Mov=" + Estado_Mov + "]";
 	}

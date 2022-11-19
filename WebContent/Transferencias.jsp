@@ -137,9 +137,6 @@ if (request.getAttribute("importeNegativo")!=null) {
 	         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
 	   </div>
        <%}%>    
-    
-    
-    
         <%
         if (mensaje == -2){
         %>

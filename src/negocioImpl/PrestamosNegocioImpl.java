@@ -3,14 +3,19 @@ package negocioImpl;
 import java.util.ArrayList;
 import java.util.Date;
 import dao.PrestamosDao;
+import entidades.Movimientos;
 import entidades.Prestamos;
 import entidades.Usuarios;
+import negocio.CuentasNegocio;
+import negocio.MovimientosNegocio;
 import negocio.PrestamosNegocio;
 import daoImpl.PrestamosDaoImpl;
 
 public class PrestamosNegocioImpl implements PrestamosNegocio {
 
 	private PrestamosDaoImpl prDao = new PrestamosDaoImpl();
+	private CuentasNegocio cn = new CuentasNegocioImpl();
+	private MovimientosNegocio mn= new MovimientosNegocioImpl();
 	
 	@Override
 	public ArrayList<Prestamos> obtenerTodos() {
@@ -56,5 +61,20 @@ public class PrestamosNegocioImpl implements PrestamosNegocio {
 	public boolean agregarPrestamo(Prestamos prestamo) {
 		return prDao.agregarPrestamo(prestamo);
 	}
+	
 
+	@Override
+	public int pagarPrestamo(Prestamos prestamo, Movimientos moviento) {
+		int idResultado = mn.insert(moviento); 
+		if(idResultado == 1) {
+			modificarCuotas(prestamo); //agrega uno al contador de cuotas pagads
+		}
+		return 1;
+	}
+
+	@Override
+	public boolean modificarCuotas(Prestamos prestamo) {
+		prDao.modificarCuotas(prestamo);
+		return false;
+	}
 }

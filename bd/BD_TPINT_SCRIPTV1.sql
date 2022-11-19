@@ -118,7 +118,7 @@ CREATE TABLE Movimientos(
     Fecha_Mov TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     Detalle_Mov VARCHAR(30) NOT NULL,
     NroCuentaDestino_Mov INT NULL,
-    Importe_Mov DECIMAL NOT NULL,
+    Importe_Mov DECIMAL(15,2) NOT NULL,
     Estado_Mov BIT DEFAULT 1,
     
     CONSTRAINT PK_Movimientos PRIMARY KEY(Id_Mov),
@@ -2748,9 +2748,6 @@ BEGIN
 		Saldo_Cuentas = 10000,
 		Estado_Cuentas = 1
         WHERE CBU_Cuentas = CBU;
-        
-       
-	
 	ELSE 
 		INSERT INTO Cuentas (DNI_Cuentas, IdTipoCuenta_Cuentas,CBU_Cuentas) VALUES
 		(DNI,IdTipoCuenta,CBU);
@@ -2851,8 +2848,17 @@ BEGIN
 END //
 DELIMITER ;
 
-SELECT * FROM USUARIOS;
-
+DELIMITER //
+CREATE PROCEDURE SPActualizarCuotasPrestamos (
+	IN Id INT
+) 
+BEGIN
+	UPDATE Prestamos
+    SET CantCuotas_Pr = CantCuotas_Pr + 1 
+    WHERE Id_Pr = Id;
+END //
+DELIMITER ;
+call SPActualizarCuotasPrestamos(9)
 
 DELIMITER //
 CREATE PROCEDURE SPAgregarMovimiento (
@@ -2864,9 +2870,14 @@ CREATE PROCEDURE SPAgregarMovimiento (
 )
     
 BEGIN
-
-	INSERT INTO Movimientos ( NroCuenta_Mov ,IdTiposMov_Mov ,Detalle_Mov, NroCuentaDestino_Mov, Importe_Mov) VALUES
-	(NroCuenta, IdTiposMov, Detalle, NroCuentaDestino,Importe);
+   IF NroCuentaDestino IS NULL THEN  
+      INSERT INTO Movimientos ( NroCuenta_Mov ,IdTiposMov_Mov ,Detalle_Mov, Importe_Mov) VALUES
+	  (NroCuenta, IdTiposMov, Detalle, Importe);
+      
+   ELSE  
+      INSERT INTO Movimientos ( NroCuenta_Mov ,IdTiposMov_Mov ,Detalle_Mov, NroCuentaDestino_Mov, Importe_Mov) VALUES
+	  (NroCuenta, IdTiposMov, Detalle, NroCuentaDestino,Importe);
+   END IF;
 END //
 DELIMITER ;
 

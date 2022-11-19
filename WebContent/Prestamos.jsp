@@ -5,39 +5,41 @@ pageEncoding="ISO-8859-1"%>
 <%@ page import="entidades.Cuentas" %>
 <%@ page import="entidades.Usuarios" %>
 <%@ page import="entidades.Prestamos" %>
-<%@ include file="MasterPageAdmin.html" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 
 	<script type="text/javascript">
-		$(document).ready(function () {
-	        $('#table_prestamos').DataTable({
-	            language: {
-	                processing: "Tratamiento en curso...",
-	                search: "Buscar&nbsp;:",
-	                lengthMenu: "Agrupar de _MENU_ items",
-	                info: "Mostrando del item _START_ al _END_ de un total de _TOTAL_ items",
-	                infoEmpty: "No existen datos.",
-	                infoFiltered: "(filtrado de _MAX_ elementos en total)",
-	                infoPostFix: "",
-	                loadingRecords: "Cargando...",
-	                zeroRecords: "No se encontraron datos con tu busqueda",
-	                emptyTable: "No hay datos disponibles en la tabla.",
-	                paginate: {
-	                    first: "Primero",
-	                    previous: "Anterior",
-	                    next: "Siguiente",
-	                    last: "Ultimo"
-	                },
-	                aria: {
-	                    sortAscending: ": active para ordenar la columna en orden ascendente",
-	                    sortDescending: ": active para ordenar la columna en orden descendente"
-	                }
-	            },
-	            scrollY: 400,
-	            lengthMenu: [ [10, 25, -1], [10, 25, "All"] ],
-	        });
-	    });        
+        $(document).ready(function () {
+            $('#table_prestamos').DataTable({
+                language: {
+                    processing: "Tratamiento en curso...",
+                    search: "Buscar&nbsp;:",
+                    lengthMenu: "Agrupar de _MENU_ items",
+                    info: "Mostrando del item _START_ al _END_ de un total de _TOTAL_ items",
+                    infoEmpty: "No existen datos.",
+                    infoFiltered: "(filtrado de _MAX_ elementos en total)",
+                    infoPostFix: "",
+                    loadingRecords: "Cargando...",
+                    zeroRecords: "No se encontraron datos con tu busqueda",
+                    emptyTable: "No hay datos disponibles en la tabla.",
+                    paginate: {
+                        first: "Primero",
+                        previous: "Anterior",
+                        next: "Siguiente",
+                        last: "Ultimo"
+                    },
+                    aria: {
+                        sortAscending: ": active para ordenar la columna en orden ascendente",
+                        sortDescending: ": active para ordenar la columna en orden descendente"
+                    }
+                },
+                scrollY: 180,
+                lengthMenu: [ [5, 25, -1], [10, 25, "All"] ],
+                "bLengthChange" : false,
+                "bFilter": false,
+                "bInfo": false
+            });
+        });
     </script>
     
     
@@ -46,6 +48,13 @@ pageEncoding="ISO-8859-1"%>
     <title>Prestamos</title>
   </head>
   	<%
+  		int mensaje=-3;
+  			if (request.getAttribute("mensaje")!=null) mensaje=(int)request.getAttribute("mensaje");   
+		
+		Boolean importeNegativo = false;
+  		if (request.getAttribute("importeNegativo")!=null) 
+			importeNegativo= (boolean)request.getAttribute("importeNegativo");
+  				
   		boolean prestamoInsert = false;
 	  	if(request.getAttribute("prestamoInsert")!=null)
 	  		prestamoInsert = (boolean)request.getAttribute("prestamoInsert");
@@ -60,15 +69,15 @@ pageEncoding="ISO-8859-1"%>
 		ArrayList <Prestamos> prestamosDeUsr = null;
 			if (request.getAttribute("prestamosDeUsr")!=null) prestamosDeUsr=(ArrayList <Prestamos>)request.getAttribute("prestamosDeUsr");
 	%> 
-  <body >	 
+  <body >	
+  <%@ include file="MasterPageAdmin.html" %> 
   <br>
-    <div class="container-fluid" style="width: 90%">
-      <div class="card text-center" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 100px;">
-        <div class="card-header">
-          <H2 style="text-align: center">Pagar prestamo</H2>
-        </div>
-        
-        <table class="table table-hover" id="table_prestamos">
+ 
+  	
+    <div class="container-fluid" style="width:85%;">
+        <div class="card text-center" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 100px;">
+            <div class="card-header"> <H3> Prestamos </H3></div> 
+            <table class="table table-hover" id= "table_prestamos">
             <thead>
               <tr>
                 <th> </th>  
@@ -84,15 +93,12 @@ pageEncoding="ISO-8859-1"%>
             </thead>
             <tbody>
 	            <%if (prestamosDeUsr!=null)
-		            	for (Prestamos pr : prestamosDeUsr){%>
-		            		
+		            	for (Prestamos pr : prestamosDeUsr){%> 		
 	              <tr>
-	  				<form method="post" action="ServletPrestamosUsuario" name="prestamoSeleccionado">
-		  				<%if(pr.isAutorizado_Pr()){ %>
+	  				<form method="post" action="ServletPrestamosUsuario" name="prestamoSeleccionadoForm">
+		  				<%if(pr.isAutorizado_Pr() && pr.getCantCuotas_Pr() <= pr.getPlazoMeses_Pr()){ %>
 			                <th scope="row">
 			                  <button type="submit" name="btnPagar" class="btn btn-outline-success">
-			                  
-			                  
 			                    <i class="fa-solid fa-comments-dollar"></i> pagar
 			                  </button>
 			                </th>
@@ -111,23 +117,24 @@ pageEncoding="ISO-8859-1"%>
 		                <td><%=pr.getImpPagoAlMes_Pr() %></td>   
 		                <td><%=pr.getPlazoMeses_Pr() %></td>
 		                <td><%=pr.getCantCuotas_Pr() %></td>
-		                <td><%=pr.isAutorizado_Pr() %></td>
-		                
-		                
-						
-	              </tr> 
-	        	<%}%>
+		                <td><%=pr.isAutorizado_Pr() %></td>	
+	                </form>
+		              </tr> 
+		        	<%}%>
 	        		
 		            </tbody>     
-		          </table>	          	
-	          	<button type="submit" name="estaPidiendoPrestamo" class="btn btn-outline-success w-25 p-3 d-flex justify-content-center" >
-                    <i class='fa-sharp fa-solid fa-sack-dollar'></i>  Solicitar prestamo
-           		</button>   	
-			</form>
+		          </table>
+	          	<form method="post" action="ServletPrestamosUsuario">	          	
+	          		<button type="submit"
+	          		name="estaPidiendoPrestamo"
+	          		class="btn btn-outline-success btn-lg d-flex justify-content-center"
+	          		style="margin:auto;" >
+	                   <i class="fa-solid fa-hand-holding-dollar"></i> Solicitar prestamo
+	          		</button>
+          		</form>   	
 			<br>
 	    </div>
 	  </div>
-	  
 	
 	<br>
 	<%if(prestamoInsert){ %>
@@ -236,12 +243,13 @@ pageEncoding="ISO-8859-1"%>
 		                    name="txtParaPagar"
 		                    placeholder="-"
 		                    step=0.01
-		                    value=<%= "$" + prestamoAPagar.getImpPagoAlMes_Pr() %>
+		                    value=<%= prestamoAPagar.getImpPagoAlMes_Pr() %>
 		                    readonly
 		                    required>
 							<label for="floatingSelect">Monto</label>
 						</div>
 					</div>
+					<input type="hidden" value=<%= prestamoAPagar.getId_Pr() %> name="prestamoCuotaPagar">
 			        <div class="col-md-12">
 			            <div class="form-floating">
 			                <select
@@ -282,6 +290,54 @@ pageEncoding="ISO-8859-1"%>
 		    </div>
 		<%}%>
     </div>
+    
+    
+    <div style="display: flex; justify-content: center;">
+    
+  		<%
+	    if (importeNegativo == true){
+	    %>
+	   <div ID="MsgErrorDiv" class="col-md-4 alert alert-danger" runat="server" visible="false">
+	         <strong>Error</strong> El importe no debe ser negativo!
+	         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+	   </div>
+       <%}%>    
+        <%
+        if (mensaje == -2){
+        %>
+        <div ID="MsgErrorDiv" class="col-md-4 alert alert-danger" runat="server" visible="false">
+            <strong>Error</strong> La cuenta de origen no puede ser la misma que la de destino.
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        <%
+        }
+        else if (mensaje == -1){
+        %>
+        <div ID="MsgErrorDiv" class="col-md-4 alert alert-danger" runat="server" visible="false">
+            <strong>Error</strong> La cuenta no tiene saldo disponible para la transferencia.
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        <%
+        }
+        else if (mensaje == 0){
+        %>
+        <div ID="MsgErrorDiv" class="col-md-4 alert alert-danger" runat="server" visible="false">
+            <strong>Error</strong> Hubo un error al realizar la transferencia.
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        <%
+        }
+        else if (mensaje == 1){
+        %>
+        
+        <div ID="MsgCorrectoDiv" class="col-md-4 alert alert-success" runat="server" visible="false">
+            <strong>Correcto</strong> Transferencia realizada correctamente!
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        <%
+        }
+        %>
+   </div>
     
     <div style="display: flex; justify-content: center;">
    		<%
@@ -324,6 +380,4 @@ pageEncoding="ISO-8859-1"%>
     <br>
     <%@ include file="FooterPage.html" %>
   </body>
-  
-  
 </html>

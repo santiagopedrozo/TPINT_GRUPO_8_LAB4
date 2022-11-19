@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.sun.org.apache.bcel.internal.classfile.PMGClass;
+
 import entidades.Cuentas;
 import entidades.Movimientos;
 import entidades.Prestamos;
@@ -47,39 +49,36 @@ public class ServletPrestamosUsuario extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		pagarPrestamoLogica(request);
 		cargarCuentasOrigen(request);
 		solicitarPrestamo(request);
 		obtenerAllPrestamosXusr(request);
-		pagarPrestamoLogica(request);
-		
+
 		RequestDispatcher rd = request.getRequestDispatcher("Prestamos.jsp");
 		rd.forward(request, response);
 	}
-	/*
-	private void transferir(HttpServletRequest request) {
-		Cuentas cuentaOrigen = cn.cuentasXNro(Integer.parseInt(request.getParameter("ddlCuentaOrigenParaPagar")));
-		String detalle = request.getParameter("Pago a prestamo");
-		float importe = Float.parseFloat(request.getParameter("txtImporte"));
-		Movimientos movimiento = new Movimientos(cuentaOrigen, new TipoMovimientos(4,"Transferencia"),detalle,cuentaDestino,importe);
-		int mensaje = mn.insert(movimiento);
-		request.setAttribute("mensaje", mensaje);
-	}
-	*/
+	
 	private void solicitarPrestamo(HttpServletRequest request) {
-		if(request.getParameter("btnPedirPrestamo") != null) {
+		if(request.getParameter("btnPedirPrestamo") != null) 
 			insertPrestamo(request);
-		}
 	}
 	
 	private void pagarPrestamoLogica(HttpServletRequest request) {
-		if(request.getParameter("btnPagar") != null) {
-			pagarPrestamo(request);
-		}
-		if(request.getParameter("btnCancelarCuota") != null) {
+		if(request.getParameter("btnPagar") != null) 
+			pagarPrestamo(request);	
+		if(request.getParameter("btnCancelarCuota") != null) 
 			request.setAttribute("prestamoAPagar",  new Prestamos());
-		}
-		
-			
+		if(request.getParameter("btnPagarCuota") != null) 
+			pagarCuota(request);			
+	}
+	
+	private void pagarCuota(HttpServletRequest request) {
+		Cuentas cuentaOrigen = cn.cuentasXNro(Integer.parseInt(request.getParameter("ddlCuentaOrigenParaPagar")));
+		String detalle = "Pago a prestamo";
+		float importe = Float.parseFloat(request.getParameter("txtParaPagar"));
+		Movimientos movimiento = new Movimientos(cuentaOrigen, new TipoMovimientos(3,"Pago de préstamo"), detalle, importe);
+		int res = pn.pagarPrestamo(new Prestamos(Integer.parseInt(request.getParameter("prestamoCuotaPagar"))), movimiento);
+		request.setAttribute("mensaje", res);
 	}
 	
 	private void pagarPrestamo(HttpServletRequest request) {
@@ -87,7 +86,6 @@ public class ServletPrestamosUsuario extends HttpServlet {
 	}
 	
 	private Prestamos obtenerPrestamo(int idPrestamo, HttpServletRequest request) {
-		System.out.println("id: " + idPrestamo);
 		for(Prestamos p : pn.prestXUsuario((Usuarios)request.getSession().getAttribute("sessionUser"))) {
 			if(p.getId_Pr() == idPrestamo) 
 				return p;

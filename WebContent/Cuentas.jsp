@@ -43,8 +43,11 @@
                         sortDescending: ": active para ordenar la columna en orden descendente"
                     }
                 },
-                scrollY: 400,
-                lengthMenu: [ [10, 25, -1], [10, 25, "All"] ],
+                scrollY: 180,
+                lengthMenu: [ [5, 25, -1], [10, 25, "All"] ],
+                "bLengthChange" : false,
+                "bFilter": false,
+                "bInfo": false
             });
         });
     </script>
@@ -61,7 +64,7 @@
 <body>
 	<%@ include file="MasterPageAdmin.html" %>
 	<br>
-		<div class="container-fluid" style="width:90%;">
+		<div class="container-fluid" style="width:85%;">
 	        <div class="card text-center" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 100px;">
 	            <div class="card-header "><H2> <b> <p style="text-align:center;"> Cuentas </b></H2></div>
 	            <table class="table table-hover" style="font-size: 12px;">
@@ -111,9 +114,9 @@ if (request.getParameter("btnVerMovimientos")!=null){
 
 %>
 
-<div class="container-fluid" style="width:60%;">
-        <div class="card text-center">
-            <div class="card-header ">
+<div class="container-fluid" style="width:85%;">
+        <div class="card text-center" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 100px;">
+            <div class="card-header">
             <H3> Movimientos </H3>
             </div> 
             <table class="table table-hover" id= "table_id_movimientos" style="font-size: 12px;">
@@ -128,9 +131,8 @@ if (request.getParameter("btnVerMovimientos")!=null){
 					<% if (transferencia == true)%>
 					<th>Cuenta destino</th>
 					<th>CBU de la cuenta destino</th>  
-	
 				</tr>
-				</thead>
+			</thead>
 				<tbody>
 				<%
 					if (listaMovimientos!=null)

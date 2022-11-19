@@ -45,10 +45,15 @@
                     }
                 },
                 scrollY: 400,
-                lengthMenu: [ [10, 25, -1], [10, 25, "All"] ],
+                lengthMenu: [ [5, 25, -1], [10, 25, "All"] ],
+                "bLengthChange" : false,
+                "bFilter": false,
+                "bInfo": false
             });
         });
     </script>
+    
+ 
 
 <% 
 boolean estaModificando = false;

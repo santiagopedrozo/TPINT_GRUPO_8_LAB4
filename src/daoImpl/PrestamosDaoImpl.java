@@ -390,6 +390,26 @@ public class PrestamosDaoImpl implements PrestamosDao
 		}
 		return r;
 	}
+	
+	@Override
+	public boolean modificarCuotas(Prestamos prestamo)
+	{
+		boolean res=false;
+		Connection cn = null;
+		try 
+		{
+			cn = Conexion.getConexion().getSQLConexion();
+			CallableStatement st = cn.prepareCall("CALL SPActualizarCuotasPrestamos(?)");
+			st.setInt(1, prestamo.getId_Pr());
+			if (st.executeUpdate()>0) 
+				res=true;
+		}
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
+		return res;
+	}
 
 	
 }

@@ -26,6 +26,13 @@ public class Prestamos {
 		usuario_Pr = new Usuarios();
 	}
 	
+	public Prestamos(int Id) {
+		//Usuario_Pr = new Usuarios();
+		Id_Pr = Id;
+		CuentaDestino_Pr = new Cuentas();
+		usuario_Pr = new Usuarios();
+	}
+	
 	public Prestamos(Usuarios usr_pr, Cuentas cuentaDestino_Pr, float impSolicitado_Pr, float impResultante_Pr, int plazoMeses_Pr, float impPagoAlMes_Pr) {
 		Id_Pr = 0;
 		usuario_Pr = usr_pr;
