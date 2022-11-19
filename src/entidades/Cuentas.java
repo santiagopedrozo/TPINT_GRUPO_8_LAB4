@@ -2,7 +2,6 @@ package entidades;
 
 import java.time.LocalDateTime;
 
-import com.sun.jmx.snmp.Timestamp;
 
 public class Cuentas {
 	private int Nro_Cuentas;
@@ -93,6 +92,16 @@ public class Cuentas {
 		return "Cuentas [Nro_Cuentas=" + Nro_Cuentas + ", DNI_Cuentas=" + Usuario_Cuentas.getDNI_Usr()  + ", FechaCreacion_Cuentas="
 				+ FechaCreacion_Cuentas + ", TipoCuenta_Cuentas=" + TipoCuenta_Cuentas + ", CBU_Cuentas=" + CBU_Cuentas
 				+ ", Saldo_Cuentas=" + Saldo_Cuentas + ", Estado_Cuentas=" + Estado_Cuentas + "]";
+	}
+	
+	public static Boolean verificarImporte(float importe) throws exceptions.ImporteNegativo {
+		exceptions.ImporteNegativo exc1 = new exceptions.ImporteNegativo();
+		
+        if (importe < 0.0f) {
+        	throw exc1;
+        }
+     
+        return true;
 	}
 	
 	

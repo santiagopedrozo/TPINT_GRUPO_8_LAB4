@@ -80,7 +80,6 @@
                             name="txtDNI" 
                             class="form-control" 
                             id="floatingInput" placeholder="-"
-                            oninput="this.value =this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" 
                             minlength="7" 
                             maxlength="8"
                             placeholder="-"
@@ -253,6 +252,21 @@
 			    %>
 			        <div ID="MsgErrorDiv" style="font-size: 16px" class="col-md-12 alert alert-danger" runat="server" visible="false">
 			            <strong>Error</strong> Las contraseñas no coinciden
+			            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+			        </div>
+		        <%}%>    
+            </div>	
+            
+            <div style="display: flex; justify-content: center;">
+				<%
+					Boolean dniInvalido = false;
+				    if (request.getAttribute("dniInvalido")!=null) {
+				    	dniInvalido= (boolean)request.getAttribute("dniInvalido");
+			    	}
+			    if (dniInvalido == true && request.getAttribute("estadoInsertado") == null){
+			    %>
+			        <div ID="MsgErrorDiv" style="font-size: 16px" class="col-md-12 alert alert-danger" runat="server" visible="false">
+			            <strong>Error</strong> Debe ingresar un DNI válido
 			            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
 			        </div>
 		        <%}%>    

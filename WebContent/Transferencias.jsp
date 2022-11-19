@@ -116,9 +116,30 @@ pageEncoding="ISO-8859-1"%>
    
 <%
 int mensaje=-3;
-if (request.getAttribute("mensaje")!=null) mensaje=(int)request.getAttribute("mensaje");                        		
+if (request.getAttribute("mensaje")!=null) mensaje=(int)request.getAttribute("mensaje");   
+
+                		
+Boolean importeNegativo = false;
+if (request.getAttribute("importeNegativo")!=null) {
+	importeNegativo= (boolean)request.getAttribute("importeNegativo");
+}
 %>  
+
+
+
     <div style="display: flex; justify-content: center;">
+    
+  		<%
+	    if (importeNegativo == true){
+	    %>
+	   <div ID="MsgErrorDiv" class="col-md-4 alert alert-danger" runat="server" visible="false">
+	         <strong>Error</strong> El importe no debe ser negativo!
+	         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+	   </div>
+       <%}%>    
+    
+    
+    
         <%
         if (mensaje == -2){
         %>
