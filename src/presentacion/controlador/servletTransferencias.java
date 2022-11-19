@@ -77,6 +77,5 @@ public class servletTransferencias extends HttpServlet {
 		Movimientos movimiento = new Movimientos(cuentaOrigen, new TipoMovimientos(4,"Transferencia"),detalle,cuentaDestino,importe);
 		int mensaje = negMov.insert(movimiento);
 		request.setAttribute("mensaje", mensaje);
-
 	}
 }

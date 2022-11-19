@@ -10,11 +10,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import entidades.Cuentas;
+import entidades.Movimientos;
 import entidades.Prestamos;
+import entidades.TipoMovimientos;
 import entidades.Usuarios;
 import negocio.CuentasNegocio;
+import negocio.MovimientosNegocio;
 import negocio.PrestamosNegocio;
 import negocioImpl.CuentasNegocioImpl;
+import negocioImpl.MovimientosNegocioImpl;
 import negocioImpl.PrestamosNegocioImpl;
 
 /**
@@ -25,6 +29,7 @@ public class ServletPrestamosUsuario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private PrestamosNegocio pn = new PrestamosNegocioImpl();
 	private CuentasNegocio cn = new CuentasNegocioImpl();
+	MovimientosNegocio mn= new MovimientosNegocioImpl();
        
     public ServletPrestamosUsuario() {
         super();
@@ -50,7 +55,16 @@ public class ServletPrestamosUsuario extends HttpServlet {
 		RequestDispatcher rd = request.getRequestDispatcher("Prestamos.jsp");
 		rd.forward(request, response);
 	}
-	
+	/*
+	private void transferir(HttpServletRequest request) {
+		Cuentas cuentaOrigen = cn.cuentasXNro(Integer.parseInt(request.getParameter("ddlCuentaOrigenParaPagar")));
+		String detalle = request.getParameter("Pago a prestamo");
+		float importe = Float.parseFloat(request.getParameter("txtImporte"));
+		Movimientos movimiento = new Movimientos(cuentaOrigen, new TipoMovimientos(4,"Transferencia"),detalle,cuentaDestino,importe);
+		int mensaje = mn.insert(movimiento);
+		request.setAttribute("mensaje", mensaje);
+	}
+	*/
 	private void solicitarPrestamo(HttpServletRequest request) {
 		if(request.getParameter("btnPedirPrestamo") != null) {
 			insertPrestamo(request);
@@ -59,9 +73,12 @@ public class ServletPrestamosUsuario extends HttpServlet {
 	
 	private void pagarPrestamoLogica(HttpServletRequest request) {
 		if(request.getParameter("btnPagar") != null) {
-			System.out.println("paga prestamo");
 			pagarPrestamo(request);
 		}
+		if(request.getParameter("btnCancelarCuota") != null) {
+			request.setAttribute("prestamoAPagar",  new Prestamos());
+		}
+		
 			
 	}
 	
@@ -88,6 +105,10 @@ public class ServletPrestamosUsuario extends HttpServlet {
 	
 	private void cargarCuentasOrigen(HttpServletRequest request) {
 		Usuarios user = (Usuarios) request.getSession().getAttribute("sessionUser");
+		if(request.getParameter("estaPidiendoPrestamo") != null) 
+			request.setAttribute("prestamoInsert",  true);		
+		if(request.getParameter("btnCancelarInsert") != null) 
+			request.setAttribute("prestamoInsert",  false);
 		request.setAttribute("listaCuentasOrigen", cn.cuentasXPropietario(user.getDNI_Usr()));
 	}
 	

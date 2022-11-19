@@ -21,7 +21,9 @@ public class Prestamos {
 	//Constructores
 	public Prestamos() {
 		//Usuario_Pr = new Usuarios();
+		Id_Pr = -1;
 		CuentaDestino_Pr = new Cuentas();
+		usuario_Pr = new Usuarios();
 	}
 	
 	public Prestamos(Usuarios usr_pr, Cuentas cuentaDestino_Pr, float impSolicitado_Pr, float impResultante_Pr, int plazoMeses_Pr, float impPagoAlMes_Pr) {

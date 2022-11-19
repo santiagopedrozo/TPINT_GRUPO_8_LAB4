@@ -44,12 +44,13 @@ pageEncoding="ISO-8859-1"%>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
     <title>Prestamos</title>
-    
-    
-    
   </head>
   	<%
-	  	Prestamos prestamoAPagar = null;
+  		boolean prestamoInsert = false;
+	  	if(request.getAttribute("prestamoInsert")!=null)
+	  		prestamoInsert = (boolean)request.getAttribute("prestamoInsert");
+  	
+	  	Prestamos prestamoAPagar = new Prestamos();
 	  	if(request.getAttribute("prestamoAPagar")!=null)
 	  		prestamoAPagar = (Prestamos)request.getAttribute("prestamoAPagar");
 	  	
@@ -59,11 +60,8 @@ pageEncoding="ISO-8859-1"%>
 		ArrayList <Prestamos> prestamosDeUsr = null;
 			if (request.getAttribute("prestamosDeUsr")!=null) prestamosDeUsr=(ArrayList <Prestamos>)request.getAttribute("prestamosDeUsr");
 	%> 
-  <body >
-	 	 
+  <body >	 
   <br>
-    
-
     <div class="container-fluid" style="width: 90%">
       <div class="card text-center" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 100px;">
         <div class="card-header">
@@ -114,15 +112,25 @@ pageEncoding="ISO-8859-1"%>
 		                <td><%=pr.getPlazoMeses_Pr() %></td>
 		                <td><%=pr.getCantCuotas_Pr() %></td>
 		                <td><%=pr.isAutorizado_Pr() %></td>
-					</form>
+		                
+		                
+						
 	              </tr> 
 	        	<%}%>
-            </tbody>     
-          </table>
+	        		
+		            </tbody>     
+		          </table>	          	
+	          	<button type="submit" name="estaPidiendoPrestamo" class="btn btn-outline-success w-25 p-3 d-flex justify-content-center" >
+                    <i class='fa-sharp fa-solid fa-sack-dollar'></i>  Solicitar prestamo
+           		</button>   	
+			</form>
+			<br>
 	    </div>
 	  </div>
+	  
 	
-		<br>
+	<br>
+	<%if(prestamoInsert){ %>
 	<div style="display:flex; flex-direction: row;">
 		<div class="container-fluid" style="width: 40%">
 	      <div class="card text-center" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 100px;">
@@ -130,21 +138,21 @@ pageEncoding="ISO-8859-1"%>
 	          <H2 style="text-align: center">Solicitar prestamo</H2>
 	        </div>
 	        <form method="post" action="ServletPrestamosUsuario">
-		        <div class="card-body" style="font-size: 16px">
-		        	<div class="col-md-12">
+		        <div class="card-body row" style="font-size: 16px">
+		        	<div class="col-md-6">
 		                <div class="form-floating mb-3">
 		                    <input 
-		                    type="number"
+		                    type="text"
 		                    class="form-control"
 		                    name="txtImporte"
 		                    placeholder="-"
-		
 		                    step=0.01
+		                    value="0.01"
 		                    required>
 		                    <label for="floatingInput">$ Importe a pedir</label>
 		                </div>
 		            </div>
-		          	<div class="col-md-12">
+		          	<div class="col-md-6">
 		           		<div class="form-floating">
 							<select name="ddlCuotas"
 							 class="form-select" id="floatingInput" placeholder="-">
@@ -168,14 +176,22 @@ pageEncoding="ISO-8859-1"%>
 		                >
 		                <%if (listaCuentasOrigen!=null)
 		                	for (Cuentas cuenta : listaCuentasOrigen){%>
-		                  <option value=<%=cuenta.getNro_Cuentas() %>>  <%=cuenta.getNro_Cuentas() + " - " +cuenta.getCBU_Cuentas() + " - " + cuenta.getUsuario_Cuentas().getNombre_Usr() + " " + cuenta.getUsuario_Cuentas().getApellido_Usr() %></option>
+		                  	<option value=<%=cuenta.getNro_Cuentas() %>>  <%="CBU " + cuenta.getCBU_Cuentas() + " - Saldo $" + cuenta.getSaldo_Cuentas() %></option>
 		                <%}%>
 		                </select>
 		                <label for="floatingSelect">Cuenta origen</label>
 		              </div>
 		            </div>
 		            
-		            <div class="col-md-12">
+		            <div class="col-md-6">
+		                <br>
+		            	<input type="submit"
+		            	name="btnCancelarInsert"
+		            	class="btn btn-outline-secondary form-control btn-lg"
+		            	value="Cancelar"
+		            	onclick="return confirm('¿Esta seguro de cancelar la solicitud?')">
+		            </div>
+		            <div class="col-md-6">
 		                <br>
 		            	<input type="submit"
 		            	name="btnPedirPrestamo"
@@ -190,18 +206,42 @@ pageEncoding="ISO-8859-1"%>
 			</div>
 	    
 	    <br>
-		<%if (prestamoAPagar != null){ %>
+		<%} if (prestamoAPagar.getId_Pr() != -1){ %>
 		    <div class="container-fluid" style="width: 40%;" >
 		      <div class="card text-center" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 100px;">
 		        <div class="card-header">
 		          <H2 style="text-align: center">Cuotas</H2>
 		        </div>
-		        <div class="card-body" style="font-size: 13px">
-		       	<h5>Cuotas siguiente por pagar: <%= prestamoAPagar.getCantCuotas_Pr() + 1 %></h5>
-		        <br/>  
-		        <h5>Importe de la cuota: <%= prestamoAPagar.getImpPagoAlMes_Pr() %></h5>
-		        <br/>
-		        <form method="post" action="ServletPrestamosUsuario" >
+		        <div class="card-body " style="font-size: 13px">
+		       	
+		        <form method="post" action="ServletPrestamosUsuario" class="row">
+		        	<div class="col-md-6">
+		                <div class="form-floating mb-3">
+		                    <input 
+		                    type="number"
+		                    class="form-control"
+		                    name="txtNroCuenta"
+		                    placeholder="-"
+		                    value=<%= prestamoAPagar.getCantCuotas_Pr() + 1 %>
+		                    readonly
+		                    required>
+		                    <label for="floatingInput">Cuota siguiente</label>
+		                </div>
+		            </div>
+		          	<div class="col-md-6">
+		           		<div class="form-floating">
+							<input 
+		                    type="text"
+		                    class="form-control"
+		                    name="txtParaPagar"
+		                    placeholder="-"
+		                    step=0.01
+		                    value=<%= "$" + prestamoAPagar.getImpPagoAlMes_Pr() %>
+		                    readonly
+		                    required>
+							<label for="floatingSelect">Monto</label>
+						</div>
+					</div>
 			        <div class="col-md-12">
 			            <div class="form-floating">
 			                <select
@@ -213,15 +253,21 @@ pageEncoding="ISO-8859-1"%>
 			                >
 			                <%if (listaCuentasOrigen!=null)
 			                	for (Cuentas c : listaCuentasOrigen){%>
-			                  		<option value=<%=c.getNro_Cuentas() %>>  <%="CBU " +c.getCBU_Cuentas() + " - Saldo " + c.getSaldo_Cuentas() %></option>	
+			                  		<option value=<%=c.getNro_Cuentas() %>>  <%="CBU " +c.getCBU_Cuentas() + " - Saldo $" + c.getSaldo_Cuentas() %></option>	
 			                <%}%>
 			                </select>
 			                <label for="floatingSelect">Cuenta origen para debitar</label>
 			            </div>
 			        </div>
-		        </form>        
-		   	  <br>
-		          <div class="col-md-12">
+			        <div class="col-md-6">
+		                <br>
+		            	<input type="submit"
+		            	 name= "btnCancelarCuota"
+		            	 class="btn btn-outline-secondary form-control btn-lg"
+		            	 value="Cancelar"
+		            	 onclick="return confirm('¿Esta seguro de que cancelar el pago?')">
+		           </div>
+			        <div class="col-md-6">
 		                <br>
 		            	<input type="submit"
 		            	 name= "btnPagarCuota"
@@ -229,6 +275,8 @@ pageEncoding="ISO-8859-1"%>
 		            	 value="Pagar"
 		            	 onclick="return confirm('¿Esta seguro de que quiere pagar esta cuota?')">
 		           </div>
+		        </form>     
+		          
 		        </div>
 		      </div>
 		    </div>
