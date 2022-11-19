@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.sql.Types;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -278,7 +279,10 @@ public class MovimientosDaoImpl implements MovimientosDao
 			st.setInt(1,movimiento.getCuenta_Mov().getNro_Cuentas());
 			st.setInt(2, movimiento.getTiposMov_Mov().getId_TiposMov());
 			st.setString(3, movimiento.getDetalle_Mov());
-			st.setInt(4,movimiento.getCuentaDestino_Mov().getNro_Cuentas());
+			if(movimiento.getCuentaDestino_Mov() == null) 
+				st.setNull(4, Types.INTEGER);
+			else
+				st.setInt(4,movimiento.getCuentaDestino_Mov().getNro_Cuentas());	
 			st.setFloat(5, movimiento.getImporte_Mov());
 			if (st.executeUpdate()>0) r=true;
 			
@@ -289,6 +293,7 @@ public class MovimientosDaoImpl implements MovimientosDao
 		  finally {
 			
 		}
+		System.out.println("resultado: " + r);
 		return r;
 	}
 

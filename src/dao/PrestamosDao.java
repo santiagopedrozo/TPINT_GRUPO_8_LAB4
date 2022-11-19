@@ -16,6 +16,7 @@ public interface PrestamosDao
 	public ArrayList<Prestamos> prestXCantidadCuotas(int cuotas);
 	public boolean agregarPrestamo(Prestamos prestamo);
 	public boolean modificarAutorizado(Prestamos prestamo, boolean aprobado);
+	public boolean modificarCuotas(Prestamos prestamo);
 	public boolean eliminarPrestamo(Prestamos prestamo);
 	
 }

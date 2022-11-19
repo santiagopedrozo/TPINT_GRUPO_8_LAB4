@@ -14,6 +14,7 @@ import entidades.Cuentas;
 import entidades.Movimientos;
 import entidades.TipoMovimientos;
 import entidades.Usuarios;
+import exceptions.ImporteNegativo;
 import negocio.CuentasNegocio;
 import negocio.MovimientosNegocio;
 import negocioImpl.CuentasNegocioImpl;
@@ -45,7 +46,14 @@ public class servletTransferencias extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if (request.getParameter("btnTransferir")!=null) {
-			transferir(request);
+			try {
+				Cuentas.verificarImporte(Float.parseFloat(request.getParameter("txtImporte")));
+				transferir(request);
+			}
+			catch (ImporteNegativo e) {
+				request.setAttribute("importeNegativo", true);
+			}
+			
 			cargarCuentasOrigen(request);
 			cargarCuentasDestino(request);
 			RequestDispatcher rd = request.getRequestDispatcher("Transferencias.jsp");
@@ -70,7 +78,6 @@ public class servletTransferencias extends HttpServlet {
 	}
 	
 	private void transferir(HttpServletRequest request) {
-		System.out.println(request.getParameter("ddlCuentaOrigen"));
 		Cuentas cuentaOrigen = negCuentas.cuentasXNro(Integer.parseInt(request.getParameter("ddlCuentaOrigen")));
 		Cuentas cuentaDestino = negCuentas.cuentasXNro(Integer.parseInt(request.getParameter("ddlCuentaDestino")));
 		String detalle = request.getParameter("txtDetalle");
@@ -78,6 +85,5 @@ public class servletTransferencias extends HttpServlet {
 		Movimientos movimiento = new Movimientos(cuentaOrigen, new TipoMovimientos(4,"Transferencia"),detalle,cuentaDestino,importe);
 		int mensaje = negMov.insert(movimiento);
 		request.setAttribute("mensaje", mensaje);
-
 	}
 }

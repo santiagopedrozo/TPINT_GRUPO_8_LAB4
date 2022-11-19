@@ -24,27 +24,18 @@ public class PrestamosDaoImpl implements PrestamosDao
 	@Override
 	public boolean agregarPrestamo(Prestamos prestamo) {
 		Connection cn = null;
-		/*
 		try {
 			cn = Conexion.getConexion().getSQLConexion();
-			CallableStatement cst = cn.prepareCall("CALL SPAgregarUsuario(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+			CallableStatement cst = cn.prepareCall("CALL SPAgregarPrestamo(?, ?, ?, ?, ?, ?)");
 			System.out.println("prestamo: " + prestamo);
 			
-			cst.setString(1, usuario.getDNI_Usr());
-			cst.setString(2, usuario.getCUIL_Usr());
-			cst.setString(3, usuario.getNombre_Usr());
-			cst.setString(4, usuario.getApellido_Usr());
-			cst.setString(5, usuario.getSexo_Usr());
-			cst.setString(6,usuario.getNacionalidad_Usr());
-			cst.setObject(7, usuario.getFechaNacimiento_Usr()); 
-			cst.setString(8,usuario.getDireccion_Usr());
-			cst.setInt(9,usuario.getProvincia_Usr().getIdProvincia_Prov());
-			cst.setInt(10, usuario.getLocalidad_Usr().getIdLocalidad_Loc());
-			cst.setString(11,usuario.getEmail_Usr());
-			cst.setString(12, usuario.getTelefono_Usr());
-			cst.setBoolean(13, usuario.isTipo_Usr());
-			cst.setString(14,usuario.getUsuario_Usr());
-			cst.setString(15, usuario.getContrasenia_Usr());
+			cst.setString(1, prestamo.getUsuario_Pr().getDNI_Usr());
+			cst.setInt(2, prestamo.getCuentaDestino_Pr().getNro_Cuentas() );
+			cst.setFloat(3, prestamo.getImpSolicitado_Pr());
+			cst.setFloat(4, prestamo.getImpResultante_Pr());
+			cst.setInt(5, prestamo.getPlazoMeses_Pr());
+			cst.setFloat(6,prestamo.getImpPagoAlMes_Pr());
+
 			
 			int i = cst.executeUpdate();
 			if(i > 0) 
@@ -54,7 +45,7 @@ public class PrestamosDaoImpl implements PrestamosDao
 		catch (Exception e) {
 			e.printStackTrace();
 		}
-		*/
+		
 		return false;
 	}
 	
@@ -100,7 +91,7 @@ public class PrestamosDaoImpl implements PrestamosDao
 		"			on (cuentas.DNI_Cuentas = usuarios.DNI_Usr) inner join localidades " + 
 		"				on (usuarios.IdLocalidad_Usr = localidades.IdLocalidad_Loc and usuarios.IdProvincia_Usr = localidades.IdProvincia_Loc) inner join provincias " + 
 		"					on (localidades.IdProvincia_Loc = provincias.IdProvincia_Prov) " + 
-		"where usuarios.DNI_Usr = '" + us.getDNI_Usr() + "';"; 
+		"where usuarios.DNI_Usr = '" + us.getDNI_Usr() + "' and Estado_Pr = 1;"; 
 		try 
 		{
 			Class.forName("com.mysql.jdbc.Driver");
@@ -110,7 +101,6 @@ public class PrestamosDaoImpl implements PrestamosDao
 			{
 				prestamos.add(getPrestamos(resultSet));
 			}
-			prestamos.forEach(System.out::println);
 		} 
 		catch (SQLException e) 
 		{
@@ -398,6 +388,26 @@ public class PrestamosDaoImpl implements PrestamosDao
 		{
 		}
 		return r;
+	}
+	
+	@Override
+	public boolean modificarCuotas(Prestamos prestamo)
+	{
+		boolean res=false;
+		Connection cn = null;
+		try 
+		{
+			cn = Conexion.getConexion().getSQLConexion();
+			CallableStatement st = cn.prepareCall("CALL SPActualizarCuotasPrestamos(?)");
+			st.setInt(1, prestamo.getId_Pr());
+			if (st.executeUpdate()>0) 
+				res=true;
+		}
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
+		return res;
 	}
 
 	

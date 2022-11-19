@@ -45,18 +45,14 @@
                         sortDescending: ": active para ordenar la columna en orden descendente"
                     }
                 },
-                scrollY: 400,
-                lengthMenu: [ [10, 25, -1], [10, 25, "All"] ],
+                scrollY: 350,
+                lengthMenu: [ [5, 25, -1], [10, 25, "All"] ],
+                "bLengthChange" : false,
+                "bFilter": false,
+                "bInfo": false
             });
         });
-
-        
     </script>
-    
-    
-
-
-
 <%
 	
 	Usuarios usrSeleccionadoEditar = new Usuarios();
@@ -98,7 +94,7 @@
                 <%
                 	if (listaUser!=null)
                 		for(Usuarios user: listaUser){
-                			if (user.isTipo_Usr()==false && user.isEstado_Usr()==true){
+                			if (user.isEstado_Usr()==true){
                 	%>
                  	<tr>
                  		<form action= "servletUsuarios" method="post" name="formUsuario">
