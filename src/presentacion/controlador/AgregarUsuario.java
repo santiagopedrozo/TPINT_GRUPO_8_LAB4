@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import entidades.Localidades;
 import entidades.Provincias;
 import entidades.Usuarios;
+import exceptions.DniInvalido;
 import negocio.LocalidadesNegocio;
 import negocio.ProvinciasNegocio;
 import negocio.UsuariosNegocio;
@@ -41,8 +42,13 @@ public class AgregarUsuario extends HttpServlet {
 
 		
 		if (request.getParameter("btnAgregarUsr")!=null) {
-			System.out.println("hola");
+			try {
+			Usuarios.verificarDniInvalido(request.getParameter("txtDNI"));
 			request.setAttribute("estadoInsertado", insert(request));
+			}
+			catch (DniInvalido e) {
+				request.setAttribute("dniInvalido", true);
+			}
 		}
 			
 		refreshPost(request);
@@ -104,7 +110,6 @@ public class AgregarUsuario extends HttpServlet {
 		String Usuario_Usr = request.getParameter("txtUsuario");
 		String Contrasenia_Usr = request.getParameter("txtContrasenia");
 		Usuarios usr = new Usuarios (DNI_Usr, CUIL_Usr,Nombre_Usr,  Apellido_Usr, Sexo_Usr, Nacionalidad_Usr, FechaNacimiento_Usr, Direccion_Usr,Provincia_Usr, Localidad_Usr ,Email_Usr,Telefono_Usr,  Tipo_Usr, Usuario_Usr,  Contrasenia_Usr, true);	
-		System.out.println(usr);
 		return usr;
 	}
 	

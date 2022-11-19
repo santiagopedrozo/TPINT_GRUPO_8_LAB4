@@ -98,7 +98,7 @@
                 <%
                 	if (listaUser!=null)
                 		for(Usuarios user: listaUser){
-                			if (user.isTipo_Usr()==false && user.isEstado_Usr()==true){
+                			if (user.isEstado_Usr()==true){
                 	%>
                  	<tr>
                  		<form action= "servletUsuarios" method="post" name="formUsuario">

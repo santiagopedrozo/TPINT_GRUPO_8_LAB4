@@ -1,7 +1,9 @@
 package entidades;
 
-import java.sql.Date;
 import java.time.LocalDate;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 
 public class Usuarios {
 	private String DNI_Usr;
@@ -222,6 +224,23 @@ public class Usuarios {
 				+ ", Provincia_Usr=" + Provincia_Usr + ", Localidad_Usr=" + Localidad_Usr + ", Email_Usr=" + Email_Usr
 				+ ", Telefono_Usr=" + Telefono_Usr + ", Tipo_Usr=" + Tipo_Usr + ", Usuario_Usr=" + Usuario_Usr
 				+ ", Contrasenia_Usr=" + Contrasenia_Usr + ", Estado_Usr=" + Estado_Usr + "]";
+	}
+	
+	
+	public static Boolean verificarDniInvalido(String DNI) throws exceptions.DniInvalido {
+		exceptions.DniInvalido exc1 = new exceptions.DniInvalido();
+		Pattern pat = Pattern.compile("^([0-9])*$");
+        Matcher mat = pat.matcher(DNI);
+        
+        if (DNI.charAt(0)=='0') {
+        	throw exc1;
+        }
+        
+        if (!(mat.matches())) {
+        	throw exc1;
+        }
+     
+        return true;
 	}
 	
 	
