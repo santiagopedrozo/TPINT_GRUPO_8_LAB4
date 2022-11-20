@@ -126,7 +126,7 @@
 			if (modificado == 0){
 		%>
 		 <div ID="MsgEliminadoDiv" class="col-md-4 alert alert-success" runat="server" visible="false">
-            <strong>Eliminada</strong> Cuenta eliminada correctamente.
+            <strong>Rechazado</strong> Préstamo rechazado.
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
 		<%
