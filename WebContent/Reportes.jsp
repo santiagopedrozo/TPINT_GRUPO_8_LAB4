@@ -45,8 +45,11 @@ pageEncoding="ISO-8859-1"%>
                         sortDescending: ": active para ordenar la columna en orden descendente"
                     }
                 },
-                scrollY: 400,
-                lengthMenu: [ [10, 25, -1], [10, 25, "All"] ],
+                scrollY: 330,
+                lengthMenu: [ [5, 25, -1], [10, 25, "All"] ],
+                "bLengthChange": false,
+                "bFilter": false,
+                "bInfo": false,
             });
         });
     </script>
@@ -76,8 +79,78 @@ pageEncoding="ISO-8859-1"%>
                         sortDescending: ": active para ordenar la columna en orden descendente"
                     }
                 },
-                scrollY: 400,
-                lengthMenu: [ [10, 25, -1], [10, 25, "All"] ],
+                scrollY: 330,
+                lengthMenu: [ [5, 25, -1], [10, 25, "All"] ],
+                "bLengthChange": false,
+                "bFilter": false,
+                "bInfo": false,
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#table_id_movimientos').DataTable({
+                language: {
+                    processing: "Tratamiento en curso...",
+                    search: "Buscar&nbsp;:",
+                    lengthMenu: "Agrupar de _MENU_ items",
+                    info: "Mostrando del item _START_ al _END_ de un total de _TOTAL_ items",
+                    infoEmpty: "No existen datos.",
+                    infoFiltered: "(filtrado de _MAX_ elementos en total)",
+                    infoPostFix: "",
+                    loadingRecords: "Cargando...",
+                    zeroRecords: "No se encontraron datos con tu busqueda",
+                    emptyTable: "No hay datos disponibles en la tabla.",
+                    paginate: {
+                        first: "Primero",
+                        previous: "Anterior",
+                        next: "Siguiente",
+                        last: "Ultimo"
+                    },
+                    aria: {
+                        sortAscending: ": active para ordenar la columna en orden ascendente",
+                        sortDescending: ": active para ordenar la columna en orden descendente"
+                    }
+                },
+                scrollY: 330,
+                lengthMenu: [ [5, 25, -1], [10, 25, "All"] ],
+                "bLengthChange": false,
+                "bFilter": false,
+                "bInfo": false,
+            });
+        });
+    </script>
+    
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#table_id_prestamos').DataTable({
+                language: {
+                    processing: "Tratamiento en curso...",
+                    search: "Buscar&nbsp;:",
+                    lengthMenu: "Agrupar de _MENU_ items",
+                    info: "Mostrando del item _START_ al _END_ de un total de _TOTAL_ items",
+                    infoEmpty: "No existen datos.",
+                    infoFiltered: "(filtrado de _MAX_ elementos en total)",
+                    infoPostFix: "",
+                    loadingRecords: "Cargando...",
+                    zeroRecords: "No se encontraron datos con tu busqueda",
+                    emptyTable: "No hay datos disponibles en la tabla.",
+                    paginate: {
+                        first: "Primero",
+                        previous: "Anterior",
+                        next: "Siguiente",
+                        last: "Ultimo"
+                    },
+                    aria: {
+                        sortAscending: ": active para ordenar la columna en orden ascendente",
+                        sortDescending: ": active para ordenar la columna en orden descendente"
+                    }
+                },
+                scrollY: 330,
+                lengthMenu: [ [5, 25, -1], [10, 25, "All"] ],
+                "bLengthChange": false,
+                "bFilter": false,
+                "bInfo": false,
             });
         });
     </script>
@@ -99,13 +172,26 @@ pageEncoding="ISO-8859-1"%>
           >
         	<form action="servletReportes" method="get">
             <tbody>
-              <td><b>Propietario de cuenta:</b></td>
+              <td><b>Propietario de cuenta remitente:</b></td>
               <td>
-                <input
+              <br><input
                   type="text"
                   class="form-control"
                   id="floatingInput"
-                  name="txtNombreMovimiento"
+                  name="txtDniRemitenteMovimiento"
+                  placeholder = "Dni del propietario"
+                />
+              </td>
+            </tbody>
+            <tbody>
+              <td><b>Propietario de cuenta receptora:</b></td>
+              <td>
+              <br><input
+                  type="text"
+                  class="form-control"
+                  id="floatingInput"
+                  name="txtDniReceptorMovimiento"
+                  placeholder = "Dni del propietario"
                 />
               </td>
             </tbody>
@@ -117,11 +203,13 @@ pageEncoding="ISO-8859-1"%>
                   class="form-control"
                   id="floatingInput"
                   name="importe1Movimiento"
+                  placeholder = "Desde"
                 /><input
                   type="text"
                   class="form-control"
                   id="floatingInput"
                   name="importe2Movimiento"
+                  placeholder = "Hasta"
                 />
               </td>
             </tbody>
@@ -134,6 +222,7 @@ pageEncoding="ISO-8859-1"%>
                   id="floatingInput"
                   id="ddlTiposMovimiento"
                 >
+                  <option value="-1"></option>
                   <option value="1">Alta de cuenta</option>
                   <option value="2">Alta de un prestamo</option>
                   <option value="3">Pago de prestamo</option>
@@ -147,6 +236,12 @@ pageEncoding="ISO-8859-1"%>
                     <button type="submit" class="btn btn-outline-primary form-control" name = "btnFiltrarMovimientos">Filtrar</button>
               </td>
             </tbody>
+            <tbody>
+            	<td><b></b></td>
+              <td>
+                    <button type="submit" class="btn btn-outline-primary form-control" name = "btnQuitarFiltrosMovimientos">Quitar filtros</button>
+              </td>
+            </tbody>
           </form>
           </table>
         </div>
@@ -156,7 +251,7 @@ pageEncoding="ISO-8859-1"%>
         <div class="card text-center">
           <div class="card-header"><h5>Movimientos</h5></div>
           <form action= "servletReportes" method="get">
-          <table class="table table-hover" style="font-size: 12px">
+          <table class="table table-hover" id = "table_id_movimientos" style="font-size: 12px">
             <thead>
               <tr>
                 <th>ID</th>
@@ -165,6 +260,7 @@ pageEncoding="ISO-8859-1"%>
                 <th>Importe</th>
                 <th>Tipo</th>
                 <th>Cuenta</th>
+                <th>Cuenta destino</th>
               </tr>
             </thead>
             <tbody>
@@ -177,16 +273,26 @@ pageEncoding="ISO-8859-1"%>
 	            <%
 	            if (request.getAttribute("listaMovimientosFiltrada") != null)
 		            for (Movimientos movimiento : listaMovimientos)
-		            {
+		            { System.out.println(movimiento);
 	            %>
-              <tr>
-	            
+              <tr>   
                 <td><%=movimiento.getId_Mov() %></td>
                 <td><%=movimiento.getFecha_Mov() %></td>
                 <td><%=movimiento.getDetalle_Mov() %></td>
                 <td><%=movimiento.getImporte_Mov() %></td>
                 <td><%=movimiento.getTiposMov_Mov().getDescripcion_TiposMov() %></td>
-                <td><%=movimiento.getCuenta_Mov().getUsuario_Cuentas().getNombre_Usr() %> <%=movimiento.getCuenta_Mov().getUsuario_Cuentas().getApellido_Usr() %></td>
+                
+                <%if (movimiento.getTiposMov_Mov().getId_TiposMov() == 3 || movimiento.getTiposMov_Mov().getId_TiposMov() == 4){ %>
+                <th><%=movimiento.getCuenta_Mov().getUsuario_Cuentas().getNombre_Usr() %> <%=movimiento.getCuenta_Mov().getUsuario_Cuentas().getApellido_Usr() %></th>
+				<%}else{%>
+				<%System.out.println("Este registro no tiene usuario que mande"); %>
+				<th> - </th>
+				<%}if (movimiento.getTiposMov_Mov().getId_TiposMov() == 1 || movimiento.getTiposMov_Mov().getId_TiposMov() == 2 || movimiento.getTiposMov_Mov().getId_TiposMov() == 4){ %>
+                <th><%=movimiento.getCuentaDestino_Mov().getUsuario_Cuentas().getNombre_Usr() %> <%=movimiento.getCuentaDestino_Mov().getUsuario_Cuentas().getApellido_Usr() %></th>
+              	<%}else{%>
+              	<%System.out.println("Este registro no tiene usuario destino"); %>
+              	<th> - </th>
+              	<%} %>
               </tr>
               <%}%>
             </tbody>
@@ -273,6 +379,12 @@ pageEncoding="ISO-8859-1"%>
             	<td><b></b></td>
               <td>
              <button type="submit" name ="btnFiltrarUser" class="btn btn-outline-primary form-control ">Filtrar</button>
+              </td>
+            </tbody>
+            <tbody>
+            	<td><b></b></td>
+              <td>
+                    <button type="submit" class="btn btn-outline-primary form-control" name = "btnQuitarFiltrosUsuarios">Quitar filtros</button>
               </td>
             </tbody>
             </tbody>
@@ -383,11 +495,13 @@ pageEncoding="ISO-8859-1"%>
                   class="form-control"
                   id="floatingInput"
                   name="txtSaldoMenorCuenta"
+                  placeholder = "Desde"
                 />Hasta<input
                   type="text"
                   class="form-control"
                   id="floatingInput"
                   name="txtSaldoMayorCuenta"
+                  placeholder = "Hasta"
                 />
               </td>
             </tbody>
@@ -395,6 +509,12 @@ pageEncoding="ISO-8859-1"%>
             	<td><b></b></td>
               <td>
                     <button type="submit" name = "btnFiltrarCuentas" class="btn btn-outline-primary form-control ">Filtrar</button>
+              </td>
+            </tbody>
+            <tbody>
+            	<td><b></b></td>
+              <td>
+                    <button type="submit" class="btn btn-outline-primary form-control" name = "btnQuitarFiltrosCuentas">Quitar filtros</button>
               </td>
             </tbody>
             </form>
@@ -515,6 +635,12 @@ pageEncoding="ISO-8859-1"%>
                 <button type="submit" name = "btnFiltrarPrestamos" class="btn btn-outline-primary form-control ">Filtrar</button>
               </td>
             </tbody>
+            <tbody>
+            	<td><b></b></td>
+              <td>
+                    <button type="submit" class="btn btn-outline-primary form-control" name = "btnQuitarFiltrosPrestamos">Quitar filtros</button>
+              </td>
+            </tbody>
             </form>
           </table>
         </div>
@@ -527,7 +653,7 @@ pageEncoding="ISO-8859-1"%>
       <div class="container-fluid" style="width: 90%">
         <div class="card text-center">
           <div class="card-header"><h5>Prestamos</h5></div>
-          <table class="table table-hover" style="font-size: 12px">
+          <table class="table table-hover" id = table_id_prestamos style="font-size: 12px">
             <thead>
               <tr>
                 <th>ID</th>
@@ -548,7 +674,7 @@ pageEncoding="ISO-8859-1"%>
             <tbody>
               <tr>
                 <td><%= prestamo.getId_Pr() %></td>
-                <td><%= prestamo.getCuentaDestino_Pr().getUsuario_Cuentas().getNombre_Usr() + prestamo.getCuentaDestino_Pr().getUsuario_Cuentas().getApellido_Usr() %></td>
+                <td><%= prestamo.getCuentaDestino_Pr().getUsuario_Cuentas().getNombre_Usr() + " " + prestamo.getCuentaDestino_Pr().getUsuario_Cuentas().getApellido_Usr() %></td>
                 <td><%= prestamo.getFechaSolicitado_Pr().toString() %></td>
                 <td><%= prestamo.getImpResultante_Pr() %></td>
                 <td><%= prestamo.getImpSolicitado_Pr() %></td>
