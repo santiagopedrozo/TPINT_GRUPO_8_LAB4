@@ -2888,6 +2888,12 @@ delimiter //
 CREATE TRIGGER actualizarSaldoCuentas
 AFTER INSERT ON Movimientos FOR EACH ROW
 BEGIN
+	IF (NEW.IdTiposMov_Mov = 1) THEN
+		UPDATE Cuentas SET Saldo_Cuentas = Saldo_Cuentas + NEW.Importe_Mov WHERE Nro_Cuentas = NEW.NroCuentaDestino_Mov;
+	END IF;
+	IF (NEW.IdTiposMov_Mov = 2) THEN
+		UPDATE Cuentas SET Saldo_Cuentas = Saldo_Cuentas - NEW.Importe_Mov WHERE Nro_Cuentas = NEW.NroCuentaDestino_Mov;
+	END IF;
 	IF (NEW.IdTiposMov_Mov = 3) THEN
 		UPDATE Cuentas SET Saldo_Cuentas = Saldo_Cuentas - NEW.Importe_Mov WHERE Nro_Cuentas = NEW.NroCuenta_Mov;
 	END IF;
@@ -2897,6 +2903,11 @@ BEGIN
 		UPDATE Cuentas SET Saldo_Cuentas = Saldo_Cuentas + NEW.Importe_Mov WHERE Nro_Cuentas = NEW.NroCuentaDestino_Mov;
 	END IF;
 END //
+
+--  1('Alta de cuenta'), Solo se recibe plata
+-- 2('Alta de préstamo'), Solo se recibe plata
+-- 3('Pago de préstamo'), Solo se descuenta plata
+-- 4('Transferencia');  Se recibe plata y se descuenta
 
 delimiter ;
 
