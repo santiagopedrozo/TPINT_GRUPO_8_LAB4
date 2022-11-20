@@ -5,12 +5,16 @@ pageEncoding="ISO-8859-1"%>
 <%@ page import="entidades.Cuentas" %>
 <%@ page import="entidades.Usuarios" %>
 <%@ page import="entidades.Prestamos" %>
+<%@ include file="MasterPageAdmin.html" %> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-
-	<script type="text/javascript">
+  <head>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+  	<script type="text/javascript">
         $(document).ready(function () {
-            $('#table_prestamos').DataTable({
+            $('#table_id_cuentas').DataTable({
                 language: {
                     processing: "Tratamiento en curso...",
                     search: "Buscar&nbsp;:",
@@ -33,19 +37,17 @@ pageEncoding="ISO-8859-1"%>
                         sortDescending: ": active para ordenar la columna en orden descendente"
                     }
                 },
-                scrollY: 180,
-                lengthMenu: [ [5, 25, -1], [10, 25, "All"] ],
+                scrollY: 225,
+                lengthMenu: [ [4, 25, -1], [10, 25, "All"] ],
                 "bLengthChange" : false,
                 "bFilter": false,
                 "bInfo": false
             });
         });
     </script>
-    
-    
-  <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
     <title>Prestamos</title>
+
   </head>
   	<%
   		int mensaje=-3;
@@ -70,14 +72,13 @@ pageEncoding="ISO-8859-1"%>
 			if (request.getAttribute("prestamosDeUsr")!=null) prestamosDeUsr=(ArrayList <Prestamos>)request.getAttribute("prestamosDeUsr");
 	%> 
   <body >	
-  <%@ include file="MasterPageAdmin.html" %> 
+  
   <br>
- 
-  	
-    <div class="container-fluid" style="width:85%;">
-        <div class="card text-center" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 100px;">
-            <div class="card-header"> <H3> Prestamos </H3></div> 
-            <table class="table table-hover" id= "table_prestamos">
+  
+  <div class="container-fluid" style="width:85%;">
+    <div class="card text-center" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 100px;">
+        <div class="card-header "> <h5>Prestamos</h5> </div>
+        <table class="table table-hover" id="table_id_cuentas">
             <thead>
               <tr>
                 <th> </th>  
@@ -92,11 +93,13 @@ pageEncoding="ISO-8859-1"%>
               </tr>
             </thead>
             <tbody>
-	            <%if (prestamosDeUsr!=null)
-		            	for (Prestamos pr : prestamosDeUsr){%> 		
-	              <tr>
-	  				<form method="post" action="ServletPrestamosUsuario" name="prestamoSeleccionadoForm">
-		  				<%if(pr.isAutorizado_Pr() && pr.getCantCuotas_Pr() <= pr.getPlazoMeses_Pr()){ %>
+            <%
+            	if (prestamosDeUsr!=null)
+            		for (Prestamos pr : prestamosDeUsr){ 	
+            %>
+            <tr>
+  				<form method="post" action="ServletPrestamosUsuario" name="prestamoSeleccionadoForm">
+		  				<%if(pr.isAutorizado_Pr() && pr.getCantCuotas_Pr() < pr.getPlazoMeses_Pr()){ %>
 			                <th scope="row">
 			                  <button type="submit" name="btnPagar" class="btn btn-outline-success">
 			                    <i class="fa-solid fa-comments-dollar"></i> pagar
@@ -118,23 +121,32 @@ pageEncoding="ISO-8859-1"%>
 		                <td><%=pr.getPlazoMeses_Pr() %></td>
 		                <td><%=pr.getCantCuotas_Pr() %></td>
 		                <td><%=pr.isAutorizado_Pr() %></td>	
-	                </form>
-		              </tr> 
-		        	<%}%>
-	        		
-		            </tbody>     
-		          </table>
-	          	<form method="post" action="ServletPrestamosUsuario">	          	
-	          		<button type="submit"
-	          		name="estaPidiendoPrestamo"
-	          		class="btn btn-outline-success btn-lg d-flex justify-content-center"
-	          		style="margin:auto;" >
-	                   <i class="fa-solid fa-hand-holding-dollar"></i> Solicitar prestamo
-	          		</button>
-          		</form>   	
-			<br>
-	    </div>
-	  </div>
+                </form>
+              </tr>
+             	<%}%>
+            </tbody>     
+          </table>   	
+       
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+               
+            </ul>
+        </nav>
+         
+    </div>
+    <br>
+    <form method="post" action="ServletPrestamosUsuario">	          	
+		<button type="submit"
+		name="estaPidiendoPrestamo"
+		class="btn btn-success btn-lg d-flex justify-content-center"
+		style="margin:auto;" >
+	        <i style="margin-right:10px; font-size:25px;" class="fa-solid fa-hand-holding-dollar"></i> Solicitar prestamo
+		</button>
+  	</form> 
+  </div>
+  
+ 
+  	
 	
 	<br>
 	<%if(prestamoInsert){ %>
@@ -211,7 +223,6 @@ pageEncoding="ISO-8859-1"%>
 		         </form>
 	      		</div>
 			</div>
-	    
 	    <br>
 		<%} if (prestamoAPagar.getId_Pr() != -1){ %>
 		    <div class="container-fluid" style="width: 40%;" >
