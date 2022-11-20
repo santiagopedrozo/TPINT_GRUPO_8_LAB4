@@ -113,7 +113,7 @@ CREATE TABLE TiposMovimientos(
 
 CREATE TABLE Movimientos(
 	Id_Mov INT auto_increment NOT NULL,
-    NroCuenta_Mov INT NOT NULL,
+    NroCuenta_Mov INT NULL,
     IdTiposMov_Mov INT NOT NULL,
     Fecha_Mov TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     Detalle_Mov VARCHAR(30) NOT NULL,
@@ -2819,7 +2819,7 @@ BEGIN
 END //
 DELIMITER ;
 
-
+select * from movimientos
 
 DELIMITER //
 CREATE PROCEDURE SPActualizarPrestamos (
@@ -2873,10 +2873,13 @@ BEGIN
    IF NroCuentaDestino IS NULL THEN  
       INSERT INTO Movimientos ( NroCuenta_Mov ,IdTiposMov_Mov ,Detalle_Mov, Importe_Mov) VALUES
 	  (NroCuenta, IdTiposMov, Detalle, Importe);
-
+   ELSEIF NroCuenta IS NULL THEN   
+	  INSERT INTO Movimientos (IdTiposMov_Mov ,Detalle_Mov,NroCuentaDestino_Mov, Importe_Mov) VALUES
+	  (IdTiposMov, Detalle,NroCuentaDestino, Importe );
    ELSE  
       INSERT INTO Movimientos ( NroCuenta_Mov ,IdTiposMov_Mov ,Detalle_Mov, NroCuentaDestino_Mov, Importe_Mov) VALUES
 	  (NroCuenta, IdTiposMov, Detalle, NroCuentaDestino,Importe);
+	
    END IF;
 END //
 DELIMITER ;
@@ -2885,6 +2888,12 @@ delimiter //
 CREATE TRIGGER actualizarSaldoCuentas
 AFTER INSERT ON Movimientos FOR EACH ROW
 BEGIN
+	IF (NEW.IdTiposMov_Mov = 1) THEN
+		UPDATE Cuentas SET Saldo_Cuentas = Saldo_Cuentas + NEW.Importe_Mov WHERE Nro_Cuentas = NEW.NroCuentaDestino_Mov;
+	END IF;
+	IF (NEW.IdTiposMov_Mov = 2) THEN
+		UPDATE Cuentas SET Saldo_Cuentas = Saldo_Cuentas - NEW.Importe_Mov WHERE Nro_Cuentas = NEW.NroCuentaDestino_Mov;
+	END IF;
 	IF (NEW.IdTiposMov_Mov = 3) THEN
 		UPDATE Cuentas SET Saldo_Cuentas = Saldo_Cuentas - NEW.Importe_Mov WHERE Nro_Cuentas = NEW.NroCuenta_Mov;
 	END IF;
@@ -2894,6 +2903,11 @@ BEGIN
 		UPDATE Cuentas SET Saldo_Cuentas = Saldo_Cuentas + NEW.Importe_Mov WHERE Nro_Cuentas = NEW.NroCuentaDestino_Mov;
 	END IF;
 END //
+
+--  1('Alta de cuenta'), Solo se recibe plata
+-- 2('Alta de préstamo'), Solo se recibe plata
+-- 3('Pago de préstamo'), Solo se descuenta plata
+-- 4('Transferencia');  Se recibe plata y se descuenta
 
 delimiter ;
 
@@ -2928,7 +2942,6 @@ delimiter //
 CREATE TRIGGER movimientoAltaCuentaRevivida
 AFTER UPDATE ON cuentas FOR EACH ROW
 BEGIN
-    
     IF (OLD.Estado_Cuentas = 0 AND NEW.Estado_Cuentas = 1) THEN
 		INSERT INTO Movimientos ( NroCuenta_Mov ,IdTiposMov_Mov ,Detalle_Mov ,Importe_Mov) VALUES
 		(NEW.Nro_Cuentas, 1, 'Se crea la cuenta', 10000.00);
@@ -2936,3 +2949,15 @@ BEGIN
 END //
 
 delimiter ;
+
+delimiter //
+
+CREATE TRIGGER movimientoAprobarPrestamo
+AFTER UPDATE ON prestamos FOR EACH ROW
+BEGIN
+	IF NEW.Autorizado_Pr = 1 THEN
+		CALL SPAgregarMovimiento(null, 2, "Transferencia del prestamo", NEW.NroCuentaDestino_Pr, NEW.ImpSolicitado_Pr);
+	END IF;
+END //
+
+delimiter ; 

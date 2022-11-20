@@ -356,7 +356,6 @@ public class PrestamosDaoImpl implements PrestamosDao
 			st.setBoolean(9,aprobado);
 			if (st.executeUpdate()>0) 
 				res=true;
-			
 		}
 		catch (Exception e) 
 		{
