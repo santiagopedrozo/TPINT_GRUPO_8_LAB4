@@ -77,9 +77,14 @@ public class servletReportes extends HttpServlet {
 	{
 		ArrayList <Movimientos> listaMovimientos = negMov.obtenerTodos();
 		
-		if (request.getParameter("txtNombreMovimiento") != "")
+		if (request.getParameter("txtDniRemitenteMovimiento") != "")
 		{
-			listaMovimientos.removeIf(s -> !s.getCuenta_Mov().getUsuario_Cuentas().getDNI_Usr().equals(request.getParameter("txtNombreMovimiento")));
+			listaMovimientos.removeIf(s -> !s.getCuenta_Mov().getUsuario_Cuentas().getDNI_Usr().equals(request.getParameter("txtDniRemitenteMovimiento")));
+		}
+		
+		if (request.getParameter("txtDniReceptorMovimiento") != "")
+		{
+			listaMovimientos.removeIf(s -> !s.getCuentaDestino_Mov().getUsuario_Cuentas().getDNI_Usr().equals(request.getParameter("txtDniReceptorMovimiento")));
 		}
 		
 		if (request.getParameter("importe1Movimiento") != null && request.getParameter("importe2Movimiento") != null) 
@@ -97,10 +102,12 @@ public class servletReportes extends HttpServlet {
 			}
 		}
 		
-		
 		if (request.getParameter("ddlTipos") != null)
 		{
-			listaMovimientos.removeIf(s -> s.getTiposMov_Mov().getId_TiposMov() != Integer.parseInt(request.getParameter("ddlTipos")));
+			if (!request.getParameter("ddlTipos").equals("-1"))
+			{
+				listaMovimientos.removeIf(s -> s.getTiposMov_Mov().getId_TiposMov() != Integer.parseInt(request.getParameter("ddlTipos")));
+			}
 		}
 			
 		if (request.getParameter("btnFiltrarMovimientos") != null)
