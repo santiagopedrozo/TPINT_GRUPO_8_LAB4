@@ -44,7 +44,7 @@
                         sortDescending: ": active para ordenar la columna en orden descendente"
                     }
                 },
-                scrollY: 400,
+                scrollY: 391,
                 lengthMenu: [ [5, 25, -1], [10, 25, "All"] ],
                 "bLengthChange" : false,
                 "bFilter": false,
@@ -55,7 +55,7 @@
     
  
 
-<% 
+<%
 boolean estaModificando = false;
 	if (request.getAttribute("estaModificado") != null)
 		estaModificando = (boolean)request.getAttribute("estaModificado");
@@ -66,7 +66,7 @@ boolean estaModificando = false;
 	
    <br>
    
-  <div class="container-fluid" style="width:70%;">
+  <div class="container-fluid" style="width:90%;">
     <div class="card text-center" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 100px;">
         <div class="card-header ">
           <h5>Cuentas</h5>
@@ -121,7 +121,7 @@ boolean estaModificando = false;
               </tr>
              
              	<%
-                	}
+                		}
                 	}
              	%>
             </tbody>     
@@ -134,6 +134,7 @@ boolean estaModificando = false;
         </nav>
       </div>
     </div>
+    <br>
   </div>
   <br>
   	

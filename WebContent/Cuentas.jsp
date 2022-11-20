@@ -102,8 +102,8 @@
 
 <%
 
-if (request.getParameter("btnVerMovimientos")!=null){
-	
+	if (request.getParameter("btnVerMovimientos")!=null){
+			
 	ArrayList <Movimientos> listaMovimientos = null;
 	boolean transferencia = false;
 	if (request.getAttribute("listaMovimientos")!=null) listaMovimientos=(ArrayList <Movimientos>)request.getAttribute("listaMovimientos");
@@ -124,6 +124,7 @@ if (request.getParameter("btnVerMovimientos")!=null){
                 <tr> 
 					<th>Cuenta origen</th>
 					<th>CBU de la cuenta origen</th>  
+					<th>Remitente</th>
 					<th>Fecha</th>  
 					<th>Detalle</th>  
 					<th>Importe</th>  
@@ -142,6 +143,7 @@ if (request.getParameter("btnVerMovimientos")!=null){
 				<tr> 
 					<td><%=movimiento.getCuenta_Mov().getNro_Cuentas() %></td> 
 					<th><%=movimiento.getCuenta_Mov().getCBU_Cuentas()%></th>
+					<th><%=movimiento.getCuenta_Mov().getUsuario_Cuentas().getNombre_Usr() + " " + movimiento.getCuenta_Mov().getUsuario_Cuentas().getApellido_Usr()%></th>
 					<td><%=movimiento.getFecha_Mov() %></td> 
 					<td><%=movimiento.getDetalle_Mov()%></td>    
 					<td><%=movimiento.getImporte_Mov() %></td> 

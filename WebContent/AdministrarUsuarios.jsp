@@ -65,6 +65,7 @@
 </head>
 <body>
 	<%@ include file="MasterPageAdmin.html" %>
+	
 	<br>
 	<div class="container-fluid" style="width:95%;">
         <div class="card text-center" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 100px;">
@@ -207,6 +208,7 @@
 
       
       
-      <%@ include file="FooterPage.html" %>
+    <%@ include file="FooterPage.html" %> 
 </body>
+ 
 </html>
