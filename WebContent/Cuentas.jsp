@@ -43,7 +43,7 @@
                         sortDescending: ": active para ordenar la columna en orden descendente"
                     }
                 },
-                scrollY: 180,
+                scrollY: 271,
                 lengthMenu: [ [5, 25, -1], [10, 25, "All"] ],
                 "bLengthChange" : false,
                 "bFilter": false,
@@ -130,7 +130,8 @@ if (request.getParameter("btnVerMovimientos")!=null){
 					<th>Tipo de movimiento</th> 
 					<% if (transferencia == true)%>
 					<th>Cuenta destino</th>
-					<th>CBU de la cuenta destino</th>  
+					<th>CBU de la cuenta destino</th> 
+					<th>Destinatario</th> 
 				</tr>
 			</thead>
 				<tbody>
@@ -148,7 +149,9 @@ if (request.getParameter("btnVerMovimientos")!=null){
 					<% if (movimiento.getTiposMov_Mov().getId_TiposMov()==4){%>
 					<th><%=movimiento.getCuentaDestino_Mov().getNro_Cuentas() %></th>
 					<th><%=movimiento.getCuentaDestino_Mov().getCBU_Cuentas()%></th>
+					<th><%=movimiento.getCuentaDestino_Mov().getUsuario_Cuentas().getNombre_Usr() + " " + movimiento.getCuentaDestino_Mov().getUsuario_Cuentas().getApellido_Usr()%></th>
 					<%}else{%>
+					<th> - </th>
 					<th> - </th>
 					<th> - </th>
 					<%} %>	

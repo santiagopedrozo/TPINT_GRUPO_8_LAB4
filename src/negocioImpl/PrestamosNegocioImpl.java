@@ -68,8 +68,9 @@ public class PrestamosNegocioImpl implements PrestamosNegocio {
 		int idResultado = mn.insert(moviento); 
 		if(idResultado == 1) {
 			modificarCuotas(prestamo); //agrega uno al contador de cuotas pagads
+			return idResultado;
 		}
-		return 1;
+		return idResultado;
 	}
 
 	@Override

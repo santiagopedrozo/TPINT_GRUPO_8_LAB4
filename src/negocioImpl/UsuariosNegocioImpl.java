@@ -71,7 +71,6 @@ public class UsuariosNegocioImpl implements UsuariosNegocio {
 	@Override
 	public boolean edit(Usuarios usuario) {
 		return userDao.edit(usuario);
-	}
-	
+	}	
 
 }

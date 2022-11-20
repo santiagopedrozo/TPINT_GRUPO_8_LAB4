@@ -39,12 +39,13 @@ pageEncoding="ISO-8859-1"%>
                   class="form-select"
                   id="floatingInput"
                   placeholder="-"
+                  required
                 >
                 <%
                 if (listaCuentasOrigen!=null)
                 	for (Cuentas cuenta : listaCuentasOrigen){ 	
                 %>
-                  <option value=<%=cuenta.getNro_Cuentas() %>>  <%=cuenta.getNro_Cuentas() + " - " +cuenta.getCBU_Cuentas() + " - " + cuenta.getUsuario_Cuentas().getNombre_Usr() + " " + cuenta.getUsuario_Cuentas().getApellido_Usr() %></option>
+                  <option value=<%=cuenta.getNro_Cuentas() %>>  <%="ID " + cuenta.getNro_Cuentas() + " - $" + cuenta.getSaldo_Cuentas() + " - " + cuenta.getCBU_Cuentas() + " - " + cuenta.getUsuario_Cuentas().getNombre_Usr() + " " + cuenta.getUsuario_Cuentas().getApellido_Usr() %></option>
                 <%} %>
                 </select>
                 <label for="floatingSelect">Cuenta origen</label>
@@ -63,7 +64,7 @@ pageEncoding="ISO-8859-1"%>
                 if (listaCuentasDestino!=null)
                 	for (Cuentas cuenta : listaCuentasDestino){
                 %>
-                  <option value= <%=cuenta.getNro_Cuentas()%>>  <%=cuenta.getNro_Cuentas() + " - " +cuenta.getCBU_Cuentas() + " - "+ cuenta.getUsuario_Cuentas().getNombre_Usr() + " " + cuenta.getUsuario_Cuentas().getApellido_Usr() %></option>
+                  <option value= <%=cuenta.getNro_Cuentas()%>>  <%="ID " + cuenta.getNro_Cuentas() + " - " + cuenta.getCBU_Cuentas() + " - " + cuenta.getUsuario_Cuentas().getNombre_Usr() + " " + cuenta.getUsuario_Cuentas().getApellido_Usr() %></option>
                 <%} %>
                 </select>
                 <label for="floatingSelect">Cuenta destino</label>
@@ -106,6 +107,7 @@ pageEncoding="ISO-8859-1"%>
                 name="btnTransferir"
                 value="Transferir"
                 class="btn btn-outline-dark btn-sm"
+                min=0.01
                 onclick="return confirm('¿Está seguro de que hacer esta transferencia?')"
               />
             </div>
@@ -113,6 +115,7 @@ pageEncoding="ISO-8859-1"%>
         </div>
       </div>
     </div>
+    <br>
    
 <%
 int mensaje=-3;

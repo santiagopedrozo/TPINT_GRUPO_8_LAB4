@@ -2873,7 +2873,7 @@ BEGIN
    IF NroCuentaDestino IS NULL THEN  
       INSERT INTO Movimientos ( NroCuenta_Mov ,IdTiposMov_Mov ,Detalle_Mov, Importe_Mov) VALUES
 	  (NroCuenta, IdTiposMov, Detalle, Importe);
-      
+
    ELSE  
       INSERT INTO Movimientos ( NroCuenta_Mov ,IdTiposMov_Mov ,Detalle_Mov, NroCuentaDestino_Mov, Importe_Mov) VALUES
 	  (NroCuenta, IdTiposMov, Detalle, NroCuentaDestino,Importe);
@@ -2881,11 +2881,14 @@ BEGIN
 END //
 DELIMITER ;
 
-
 delimiter //
 CREATE TRIGGER actualizarSaldoCuentas
 AFTER INSERT ON Movimientos FOR EACH ROW
 BEGIN
+	IF (NEW.IdTiposMov_Mov = 3) THEN
+		UPDATE Cuentas SET Saldo_Cuentas = Saldo_Cuentas - NEW.Importe_Mov WHERE Nro_Cuentas = NEW.NroCuenta_Mov;
+	END IF;
+	
 	IF (NEW.IdTiposMov_Mov = 4) THEN
 		UPDATE Cuentas SET Saldo_Cuentas = Saldo_Cuentas - NEW.Importe_Mov WHERE Nro_Cuentas = NEW.NroCuenta_Mov;
 		UPDATE Cuentas SET Saldo_Cuentas = Saldo_Cuentas + NEW.Importe_Mov WHERE Nro_Cuentas = NEW.NroCuentaDestino_Mov;
@@ -2893,7 +2896,6 @@ BEGIN
 END //
 
 delimiter ;
-
 
 -- Triggers
 
@@ -2907,7 +2909,6 @@ BEGIN
 END //
 
 delimiter ;
-
 
 -- Si se hizo una baja lógica en cuentas, bajamos lógicamente todos los movimientos
 delimiter //
