@@ -10,7 +10,7 @@ pageEncoding="ISO-8859-1"%>
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-    <title>Insert title here</title>
+    <title>Reportes</title>
     
  <link rel="stylesheet" type="text/css"
 	href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
@@ -45,7 +45,7 @@ pageEncoding="ISO-8859-1"%>
                         sortDescending: ": active para ordenar la columna en orden descendente"
                     }
                 },
-                scrollY: 330,
+                scrollY: 320,
                 lengthMenu: [ [5, 25, -1], [10, 25, "All"] ],
                 "bLengthChange": false,
                 "bFilter": false,
@@ -79,7 +79,7 @@ pageEncoding="ISO-8859-1"%>
                         sortDescending: ": active para ordenar la columna en orden descendente"
                     }
                 },
-                scrollY: 330,
+                scrollY: 179,
                 lengthMenu: [ [5, 25, -1], [10, 25, "All"] ],
                 "bLengthChange": false,
                 "bFilter": false,
@@ -112,7 +112,7 @@ pageEncoding="ISO-8859-1"%>
                         sortDescending: ": active para ordenar la columna en orden descendente"
                     }
                 },
-                scrollY: 330,
+                scrollY: 185,
                 lengthMenu: [ [5, 25, -1], [10, 25, "All"] ],
                 "bLengthChange": false,
                 "bFilter": false,
@@ -146,7 +146,7 @@ pageEncoding="ISO-8859-1"%>
                         sortDescending: ": active para ordenar la columna en orden descendente"
                     }
                 },
-                scrollY: 330,
+                scrollY: 320,
                 lengthMenu: [ [5, 25, -1], [10, 25, "All"] ],
                 "bLengthChange": false,
                 "bFilter": false,
@@ -155,40 +155,43 @@ pageEncoding="ISO-8859-1"%>
         });
     </script>
     
-    
+    <style>
+    	span {
+    		font-size: 11px;
+    		font-weight: bold;
+    	}
+    </style>
     
     
     
   </head>
   <body>
     <%@ include file="MasterPageAdmin.html" %>
-    <br>
-    <div style="display: flex; justify-content: center">
-      <div class="container-fluid" style="width: 40%">
-        <div class="card text-center">
-          <table
-            class="table table-hover"
-            style="text-align: start; margin: 1px; font-size: 17px"
-          >
+    	<br>
+			<H1 style="font-family: 'Enriqueta', arial, serif; line-height: 1.25; margin: 0 0 10px; font-size: 40px; font-weight: bold; text-align:center;">Movimientos</H1>
+		<br>
+	<div style="display:flex; justify-content:center;">
+      <div class="container-fluid" style="width: 20%">
+        <div class="card text-center" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 100px;">
+          <table class="table table-hover" style="text-align: start; margin: 1px; font-size: 13px">
         	<form action="servletReportes" method="get">
-            <tbody>
-              <td><b>Propietario de cuenta remitente:</b></td>
+        	<tbody>
               <td>
-              <br><input
-                  type="text"
-                  class="form-control"
-                  id="floatingInput"
-                  name="txtDniRemitenteMovimiento"
-                  placeholder = "Dni del propietario"
-                />
+	              <span>Propietario de cuenta remitente</span>
+	              <input
+	                  type="text"
+	                  class="form-control form-control-sm"
+	                  id="floatingInput"
+	                  name="txtDniRemitenteMovimiento"
+	                  placeholder = "Dni del propietario"/>
               </td>
             </tbody>
             <tbody>
-              <td><b>Propietario de cuenta receptora:</b></td>
               <td>
-              <br><input
+              <span>Propietario de cuenta receptora</span>
+              <input
                   type="text"
-                  class="form-control"
+                  class="form-control form-control-sm"
                   id="floatingInput"
                   name="txtDniReceptorMovimiento"
                   placeholder = "Dni del propietario"
@@ -196,29 +199,11 @@ pageEncoding="ISO-8859-1"%>
               </td>
             </tbody>
             <tbody>
-              <td><b>Importe:</b></td>
               <td>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="floatingInput"
-                  name="importe1Movimiento"
-                  placeholder = "Desde"
-                /><input
-                  type="text"
-                  class="form-control"
-                  id="floatingInput"
-                  name="importe2Movimiento"
-                  placeholder = "Hasta"
-                />
-              </td>
-            </tbody>
-            <tbody>
-              <td><b>Tipo:</b></td>
-              <td>
+              	<span>tipo movimiento</span>
                 <select
                   name="ddlTipos"
-                  class="form-control"
+                  class="form-control form-control-sm"
                   id="floatingInput"
                   id="ddlTiposMovimiento"
                 >
@@ -228,27 +213,45 @@ pageEncoding="ISO-8859-1"%>
                   <option value="3">Pago de prestamo</option>
                   <option value="4">Transferencia</option>
                 </select>
-              </td>
-            </tbody>
-            <tbody>
-            	<td><b></b></td>
+              </td> 
+			</tbody>
+			<tbody>
               <td>
-                    <button type="submit" class="btn btn-outline-primary form-control" name = "btnFiltrarMovimientos">Filtrar</button>
+              	<span>Importe</span>            
+                <div class="form-floating row p-0 m-0">
+                            <input
+			                  type="number"
+			                  step=0.01
+			                  min=0.01
+			                  class="form-control form-control-sm w-50"
+			                  id="floatingInput"
+			                  name="importe1Movimiento"
+			                  placeholder = "Desde"/>
+
+			                  <input
+			                  type="number"
+			                  step=0.01
+			                  min=0.01
+			                  class="form-control form-control-sm w-50"
+			                  id="floatingInput"
+			                  name="importe2Movimiento"
+			                  placeholder = "Hasta"/>
+                </div>         
               </td>
-            </tbody>
-            <tbody>
-            	<td><b></b></td>
+            </tbody>     
+            <tbody>	
               <td>
-                    <button type="submit" class="btn btn-outline-primary form-control" name = "btnQuitarFiltrosMovimientos">Quitar filtros</button>
+                    <button type="submit" class="btn btn-outline-dark btn-sm" name = "btnFiltrarMovimientos">Filtrar</button>
+                    <button type="submit" class="btn btn-outline-secondary btn-sm" name = "btnQuitarFiltrosMovimientos">Quitar filtros</button>
               </td>
             </tbody>
           </form>
           </table>
         </div>
       </div>
-
+	<br>
       <div class="container-fluid" style="width: 90%">
-        <div class="card text-center">
+        <div class="card text-center" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 100px;">
           <div class="card-header"><h5>Movimientos</h5></div>
           <form action= "servletReportes" method="get">
           <table class="table table-hover" id = "table_id_movimientos" style="font-size: 12px">
@@ -298,111 +301,89 @@ pageEncoding="ISO-8859-1"%>
             </tbody>
           </table>
    		</form>
-          
-          <div class="card-footer">
-			<nav aria-label="Page navigation example">
-			  <ul class="pagination justify-content-center">
-				  <li class="page-item disabled">
-				  <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-				  </li>
-				  <li class="page-item"><a class="page-link" href="#">1</a></li>
-				  <li class="page-item"><a class="page-link" href="#">2</a></li>
-				  <li class="page-item"><a class="page-link" href="#">3</a></li>
-				  <li class="page-item">
-				  <a class="page-link" href="#">Next</a>
-				  </li>
-			  </ul>
-		  </nav>
-		</div>
         </div>
       </div>
-    </div>
+      </div>
+	
 	<br>
-
-    <!-- Parte de clientes -->
-    <div style="display: flex; justify-content: center">
-      <div class="container-fluid" style="width: 40%">
-        <div class="card text-center">
+		<H1 style="font-family: 'Enriqueta', arial, serif; line-height: 1.25; margin: 0 0 10px; font-size: 40px; font-weight: bold; text-align:center;">Clientes</H1>
+	<br>
+   <div style="display:flex; justify-content:center;">
+      <div class="container-fluid" style="width: 20%">
+        <div class="card text-center" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 100px;">
           <table
             class="table table-hover"
-            style="text-align: start; margin: 1px; font-size: 17px">
-			<form action= "servletReportes" method="get">
-            <tbody>
-              <td><b>Nombre:</b></td>
+            style="text-align: start; margin: 1px; font-size: 13px">
+			<form action= "servletReportes" method="get" class="row">
+       		<tbody>
               <td>
+              <span>Nombre</span>
                 <input
                   type="text"
-                  class="form-control"
+                  class="form-control form-control-sm"
                   id="floatingInput"
                   name="txtNombreCliente"
                 />
               </td>
             </tbody>
-            <tbody>
-              <td><b>Apellido:</b></td>
+         	<tbody>
               <td>
+              	<span>Apellido</span>
                 <input
                   type="text"
-                  class="form-control"
+                  class="form-control form-control-sm"
                   id="floatingInput"
                   name="txtApellidoCliente"
                 />
               </td>
             </tbody>
             <tbody>
-              <td><b>Provincia:</b></td>
               <td>
+              	<span>Provincia</span>
                 <select
                   name="ddlProvinciasCliente"
-                  class="form-control"
+                  class="form-control form-control-sm"
                   id="floatingInput"
                   id="ddlProvinciasCliente"
                 >
-                <option value = "-1" selected></option>
+                	<option value = "-1" selected></option>
                   <%
-            ArrayList<Provincias> listaProvincias = null;
-            
-            if (request.getAttribute("listaProvincias") != null)
-            	listaProvincias = (ArrayList<Provincias>) request.getAttribute("listaProvincias");
-            %>
-            <%
-            if (request.getAttribute("listaProvincias") != null)
-	            for (Provincias provincia : listaProvincias)
-	            {
-            %>
-            	<option value = <%=provincia.getIdProvincia_Prov() %>><%=provincia.getDescripcion_Prov()%> </option>
-            <%	} %>
+		            ArrayList<Provincias> listaProvincias = null;
+		            if (request.getAttribute("listaProvincias") != null)
+		            	listaProvincias = (ArrayList<Provincias>) request.getAttribute("listaProvincias");
+		            %>
+		            <%
+		            if (request.getAttribute("listaProvincias") != null)
+			            for (Provincias provincia : listaProvincias)
+			            {
+		            %>
+		            	<option value = <%=provincia.getIdProvincia_Prov() %>><%=provincia.getDescripcion_Prov()%> </option>
+		            <%	} %>
                   
                 </select>
               </td>
-            </tbody>
-            	<td><b></b></td>
-              <td>
-             <button type="submit" name ="btnFiltrarUser" class="btn btn-outline-primary form-control ">Filtrar</button>
-              </td>
-            </tbody>
+              </tbody>
             <tbody>
-            	<td><b></b></td>
               <td>
-                    <button type="submit" class="btn btn-outline-primary form-control" name = "btnQuitarFiltrosUsuarios">Quitar filtros</button>
+           		<button type="submit" name ="btnFiltrarUser" class="btn btn-outline-dark btn-sm">Filtrar</button>
+                <button type="submit" class="btn btn-outline-secondary btn-sm" name = "btnQuitarFiltrosUsuarios">Quitar filtros</button>
               </td>
-            </tbody>
             </tbody>
       		</form>
           </table>
         </div>
       </div>
-      </div> 
+      <br>
      	
     <% 
     ArrayList <Usuarios> listaUser = null;
 	if (request.getAttribute("listaUser") != null)
 		listaUser = (ArrayList<Usuarios>)request.getAttribute("listaUser");
 	%>
-      <div class="container-fluid" style="width: 90%">
-        <div class="card text-center">
+      <div class="container-fluid" style="width: 81.5%">
+        <div class="card text-center" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 100px;">
           <div class="card-header"><h5>Clientes</h5></div>
-          <table class="table table-hover" id="table_id_usuarios" style="font-size: 12px">
+          <table class="table table-hover" id="table_id_usuarios" style="text-align: start; margin: 1px; font-size: 13px"> 
             <thead>
               <tr>
                 <th>DNI</th>   
@@ -448,36 +429,37 @@ pageEncoding="ISO-8859-1"%>
           </table>         
         </div>
       </div>
-    </div>
-    <br>
+	</div>
 
-    <!-- PArte de CUENTAS -->
-
-    <div style="display: flex; justify-content: center">
-      <div class="container-fluid" style="width: 40%">
-        <div class="card text-center">
+    
+    	<br>
+			<H1 style="font-family: 'Enriqueta', arial, serif; line-height: 1.25; margin: 0 0 10px; font-size: 40px; font-weight: bold; text-align:center;">Cuentas</H1>
+		<br>
+	<div style="display:flex; justify-content:center;">
+      <div class="container-fluid" style="width: 20%">
+        <div class="card text-center" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 100px;">
           <table
             class="table table-hover"
-            style="text-align: start; margin: 1px; font-size: 17px"
+            style="text-align: start; margin: 1px; font-size: 13px"
           >
           <form action= "servletReportes" method="get">
             <tbody>
-              <td><b>Propietario de cuenta:</b></td>
               <td>
+              	<span>Propietario de cuenta:</span>
                 <input
                   type="text"
-                  class="form-control"
+                  class="form-control form-control-sm"
                   id="floatingInput"
                   name="txtNombreCuentas"
                 />
               </td>
-            </tbody>
-            <tbody>
-              <td><b>Tipo:</b></td>
+           </tbody>
+           <tbody>
               <td>
+              	<span>Tipo </span>
                 <select
                   name="ddlTiposCuentas"
-                  class="form-control"
+                  class="form-control form-control-sm"
                   id="floatingInput"
                   id="ddlTipos"
                 >
@@ -486,49 +468,51 @@ pageEncoding="ISO-8859-1"%>
                   <option value=2>Cuenta corriente</option>               
                 </select>
               </td>
-            </tbody>
-            <tbody>
-              <td><b>Saldo</b></td>
+			</tbody>
+			<tbody>
               <td>
-                Desde <input
-                  type="text"
-                  class="form-control"
-                  id="floatingInput"
-                  name="txtSaldoMenorCuenta"
-                  placeholder = "Desde"
-                />Hasta<input
-                  type="text"
-                  class="form-control"
-                  id="floatingInput"
-                  name="txtSaldoMayorCuenta"
-                  placeholder = "Hasta"
-                />
+              	<span>Saldo</span>
+              	<div class="form-floating row p-0 m-0">
+	                <input
+	                  type="number"
+	                  step=0.01
+	                  min=0.01
+	                  class="form-control form-control-sm w-50"
+	                  name="txtSaldoMenorCuenta"
+	                  placeholder = "Desde"
+	                />
+	                <input
+	                  type="number"
+	                  step=0.01
+	                  min=0.01
+	                  class="form-control form-control-sm w-50"
+	                  name="txtSaldoMayorCuenta"
+	                  placeholder = "Hasta"
+	                />
+                </div>
               </td>
-            </tbody>
+              </tbody>
             <tbody>
-            	<td><b></b></td>
               <td>
-                    <button type="submit" name = "btnFiltrarCuentas" class="btn btn-outline-primary form-control ">Filtrar</button>
-              </td>
-            </tbody>
-            <tbody>
-            	<td><b></b></td>
-              <td>
-                    <button type="submit" class="btn btn-outline-primary form-control" name = "btnQuitarFiltrosCuentas">Quitar filtros</button>
+                    <button type="submit" name = "btnFiltrarCuentas" class="btn btn-outline-dark btn-sm ">Filtrar</button>
+                    <button type="submit" class="btn btn-outline-secondary btn-sm" name = "btnQuitarFiltrosCuentas">Quitar filtros</button>
               </td>
             </tbody>
             </form>
           </table>
         </div>
       </div>
+     
       
       
-      <%
-		ArrayList <Cuentas> listaCuentas = null;
-		if (request.getAttribute("listaCuentas")!=null)
-			listaCuentas=(ArrayList <Cuentas>)request.getAttribute("listaCuentas");
-	%>  
-      <div class="container-fluid" style="width: 90%">
+      	<%
+			ArrayList <Cuentas> listaCuentas = null;
+			if (request.getAttribute("listaCuentas")!=null)
+				listaCuentas=(ArrayList <Cuentas>)request.getAttribute("listaCuentas");
+		%>  
+		<br>
+	
+      <div class="container-fluid" style="width: 88%">
         <div class="card text-center">
           <div class="card-header"><h5>Cuentas</h5></div>
           <table class="table table-hover" id="table_id_cuentas" style="font-size: 12px">
@@ -564,81 +548,79 @@ pageEncoding="ISO-8859-1"%>
           </table>
         </div>
    
+      </div>
       </div>   
-    </div>
-	<br>
-    <!-- PARTE DE PRESTAMOS-->
-
-    <div style="display: flex; justify-content: center">
-      <div class="container-fluid" style="width: 40%">
+	
+		<br>
+			<H1 style="font-family: 'Enriqueta', arial, serif; line-height: 1.25; margin: 0 0 10px; font-size: 40px; font-weight: bold; text-align:center;">Prestamos</H1>
+		<br>
+	<div style="display:flex; justify-content:center;">
+      <div class="container-fluid" style="width: 20%">
         <div class="card text-center">
-          <table
-            class="table table-hover"
-            style="text-align: start; margin: 1px; font-size: 14px"
-          >
+          <table class="table table-hover" style="text-align: start; margin: 1px; font-size: 13px">
           <form action= "servletReportes" method="get">
-            <tbody>
-              <td><b>Propietario de cuenta:</b></td>
+       		<tbody>
               <td>
+              	<span>Propietario de cuenta:</span>
                 <input
                   type="text"
-                  class="form-control"
+                  class="form-control form-control-sm"
                   id="floatingInput"
-                  name="txtNombrePrestamo"
-                />
+                  name="txtNombrePrestamo"/>
               </td>
             </tbody>
-            <tbody>
-              <td><b>Importe a pagar por cliente:</b></td>
-              <td style="font-size: 12px;">
-                <div class="form-floating mb-3">
-                    <input type="number" class="form-control form-control-sm" id="floatingInput" placeholder="-" name="txtImportePagar1">
-                    <label for="floatingSelect">Desde</label>
-                </div>
-                
-                <div class="form-floating mb-3">
-                    <input type="number" class="form-control form-control-sm" id="floatingInput" placeholder="-" name="txtImportePagar2">
-                    <label for="floatingSelect">Hasta</label>
-                </div>
-              </td>
-            </tbody>
-            <tbody>
-              <td><b>Importe pedido por cliente:</b></td>
-              <td style="font-size: 12px;">
-           
-                <div class="form-floating mb-3">
-                    <input type="number" class="form-control form-control-sm" id="floatingInput" placeholder="-" name="txtImportePedido1">
-                    <label for="floatingSelect">Desde</label>
-                </div>
-                
-                <div class="form-floating mb-3">
-                    <input type="number" class="form-control form-control-sm" id="floatingInput" placeholder="-" name="txtImportePedido2">
-                    <label for="floatingSelect">Hasta</label>
-                </div>
-
-              </td>
-            </tbody>
-            <tbody>
-              <td><b>Cantidad de cuotas:</b></td>
+            <tbody>  
               <td>
+              	<span>Cantidad de cuotas</span>
                 <input
                   type="text"
-                  class="form-control"
+                  class="form-control form-control-sm"
                   id="floatingInput"
                   name="txtCuotasPrestamo"
                 />
               </td>
             </tbody>
             <tbody>
-            	<td><b></b></td>
               <td>
-                <button type="submit" name = "btnFiltrarPrestamos" class="btn btn-outline-primary form-control ">Filtrar</button>
+              	<span>Importe a pagar por cliente</span>
+                <div class="form-floating row p-0 m-0">
+                    <input type="number"
+                    class="form-control form-control-sm w-50"
+                    type="number"
+	                step=0.01 
+	                min=0.01
+                    name="txtImportePagar1"
+                    >
+                    <input type="number"
+                    class="form-control form-control-sm w-50"
+	                step=0.01 
+	                min=0.01
+	                name="txtImportePagar2">
+                </div>
+              </td>
+			</tbody>
+			<tbody>
+              <td>
+           		<span>Importe pedido por cliente</span>
+           		<div class="form-floating row p-0 m-0">
+                    <input type="number"
+                    class="form-control form-control-sm w-50"
+                    name="txtImportePedido1"
+                    min=0.01
+                    step=0.01>
+                    <input type="number"
+                    class="form-control form-control-sm w-50"
+                    name="txtImportePedido2"
+                    min=0.01
+                    step=0.01
+                    >
+                </div>
               </td>
             </tbody>
-            <tbody>
-            	<td><b></b></td>
-              <td>
-                    <button type="submit" class="btn btn-outline-primary form-control" name = "btnQuitarFiltrosPrestamos">Quitar filtros</button>
+             <tbody>
+           	  <td>
+               	<button type="submit" name = "btnFiltrarPrestamos" class="btn btn-outline-dark btn-sm ">Filtrar</button>
+                <button type="submit" class="btn btn-outline-secondary btn-sm" name = "btnQuitarFiltrosPrestamos">Quitar filtros</button>
               </td>
             </tbody>
             </form>
@@ -650,6 +632,7 @@ pageEncoding="ISO-8859-1"%>
 		if (request.getAttribute("listaPrestamos")!=null)
 			listaPrestamos = (ArrayList <Prestamos>)request.getAttribute("listaPrestamos");
 		%> 
+		<br>
       <div class="container-fluid" style="width: 90%">
         <div class="card text-center">
           <div class="card-header"><h5>Prestamos</h5></div>
@@ -685,24 +668,10 @@ pageEncoding="ISO-8859-1"%>
             </tbody>
             <%}}%>
           </table>
-          <div class="card-footer">
-              <nav aria-label="Page navigation example">
-                <ul class="pagination justify-content-center">
-                    <li class="page-item disabled">
-                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                    <a class="page-link" href="#">Next</a>
-                    </li>
-                </ul>
-            </nav>
-          </div>
-          
         </div>
       </div>
-    </div>
+      </div>
+      <br>
+      <%@ include file="FooterPage.html" %>
   </body>
 </html>

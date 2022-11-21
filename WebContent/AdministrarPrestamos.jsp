@@ -55,20 +55,23 @@
 <%@ include file="MasterPageAdmin.html" %>
 <br>
 <br>
-	<div class="container-fluid" style="width:90%;">
+	<div class="container-fluid" style="width:95%;">
         <div class="card text-center" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 100px;">
             <div class="card-header "><h5>Prestamos</h5></div>
             <table class="table table-hover" id = "table_id_prestamos">
                 <thead>
                     <tr>
-                      <th> </th> 
+                      <th>Resolver</th> 
                       <th>ID Prestamo</th>   
                       <th>DNI Solicitante</th> 
                       <th>Nro cuenta destino</th>
                       <th>Fecha</th> 
-                      <th>Cantidad de cuotas</th>
-                      <th>Monto pedido</th> 
-                      <th>Monto a pagar por cuota</th> 
+                      <th>Plazo meses</th>
+                      <th>Cuotas pagadas</th>
+                      <th>pago por cuota</th>
+                      <th>Monto pedido</th>
+                      <th>Monto resultante</th>  
+                       
                     </tr>
                 </thead>
 			<%
@@ -91,24 +94,28 @@
 	                            name = "btnAceptarPrestamo"
 	                            class="btn btn-outline-success btn-sm"
 	                            value = "<%=prestamo.getId_Pr()%>"
-	                            onclick="return confirm('¿Está seguro de que quiere aceptar este prestamo?')">
-	                                <i class="fa-solid fa-check"></i>
+	                            onclick="return confirm('¿Está seguro de que quiere aceptar este prestamo?')" title="Aceptar prestamo">
+	                                <i class="fa-sharp fa-solid fa-check"></i>
 	                            </button>
 	                            <button type="submit"
 	                            name = "btnRechazarPrestamo"
 	                            class="btn btn-outline-danger btn-sm"
 	                            value = "<%=prestamo.getId_Pr()%>"
-	                            onclick="return confirm('¿Está seguro de que quiere rechazar este prestamo?')">
-	                                <i class="fa-solid fa-xmark"></i>
+	                            onclick="return confirm('¿Está seguro de que quiere rechazar este prestamo?')" title="Rechazar prestamo">
+	                                <i class="fa-solid fa-x"></i>
 	                            </button>
 	                        </th>  
 	                        <td><%= prestamo.getId_Pr() %></td>  
 	                        <td><%= prestamo.getCuentaDestino_Pr().getUsuario_Cuentas().getDNI_Usr() %></td>
 	                        <td><%= prestamo.getCuentaDestino_Pr().getNro_Cuentas() %></td>
-	                        <td><%= prestamo.getFechaSolicitado_Pr().toString() %></td>  
+	                        <td><%= prestamo.getFechaSolicitado_Pr().toString() %></td>
+	                        <td><%= prestamo.getPlazoMeses_Pr() %></td>   
 	                        <td><%= prestamo.getCantCuotas_Pr() %></td> 
-	                        <td><%= prestamo.getImpSolicitado_Pr() %></td>
-	                        <td><%= prestamo.getImpPagoAlMes_Pr() %></td>
+                	        <td><%= prestamo.getImpPagoAlMes_Pr() %></td>
+                	        <td><%= prestamo.getImpSolicitado_Pr() %></td>
+	                        <td><%= prestamo.getImpResultante_Pr() %></td>
+	                        
+
 	          			</form>
 	                    </tr>
             		<%}%>
