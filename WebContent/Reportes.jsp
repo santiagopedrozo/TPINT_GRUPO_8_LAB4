@@ -285,15 +285,13 @@ pageEncoding="ISO-8859-1"%>
                 <td><%=movimiento.getImporte_Mov() %></td>
                 <td><%=movimiento.getTiposMov_Mov().getDescripcion_TiposMov() %></td>
                 
-                <%if (movimiento.getTiposMov_Mov().getId_TiposMov() == 3 || movimiento.getTiposMov_Mov().getId_TiposMov() == 4){ %>
+                <%if (!movimiento.getCuenta_Mov().getUsuario_Cuentas().getNombre_Usr().equals("Brusafa")){ %>
                 <th><%=movimiento.getCuenta_Mov().getUsuario_Cuentas().getNombre_Usr() %> <%=movimiento.getCuenta_Mov().getUsuario_Cuentas().getApellido_Usr() %></th>
 				<%}else{%>
-				<%System.out.println("Este registro no tiene usuario que mande"); %>
 				<th> - </th>
-				<%}if (movimiento.getTiposMov_Mov().getId_TiposMov() == 1 || movimiento.getTiposMov_Mov().getId_TiposMov() == 2 || movimiento.getTiposMov_Mov().getId_TiposMov() == 4){ %>
+				<%}if (!movimiento.getCuentaDestino_Mov().getUsuario_Cuentas().getNombre_Usr().equals("Brusafa")){ %>
                 <th><%=movimiento.getCuentaDestino_Mov().getUsuario_Cuentas().getNombre_Usr() %> <%=movimiento.getCuentaDestino_Mov().getUsuario_Cuentas().getApellido_Usr() %></th>
               	<%}else{%>
-              	<%System.out.println("Este registro no tiene usuario destino"); %>
               	<th> - </th>
               	<%} %>
               </tr>

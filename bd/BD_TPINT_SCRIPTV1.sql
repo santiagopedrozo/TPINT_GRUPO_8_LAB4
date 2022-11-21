@@ -1,5 +1,7 @@
+drop database bd_tpint_labiv;
+
 create schema bd_tpint_labiv;
--- drop database bd_tpint_labiv
+ 
 
 use bd_tpint_labiv;
 
@@ -2571,6 +2573,7 @@ INSERT INTO TipoCuentas (Descripcion_TipoCuenta) VALUES
 ('Cuenta corriente');
 
 INSERT INTO Cuentas (DNI_Cuentas, IdTipoCuenta_Cuentas,CBU_Cuentas, Saldo_Cuentas) VALUES
+ (35000222, 1, 58746935214523678165, 0),
  (44298830, 1, 11223344556677889900, 50000),
  (44298829, 2, 54768439201928374651, 40100),
  (44298830, 2, 40645090235940530950, 3000.54),
@@ -2587,7 +2590,6 @@ INSERT INTO Cuentas (DNI_Cuentas, IdTipoCuenta_Cuentas,CBU_Cuentas, Saldo_Cuenta
  (44768845, 2, 12328396475328948923, 30402.3),
  (42456879, 1, 12458234975394859399, 55670.45);
  
- 
 INSERT INTO TiposMovimientos(Descripcion_TiposMov) VALUES
 ('Alta de cuenta'),
 ('Alta de préstamo'),
@@ -2595,39 +2597,39 @@ INSERT INTO TiposMovimientos(Descripcion_TiposMov) VALUES
 ('Transferencia');
 
 INSERT INTO Movimientos (NroCuenta_Mov, IdTiposMov_Mov, Detalle_Mov, NroCuentaDestino_Mov, Importe_Mov) VALUES
-(1, 4, 'Varios', 6, 20000.0 ),
-(1, 4, 'Varios', 6, 15000.0),
-(1, 4, 'Varios', 6, 10000.0),
-(2, 4, 'Varios', 7, 5000.0),
-(2, 4, 'Varios', 7, 10000.0),
-(2, 4, 'Varios', 7, 8000.99),
-(3, 4, 'Varios', 8, 90000),
-(3, 4, 'Varios', 8, 50000),
-(3, 4, 'Varios', 8, 81222),
-(4, 4, 'Varios', 9, 40000),
-(4, 4, 'Varios', 9, 20000),
-(4, 4, 'Varios', 9, 30400.43),
-(5, 4, 'Varios', 10, 300000),
-(5, 4, 'Varios', 10, 200000),
-(5, 4, 'Varios', 10, 40000.3),
-(8, 4, 'Varios', 1, 2503);
+(2, 4, 'Varios', 6, 20000.0 ),
+(2, 4, 'Varios', 6, 15000.0),
+(2, 4, 'Varios', 6, 10000.0),
+(3, 4, 'Varios', 7, 5000.0),
+(3, 4, 'Varios', 7, 10000.0),
+(3, 4, 'Varios', 7, 8000.99),
+(4, 4, 'Varios', 8, 90000),
+(4, 4, 'Varios', 8, 50000),
+(4, 4, 'Varios', 8, 81222),
+(5, 4, 'Varios', 9, 40000),
+(5, 4, 'Varios', 9, 20000),
+(5, 4, 'Varios', 9, 30400.43),
+(6, 4, 'Varios', 10, 300000),
+(6, 4, 'Varios', 10, 200000),
+(6, 4, 'Varios', 10, 40000.3),
+(9, 4, 'Varios', 2, 2503);
 
 INSERT INTO Prestamos (DNI_Pr,NroCuentaDestino_Pr, ImpSolicitado_Pr, ImpResultante_Pr, PlazoMeses_Pr, ImpPagoAlMes_Pr, Autorizado_Pr, Estado_Pr) VALUES
- (44298830,1,10000,17000,12,1416.66,1,1),
- (44298829,2,20000,34000,12,2833.33,1,1),
- (44298830,3,30000,51000,12,4250.77,0,1),
- (44666777,4,40000,68000,12,5666.66,1,1),
- (44666777,5,50000,85000,12,7083.33,1,1),
- (40334556,6,60000,102000,12,8500.55,0,1),
- (44567566,7,70000,119000,12,9916.66,1,1),
- (41000999,8,80000,136000,12,10461.53,0,1),
- (41000999,9,90000,153000,12,12750.55,1,1),
- (40400500,10,100000,170000,12,14166.66,0,1),
- (44298830,11,110000,187000,12,15583.33,1,1),
- (40900800,12,120000,204000,12, 17000.55,0,1),
- (44768845,13,130000,221000,12,18415.66,1,0),
- (44768845,14,140000,238000,12, 19833.33,1,1),
- (42456879,15,150000,255000,12,21250.55,0,1);
+ (44298830,2,10000,17000,12,1416.66,1,1),
+ (44298829,3,20000,34000,12,2833.33,1,1),
+ (44298830,4,30000,51000,12,4250.77,0,1),
+ (44666777,5,40000,68000,12,5666.66,1,1),
+ (44666777,6,50000,85000,12,7083.33,1,1),
+ (40334556,7,60000,102000,12,8500.55,0,1),
+ (44567566,8,70000,119000,12,9916.66,1,1),
+ (41000999,9,80000,136000,12,10461.53,0,1),
+ (41000999,10,90000,153000,12,12750.55,1,1),
+ (40400500,11,100000,170000,12,14166.66,0,1),
+ (44298830,12,110000,187000,12,15583.33,1,1),
+ (40900800,13,120000,204000,12, 17000.55,0,1),
+ (44768845,14,130000,221000,12,18415.66,1,0),
+ (44768845,15,140000,238000,12, 19833.33,1,1),
+ (42456879,16,150000,255000,12,21250.55,0,1);
 
 
 -- CREACION DE PROCEDIMIENTOS ALMACENADOS
@@ -2871,11 +2873,11 @@ CREATE PROCEDURE SPAgregarMovimiento (
     
 BEGIN
    IF NroCuentaDestino IS NULL THEN  
-      INSERT INTO Movimientos ( NroCuenta_Mov ,IdTiposMov_Mov ,Detalle_Mov, Importe_Mov) VALUES
-	  (NroCuenta, IdTiposMov, Detalle, Importe);
+      INSERT INTO Movimientos ( NroCuenta_Mov ,IdTiposMov_Mov ,Detalle_Mov, NroCuentaDestino_Mov, Importe_Mov) VALUES
+	  (NroCuenta, IdTiposMov, Detalle, 1, Importe);
    ELSEIF NroCuenta IS NULL THEN   
-	  INSERT INTO Movimientos (IdTiposMov_Mov ,Detalle_Mov,NroCuentaDestino_Mov, Importe_Mov) VALUES
-	  (IdTiposMov, Detalle,NroCuentaDestino, Importe );
+	  INSERT INTO Movimientos (NroCuenta_Mov ,IdTiposMov_Mov ,Detalle_Mov, NroCuentaDestino_Mov, Importe_Mov) VALUES
+	  (1 ,IdTiposMov, Detalle,NroCuentaDestino, Importe );
    ELSE  
       INSERT INTO Movimientos ( NroCuenta_Mov ,IdTiposMov_Mov ,Detalle_Mov, NroCuentaDestino_Mov, Importe_Mov) VALUES
 	  (NroCuenta, IdTiposMov, Detalle, NroCuentaDestino,Importe);
@@ -2904,7 +2906,7 @@ BEGIN
 	END IF;
 END //
 
---  1('Alta de cuenta'), Solo se recibe plata
+-- 1('Alta de cuenta'), Solo se recibe plata
 -- 2('Alta de préstamo'), Solo se recibe plata
 -- 3('Pago de préstamo'), Solo se descuenta plata
 -- 4('Transferencia');  Se recibe plata y se descuenta
