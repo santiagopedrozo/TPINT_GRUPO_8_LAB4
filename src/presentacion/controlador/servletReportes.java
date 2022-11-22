@@ -121,12 +121,12 @@ public class servletReportes extends HttpServlet {
 		
 		if (request.getParameter("txtNombreCliente") != "" && request.getParameter("txtNombreCliente") != null)
 		{
-			listaUsuarios.removeIf(s -> !s.getNombre_Usr().startsWith(request.getParameter("txtNombreCliente")));
+			listaUsuarios.removeIf(s -> !s.getNombre_Usr().toUpperCase().startsWith(request.getParameter("txtNombreCliente").toUpperCase()));
 		}
 		
 		if (request.getParameter("txtApellidoCliente") != "" && request.getParameter("txtApellidoCliente") != null)
 		{
-			listaUsuarios.removeIf(s -> !s.getApellido_Usr().startsWith(request.getParameter("txtApellidoCliente")));
+			listaUsuarios.removeIf(s -> !s.getApellido_Usr().toUpperCase().startsWith(request.getParameter("txtApellidoCliente").toUpperCase()));
 		}
 		
 		if (request.getParameter("ddlProvinciasCliente") != null)
