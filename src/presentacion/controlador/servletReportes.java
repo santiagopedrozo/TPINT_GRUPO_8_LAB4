@@ -77,14 +77,14 @@ public class servletReportes extends HttpServlet {
 	{
 		ArrayList <Movimientos> listaMovimientos = negMov.obtenerTodos();
 		
-		if (request.getParameter("txtDniRemitenteMovimiento") != "")
+		if (request.getParameter("txtDniRemitenteMovimiento") != null && request.getParameter("txtDniRemitenteMovimiento") != "")
 		{
-			listaMovimientos.removeIf(s -> !s.getCuenta_Mov().getUsuario_Cuentas().getDNI_Usr().equals(request.getParameter("txtDniRemitenteMovimiento")));
+			listaMovimientos.removeIf(s -> !s.getCuenta_Mov().getUsuario_Cuentas().getDNI_Usr().startsWith(request.getParameter("txtDniRemitenteMovimiento")));
 		}
 		
-		if (request.getParameter("txtDniReceptorMovimiento") != "")
+		if (request.getParameter("txtDniReceptorMovimiento") != null && request.getParameter("txtDniReceptorMovimiento") != "")
 		{
-			listaMovimientos.removeIf(s -> !s.getCuentaDestino_Mov().getUsuario_Cuentas().getDNI_Usr().equals(request.getParameter("txtDniReceptorMovimiento")));
+			listaMovimientos.removeIf(s -> !s.getCuentaDestino_Mov().getUsuario_Cuentas().getDNI_Usr().startsWith(request.getParameter("txtDniReceptorMovimiento")));
 		}
 		
 		if (request.getParameter("importe1Movimiento") != null && request.getParameter("importe2Movimiento") != null) 
@@ -119,14 +119,14 @@ public class servletReportes extends HttpServlet {
 	private void armarUsuariosFiltrados(HttpServletRequest request) {
 		ArrayList <Usuarios> listaUsuarios = negUser.readALL();
 		
-		if (request.getParameter("txtNombreCliente") != "")
+		if (request.getParameter("txtNombreCliente") != "" && request.getParameter("txtNombreCliente") != null)
 		{
-			listaUsuarios.removeIf(s -> !s.getNombre_Usr().equals(request.getParameter("txtNombreCliente")));
+			listaUsuarios.removeIf(s -> !s.getNombre_Usr().startsWith(request.getParameter("txtNombreCliente")));
 		}
 		
-		if (request.getParameter("txtApellidoCliente") != "")
+		if (request.getParameter("txtApellidoCliente") != "" && request.getParameter("txtApellidoCliente") != null)
 		{
-			listaUsuarios.removeIf(s -> !s.getApellido_Usr().equals(request.getParameter("txtApellidoCliente")));
+			listaUsuarios.removeIf(s -> !s.getApellido_Usr().startsWith(request.getParameter("txtApellidoCliente")));
 		}
 		
 		if (request.getParameter("ddlProvinciasCliente") != null)
@@ -149,9 +149,9 @@ public class servletReportes extends HttpServlet {
 	{
 		ArrayList <Cuentas> listaCuentas = negCuentas.obtenerTodos();
 		
-		if (request.getParameter("txtNombreCuentas") != "")
+		if (request.getParameter("txtNombreCuentas") != "" && request.getParameter("txtNombreCuentas") != null)
 		{
-			listaCuentas.removeIf(s -> !s.getUsuario_Cuentas().getDNI_Usr().equals(request.getParameter("txtNombreCuentas")));
+			listaCuentas.removeIf(s -> !s.getUsuario_Cuentas().getDNI_Usr().startsWith(request.getParameter("txtNombreCuentas")));
 		}
 		
 		if (request.getParameter("txtSaldoMenorCuenta") != null && request.getParameter("txtSaldoMayorCuenta") != null) 
@@ -185,9 +185,9 @@ public class servletReportes extends HttpServlet {
 	{
 		ArrayList<Prestamos> listaPrestamos = negPrest.obtenerTodos();
 		
-		if (request.getParameter("txtNombrePrestamo") != "")
+		if (request.getParameter("txtNombrePrestamo") != "" && request.getParameter("txtNombrePrestamo") != null)
 		{
-			listaPrestamos.removeIf(s -> !s.getCuentaDestino_Pr().getUsuario_Cuentas().getDNI_Usr().equals(request.getParameter("txtNombrePrestamo")));
+			listaPrestamos.removeIf(s -> !s.getCuentaDestino_Pr().getUsuario_Cuentas().getDNI_Usr().startsWith(request.getParameter("txtNombrePrestamo")));
 		}
 		
 		if (request.getParameter("txtImportePagar1") != null && request.getParameter("txtImportePagar2") != null) 
@@ -220,7 +220,7 @@ public class servletReportes extends HttpServlet {
 			}
 		}
 		
-		if (request.getParameter("txtCuotasPrestamo") != "")
+		if (request.getParameter("txtCuotasPrestamo") != "" && request.getParameter("txtCuotasPrestamo") != null)
 		{
 			listaPrestamos.removeIf(s -> s.getCantCuotas_Pr() != Integer.parseInt(request.getParameter("txtCuotasPrestamo")));
 		}
