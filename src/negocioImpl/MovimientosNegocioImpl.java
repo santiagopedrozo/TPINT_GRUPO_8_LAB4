@@ -60,6 +60,7 @@ public class MovimientosNegocioImpl implements MovimientosNegocio {
 		if (movimiento.getImporte_Mov() > movimiento.getCuenta_Mov().getSaldo_Cuentas())  //importe mayor a saldo de cuenta
 			return -1;
 		
+		System.out.println(movimiento.getTiposMov_Mov().getId_TiposMov() + " - " + movimiento.getImporte_Mov());
 		if(md.insert(movimiento)) 
 			return 1;
 		return 0;

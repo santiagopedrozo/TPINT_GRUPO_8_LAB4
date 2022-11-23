@@ -245,7 +245,7 @@ pageEncoding="ISO-8859-1"%>
 		                    <input 
 		                    type="number"
 		                    class="form-control"
-		                    name="txtNroCuenta"
+		                    name="txtCuotas"
 		                    placeholder="-"
 		                    value=<%= prestamoAPagar.getCantCuotas_Pr() + 1 %>
 		                    readonly

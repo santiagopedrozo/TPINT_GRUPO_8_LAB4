@@ -2886,6 +2886,10 @@ BEGIN
 END //
 DELIMITER ;
 
+
+
+-- Triggers
+
 delimiter //
 CREATE TRIGGER actualizarSaldoCuentas
 AFTER INSERT ON Movimientos FOR EACH ROW
@@ -2913,7 +2917,6 @@ END //
 
 delimiter ;
 
--- Triggers
 
 delimiter //
 CREATE TRIGGER movimientoAltaCuenta
@@ -2957,9 +2960,11 @@ delimiter //
 CREATE TRIGGER movimientoAprobarPrestamo
 AFTER UPDATE ON prestamos FOR EACH ROW
 BEGIN
-	IF NEW.Autorizado_Pr = 1 THEN
+	IF NEW.Autorizado_Pr = 1 AND NEW.CantCuotas_Pr = OLD.CantCuotas_Pr THEN
 		CALL SPAgregarMovimiento(null, 2, "Transferencia del prestamo", NEW.NroCuentaDestino_Pr, NEW.ImpSolicitado_Pr);
 	END IF;
 END //
 
 delimiter ; 
+
+select * from movimientos
