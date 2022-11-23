@@ -201,6 +201,7 @@ public class CuentasDaoImpl implements CuentasDao
 
 	@Override
 	public boolean insert(Cuentas cuenta) {
+			System.out.println("cuenta en dao: " + cuenta);
 			boolean r=false;
 			Connection cn = null;
 			try {
@@ -218,6 +219,8 @@ public class CuentasDaoImpl implements CuentasDao
 			  finally {
 				
 			}
+			
+			System.out.println("res de insert: " + r);
 			return r;
 		}
 	

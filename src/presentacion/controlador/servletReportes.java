@@ -129,6 +129,11 @@ public class servletReportes extends HttpServlet {
 			listaUsuarios.removeIf(s -> !s.getApellido_Usr().toUpperCase().startsWith(request.getParameter("txtApellidoCliente").toUpperCase()));
 		}
 		
+		if (request.getParameter("txtDniCliente") != null && request.getParameter("txtDniCliente") != "")
+		{
+			listaUsuarios.removeIf(s -> !s.getDNI_Usr().startsWith(request.getParameter("txtDniCliente")));
+		}
+		
 		if (request.getParameter("ddlProvinciasCliente") != null)
 		{
 			if (!request.getParameter("ddlProvinciasCliente").equals("-1"))

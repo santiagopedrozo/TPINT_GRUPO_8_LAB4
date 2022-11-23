@@ -37,7 +37,7 @@ if (request.getAttribute("listaUser")!=null) listaUser=(ArrayList <Usuarios>)req
                	<%
                 if (listaUser!=null)
                 	for(Usuarios user: listaUser){
-                		if (user.isTipo_Usr()==false){
+                		if (user.isTipo_Usr()==false && user.isEstado_Usr() != false){
                 %>
                   <option value= <%=user.getDNI_Usr()%>> <%=user.getDNI_Usr() + " - " + user.getNombre_Usr() +" "+user.getApellido_Usr() %></option>
                   

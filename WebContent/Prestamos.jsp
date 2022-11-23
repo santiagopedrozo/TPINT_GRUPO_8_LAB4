@@ -223,7 +223,7 @@ pageEncoding="ISO-8859-1"%>
 		            	name="btnPedirPrestamo"
 		            	class="btn btn-outline-dark form-control btn-lg"
 		            	value="Solicitar prestamo"
-		            	onclick="return confirm('¿Esta seguro de que quiere solicitar este préstamo?')">
+		            	onclick="return confirm('¿Esta seguro de que quiere solicitar este prestamo?')">
 		            </div>
 		               
 		         </div>

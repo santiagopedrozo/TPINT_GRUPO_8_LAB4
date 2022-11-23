@@ -32,10 +32,6 @@
 	<br>
 	<br>
 	<br>
-	<br>
-	<br>
-	<br>
-	<br>
 	<%@ include file="FooterPage.html" %>
 </body>
 </html>

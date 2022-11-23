@@ -76,9 +76,7 @@ public class ServletPrestamosUsuario extends HttpServlet {
 		Cuentas cuentaOrigen = cn.cuentasXNro(Integer.parseInt(request.getParameter("ddlCuentaOrigenParaPagar")));
 		String detalle = "Préstamo: " + request.getParameter("prestamoCuotaPagar") + " - Cuota: " + request.getParameter("txtCuotas");
 		float importe = Float.parseFloat(request.getParameter("txtParaPagar"));
-		System.out.println(importe);
 		Movimientos movimiento = new Movimientos(cuentaOrigen, new TipoMovimientos(3,"Pago de préstamo"), detalle, importe);
-		System.out.println("movimiento: " + movimiento);
 		int res = pn.pagarPrestamo(new Prestamos(Integer.parseInt(request.getParameter("prestamoCuotaPagar"))), movimiento);
 		request.setAttribute("mensaje", res);
 	}
@@ -131,11 +129,6 @@ public class ServletPrestamosUsuario extends HttpServlet {
 	}
 	
 	private void obtenerAllPrestamos(HttpServletRequest request){
-		request.setAttribute("listaPrestamos", pn.obtenerTodos());
-	}
-	
-	private void cargarPrestamos (HttpServletRequest request)
-	{
 		request.setAttribute("listaPrestamos", pn.obtenerTodos());
 	}
 

@@ -117,7 +117,7 @@ pageEncoding="ISO-8859-1"%>
                 value="Transferir"
                 class="btn btn-outline-dark btn-sm"
                 min=0.01
-                onclick="return confirm('¿Está seguro de que hacer esta transferencia?')"
+                onclick="return confirm('¿Esta seguro de que hacer esta transferencia?')"
               />
             </div>
           </form>

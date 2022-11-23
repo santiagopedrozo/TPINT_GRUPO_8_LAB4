@@ -207,7 +207,7 @@ pageEncoding="ISO-8859-1"%>
                   id="floatingInput"
                   id="ddlTiposMovimiento"
                 >
-                  <option value="-1"></option>
+                  <option value="-1"> Tipo movimientos</option>
                   <option value="1">Alta de cuenta</option>
                   <option value="2">Alta de un prestamo</option>
                   <option value="3">Pago de prestamo</option>
@@ -276,7 +276,7 @@ pageEncoding="ISO-8859-1"%>
 	            <%
 	            if (request.getAttribute("listaMovimientosFiltrada") != null)
 		            for (Movimientos movimiento : listaMovimientos)
-		            { System.out.println(movimiento);
+		            { 
 	            %>
               <tr>   
                 <td><%=movimiento.getId_Mov() %></td>
@@ -321,6 +321,7 @@ pageEncoding="ISO-8859-1"%>
                   class="form-control form-control-sm"
                   id="floatingInput"
                   name="txtNombreCliente"
+                  placeholder="nombre"
                 />
               </td>
             </tbody>
@@ -332,6 +333,19 @@ pageEncoding="ISO-8859-1"%>
                   class="form-control form-control-sm"
                   id="floatingInput"
                   name="txtApellidoCliente"
+                  placeholder="apellido"
+                />
+              </td>
+            </tbody>
+            <tbody>
+              <td>
+              	<span>Dni</span>
+                <input
+                  type="text"
+                  class="form-control form-control-sm"
+                  id="floatingInput"
+                  name="txtDniCliente"
+                  placeholder="DNI"
                 />
               </td>
             </tbody>
@@ -344,7 +358,7 @@ pageEncoding="ISO-8859-1"%>
                   id="floatingInput"
                   id="ddlProvinciasCliente"
                 >
-                	<option value = "-1" selected></option>
+                	<option value = "-1" selected>Provincias</option>
                   <%
 		            ArrayList<Provincias> listaProvincias = null;
 		            if (request.getAttribute("listaProvincias") != null)
@@ -449,6 +463,7 @@ pageEncoding="ISO-8859-1"%>
                   class="form-control form-control-sm"
                   id="floatingInput"
                   name="txtNombreCuentas"
+                  placeholder="DNI"
                 />
               </td>
            </tbody>
@@ -461,7 +476,7 @@ pageEncoding="ISO-8859-1"%>
                   id="floatingInput"
                   id="ddlTipos"
                 >
-                  <option value="-1" selected></option>
+                  <option value="-1" selected> Tipo cuentas</option>
                   <option value=1>Caja de ahorro</option>
                   <option value=2>Cuenta corriente</option>               
                 </select>
@@ -564,7 +579,8 @@ pageEncoding="ISO-8859-1"%>
                   type="text"
                   class="form-control form-control-sm"
                   id="floatingInput"
-                  name="txtNombrePrestamo"/>
+                  name="txtNombrePrestamo"
+                  placeholder="DNI"/>
               </td>
             </tbody>
             <tbody>  
@@ -575,6 +591,7 @@ pageEncoding="ISO-8859-1"%>
                   class="form-control form-control-sm"
                   id="floatingInput"
                   name="txtCuotasPrestamo"
+                  placeholder="Cantidad"
                 />
               </td>
             </tbody>
@@ -588,12 +605,14 @@ pageEncoding="ISO-8859-1"%>
 	                step=0.01 
 	                min=0.01
                     name="txtImportePagar1"
+                    placeholder="Desde"
                     >
                     <input type="number"
                     class="form-control form-control-sm w-50"
 	                step=0.01 
 	                min=0.01
-	                name="txtImportePagar2">
+	                name="txtImportePagar2"
+	                placeholder="Hasta">
                 </div>
               </td>
 			</tbody>
@@ -605,12 +624,14 @@ pageEncoding="ISO-8859-1"%>
                     class="form-control form-control-sm w-50"
                     name="txtImportePedido1"
                     min=0.01
-                    step=0.01>
+                    step=0.01
+                    placeholder="Desde">
                     <input type="number"
                     class="form-control form-control-sm w-50"
                     name="txtImportePedido2"
                     min=0.01
                     step=0.01
+                    placeholder="Hasta"
                     >
                 </div>
               </td>

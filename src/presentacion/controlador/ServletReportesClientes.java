@@ -62,11 +62,6 @@ public class ServletReportesClientes extends HttpServlet {
 		{
 			listaUsuarios.removeIf(s -> !s.getNombre_Usr().equals(request.getParameter("txtApellidoCliente")));
 		}
-		
-		/*if (request.getParameter("ddlProvinciasCliente") != null)
-		{
-			//listaUsuarios.removeIf(s -> s.getProvincia_Usr().getIdProvincia_Prov() != Integer.parseInt(request.getParameter("ddlTipos")));
-		}*/
 			
 		if (request.getParameter("btnFiltrarClientes") != null)
 			request.setAttribute("listaUser", listaUsuarios);
