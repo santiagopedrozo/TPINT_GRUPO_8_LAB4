@@ -74,8 +74,9 @@ public class ServletPrestamosUsuario extends HttpServlet {
 	
 	private void pagarCuota(HttpServletRequest request) {
 		Cuentas cuentaOrigen = cn.cuentasXNro(Integer.parseInt(request.getParameter("ddlCuentaOrigenParaPagar")));
-		String detalle = "Pago a prestamo ID: " + request.getParameter("prestamoCuotaPagar");
+		String detalle = "Préstamo: " + request.getParameter("prestamoCuotaPagar") + " - Cuota: " + request.getParameter("txtCuotas");
 		float importe = Float.parseFloat(request.getParameter("txtParaPagar"));
+		System.out.println(importe);
 		Movimientos movimiento = new Movimientos(cuentaOrigen, new TipoMovimientos(3,"Pago de préstamo"), detalle, importe);
 		int res = pn.pagarPrestamo(new Prestamos(Integer.parseInt(request.getParameter("prestamoCuotaPagar"))), movimiento);
 		request.setAttribute("mensaje", res);
