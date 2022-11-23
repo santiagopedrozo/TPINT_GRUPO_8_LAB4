@@ -2894,9 +2894,6 @@ delimiter //
 CREATE TRIGGER actualizarSaldoCuentas
 AFTER INSERT ON Movimientos FOR EACH ROW
 BEGIN
-	IF (NEW.IdTiposMov_Mov = 1) THEN
-		UPDATE Cuentas SET Saldo_Cuentas = Saldo_Cuentas + NEW.Importe_Mov WHERE Nro_Cuentas = NEW.NroCuentaDestino_Mov;
-	END IF;
 	IF (NEW.IdTiposMov_Mov = 2) THEN
 		UPDATE Cuentas SET Saldo_Cuentas = Saldo_Cuentas + NEW.Importe_Mov WHERE Nro_Cuentas = NEW.NroCuentaDestino_Mov;
 	END IF;
