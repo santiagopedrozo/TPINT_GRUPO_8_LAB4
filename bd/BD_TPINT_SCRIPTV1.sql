@@ -2946,7 +2946,7 @@ AFTER UPDATE ON cuentas FOR EACH ROW
 BEGIN
     IF (OLD.Estado_Cuentas = 0 AND NEW.Estado_Cuentas = 1) THEN
 		INSERT INTO Movimientos ( NroCuenta_Mov ,IdTiposMov_Mov ,Detalle_Mov ,Importe_Mov) VALUES
-		(NEW.Nro_Cuentas, 1, 'Se crea la cuenta', 10000.00);
+		(NEW.Nro_Cuentas, 1, 'Alta de cuenta', 10000.00);
   END IF;
 END //
 
